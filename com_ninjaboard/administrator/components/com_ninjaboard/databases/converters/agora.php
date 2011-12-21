@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: agora.php 1787 2011-04-12 23:38:17Z stian $
+ * @version		$Id: agora.php 2301 2011-07-27 19:06:46Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -97,8 +97,11 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 								'num_views AS hits',
 								'num_replies AS replies',
 								'closed AS locked',
-								'(SELECT id FROM #__agora_posts WHERE topic_id = tbl.id ORDER BY posted ASC LIMIT 1) AS first_post_id'
+								'post.id AS first_post_id',
+								//'(SELECT id FROM #__agora_posts WHERE topic_id = tbl.id ORDER BY posted ASC LIMIT 1) AS first_post_id'
 							))
+							->join('left', 'agora_posts AS post', 'topic_id = tbl.id')
+							->group('tbl.id')
 			),
 			array(
 				'name' => 'people',

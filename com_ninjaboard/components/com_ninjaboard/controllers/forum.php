@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forum.php 2188 2011-07-11 22:29:00Z stian $
+ * @version		$Id: forum.php 2318 2011-07-30 21:47:16Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -40,6 +40,7 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerAbstract
 		//KRequest::set('get.enabled', true);
 		
 		$this->registerCallback(array('before.read', 'before.browse'), array($this, 'setOrdering'));
+		if($this->isDispatched()) $this->registerCallback('after.read', array($this, 'setCanonical'));
 		
 		$cache = JPATH_ROOT.'/cache/com_'.$this->getIdentifier()->package . '/maintenance.txt';
 		
@@ -65,6 +66,19 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerAbstract
     			}
     		}
     	}
+	}
+
+	/**
+	 * Set the canonical meta info to eliminate duplicate content
+	 */
+	public function setCanonical(KCommandContext $context)
+	{
+	    $document  = KFactory::get('lib.joomla.document');
+	    $root      = KRequest::url()->get(KHttpUri::PART_BASE ^ KHttpUri::PART_PATH);
+	    $base      = 'index.php?option=com_ninjaboard&view=forum';
+	    //@TODO figure out a way to get the states from the posts model
+	    $canonical = $root.JRoute::_($base.'&id='.$context->result->id/*.'&limit='.$state->limit.'&offset='.$state->offset*/);
+	    $document->addCustomTag('<link rel="canonical" href="'.$canonical.'" />');
 	}
 
 	/**

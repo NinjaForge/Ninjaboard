@@ -1,9 +1,9 @@
-<? /** $Id: default_item_inner.php 2261 2011-07-22 12:15:49Z stian $ */ ?>
+<? /** $Id: default_item_inner.php 2325 2011-07-30 22:49:53Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <div class="wrap">
 	<div class="section">
-		<a href="<?= @route('view=topic&id='.$topic->id.'&post='.$post->id) ?>#p<?= $post->id ?>">
+		<a class="ninjaboard-post-permalink" href="<?= @route('view=topic&id='.$topic->id.'&post='.$post->id) ?>#p<?= $post->id ?>">
 			<img src="<?= @$img('/16/page.png') ?>" width="16" height="16" alt="<?= @text('Link to this post') ?>" />
 			<?= @ninja('date.html', array('date' => $post->created_on)) ?>
 		</a>

@@ -22,6 +22,20 @@ jQuery(function($){
 	//Shortcut key for new topic
 	//ALT-N or ALT-SHIFT-N (Windows, Linux) or Ctrl-Option-N or Ctrl-N on Mac OS X (depending on the browser!) 
 	$('.reply-topic a', '.ninjaboard').first().attr('accesskey', 'r');
+
+    //Browser got history support, lets use it to prevent page reloads when post links are clicked
+	if(typeof history.replaceState !== 'undefined') {
+    	$('.ninjaboard-post-permalink').click(function(event){
+    	    if(this.hash) {
+    	        //Prevent the page from reloading
+        	    event.preventDefault();
+        	    //Set the hash to scroll the page to the post
+        	    window.location.hash = this.hash;
+        	    //Set the current url to the real post permalink without reloading the page
+        	    history.replaceState({}, '', this.href);
+    	    }
+	    });
+	}
 });
 
 //Set the right padding on domready, and on load to catch any images

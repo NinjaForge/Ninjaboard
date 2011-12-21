@@ -1,4 +1,4 @@
-<? /** $Id: form_inner.php 1821 2011-04-25 21:26:07Z stian $ */ ?>
+<? /** $Id: form_inner.php 2306 2011-07-28 13:49:38Z captainhook $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -197,6 +197,7 @@
 			<div id="text_preview"></div>
 		</div>
 
+		<? if($topic->attachment_permissions > 1 && ($topic->attachment_settings || $forum->post_permissions > 2)) : ?>
 		<div class="element attachment">
 			<span class="key"><?= @text('Attachments') ?></span>
 			<a href="#" class="button" id="addFile"><?= @text('Add File') ?></a>
@@ -221,6 +222,8 @@
 				<?= @helper('site::com.ninjaboard.template.helper.attachment.extensions') ?>
 			</div>
 		</div>
+		<? endif ?>
+		
 		<? /* @TODO sticky is WIP */ ?><!--
 		<? if($forum->topic_permissions > 2 && (!$topic->id || $topic->first_post_id == $post->id)) : ?>
 			<div class="element">

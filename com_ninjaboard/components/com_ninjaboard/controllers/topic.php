@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: topic.php 2264 2011-07-22 12:56:56Z stian $
+ * @version		$Id: topic.php 2326 2011-07-30 23:02:23Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -31,6 +31,31 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 		$this->registerCallback('after.edit', array($this, 'updateForums'));
 		
 		if(!KFactory::get('lib.joomla.user')->guest) $this->registerCallback('after.read', array($this, 'setLog'));
+		
+		if($this->isDispatched()) $this->registerCallback('after.read', array($this, 'setCanonicalAfterRead'));
+	}
+
+    /**
+     * This tiny ugly proxy will be fixed in 1.2, it's here because the offset and limit states are set in the view, 
+     * after.display so we can't simply run this on after.read
+     */
+    public function setCanonicalAfterRead(KCommandContext $context)
+    {
+        $this->registerCallback('after.display', array($this, 'setCanonical'), array('id' => $context->result->id));
+    }
+
+	/**
+	 * Set the canonical meta info to eliminate duplicate content
+	 */
+	public function setCanonical(KCommandContext $context)
+	{
+	    $document  = KFactory::get('lib.joomla.document');
+	    $root      = KRequest::url()->get(KHttpUri::PART_BASE ^ KHttpUri::PART_PATH);
+	    $base      = 'index.php?option=com_ninjaboard&view=topic';
+	    $append    = $this->getRequest()->layout != 'default' ? '&layout='.$this->getRequest()->layout : '';
+	    $state     = $this->getModel()->getState();
+	    $canonical = $root.JRoute::_($base.'&id='.$context->id.'&limit='.$state->limit.'&offset='.$state->offset.$append);
+	    $document->addCustomTag('<link rel="canonical" href="'.$canonical.'" />');
 	}
 
 	/**

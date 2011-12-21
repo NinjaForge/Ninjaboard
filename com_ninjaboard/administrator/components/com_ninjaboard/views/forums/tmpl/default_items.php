@@ -1,4 +1,4 @@
-<? /** $Id: default_items.php 1310 2011-01-03 17:52:07Z stian $ */ ?>
+<? /** $Id: default_items.php 2340 2011-08-01 21:01:42Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach (@$forums as @$i => @$forum) : ?>
@@ -11,8 +11,9 @@
 		</td>
 		<td align="center" width="40px"><?= @$forum->topics ?></td>
 		<td align="center" width="40px"><?= @$forum->posts ?></td>
-		<td align="center" width="64px" style="white-space: nowrap">
-			<?= @ninja('grid.toggle', array('toggle' => 'locked', 'locked' => $forum->locked)) ?>
+		<td align="center" width="24px" style="white-space: nowrap">
+		    <?/* @TODO properly implement locked forums */?>
+			<?/*= @ninja('grid.toggle', array('toggle' => 'locked', 'locked' => $forum->locked)) */?>
 			<?= @ninja('grid.toggle', array('enabled' => $forum->enabled)) ?>
 		</td>
 		<td align="center" width="16px" style="white-space: nowrap">

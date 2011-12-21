@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1838 2011-04-28 23:39:48Z stian $
+ * @version		$Id: html.php 2306 2011-07-28 13:49:38Z captainhook $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -22,6 +22,8 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 									->getItem();
 		if(!$topic->forum_id) $topic->forum_id = KRequest::get('get.forum', 'int');
 		$this->forum = $forum	= KFactory::get('site::com.ninjaboard.model.forums')->id($topic->forum_id)->getItem();
+		$this->topic->attachment_permissions = $this->forum->attachment_permissions;
+		$this->topic->attachment_settings = $this->params['attachment_settings']['enable_attachments'];
 
 		if((!$forum->id || $forum->post_permissions < 2) && KFactory::tmp('lib.joomla.user')->guest)
 		{

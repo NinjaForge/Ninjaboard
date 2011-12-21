@@ -1,4 +1,4 @@
-<? /** $Id: form.php 1383 2011-01-11 13:17:54Z stian $ */ ?>
+<? /** $Id: form.php 2340 2011-08-01 21:01:42Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? @ninja('behavior.tooltip', array('selector' => '[title].hasTip')) ?>
@@ -41,7 +41,8 @@
 			<div class="element">
 				<label class="key"><?= @text('State') ?></label>
 				<?= @ninja('select.statelist', array('selected' => @$forum->enabled)) ?>
-				<?= @ninja('select.statelist', array('name' => 'locked', 'id' => 'locked', 'attribs' => array('class' => 'validate-reqchk-byname label:\'locked\' value'), 'selected' => @$forum->locked, 'yes' => 'Lock', 'no' => 'Unlock', 'img_x' => '/16/unlock.png', 'img_y' => '/16/lock.png')) ?>
+				<?/* @TODO properly implement locked forums */?>
+				<?/*= @ninja('select.statelist', array('name' => 'locked', 'id' => 'locked', 'attribs' => array('class' => 'validate-reqchk-byname label:\'locked\' value'), 'selected' => @$forum->locked, 'yes' => 'Lock', 'no' => 'Unlock', 'img_x' => '/16/unlock.png', 'img_y' => '/16/lock.png')) */?>
 			</div>
 		</fieldset>
 		<fieldset class="adminform ninja-form">

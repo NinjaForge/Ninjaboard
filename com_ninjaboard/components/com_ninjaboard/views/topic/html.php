@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1986 2011-06-28 17:37:05Z stian $
+ * @version		$Id: html.php 2323 2011-07-30 22:47:33Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -55,6 +55,10 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 						->limit($limit)
 						->getOffset();
 		$offset = KRequest::get('get.offset', 'int', $offset);
+		//This is used to set the canonical link correctly in the topic controller after.read
+		//@TODO move all this logic out of the view in 1.2
+		$this->getModel()->set(array('limit' => $limit, 'offset' => $offset));		
+
 		$this->assign('posts',
 			KFactory::tmp('site::com.ninjaboard.controller.post')
 			
@@ -62,6 +66,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 				->setView(KFactory::tmp('site::com.ninjaboard.view.posts.html'))
 			
 			    //Model needs to run with the acl flag off for performance reasons
+			    //@NOTE using KFactory::get on this model is not a mistake or a typo
 			    ->setModel(KFactory::get('site::com.ninjaboard.model.posts')->setAcl(false))
 
 				->sort('created_on')

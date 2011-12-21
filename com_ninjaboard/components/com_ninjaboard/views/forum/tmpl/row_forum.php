@@ -1,4 +1,4 @@
-<? /** $Id: row_forum.php 2252 2011-07-22 00:54:54Z stian $ */ ?>
+<? /** $Id: row_forum.php 2302 2011-07-27 21:17:22Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <style type="text/css">.ninjaboard .unread-indicator {background-image: url(<?= @$img('/unread.png') ?>)}</style>
@@ -6,7 +6,7 @@
 <? foreach (@$forums as $forum) : ?>
 	<li class="row forum <?= $forum->new && $forum->unread ? 'unread' : '' ?> <?= !$forum->unread ? 'read' : '' ?>">
 		<? $icon = isset($forum->params['customization']['icon']) ? $forum->params['customization']['icon'] : 'default.png' ?>
-		<? $iconclass = 'forum-icon-'.KInflector::underscore(str_replace('.png', '', $icon)) ?>
+		<? $iconclass = 'forum-icon-'.KInflector::underscore(str_replace('.', '', $icon)) ?>
 		<style type="text/css">.row .<?= $iconclass ?> {background-image: url(<?= @$img('/forums/'.$icon) ?>);}</style>
 		
 		<dl class="icon <?= $iconclass ?>">
