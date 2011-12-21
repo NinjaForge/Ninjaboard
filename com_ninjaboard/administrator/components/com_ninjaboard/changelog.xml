@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 2224 2011-07-15 23:24:09Z stian $ -->
+<!-- $Id: changelog.xml 2268 2011-07-22 14:12:39Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+    <version>1.1.2</version>
+    <date>July 22nd 2011</date>
+    <state>Maintenance Release
+        <upgrade>Synced with the latest translation updates from our Transifex project.</upgrade>
+        <upgrade>Added options to allow the user to configure what links to show or not in Ninjaboard Quickpanel module.</upgrade>
+        <bugfix>Fixed issue were there were no background on selected PM messages unless the browser were WebKit or Gecko based.</bugfix>
+        <bugfix>SMF converter didn't correct whitepsace entities to the raw symbol.</bugfix>
+        <bugfix>Fixed issue with SMF converter were it would fail if the SMF installation did not have SEF urls turned on.</bugfix>
+        <bugfix>"No topics yet" hint was displayed to super admins.</bugfix>
+        <bugfix>Fixed issue were moving a topic would change its status to unread.</bugfix>
+        <bugfix>Fixed issue were vertical scrollbars appeared in browsers like Safari on specific Joomla templates.</bugfix>
+        <bugfix>Resolved RTL CSS issues frontend in general on list views and in the backend toolbar.</bugfix>
+        <bugfix>Regression caused a too narrow width on lastpost columns on forum view, as well as a misaligned separator.</bugfix>
+        <bugfix>Regression caused overflowing topic subjects to no longer show an ellipsis in forum view.</bugfix>
+        <bugfix>Previewing a private message now works again.</bugfix>
+        <bugfix>Subscribe button would sometimes overlap the pagination in Forum view.</bugfix>
+        <bugfix>Fixed issue where buttons on the Person view didn't line up.</bugfix>
+        <bugfix>Fixed CSS issue where the reply button on the PM page got pushed down in non-WebKit browsers.</bugfix>
+        <bugfix>The unread indicators on private messages had the wrong url to the unread.png icon.</bugfix>
+    </state>
+
     <version>1.1.1</version>
     <date>July 15th 2011</date>
     <state>Maintenance Release

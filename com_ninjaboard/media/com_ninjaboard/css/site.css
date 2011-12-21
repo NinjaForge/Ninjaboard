@@ -37,9 +37,11 @@
 }
 .ninjaboard .section .text {
 	overflow: auto;
+	/* Fixing vertical scrollbars in some browsers on specific site tempates */
+	overflow-x: auto; overflow-y: hidden;
 }
 
-.ninjaboard .footer.signature {
+.ninjaboard .ninjaboard-post-footer {
 	bottom: 0px;
 	position: absolute;
 	left: 0;
@@ -49,10 +51,15 @@
 	min-height: 40px;
 	
 }
-.ninjaboard .footer.signature .footer-wrap .actions {
-	position: absolute;
-	top: 10px;
-	right: 0;
+.ninjaboard .ninjaboard-post-footer .ninjaboard-signature {
+    float: left;
+}
+.ninjaboard .ninjaboard-post-footer .ninjaboard-buttons {
+	float: right;
+    margin-top: 10px;
+}
+.ninjaboard .ninjaboard-post-footer .ninjaboard-signature p {
+    margin-top: 10px;
 }
 div.mod-monitor div.box-t1 {
 	-webkit-border-top-left-radius: 5px;
@@ -353,8 +360,16 @@ div.mod-monitor div.box-t2 {
 }
 
 
-
-
+.ninjaboard-block .topiclist.forums dl.icon dt .subject,
+.ninjaboard dd.lastpost a {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ninjaboard .row.forum dd.lastpost .lastpost a:not(.username-coloured) {
+    display: inline-block;
+    width: 100%;
+}
 
 
 .ninjaboard-block .topiclist.forums dl.icon dt .subject,
@@ -575,7 +590,8 @@ div.mod-monitor div.box-t2 {
 	left: 60%;
 }
 .ninjaboard-block .topiclist li.topic .lastpost .separator {
-	left: 68%;
+	/*left: 68%;*/
+	left: 66%;
 }
 
 .ninjaboard-block .topiclist li.lastpost .separator {
@@ -674,7 +690,7 @@ ul.topiclist li.header dl {
 }
 ul.topiclist li.row dl,
 ul.topiclist li.header dl {
-	float: none;
+	float: none!important;
 	height: auto;
 	width: auto;
 }
@@ -837,6 +853,7 @@ dl.icon {
 	margin: 0 0 0 0;
 	background-position: 10px 50%;		/* Position of folder icon */
 	background-repeat: no-repeat;
+	margin: 0!important;
 }
 
 dl.icon dt {
@@ -897,6 +914,9 @@ li.forum dl.icon dt {
 .ninjaboard dd.lastpost {
 	width: 23%;
 	margin: 0 0 0 0;
+}
+.ninjaboard .row.forum dd.lastpost {
+    width: 30%;
 }
 .ninjaboard .header dd.lastpost {
 	padding-left: 10px;
@@ -1133,6 +1153,9 @@ a.inherit-color, a.inherit-color:link, a.inherit-color:visited, a.inherit-color:
 	padding-top: 5px;
 	text-shadow: hsla(0, 0%, 100%, .1) 0px 1px 0px;
 	text-align: center;
+	float: left;
+	margin-left: 5px;
+	margin-bottom: 5px;
 }
 .ninjaboard .watch a:hover,
 .ninjaboard-button:hover {

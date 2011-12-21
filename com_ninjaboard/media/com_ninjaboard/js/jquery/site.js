@@ -27,7 +27,7 @@ jQuery(function($){
 //Set the right padding on domready, and on load to catch any images
 (function($){
 	var setBottomPadding = function(){
-		$('.footer.signature', '.ninjaboard').each(function(){
+		$('.ninjaboard-post-footer', '.ninjaboard').each(function(){
 			$(this).parent().css('padding-bottom', Math.max($(this).innerHeight() + 20, 60));
 		});
 	};

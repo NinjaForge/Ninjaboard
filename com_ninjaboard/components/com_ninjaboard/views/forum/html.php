@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 2184 2011-07-11 15:08:37Z stian $
+ * @version		$Id: html.php 2265 2011-07-22 13:15:57Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -98,6 +98,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 
 		$me  = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
 		$this->watch_button = $me->id && $forum->params['email_notification_settings']['enable_email_notification'];
+		$this->assign('me', $me);
 
         $this->new_topic_button = false;
         if(KFactory::get('lib.joomla.user')->guest || ($forum->topic_permissions > 1 && $forum->post_permissions > 1))

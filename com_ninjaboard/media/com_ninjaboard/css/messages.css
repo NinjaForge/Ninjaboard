@@ -1,5 +1,6 @@
 .ninjaboard-button-reply-message {
     right: 0;
+    top: 0;
     position: absolute;
 }
 
@@ -30,7 +31,8 @@
 }
 .splitview-list li {
 	-webkit-box-shadow: inset hsla(0, 0%, 50%, 0.5) 0 -1px 0;
-	-moz-box-shadow: inset #187DD3 0 1px 0, inset #004BA5 0 -1px 0;
+	-moz-box-shadow: inset hsla(0, 0%, 50%, 0.5) 0 -1px 0;
+	box-shadow: inset hsla(0, 0%, 50%, 0.5) 0 -1px 0;
 	display: block;
 	height: 78px;
 	background-image: none;
@@ -49,6 +51,8 @@
 .splitview-list li.active {
 	-webkit-box-shadow: inset #187DD3 0 1px 0, inset #004BA5 0 -1px 0;
 	-moz-box-shadow: inset #187DD3 0 1px 0, inset #004BA5 0 -1px 0;
+	box-shadow: inset #187DD3 0 1px 0, inset #004BA5 0 -1px 0;
+	background-color: #2C8BDC;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#2C8BDC), to(#0E67CA));
 	background-image: -moz-linear-gradient(top, #2C8BDC, #0E67CA);
 	text-shadow: rgba(0, 0, 0, 0.33) 0 1px 0;
@@ -210,5 +214,5 @@ li.active .message-third-row {
 	margin-right: 5px;
 }
 .splitview-list .message-unread {
-    background: url(../images/unread.png) center center no-repeat;
+    background: url(../../com_ninja/images/unread.png) center center no-repeat;
 }

@@ -1,4 +1,4 @@
-<? /** $Id: row_forum.php 1943 2011-05-24 23:26:49Z stian $ */ ?>
+<? /** $Id: row_forum.php 2252 2011-07-22 00:54:54Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <style type="text/css">.ninjaboard .unread-indicator {background-image: url(<?= @$img('/unread.png') ?>)}</style>
@@ -36,7 +36,7 @@
 			<dd class="lastpost"><a href="#" class="separator"></a><span class="lastpost">
 			<? if ($forum->last_post_id) : ?>
 				<dfn>Last post</dfn>
-					<a href="<?= @route('view=topic&id=' . $forum->last_topic_id . '&post='.$forum->last_post_id) ?>#p<?= $forum->last_post_id ?>"><?= $forum->subject ?></a><br />
+					<a class="ninjaboard-lastpost" href="<?= @route('view=topic&id=' . $forum->last_topic_id . '&post='.$forum->last_post_id) ?>#p<?= $forum->last_post_id ?>" title="<?= @escape($forum->subject) ?>"><?= $forum->subject ?></a><br />
 					 <?= @text('by') ?>
 					 <? if($forum->created_user_id) : ?>
 					 <a href="<?= @route('view=person&id=' . $forum->created_user_id) ?>" class="username-coloured"><?= @escape($forum->last_post_username) ?></a>

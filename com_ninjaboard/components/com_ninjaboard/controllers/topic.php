@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: topic.php 1933 2011-05-23 23:27:11Z stian $
+ * @version		$Id: topic.php 2264 2011-07-22 12:56:56Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -154,6 +154,13 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 			//@TODO this needs to run on the departure forum wether a ghost is left behind or not
 			if($topic->moved_from_forum_id)
 			{
+			    //Fix topic read log tables
+			    $table = KFactory::get('admin::com.ninjaboard.database.table.logtopicreads');			    
+			    // Run as raw query, as some sites have huge amounts of data so we need it fast
+			    $query = 'UPDATE IGNORE `#__ninjaboard_log_topic_reads` SET `ninjaboard_forum_id` = \''.(int)$topic->forum_id.'\' WHERE `ninjaboard_forum_id` = \''.(int)$topic->moved_from_forum_id.'\' AND `ninjaboard_topic_id` = \''.$topic->id.'\';';
+			    $table->getDatabase()->execute($query);
+
+			
 				//Update the forums' topics and posts count, and correct the last_post_id column
 				$forums	= KFactory::tmp('site::com.ninjaboard.model.forums')->limit(0)->id($topic->moved_from_forum_id)->getListWithParents();
 				$forums->recount();

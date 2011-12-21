@@ -1,4 +1,4 @@
-<? /** $Id: form.php 2001 2011-06-29 16:21:31Z stian $ */ ?>
+<? /** $Id: form.php 2258 2011-07-22 12:04:01Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -50,7 +50,11 @@
 <style type="text/css">
 	.ninjaboard .element .avatar.options {
 		top: 10px;
+		<? if(KFactory::get('lib.joomla.document')->getDirection() == 'rtl') : ?>
+		right: <?= max((int)$params['avatar_settings']['large_thumbnail_width'], 0) + 173 ?>px;
+		<? else : ?>
 		left: <?= max((int)$params['avatar_settings']['large_thumbnail_width'], 0) + 173 ?>px;
+		<? endif ?>
 	}
 </style>
 

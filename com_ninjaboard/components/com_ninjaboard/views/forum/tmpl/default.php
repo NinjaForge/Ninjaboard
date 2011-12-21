@@ -1,4 +1,4 @@
-<? /** $Id: default.php 1633 2011-03-08 02:00:50Z stian $ */ ?>
+<? /** $Id: default.php 2265 2011-07-22 13:15:57Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -49,8 +49,8 @@
 		<div class="footer relative">
 			<?= $pagination ?>
 		</div>
-	<? /* If the user can't create anything, don't show anything */ ?>
-	<? elseif($forum->topic_permissions > 1) : ?>
+	<? /* If the user can't create anything or is a super admin, don't show anything */ ?>
+	<? elseif($forum->topic_permissions > 1 && $me->gid != 25) : ?>
 		<h2 class="message"><?= @text('No topics found here yet, go ahead and start one.') ?></h2>
 	<? endif ?>
 </div>

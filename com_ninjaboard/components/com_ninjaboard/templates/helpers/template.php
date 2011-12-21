@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: template.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: template.php 2247 2011-07-21 22:01:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -28,6 +28,6 @@
  		));
  	
  		$params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
- 		return '<div class="spacer" style="height:'.@$params['template'][$config->type.'_spacing'].'"></div>';
+ 		return '<div class="ninjaboard-spacer" style="height:'.@$params['template'][$config->type.'_spacing'].'"></div>';
  	}
  }

@@ -16,3 +16,34 @@ html[dir="rtl"] .ninja-form .element.wider {
 .ninjaboard .element.footer .inner > * {
 	float: left;
 }
+.ninjaboard .ninja-form .key {
+    left: auto;
+    right: 10px;
+}
+.ninjaboard .ninja-form .element {
+    padding: 10px 163px 10px 10px;
+}
+.ninjaboard .ninja-form .key input {
+    float: left;
+}
+
+.ninjaboard .element .avatar.value {
+	margin-right: 0;
+    margin-left: 10px;
+}
+.ninjaboard .element .avatar.options {
+	float: right;
+}
+.ninjaboard .element .avatar a {
+	display: block;
+}
+.ninjaboard .element .avatar-image-extensions,
+.ninjaboard .element .allowed-file-extensions {
+	text-transform: uppercase;
+}
+.ninjaboard .avatar.element::after {
+    content: '.';
+    color: transparent;
+    clear: both;
+    display: block;
+}

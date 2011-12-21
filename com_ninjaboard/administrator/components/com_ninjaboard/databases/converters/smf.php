@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: smf.php 1917 2011-05-23 00:21:33Z stian $
+ * @version		$Id: smf.php 2267 2011-07-22 14:08:49Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -137,18 +137,6 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 							//->order('ID_TOPIC', 'ASC')
 			),
 			array(
-				'name' => 'topic_slugs',
-				'options' => array(
-					'name' => 'pretty_topic_urls'
-				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
-							->select(array(
-								'ID_TOPIC AS id',
-								'ID_TOPIC AS ninjaboard_topic_id',
-								'pretty_url AS ninjaboard_topic_slug',
-							))
-			),
-			array(
 				'name' => 'posts',
 				'options' => array(
 					'name' => 'messages'
@@ -237,6 +225,26 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 			),
 		);
 
+        //To prevent errors only add this part if the table exists
+        $query = "SHOW TABLES LIKE '#__pretty_topic_urls';";
+        $sef  = KFactory::get('lib.koowa.database')->select($query);
+        if($sef)
+        {
+            $tables[] = array(
+            	'name' => 'topic_slugs',
+            	'options' => array(
+            		'name' => 'pretty_topic_urls'
+            	),
+            	'query' => KFactory::tmp('lib.koowa.database.query')
+            				->select(array(
+            					'ID_TOPIC AS id',
+            					'ID_TOPIC AS ninjaboard_topic_id',
+            					'pretty_url AS ninjaboard_topic_slug',
+            				))
+            );
+        }
+        
+
 		//This returns false if the import is big enough to be done in steps.
 		//So we need to stop the importing in this step, in order for it to initiate
 		if($this->importData($tables, 'smf_converter') === false) return $this;
@@ -256,7 +264,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 				$modified_on->setTimezone($utc);
 				$this->data['posts'][$id]['modified_on']= $modified_on->format('Y-m-d H:i:s');
 
-				$this->data['posts'][$id]['text']		= str_replace(array('<br />', '&#38;#'), array("\n", '&#'), $post['text']);
+				$this->data['posts'][$id]['text']		= str_replace(array('&nbsp;', '<br />', '&#38;#'), array(' ', "\n", '&#'), $post['text']);
 			}
 		}
 		
@@ -272,7 +280,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 				$created_on->setTimezone($utc);
 				$this->data['messages'][$id]['created_on']	= $created_on->format('Y-m-d H:i:s');
 				
-				$this->data['messages'][$id]['text']		= str_replace(array('<br />', '&#38;#'), array("\n", '&#'), $message['text']);
+				$this->data['messages'][$id]['text']		= str_replace(array('&nbsp;', '<br />', '&#38;#'), array(' ', "\n", '&#'), $message['text']);
 			}
 		}
 

@@ -1,4 +1,4 @@
-<? /** $Id: form.php 2006 2011-06-29 17:09:43Z stian $ */ ?>
+<? /** $Id: form.php 2248 2011-07-21 22:05:58Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -75,7 +75,8 @@
 				'magnifier.png'
 			),
 			array(
-				@route('layout=preview&format=raw&tmpl='), 
+			    //@TODO move previewing into its own view
+				@route('index.php?option=com_ninjaboard&view=post&layout=preview&format=raw&tmpl='), 
 				@$img('/bbcode/magifier_zoom_out.png'), 
 				@$img('/bbcode/magnifier.png')
 			),

@@ -2,14 +2,25 @@
 	float: right;
 }
 
-.ninjaboard .footer.signature {
-	left: 130px;
+.ninjaboard .ninjaboard-post-footer {
+	left: 10px;
 	right: 0;
+}
+.ninjaboard .ninjaboard-post-footer .ninjaboard-signature {
+    float: right;
+}
+.ninjaboard .ninjaboard-post-footer .ninjaboard-buttons {
+	float: left;
 }
 
 .ninjaboard .user {
 	float: left;
 	text-align: right;
+    padding-left: 0;
+    padding-right: 10px;
+    border-right: 2px dashed gray;
+    border-right-color: hsla(0, 0%, 50%, 0.2);
+    border-left-style: none;
 }
 
 .ninjaboard .pagination {
@@ -21,11 +32,14 @@
 
 /*@TODO this needs to be more accurately 10px from the right edge. 99% works for now */
 .ninjaboard-block .topiclist.forums dl.icon {
-	background-position: 99% center;
+	background-position: 99% 50%;
+	background-position: -webkit-calc(100% - 10px) 50%;
+	background-position: -moz-calc(100% - 10px) 50%;
+	background-position: calc(100% - 10px) 50%;
 }
 
 .ninjaboard-block .topiclist.forums dl.icon dt .subject {
-	padding-left: 0;
+	padding-left: 0!important;
 	padding-right: 50px;
 }
 ul.topiclist dt {
@@ -84,12 +98,11 @@ li.header dl.icon dt * {
 dl.icon {
 	/*@TODO this needs to be more accurately 10px from the right edge. 99% works for now */
 	background-position: 99% 50%;		/* Position of folder icon */
+	background-position: -webkit-calc(100% - 10px) 50%;
+	background-position: -moz-calc(100% - 10px) 50%;
+	background-position: calc(100% - 10px) 50%;
 }
 
-dl.icon dt {
-	/*@TODO this needs to be more accurately 5px from the right edge. 99% works for now */
-	background-position: 99% 95%;
-}
 li.forum dl.icon dt {
 	padding-right: 50px;
 	padding-left: 0;
@@ -116,4 +129,44 @@ dd.lastpost span, ul.topiclist dd.searchby span, ul.topiclist dd.info span, ul.t
 }
 .ninjaboard .header.end, .ninjaboard .header .end, .ninjaboard .footer .end {
 	float: left;
+}
+
+
+.ninjaboard-block .topiclist li .separator, .ninjaboard-block .topiclist li .separator:hover {
+	margin-right: 55px;
+	margin-left: auto;
+}
+
+.ninjaboard-block .topiclist li .topics .separator,
+.ninjaboard-block .topiclist li .posts .separator,
+.ninjaboard-block .topiclist li .lastpost .separator,
+.ninjaboard-block .topiclist li.topic .topics .separator,
+.ninjaboard-block .topiclist li.topic .posts .separator,
+.ninjaboard-block .topiclist li.topic .lastpost .separator {
+	left: auto!important;
+}
+
+.ninjaboard-block .topiclist li .separator, .ninjaboard-block .topiclist li .separator:hover {
+	margin-right: 55px;
+	margin-left: auto!important;
+}
+
+.ninjaboard-block .topiclist li .topics .separator {
+    right: 45%;
+}
+.ninjaboard-block .topiclist li .posts .separator {
+	right: 53%;
+}
+.ninjaboard-block .topiclist li .lastpost .separator {
+	right: 61%;
+}
+.ninjaboard-block .topiclist li.topic .topics .separator {
+	right: 52%;
+}
+.ninjaboard-block .topiclist li.topic .posts .separator {
+	right: 60%;
+}
+.ninjaboard-block .topiclist li.topic .lastpost .separator {
+	/*left: 68%;*/
+	right: 66.6%;
 }

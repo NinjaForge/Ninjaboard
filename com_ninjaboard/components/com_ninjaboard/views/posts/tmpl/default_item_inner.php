@@ -1,4 +1,4 @@
-<? /** $Id: default_item_inner.php 1704 2011-03-26 23:47:36Z stian $ */ ?>
+<? /** $Id: default_item_inner.php 2261 2011-07-22 12:15:49Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <div class="wrap">
@@ -33,14 +33,15 @@
 			<h5 class="notice attachments-no-access"><?= @text("You don't have access to view the attachments in this post.") ?></h5>
 		<? endif ?>
 		<div style="clear: both; display: block;"></div>
-		<div class="footer signature">
-			<?= @ninja('bbcode.parse', array('text' => @$post->signature)) ?>
+		<!-- .signature.footer still present because of browser cache. Browser cache is solved permanently in Ninjaboard 1.2 -->
+		<div class="ninjaboard-post-footer signature footer">
+		    <div class="ninjaboard-signature">
+			    <?= @ninja('bbcode.parse', array('text' => @$post->signature)) ?>
+			</div>
 			<? if( ( @$forum->post_permissions == 3 ) or ( @$forum->post_permissions == 2 && @$post->created_by == @$user->id ) ) : ?>
-			<div class="footer-wrap">
-				<div class="actions toolbar">
-					<?= @edit_post_button($post->id) ?>
-					<? if($topic->first_post_id != $post->id) echo $delete_post_button ?>
-				</div>
+			<div class="ninjaboard-buttons actions toolbar">
+				<?= @edit_post_button($post->id) ?>
+				<? if($topic->first_post_id != $post->id) echo $delete_post_button ?>
 			</div>
 			<? endif ?>
 		</div>		
