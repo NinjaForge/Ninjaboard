@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 1462 2011-01-20 19:03:33Z stian $ -->
+<!-- $Id: changelog.xml 1463 2011-01-20 21:34:33Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+	<version>1.0.2</version>
+	<date>January 20th 2011</date>
+	<state>Bugfix Release
+		<bugfix>Fixing regression introduced in 1.0.1 that resulted in various SQL syntax errors.</bugfix>
+	</state>
+
 	<version>1.0.1</version>
 	<date>January 20th 2011</date>
 	<state>Security Release
