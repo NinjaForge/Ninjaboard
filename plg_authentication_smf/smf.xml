@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="auth">
+	<name>Authentication - SMF</name>
+	<author>Stian Didriksen</author>
+	<creationDate>March 2011</creationDate>
+	<copyright>(C) 2009-2010 Ninja Media Group. All rights reserved.</copyright>
+	<license>GNU GPLv3</license>
+	<authorEmail>stian@ninjaforge.com</authorEmail>
+	<authorUrl>http://ninjaforge.com</authorUrl>
+	<version>1.0</version>
+	<description>This is a companion plugin to the Ninjaboard SMF converter, which allows stand-alone SMF imports to let users to login with their old passwords</description>
+	<files>
+		<filename plugin="smf">smf.php</filename>
+	</files>
+	<params/>
+</install>
