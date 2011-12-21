@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: post.php 1768 2011-04-11 20:38:57Z stian $
+ * @version		$Id: post.php 1852 2011-05-18 21:48:35Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -170,6 +170,9 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		$files = KRequest::get('files.attachments.name', 'raw', array());
 		foreach ($files as $i => $file)
 		{
+		    //If no name is set, then we can't upload
+		    if(!trim($file)) continue;
+		
 			foreach (KRequest::get('files.attachments', 'raw') as $key => $values)
 			{
 				$attachment[$key] = KRequest::get('files.attachments.'.$key.'.'.$i, 'raw');

@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 1829 2011-04-26 22:43:19Z stian $ -->
+<!-- $Id: changelog.xml 1856 2011-05-19 19:56:49Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+    <version>1.0.10</version>
+    <date>May 19th 2011</date>
+    <state>Maintenance Release
+        <upgrade>Dutch translation files updated - thanks John Bartels!</upgrade>
+        <bugfix>Fixed issue where adding an attachment file input in a post without selecting a file would show a "Filetype not supported" error.</bugfix>
+        <bugfix>Incompatibility with Warp6, patched by YOOtheme.</bugfix>
+    </state>
+
     <version>1.0.9</version>
     <date>April 27th 2011</date>
     <state>Maintenance Release
