@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="system">
+    <name>System - Ninjaboard Metatags</name>
+    <author>Jeff Channell</author>
+    <creationDate>July 2009</creationDate>
+    <license>GNU/GPL</license>
+    <authorEmail>me@jeffchannell.com</authorEmail>
+    <authorUrl>www.jeffchannell.com</authorUrl>
+    <version>1.0</version>
+    <description>This native Joomla 1.5 plugin automatically generates description meta tags and title for Ninjaboard. Original module created by Shikle (admin@joomlame.com) for Agora.</description>
+    <files>
+        <filename plugin="NinjaboardMeta">NinjaboardMeta.php</filename>
+    </files>
+    <params>
+        <param name="separator" type="text" size="1" default="\|" label="Separator" description="This is the character that separates your page titles. For example, forum title from agora title. By default it is a pipe - but you can change it to whatever you like. When saving some characters Joomla adds backslashes to 'escape' them - they shouldn't appear in the actual title." />
+        <param name="@spacer1" type="spacer" default="Max. length for metadesc" />
+        <param name="desclength" type="text" defaul="200" label="Max. metadesc length" description="Characters length to truncate text for metadescription output."/>
+        <param name="@spacer2" type="spacer" default="Ninjaboard main page" />
+        <param name="maintitle" type="text" label="Ninjaboard main page Title" default="" description="Enter Title for Ninjaboard main page."/>
+        <param name="maindescription" type="textarea" label="Ninjaboard main page MetaDesc" rows="10" cols="20" default="" description="Enter Metadescription for Ninjaboard main page. It will be truncated at max. from above setting."/>
+        <param name="mainkeywords" type="textarea" label="Ninjaboard main page keywords" rows="10" cols="20" default="" description="Enter keywords for Ninjaboard main page. Comma separated."/>
+        <param name="@spacer3" type="spacer" default="Ninjaboard Categories" />
+        <param name="categories" type="textarea" label="Categories id and description" rows="10" cols="20" default="" description="Enter categoryid|categorydescription'Press enter'categoryid2|categorydescription2'Press enter'...and so on"/>
+        <param name="categorieskw" type="textarea" label="Categories id and keywords" rows="10" cols="20" default="" description="Enter categoryid|categorykeywords'Press enter'categoryid2|categorykeywords2'Press enter'...and so on"/>
+        <param name="@spacer4" type="spacer" default="Ninjaboard Forums" />
+        <param name="forums" type="textarea" label="Forums id and description" rows="10" cols="20" default="" description="Enter forumid|forumdescription'Press enter'forumid2|forumdescription2'Press enter'...and so on"/>
+        <param name="forumskw" type="textarea" label="Forums id and keywords" rows="10" cols="20" default="" description="Enter categoryid|forumkeywords'Press enter'forumid2|forumkeywords2'Press enter'...and so on"/>
+        <param name="showcategory" type="radio" default="0" label="Show Category in Forum Title" description="">
+        	<option value="0">No</option>
+        	<option value="1">Yes</option>
+        </param>
+        <param name="@spacer5" type="spacer" default="Ninjaboard Topics" />
+        <param name="showtopicforum" type="radio" default="0" label="Show Forum in Topic Title" description="">
+        	<option value="0">No</option>
+        	<option value="1">Yes</option>
+        </param>
+        <param name="showtopiccategory" type="radio" default="0" label="Show Category in Topic Title" description="">
+        	<option value="0">No</option>
+        	<option value="1">Yes</option>
+        </param>
+        <param name="listexclude" type="textarea" label="List of words to exclude from topic keywords" rows="10" cols="20" default="" description="Enter the words, comma separated, you want to exclude form topic's keywords"/>
+        <param name="goldwords" type="textarea" label="Lios of Gold Words" rows="10" cols="20" default="" description="Enter the words, comma separated, you want to include in topic's keywords if it appears at least one time."/>
+        <param name="mindensity" type="text" label="Minimum density" default="2" description="Minimum density to include a word"/>
+        <param name="minlength" type="text" label="Minimum length" default="5" description="Minimum length of a word in order to be included as keyword"/>
+        <param name="maxwords" type="text" label="Max number of keywords" default="20" description="Max number of keywords"/>
+        
+    </params>
+</install>
