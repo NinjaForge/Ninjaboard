@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+/* CSS Document */
+
+/*CSS Document
+
+@version        1.0
+
+* @package        mod_vm_css_menu
+
+* @author         Stephanie Scmidt
+
+* @author mail    admin@dwtutorials.com
+
+* @link        http://www.dwtutorials.com
+
+* @copyright    Copyright (C) 2009 Stephanie Scmidt - All rights reserved.
+
+* @license        GNU/GPL
+
+
+
+/*Credits: Dynamic Drive CSS Library */
+
+/*URL: http://www.dynamicdrive.com/style/ */
+
+
+
+#NBblocks, #NBblocks ul, #NBblocks ul li, #NBblocks li {
+	width: auto;
+	display: inline;
+	list-style:none;
+	margin: 0;
+	padding: 0;
+}
+
+#NBblocks li a{
+}
+
+#NBblocks li a:hover {
+}
+
+#NBblocks ul li a{
+	display: block;
+	padding-left: 16px;
+	text-decoration: none;
+	background-image: url(../images/bullet_1.png);
+	background-repeat: no-repeat;
+	background-position: left 6px;
+	padding-top: 3px;
+	padding-right: 0;
+	padding-bottom: 3px;
+}
+
+
+
+#NBblocks ul li ul li a{
+	display: block;
+	padding-left: 16px;
+	text-decoration: none;
+	background-image: url(../images/bullet_2.png);
+	background-repeat: no-repeat;
+	background-position: left 6px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	margin-left: 16px;
+	}
+
+
+
+#NBblocks ul li ul li ul li a{
+	display: block;
+	padding-left: 16px;
+	text-decoration: none;
+	background-image: url(../images/bullet_3.png);
+	background-repeat: no-repeat;
+	background-position: left 6px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	margin-left: 32px;
+	}
+
+
+/* Menu items with subcategories */	
+
+ul#NBblocks a#parent {
+
+
+
+}
