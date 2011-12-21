@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 2352 2011-08-06 15:01:26Z stian $ -->
+<!-- $Id: changelog.xml 2407 2011-08-25 09:00:39Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+    <version>1.1.6</version>
+    <date>TBA</date>
+    <state>Maintenance Release
+        <upgrade>Synced with the latest translation updates from our Transifex project.</upgrade>
+        <bugfix>Fixed regression caused by canonical support that caused trouble in a few format=raw views and JDocumentRaw not having an addCustomTag method.</bugfix>
+    </state>
+
     <version>1.1.5</version>
     <date>August 6th 2011</date>
     <state>Maintenance Release

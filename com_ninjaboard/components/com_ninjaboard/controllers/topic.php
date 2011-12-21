@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: topic.php 2326 2011-07-30 23:02:23Z stian $
+ * @version		$Id: topic.php 2407 2011-08-25 09:00:39Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -55,7 +55,9 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 	    $append    = $this->getRequest()->layout != 'default' ? '&layout='.$this->getRequest()->layout : '';
 	    $state     = $this->getModel()->getState();
 	    $canonical = $root.JRoute::_($base.'&id='.$context->id.'&limit='.$state->limit.'&offset='.$state->offset.$append);
-	    $document->addCustomTag('<link rel="canonical" href="'.$canonical.'" />');
+	    if(method_exists($document, 'addCustomTag')) {
+	        $document->addCustomTag('<link rel="canonical" href="'.$canonical.'" />');
+	    }
 	}
 
 	/**

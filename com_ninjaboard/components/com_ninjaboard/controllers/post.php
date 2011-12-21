@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: post.php 2306 2011-07-28 13:49:38Z captainhook $
+ * @version		$Id: post.php 2392 2011-08-16 08:14:28Z captainhook $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -156,29 +156,6 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 
 	public function setAttachments(KCommandContext $context)
 	{
-		// Check Forum Attachment Settings
-		$params			= KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
-		if(!$params['attachment_settings']['enable_attachments']){
-			JError::raiseWarning(21, JText::_('Attachments have been disabled on this forum.'));
-			$this->execute('cancel');
-			return false;	
-		}
-		
-		// Check User Attachment Permissions
-		$row = $this->getModel()->getItem();
-		$topic = KFactory::tmp('site::com.ninjaboard.model.topics')
-																	->id($row->ninjaboard_topic_id)
-																	->getItem();
-		$forum = KFactory::tmp('site::com.ninjaboard.model.forums')
-																	->id($topic->forum_id)
-																	->getItem();
-																	
-		if($forum->attachment_permissions < 2){
-			JError::raiseWarning(21, JText::_("You don't have the permissions to use Attachments in this forum."));
-			$this->execute('cancel');
-			return false;
-		}
-		
 		$data			= $context['result'];
 		$me				= KFactory::get('admin::com.ninjaboard.model.people')->getMe();
 
@@ -192,6 +169,33 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		require_once JPATH_ROOT.'/components/com_media/helpers/media.php';
 
 		$files = KRequest::get('files.attachments.name', 'raw', array());
+		
+		if($files)
+		{
+			// Check Forum Attachment Settings
+			$params			= KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+			if(!$params['attachment_settings']['enable_attachments']){
+				JError::raiseWarning(21, JText::_('Attachments have been disabled on this forum.'));
+				$this->execute('cancel');
+				return false;	
+			}
+			
+			// Check User Attachment Permissions
+			$row = $this->getModel()->getItem();
+			$topic = KFactory::tmp('site::com.ninjaboard.model.topics')
+																		->id($row->ninjaboard_topic_id)
+																		->getItem();
+			$forum = KFactory::tmp('site::com.ninjaboard.model.forums')
+																		->id($topic->forum_id)
+																		->getItem();
+			
+			if($forum->attachment_permissions < 2){
+				JError::raiseWarning(21, JText::_("You don't have the permissions to use Attachments in this forum."));
+				$this->execute('cancel');
+				return false;
+			}
+		}
+		
 		foreach ($files as $i => $file)
 		{
 		    //If no name is set, then we can't upload

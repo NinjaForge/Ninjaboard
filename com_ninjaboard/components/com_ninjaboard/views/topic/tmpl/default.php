@@ -1,4 +1,4 @@
-<? /** $Id: default.php 1946 2011-06-06 00:12:54Z betweenbrain $ */ ?>
+<? /** $Id: default.php 2367 2011-08-09 23:19:43Z captainhook $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -50,6 +50,7 @@
 
 <div id="ninjaboard" class="ninjaboard topic <?= $topic->params['pageclass_sfx'] ?> <?= $forum->params['style']['type'] ?> <?= $forum->params['style']['border'] ?> <?= $forum->params['style']['separators'] ?>">
 	<h1 class="title"><a href="<?= @route('id=' . $topic->id) ?>" class="topic"><?= @escape($topic->subject) ?></a></h1>
+	<? if($topic->post_permissions > 0) : ?>
 	<div class="header">
 		<?/*= @render(@template('default_toolbar'), false, $forum->params['module'])*/ ?>
 		<?= @template('default_toolbar') ?>
@@ -64,6 +65,7 @@
 			<?/*= @render(@template('default_toolbar'), false, $forum->params['module'])*/ ?>
 			<?= @template('default_toolbar') ?>
 		</div>
+	<? endif ?>
 	<? endif ?>
 
 	<? if(!KFactory::get('lib.joomla.user')->guest && $topic->post_permissions > 1) : ?>
