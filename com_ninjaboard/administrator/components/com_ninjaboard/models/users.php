@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: users.php 1814 2011-04-20 23:46:01Z stian $
+ * @version		$Id: users.php 2297 2011-07-27 15:10:57Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -123,10 +123,10 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 			else
 			{
 				//To avoid auto quoting, and also trim trailing whitespace
-				$search = strtoupper($search);
+				$search = $this->getTable()->getDatabase()->quoteValue('%'.strtoupper($search).'%');
 				
 				$query
-					  ->where("(tbl.name LIKE '%$search%' OR tbl.username LIKE '%$search%' OR tbl.email LIKE '%$search%' OR person.alias LIKE '%$search%')")
+					  ->where("(tbl.name LIKE $search OR tbl.username LIKE $search OR tbl.email LIKE $search OR person.alias LIKE $search)")
 					  /*->where('tbl.name', 'LIKE',  '%'.$search.'%', 'or')
 					  ->where('tbl.username', 'LIKE',  '%'.$search.'%', 'or')
 					  ->where('tbl.email', 'LIKE',  '%'.$search.'%', 'or')*/;

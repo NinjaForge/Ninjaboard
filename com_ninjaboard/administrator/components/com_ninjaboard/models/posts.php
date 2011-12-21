@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: posts.php 1996 2011-06-29 15:44:02Z stian $
+ * @version		$Id: posts.php 2297 2011-07-27 15:10:57Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -71,7 +71,7 @@ class ComNinjaboardModelPosts extends ComDefaultModelDefault
 		
 		if($search = $this->_state->search)
 		{
-		    $search = '\'%'.strtoupper($search).'%\'';
+		    $search = $this->getTable()->getDatabase()->quoteValue('%'.strtoupper($search).'%');
 			$query->where("(tbl.subject LIKE $search OR tbl.text LIKE $search OR first_post.subject LIKE $search)");			
 		}
 		

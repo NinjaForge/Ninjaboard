@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 2268 2011-07-22 14:12:39Z stian $ -->
+<!-- $Id: changelog.xml 2297 2011-07-27 15:10:57Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+    <version>1.1.3</version>
+    <date>July 27th 2011</date>
+    <state>Security Release
+        <security>Security audit performed on all SQL queries executed in Ninjaboard that doesn't use the automatic quoting in Nooku Framework for performance reasons to make sure they're not exploitable in any way.</security>
+        <security>Hardened security in person controller in a SQL query that prevents duplicate screen names.</security>
+        <security>Hardened security in 3 SQL queries used for searching in the posts, people and messages models.</security>
+        <upgrade>Synced with the latest translation updates from our Transifex project.</upgrade>
+    </state>
+
     <version>1.1.2</version>
     <date>July 22nd 2011</date>
     <state>Maintenance Release

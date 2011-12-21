@@ -8,6 +8,7 @@
     position: relative;
     overflow: hidden;
     border: 1px solid hsla(0, 0%, 50%, 0.5);
+    clear: both;
 }
 .splitview::after {
     content: '.';

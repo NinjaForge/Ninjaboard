@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: messages.php 1874 2011-05-20 20:03:46Z stian $
+ * @version		$Id: messages.php 2297 2011-07-27 15:10:57Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -62,14 +62,12 @@ class ComNinjaboardModelMessages extends ComDefaultModelDefault
 		parent::_buildQueryWhere($query);
 		//Build query for the screen names
 		$me = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
-		
-//		$query->where('()');
+		$id = (int) $me->id;
 
-//		return;
 		//Get sent messages by me
-		$where[] = '(tbl.created_by = '.$me->id.' AND recipient.user_id != '.$me->id.')';
+		$where[] = '(tbl.created_by = '.$id.' AND recipient.user_id != '.$id.')';
 		//Get sent messages to me
-		$where[] = '(tbl.created_by != '.$me->id.' AND recipient.user_id = '.$me->id.')';
+		$where[] = '(tbl.created_by != '.$id.' AND recipient.user_id = '.$id.')';
 		
 		$query->where('('.implode(' OR ', $where).')');
 	}

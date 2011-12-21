@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: person.php 1841 2011-04-29 18:59:50Z stian $
+ * @version		$Id: person.php 2297 2011-07-27 15:10:57Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -74,10 +74,10 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		
 		$table = KFactory::tmp('admin::com.ninjaboard.database.table.users');
 		//By making the alias all caps, MySQL will do an case insensitive search since there's no mixed casing.
-		$alias = strtoupper($alias);
+		$alias = $table->getDatabase()->quoteValue(strtoupper($alias));
 		$query = $table->getDatabase()->getQuery()
 												->where('id', 'not in', $this->getRequest()->id)
-												->where("(name LIKE '$alias' OR username LIKE '$alias')");
+												->where("(name LIKE $alias OR username LIKE $alias)");
 		if($table->count($query) > 0) return $this->_checkAliasFailed($context);
 	}
 	
