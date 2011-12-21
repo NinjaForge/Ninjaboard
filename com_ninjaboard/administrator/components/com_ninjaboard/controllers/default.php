@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: default.php 1821 2011-04-25 21:26:07Z stian $
+ * @version		$Id: default.php 2187 2011-07-11 22:28:29Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -25,12 +25,14 @@ class ComNinjaboardControllerDefault extends ComNinjaControllerView
 
         $this->registerCallback('before.display', array($this, 'checkInstall'));
 		
-		$cache = JPATH_ROOT.'/cache/com_'.$this->getIdentifier()->package . '/maintenance.forums.txt';
+		$cache = JPATH_ROOT.'/cache/com_'.$this->getIdentifier()->package . '/maintenance.txt';
 
 		if(!JFile::exists($cache))
 		{
-			KFactory::get('admin::com.ninjaboard.controller.maintenance')->forums();
-			JFile::write($cache, date('r'));
+			if(KFactory::get('admin::com.ninjaboard.controller.maintenance')->topics() && KFactory::get('admin::com.ninjaboard.controller.maintenance')->forums())
+			{
+			    JFile::write($cache, date('r'));
+			}
 		}
 	}
 

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forums.php 1883 2011-05-20 22:27:25Z stian $
+ * @version		$Id: forums.php 2176 2011-07-10 23:57:41Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -180,7 +180,7 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
 			}
 		}
 
-		return $this;
+		return true;
 	}
 	
 	/**

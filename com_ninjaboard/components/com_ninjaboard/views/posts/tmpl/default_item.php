@@ -1,10 +1,10 @@
-<? /** $Id: default_item.php 2131 2011-07-07 22:02:45Z stian $ */ ?>
+<? /** $Id: default_item.php 2208 2011-07-12 10:08:31Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? /* Prepare the batch of css classes we wrap our posts with */ ?>
 <? 
     $class[] = 'ninjaboard-post';
-	$class[] = $forum->params->style->posts_wrap_style == 'extra' ? 'ninjaboard-block' : '';
+	$class[] = $params['style']['posts_wrap_style'] == 'extra' ? 'ninjaboard-block' : '';
 	$class[] = @id();
 	$class[] = 'poster-rank-'.@escape(KInflector::underscore($post->rank_title));
 	foreach($post->usergroups as $usergroup)

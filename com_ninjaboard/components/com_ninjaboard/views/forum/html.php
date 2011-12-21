@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1838 2011-04-28 23:39:48Z stian $
+ * @version		$Id: html.php 2184 2011-07-11 15:08:37Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -55,7 +55,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		$this->limit	= KRequest::get('get.limit', 'int', 10);
 		$this->total	= KFactory::tmp('site::com.ninjaboard.model.topics')
 							->direction('desc')
-							->sort('first_post.created_time')
+							->sort('last_post_on')
 							->forum($forum->id)
 							->limit($this->limit)
 							->offset(KRequest::get('get.offset', 'int', 0))
@@ -69,7 +69,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 					->setView(KFactory::get('site::com.ninjaboard.view.topics.html'))
 				
 					->direction('desc')
-					->sort('last_post.created_time')
+					->sort('last_post_on')
 					->limit($this->limit)
 					->offset(KRequest::get('get.offset', 'int', 0))
 					->forum($forum->id)

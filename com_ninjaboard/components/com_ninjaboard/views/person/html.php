@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 2142 2011-07-08 10:46:45Z stian $
+ * @version		$Id: html.php 2184 2011-07-11 15:08:37Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -31,7 +31,7 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 		    	->setView(KFactory::get('site::com.ninjaboard.view.topics.html'))
 		    	
 		    	->direction('desc')
-		    	->sort('first_post.created_time')
+		    	->sort('last_post_on')
 		    	->limit(KRequest::get('get.limit', 'int', 10))
 		    	->offset(KRequest::get('get.offset', 'int', 0))
 		    	->at($this->getModel()->getItem()->id);

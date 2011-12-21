@@ -1,6 +1,6 @@
 <?php defined( '_JEXEC' ) or die( 'Restricted access' );
 /**
- * @version		$Id: upgrade.php 2000 2011-06-29 16:09:04Z stian $
+ * @version		$Id: upgrade.php 2203 2011-07-12 00:37:21Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -35,6 +35,22 @@ foreach($tables as $name => $fields)
 	unset($tables[$name]);
 	$tables[str_replace('#__ninjaboard_', '', $name)] = $fields;
 }
+
+//Get indexes
+foreach(array(
+	'forums',
+	'posts',
+	'topics',
+	'topic_symlinks'
+) as $name)
+{
+	$table = '#__ninjaboard_'.$name;
+	$db->setQuery( 'SHOW INDEX FROM ' . $table );
+	foreach($db->loadObjectList() as $field) {
+		$indexes[$name][$field->Key_name][] = $field->Column_name;
+	}
+}
+
 
 //Check if this is a migration from Ninjaboard 0.5
 if(isset($tables['forums']['id']))
@@ -302,4 +318,65 @@ if(!isset($tables['people']['notify_on_private_message']))
 {
 	$db->setQuery("ALTER TABLE #__ninjaboard_people ADD COLUMN notify_on_private_message TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT 'Notify me when I receive a private message'  AFTER `notify_on_reply_topic`");
 	$db->query();
+}
+
+//This column were never used
+if(isset($tables['topics']['access']))
+{
+    $db->setQuery('ALTER TABLE #__ninjaboard_topics DROP COLUMN access');
+    $db->query();
+}
+
+//These columns are for better performance all over
+if(!isset($tables['topics']['last_post_on']))
+{
+    $db->setQuery("ALTER TABLE #__ninjaboard_topics ADD COLUMN `last_post_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'This is for caching purposes'  AFTER `last_post_id`");
+    $db->query();
+}
+if(!isset($tables['topics']['last_post_by']))
+{
+    $db->setQuery("ALTER TABLE #__ninjaboard_topics ADD COLUMN `last_post_by` int(11) unsigned NOT NULL default 0 COMMENT 'This is also for caching purposes'  AFTER `last_post_on`");
+    $db->query();
+}
+
+//The following batch of statements are for performance reasons
+if(!isset($indexes['forums']['path']))
+{
+    $db->setQuery("ALTER TABLE `#__ninjaboard_forums` ADD FULLTEXT INDEX `path` (`path`);");
+    $db->query();
+}
+if(!isset($indexes['posts']['created_time']))
+{
+    $db->setQuery("ALTER TABLE `#__ninjaboard_posts` ADD INDEX `created_time` (`created_time`);");
+    $db->query();
+}
+if(!isset($indexes['topics']['first_post_id']))
+{
+    $db->setQuery("ALTER TABLE `#__ninjaboard_topics` ADD INDEX `first_post_id` (`first_post_id`);");
+    $db->query();
+}
+if(!isset($indexes['topics']['last_post_id']))
+{
+    $db->setQuery("ALTER TABLE `#__ninjaboard_topics` ADD INDEX `last_post_id` (`last_post_id`);");
+    $db->query();
+}
+if(!isset($indexes['topics']['last_post_on']))
+{
+    $db->setQuery("ALTER TABLE `#__ninjaboard_topics` ADD INDEX `last_post_on` (`last_post_on`);");
+    $db->query();
+}
+if(!isset($indexes['topics']['last_post_by']))
+{
+    $db->setQuery("ALTER TABLE `#__ninjaboard_topics` ADD INDEX `last_post_by` (`last_post_by`);");
+    $db->query();
+}
+if(!isset($indexes['topic_symlinks']['ninjaboard_topic_id']))
+{
+    $db->setQuery("ALTER TABLE `#__ninjaboard_topic_symlinks` ADD INDEX `ninjaboard_topic_id` (`ninjaboard_topic_id`);");
+    $db->query();
+}
+if(!isset($indexes['topic_symlinks']['ninjaboard_forum_id']))
+{
+    $db->setQuery("ALTER TABLE `#__ninjaboard_topic_symlinks` ADD INDEX `ninjaboard_forum_id` (`ninjaboard_forum_id`);");
+    $db->query();
 }

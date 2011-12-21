@@ -1,4 +1,4 @@
-<? /** $Id: default.php 1214 2010-12-13 02:38:37Z stian $ */ ?>
+<? /** $Id: default.php 2208 2011-07-12 10:08:31Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <script type="text/javascript">
@@ -37,7 +37,7 @@
 
 <? $i = 0; $t = count($posts) ?>
 <? foreach($posts as $post) : ?>
-	<?= @template('site::com.ninjaboard.views.posts.default_item', array('post' => $post, 'forum' => $forum, 'user' => $user, 'topic' => $topic, 'delete_post_button' => $delete_post_button)) ?>
+	<?= @template('site::com.ninjaboard.views.posts.default_item', array('post' => $post, 'forum' => $forum, 'user' => $user, 'topic' => $topic, 'delete_post_button' => $delete_post_button, 'params' => $params)) ?>
 	<? if($t > ++$i) echo @helper('site::com.ninjaboard.template.helper.template.space') ?>
 <? endforeach ?>
 

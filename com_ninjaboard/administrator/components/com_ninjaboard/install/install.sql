@@ -38,7 +38,8 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_forums` (
   `last_post_id` int(11) NOT NULL DEFAULT '0',
   `params` text NOT NULL,
   KEY `idx_alias` (`alias`),
-  KEY `last_post_id` (`last_post_id`)
+  KEY `last_post_id` (`last_post_id`),
+  FULLTEXT KEY `path` (`path`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
@@ -74,13 +75,13 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_posts` (
   `edit_reason` varchar(255) NOT NULL DEFAULT '',
   `user_ip` varchar(15) NOT NULL DEFAULT '',
   `locked` tinyint(1) NOT NULL DEFAULT '1',
-  `access` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
   `params` text NOT NULL,
   `ninjaboard_topic_id` int(11) NOT NULL DEFAULT '0',
   `guest_name` varchar(255) DEFAULT '',
   `guest_email` varchar(255) DEFAULT '',
   KEY `user_id` (`created_user_id`),
+  KEY `created_time` (`created_time`),
   KEY `ninjaboard_topic_id` (`ninjaboard_topic_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -139,6 +140,8 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_topics` (
   `forum_id` int(11) NOT NULL DEFAULT '0',
   `first_post_id` int(11) unsigned NOT NULL DEFAULT '0',
   `last_post_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `last_post_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'This is for caching purposes',
+  `last_post_by` int(11) unsigned NOT NULL default 0 COMMENT 'This is also for caching purposes',
   `hits` int(11) unsigned NOT NULL DEFAULT '0',
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
   `sticky` tinyint(1) NOT NULL DEFAULT '1',
@@ -148,14 +151,20 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_topics` (
   `show_symlinks` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Show symlinks to moved topics',
   KEY `topic_type_id` (`topic_type_id`),
   KEY `status` (`status`),
-  KEY `forum_id` (`forum_id`)
+  KEY `forum_id` (`forum_id`),
+  KEY `first_post_id` (`first_post_id`),
+  KEY `last_post_id` (`last_post_id`),
+  KEY `last_post_on` (`last_post_on`),
+  KEY `last_post_by` (`last_post_by`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE IF NOT EXISTS `#__ninjaboard_topic_symlinks` (
   `ninjaboard_topic_id` bigint(20) unsigned NOT NULL,
   `ninjaboard_forum_id` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`ninjaboard_topic_id`,`ninjaboard_forum_id`)
+  PRIMARY KEY (`ninjaboard_topic_id`,`ninjaboard_forum_id`),
+  KEY `ninjaboard_topic_id` (`ninjaboard_topic_id`),
+  KEY `ninjaboard_forum_id` (`ninjaboard_forum_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 

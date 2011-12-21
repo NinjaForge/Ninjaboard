@@ -1,4 +1,4 @@
-<? /** $Id: default.php 1579 2011-02-18 00:32:38Z stian $ */ ?>
+<? /** $Id: default.php 2180 2011-07-11 14:01:18Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -38,8 +38,6 @@
 					<th width="20px" style="text-align: center"><?= @ninja('grid.checkall') ?></th>
 					<th width="20px"><?= @text('Type') ?></th>
 					<th><?= @text('Title') ?></th>				
-					<th width="80px"><?= @text('Author') ?></th>
-					<!--<th width="75px"><?= @text('Date') ?></th>-->
 				</tr>
 			</thead>
 			<tfoot>
@@ -68,8 +66,6 @@
 				<td align="center"><?= @ninja('grid.id', array('value' => $watch->id)) ?></td>
 				<td style="text-align: center"><img src="<?= $watch->icon ?>" title="<?= $watch->type ?>" alt="icon" width="16px" /></td>
 				<td><a href="<?= $watch->link ?>"><?= $watch->title ?></a></td>
-				<td style="white-space: pre"><?= $watch->modified_name ?></td>
-				<!--<td><?= $watch->modified_on ?></td>-->
 			</tr>
 			<? endforeach ?>
 			</tbody>

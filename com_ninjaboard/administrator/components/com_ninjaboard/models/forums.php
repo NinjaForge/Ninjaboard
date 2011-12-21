@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forums.php 1985 2011-06-28 17:16:15Z stian $
+ * @version		$Id: forums.php 2199 2011-07-11 23:36:12Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -90,8 +90,7 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 		
 		$query->select('tbl.last_post_id')
 			  ->select('last_post.created_time AS last_post_date')
-			  ->select('last_post.ninjaboard_topic_id AS last_topic_id')
-			  ->select('last_post.ninjaboard_post_id AS last_post_id');
+			  ->select('last_post.ninjaboard_topic_id AS last_topic_id');
 		
 		//Build query for the screen names
 		KFactory::get('admin::com.ninjaboard.model.people')
@@ -107,20 +106,28 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 		                  ->where('created_by', '=', $me->id)
 		                  ;
 		    $start = $table->select($select, KDatabase::FETCH_FIELD);
-            
-            $subquery = KFactory::tmp('lib.koowa.database.query')
-                            ->select('COUNT(*)')
-                            ->where('tmp_topic.forum_id = tbl.ninjaboard_forum_id')
-                            ->where('(topic_read.created_on > tmp_post.created_time || tmp_post.created_user_id = '.(int)$me->id.')')
-                            ->join('left', 'ninjaboard_log_topic_reads AS topic_read', 'tmp_topic.ninjaboard_topic_id = topic_read.ninjaboard_topic_id AND topic_read.created_by = '.$me->id)
-                            ->join('left', 'ninjaboard_posts AS tmp_post', 'tmp_post.ninjaboard_post_id = tmp_topic.last_post_id')
-                            ->from('ninjaboard_topics AS tmp_topic');
+		    //The conversion to unix timestamp and back is because koowa will quote raw datetime strings in select queries
+		    $query->select('IF(UNIX_TIMESTAMP(topic.last_post_on) > '.(int)$start.', 1, 0) AS new');
+		    
 
-		    $query->select(array(
-		        //The conversion to unix timestamp and back is because koowa will quote raw datetime strings in select queries
-		        'IF(UNIX_TIMESTAMP(last_post.created_time) > '.(int)$start.', 1, 0) AS new',
-		        'IF(tbl.topics != 0 && ('.$subquery.') = tbl.topics, 0, 1) AS unread'
-		    ));
+            //Count all the read topics by this user
+            $reads = KFactory::tmp('lib.koowa.database.query')
+                            ->select('COUNT(*)')
+                            ->where('reads.ninjaboard_forum_id = tbl.ninjaboard_forum_id')
+                            ->where('reads.created_by = '.$me->id)
+                            ->where('reads.created_on >= tmp.last_post_on')
+                            ->join('left', 'ninjaboard_topics AS tmp', 'tmp.ninjaboard_topic_id = reads.ninjaboard_topic_id')
+                            ->from('ninjaboard_log_topic_reads AS reads');
+
+            //Count all the topics directly nesting in this forum, not counting down the tree
+            $topics = KFactory::tmp('lib.koowa.database.query')
+                            ->select('COUNT(*)')
+                            ->where('topics.forum_id = tbl.ninjaboard_forum_id')
+                            ->from('ninjaboard_topics AS topics');
+
+            $query->select('IF(tbl.topics = 0, 0, ('.$topics.') - ('.$reads.')) AS unread');
+            //$query->select('('.$topics.') AS total_topics');
+            //$query->select('('.$reads.') AS total_reads');
 		}
 	}
 	

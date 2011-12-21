@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: postable.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: postable.php 2189 2011-07-11 22:30:27Z stian $
  * @package		Ninjaboard
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -89,6 +89,8 @@ class ComNinjaboardDatabaseBehaviorPostable extends KDatabaseBehaviorAbstract
 
 		if(!$topic->first_post_id) $topic->first_post_id = $row->id;
 		$topic->last_post_id = $row->id;
+		$topic->last_post_on = $row->created_on;
+		$topic->last_post_by = $row->created_by;
 		if($topic->first_post_id == $row->id) $topic->params = is_string($row->params) ? new KConfig(json_decode($row->params, true)) : $row->params;
 		$topic->save();
 		

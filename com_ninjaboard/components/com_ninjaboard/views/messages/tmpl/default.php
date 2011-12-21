@@ -1,4 +1,4 @@
-<? /** $Id: default.php 1877 2011-05-20 20:48:17Z stian $ */ ?>
+<? /** $Id: default.php 2224 2011-07-15 23:24:09Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -14,7 +14,8 @@ jQuery(function($){
         messages.children().height($(window).height() - 100);
         
     };
-    messages.bind('load', setHeight);
+    messages.bind('loaded', setHeight);
+    $(window).load(setHeight);
     $(window).resize(setHeight);
     
     var create = $('#<?= @id('new-message') ?>'),
@@ -45,11 +46,10 @@ jQuery(function($){
     });
 
 
-    messages.bind('load', function(){
+    messages.bind('loaded', function(){
         messages.find('.splitview-list').children().each(function(i, item){
             var row = $(item), max = row.find('.message-right').width(), from = row.find('.message-from'), date = row.find('.message-header-date');
             from.width(max - date.outerWidth());
-            console.log(i, row, max, from, date, date.width());
         });
     });
 });

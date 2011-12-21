@@ -2,7 +2,7 @@
  /**
  * NinjaForge Ninjaboard
  *
- * @version		$Id: router.php 1998 2011-06-29 15:52:38Z stian $
+ * @version		$Id: router.php 2223 2011-07-15 22:37:50Z stian $
  * @package		Ninjaboard
  * @copyright	Copyright (C) 2007-2010 Ninja Media Group. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -24,6 +24,20 @@ class ComNinjaboardRouter
      * @var array
      */
     static private $_views;
+    
+    /**
+     * The Itemid so that when it's not in the url we don't do an expensive lookup every single time
+     *
+     * @var array
+     */
+    static private $_Itemid;
+    
+    /**
+     * Object cache of urls, to reduce lookup on the cache layer, as well as helping load when caching is off
+     *
+     * @var array
+     */
+    static private $_urls;
 
     /**
      * Builds the url
@@ -32,31 +46,47 @@ class ComNinjaboardRouter
     public static function write(&$query)
     {
         ///* Find the correct menu item if it does not exist
-        if(!array_key_exists('Itemid',$query)){
-        	static $items;
-        	if (!$items) {
-        		$component    = JComponentHelper::getComponent('com_ninjaboard');
-        		$menu         = JSite::getMenu();
-        		$items        = $menu->getItems('componentid', $component->id);
-        	}
-        	if (is_array($items))
-        	{
-        		foreach ($items as $item)
-        		{
-        		    if(isset($item->query['view']) && $item->query['view'] == 'forums')
-        		    {
-        		        $query['Itemid'] = $item->id;
-        		        break;
-        		    }
-        		}
-        	}
+        if(!array_key_exists('Itemid', $query))
+        {
+            if(!isset(self::$_Itemid))
+            {
+            	static $items;
+            	if (!$items) {
+            		$component    = JComponentHelper::getComponent('com_ninjaboard');
+            		$menu         = JSite::getMenu();
+            		$items        = $menu->getItems('componentid', $component->id);
+            	}
+            	if (is_array($items))
+            	{
+            		foreach ($items as $item)
+            		{
+            		    if(isset($item->query['view']) && $item->query['view'] == 'forums')
+            		    {
+            		        self::$_Itemid = $item->id;
+            		        break;
+            		    }
+            		}
+            	}
+            }
+            
+            if(isset(self::$_Itemid)) {
+                $query['Itemid'] = self::$_Itemid;
+            }
         }
         //*/
     
+        $data      = false;
         $cache     = self::getCache();
         $cache_key = http_build_query($query);
         
-        if($data = $cache->get($cache_key) && $data = unserialize($data))
+        if(isset(self::$_urls[$cache_key])) {
+            $data = self::$_urls[$cache_key];
+        } elseif($data = $cache->get($cache_key)) {
+            $data                    = unserialize($data);
+            self::$_urls[$cache_key] = $data;
+        }
+        
+        if(is_array($data))
         {
             //Remove the stuff we don't want from our url
             foreach($query as $key => $value)
@@ -157,7 +187,8 @@ class ComNinjaboardRouter
     			$segments[] = $segment;
     		}
     	}
-    
+
+        self::$_urls[$cache_key] = $segments;
         $cache->store(serialize($segments), $cache_key);
     
     	return $segments;
@@ -172,9 +203,9 @@ class ComNinjaboardRouter
         $cache     = self::getCache();
         $cache_key = http_build_query($segments);
         
-        if($data = $cache->get($cache_key) && $data = unserialize($data))
+        if($data = $cache->get($cache_key))
         {
-            return $data;
+            if($data = unserialize($data)) return $data;
         }
     
         if(isset($segments[0]))
@@ -308,6 +339,14 @@ class ComNinjaboardRouter
     {
         $table = KFactory::get('admin::com.ninjaboard.database.table.topic_slugs');
         $new   = $slug.'-'.$increment;
+        //Critical to make sure the new slug isn't longer than 100 characters
+        $count = strlen($new);
+        if($count > 100)
+        {
+            $diff = $count - 100;
+            $slug = substr($slug, 0, strlen($slug) - $diff);
+            $new  = $slug.'-'.$increment; 
+        }
         
         if($table->count(array('ninjaboard_topic_slug' => $new))) return self::getTopicSlugRecurse($slug, $id, ++$increment);
         

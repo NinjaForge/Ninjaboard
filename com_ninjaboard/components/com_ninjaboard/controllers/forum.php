@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forum.php 1809 2011-04-15 18:42:23Z stian $
+ * @version		$Id: forum.php 2188 2011-07-11 22:29:00Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -41,13 +41,30 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerAbstract
 		
 		$this->registerCallback(array('before.read', 'before.browse'), array($this, 'setOrdering'));
 		
-		$cache = JPATH_ROOT.'/cache/com_'.$this->getIdentifier()->package . '/maintenance.forums.txt';
+		$cache = JPATH_ROOT.'/cache/com_'.$this->getIdentifier()->package . '/maintenance.txt';
 		
 		if(!JFile::exists($cache))
 		{
-			KFactory::get('admin::com.ninjaboard.controller.maintenance')->forums();
-			JFile::write($cache, date('r'));
+			if(KFactory::get('admin::com.ninjaboard.controller.maintenance')->topics() && KFactory::get('admin::com.ninjaboard.controller.maintenance')->forums())
+			{
+			    JFile::write($cache, date('r'));
+			}
 		}
+		
+		$user = KFactory::get('lib.joomla.user');
+		// User specific maintenance
+		if(!$user->guest)
+		{
+    		$cache = JPATH_ROOT.'/cache/com_'.$this->getIdentifier()->package . '/maintenance.'.$user->id.'.txt';
+    		
+    		if(!JFile::exists($cache))
+    		{
+    			if(KFactory::get('admin::com.ninjaboard.controller.maintenance')->logtopicreads())
+    			{
+    			    JFile::write($cache, date('r'));
+    			}
+    		}
+    	}
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: watches.php 1617 2011-02-27 22:06:14Z stian $
+ * @version		$Id: watches.php 2180 2011-07-11 14:01:18Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -186,10 +186,6 @@ class ComNinjaboardModelWatches extends ComDefaultModelDefault
 																					->id($item->subscription_type_id)
 																					->getItem();
 					$item->title = $topic->subject;
-					$item->modified_by   = $topic->created_user_id;
-					
-					$link = JRoute::_('index.php?option=com_ninjaboard&view=person&id='.$item->modified_by);
-					$item->modified_name = '<a href="'.$link.'">'.$topic->first_post_username.'</a>';
 					
 					$icon = '/topic/32__default.png';
 					$link = '&view=topic&id='.$item->subscription_type_id;

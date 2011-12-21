@@ -286,7 +286,10 @@ div.mod-monitor div.box-t2 {
 	-moz-box-shadow: rgba(0,0,0,0.4) 0 -1px 0, rgba(255,255,255,0.2) 0 1px 0;
 	box-shadow: rgba(0,0,0,0.4) 0 -1px 0, rgba(255,255,255,0.2) 0 1px 0;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.05)), to(rgba(255,255,255,0.05)), color-stop(0.5, transparent));
-	background-image: -moz-linear-gradient(top, bottom, from(rgba(0,0,0,0.1)), to(rgba(255,255,255,0.1)), color-stop(0.5, transparent));
+	background-image: -moz-linear-gradient(top, rgba(0,0,0,0.1), transparent, rgba(255,255,255,0.1));
+	background-image: -ms-linear-gradient(top, rgba(0,0,0,0.1), transparent, rgba(255,255,255,0.1));
+	background-image: -o-linear-gradient(top, rgba(0,0,0,0.1), transparent, rgba(255,255,255,0.1));
+	background-image: linear-gradient(top, rgba(0,0,0,0.1), transparent, rgba(255,255,255,0.1));
 }
 
 .dark .ninjaboard-block .topiclist dl {
@@ -335,14 +338,15 @@ div.mod-monitor div.box-t2 {
 .ninjaboard.dark .ninjaboard-block .topiclist li, .ninjaboard.rounded.dark .ninjaboard-block .topiclist li {
 	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0)), to(rgba(255,255,255,0)), color-stop(0.2, rgba(0,0,0,0)), color-stop(0.8, rgba(0,0,0,0)));
 	background-image: -moz-linear-gradient(top, rgba(0,0,0,0), rgba(255,255,255,0));
+	background-image: -ms-linear-gradient(top, rgba(0,0,0,0), rgba(255,255,255,0));
+	background-image: -o-linear-gradient(top, rgba(0,0,0,0), rgba(255,255,255,0));
+	background-image: linear-gradient(top, rgba(0,0,0,0), rgba(255,255,255,0));
 	-webkit-transition: background 0.6s;
 	-moz-transition: background 0.6s;
 	transition: background 0.6s;
 }
 
 .ninjaboard.dark .ninjaboard-block .topiclist.forums li:hover, .ninjaboard.rounded.dark .ninjaboard-block .topiclist.forums li:hover {
-	/*background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.2)), to(rgba(0,0,0,0.2)), color-stop(0.2, rgba(0,0,0,0)), color-stop(0.8, rgba(0,0,0,0))), -webkit-gradient(linear, left top, right top, from(rgba(0,0,0,0.2)), to(rgba(0,0,0,0.2)), color-stop(0.05, rgba(0,0,0,0)), color-stop(0.95, rgba(0,0,0,0)));*/
-	
 	-webkit-transition: background 0.3s;
 	-moz-transition: background 0.3s;
 	transition: background 0.3s;
@@ -415,6 +419,9 @@ div.mod-monitor div.box-t2 {
 	border-radius: 10px;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.0)), to(rgba(0,0,0,0.05)), color-stop(0.2, rgba(255,255,255,0.0)), color-stop(0.8, rgba(255,255,255,0.0)));
 	background-image: -moz-linear-gradient(top, rgba(255,255,255,0.0) 80%, rgba(0,0,0,0.05));
+	background-image: -ms-linear-gradient(top, rgba(255,255,255,0.0) 80%, rgba(0,0,0,0.05));
+	background-image: -o-linear-gradient(top, rgba(255,255,255,0.0) 80%, rgba(0,0,0,0.05));
+	background-image: linear-gradient(top, rgba(255,255,255,0.0) 80%, rgba(0,0,0,0.05));
 	-webkit-box-shadow: rgba(0,0,0,0.05) 0 -1px 0px, rgba(0,0,0,0.2) 0 2px 2px;
 	-moz-box-shadow: rgba(0,0,0,0.05) 0 -1px 0px, rgba(0,0,0,0.2) 0 2px 2px;
 	box-shadow: rgba(0,0,0,0.05) 0 -1px 0px, rgba(0,0,0,0.2) 0 2px 2px;
@@ -969,6 +976,9 @@ dd.option {
 	background-color: hsla(0, 0%, 0%, .05);
 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(hsla(0, 0%, 100%, .05)), to(hsla(0, 0%, 0%, .1)));
 	background-image: -moz-linear-gradient(top, hsla(0, 0%, 100%, .05), hsla(0, 0%, 0%, .1));
+	background-image: -ms-linear-gradient(top, hsla(0, 0%, 100%, .05), hsla(0, 0%, 0%, .1));
+	background-image: -o-linear-gradient(top, hsla(0, 0%, 100%, .05), hsla(0, 0%, 0%, .1));
+	background-image: linear-gradient(top, hsla(0, 0%, 100%, .05), hsla(0, 0%, 0%, .1));
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd');
 	-webkit-box-shadow: hsla(0, 0%, 100%, 0.2) 0 1px 0;
 	-moz-box-shadow: hsla(0, 0%, 100%, 0.2) 0 1px 0;
@@ -1100,6 +1110,9 @@ a.inherit-color, a.inherit-color:link, a.inherit-color:visited, a.inherit-color:
 	background-color: hsla(0, 0%, 100%, 0);
 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(hsla(0, 0%, 100%, .2)), to(hsla(0, 0%, 40%, .2)));
 	background-image: -moz-linear-gradient(top, hsla(0, 0%, 100%, .05), hsla(0, 0%, 0%, .1));
+	background-image: -ms-linear-gradient(top, hsla(0, 0%, 100%, .05), hsla(0, 0%, 0%, .1));
+	background-image: -o-linear-gradient(top, hsla(0, 0%, 100%, .05), hsla(0, 0%, 0%, .1));
+	background-image: linear-gradient(top, hsla(0, 0%, 100%, .05), hsla(0, 0%, 0%, .1));
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd');
 	border-bottom: 1px solid #999;
 	border-bottom-color: hsla(0, 0%, 0%, 0.4);

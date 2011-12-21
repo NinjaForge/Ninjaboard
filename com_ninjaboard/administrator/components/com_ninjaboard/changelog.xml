@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 2145 2011-07-08 11:42:35Z stian $ -->
+<!-- $Id: changelog.xml 2224 2011-07-15 23:24:09Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+    <version>1.1.1</version>
+    <date>July 15th 2011</date>
+    <state>Maintenance Release
+        <upgrade>UTF8 slugs no longer rely on iconv to transliterate properly.</upgrade>
+        <upgrade>Synced with the latest translation updates from our Transifex project.</upgrade>
+        <bugfix>Private Messaging javascript were incompatible with MooTools 1.2.5</bugfix>
+        <bugfix>SEF router generated broken URLs for topics with 100 character long subjects.</bugfix>
+        <bugfix>Added a few missing strings in the translation master file.</bugfix>
+        <bugfix>Fatal Error: Call to undefined method ComNinjaHelperDefault::css() when site is in RTL mode on PHP 5.2.5</bugfix>
+        <bugfix>Posts style wrapping sometimes didn't apply.</bugfix>
+        <bugfix>Major performance bottleneck fixed in read topics feature and in general forums and topics queries.</bugfix>
+        <bugfix>404 headers were set when clicking Reply Topic button.</bugfix>
+        <bugfix>Performance bottleneck fixed in SEF router.</bugfix>
+        <bugfix>Some CSS3 gradients only worked in WebKit. Updated the css to support Opera 11+, FF 4+, IE10+ in addition to WebKit flavors.</bugfix>
+    </state>
+
 	<version>1.1</version>
 	<date>July 8th 2011</date>
 	<state>Major Release

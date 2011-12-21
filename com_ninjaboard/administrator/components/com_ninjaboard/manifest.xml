@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: manifest.xml 2151 2011-07-08 19:53:56Z stian $ -->
+<!-- $Id: manifest.xml 2226 2011-07-16 00:18:18Z stian $ -->
 <!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/component-install.dtd">
 <install type="component" version="1.5.0" method="upgrade" mootools="1.2">
     <name>Ninjaboard</name>
@@ -22,8 +22,8 @@
                 - GM            #D6B600
                 - Stable        #009199
     -->
-    <version status="Stable" color="#009199">1.1</version>
-    <revision>2150</revision>
+    <version status="Stable" color="#009199">1.1.1</version>
+    <revision>2225</revision>
     <description>The sharpest user forum</description>
     <credits>
         <a href="http://www.joomlaworks.gr/">SMF converter, Vanity URLs, Private Messaging sponsored by JoomlaWorks</a>

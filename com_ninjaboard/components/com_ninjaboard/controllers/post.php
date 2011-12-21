@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: post.php 1943 2011-05-24 23:26:49Z stian $
+ * @version		$Id: post.php 2196 2011-07-11 23:20:08Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -52,7 +52,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		
 		// Workaround for avoiding 404 status on editor preview ajax
 		// @TODO replace MarkItUp with a wysiwyg editor so that ajax previews are no longer necessary.
-		$this->registerCallback('after.read', array($this, 'allowPreview'));
+		$this->registerCallback('after.read', array($this, 'prevent404'));
 	}
 
 	/**
@@ -318,11 +318,24 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 				//Replies does not count the first post, thus we subtract by 1
 				$topic->replies = $posts - 1;
 				
+				// @TODO merge into one query
 				$query = KFactory::tmp('lib.koowa.database.query')
 																->select('ninjaboard_post_id')
 																->where('ninjaboard_topic_id', '=', $topic->id)
 																->order('created_time', 'desc');
 				$topic->last_post_id = $table->select($query, KDatabase::FETCH_FIELD);
+				
+				$query = KFactory::tmp('lib.koowa.database.query')
+																->select('created_time')
+																->where('ninjaboard_topic_id', '=', $topic->id)
+																->order('created_time', 'desc');
+				$topic->last_post_on = $table->select($query, KDatabase::FETCH_FIELD);
+				
+				$query = KFactory::tmp('lib.koowa.database.query')
+																->select('created_user_id')
+																->where('ninjaboard_topic_id', '=', $topic->id)
+																->order('created_time', 'desc');
+				$topic->last_post_by = $table->select($query, KDatabase::FETCH_FIELD);
 
 				$topic->save();
 			}
@@ -359,8 +372,8 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	 * @param  KCommandContext $context
 	 * @return void
 	 */
-	public function allowPreview(KCommandContext $context)
+	public function prevent404(KCommandContext $context)
 	{
-	    if($this->_request->layout == 'preview') $context->status = KHttpResponse::OK;
+	    if($this->_request->layout == 'preview' || $this->_request->topic) $context->status = KHttpResponse::OK;
 	}
 }
