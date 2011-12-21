@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0" method="upgrade">
+  <name>Ninjaboard Popular Posts</name>
+  <author>NinjaForge</author>
+  <creationDate>2009-10-19</creationDate>
+  <copyright>Copyright (C) 2010 NinjaForge - All rights reserved</copyright>
+  <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+  <authorEmail>support@ninjaforge.com</authorEmail>
+  <authorUrl>http://ninjaforge.com</authorUrl>
+  <version>1.0.7</version>
+  <description>Ninjaboard Popular Posts</description>
+  <files>
+    <filename module="mod_ninjaboard_popular_posts">mod_ninjaboard_popular_posts.php</filename>
+    <filename>index.html</filename>
+    <filename>helper.php</filename>
+    <folder>tmpl</folder>
+    <folder>css</folder>
+    <folder>elements</folder>
+    <folder>images</folder>
+    <folder>language</folder>
+  </files>
+  <languages>
+    <language tag="en-GB">language/en-GB.mod_ninjaboard_popular_posts.ini</language>
+    <language tag="de-DE">language/de-DE.mod_ninjaboard_popular_posts.ini</language>
+    <language tag="el-GR">language/el-GR.mod_ninjaboard_popular_posts.ini</language>
+    <language tag="sv-SE">language/sv-SE.mod_ninjaboard_popular_posts.ini</language>
+    <language tag="it-IT">language/it-IT.mod_ninjaboard_popular_posts.ini</language>
+  </languages>
+  <params addpath="/modules/mod_ninjaboard_popular_posts/elements">
+    <param name="moduleclass_sfx" type="text" default="" label="Module class suffix" description="PARAMMODULECLASSSUFFIX" />
+    <param name="cache" type="list" default="1" label="CACHING" description="CACHING DESC">
+      <option value="1">Use global</option>
+      <option value="0">No caching</option>
+    </param>
+    <param name="cache_time" type="text" default="5" label="CACHE TIME" description="CACHE TIME DESC" />
+    <param name="num_posts" type="text" default="5" label="POSTS" description="POSTS DESC" />
+    <param name="num_cols" type="text" default="1" label="COLUMNS" description="COLUMNS DESC" />
+    <param name="@spacer" type="spacer" default="" label="" />
+    <param name="layout" type="list" default="0" label="DISPLAY" description="DISPLAY DESC">
+      <option value="default">Stationary</option>
+      <option value="scrollh">Horizontal Scroll</option>
+      <option value="scrollv">Vertical Scroll</option>
+      <option value="slideh">Horizontal Slides</option>
+      <option value="slidev">Vertical Slides</option>
+    </param>
+    <param name="width" type="text" default="150" label="WIDTH" description="WIDTH DESC" />
+    <param name="height" type="text" default="150" label="HEIGHT" description="HEIGHT DESC" />
+    <param name="@spacer" type="spacer" default="" label="" />
+    <param name="only_forums" type="forums" default="" label="FORUM LIMIT" description="FORUM LIMIT DESC" size="5"  />
+    <param name="not_forums" type="forums" default="" label="FORUM NOLIMIT" description="FORUM NOLIMIT DESC" size="5" />
+    <param name="child_forums" type="list" default="1" label="FORUM CHILD" description="FORUM CHILD DESC">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>
+    <param name="@spacer" type="spacer" default="" label="" />
+    <param name="which_posts" type="list" default="0" label="POSTS" description="POSTS DESC">
+      <option value="0">Popular Topics by First Post</option>
+      <option value="1">Popular Topics by Last Post</option>
+    </param>
+    <param name="order_by" type="list" default="0" label="ORDER" description="ORDER DESC">
+      <option value="0">DESC</option>
+      <option value="1">ASC</option>
+    </param>
+    <param name="show_recent" type="list" default="0" label="SHOW RECENT" description="SHOW RECENT DESC">
+      <option value="0">all time</option>
+      <option value="4">4 hours</option>
+      <option value="8">8 hours</option>
+      <option value="12">12 hours</option>
+      <option value="24">24 hours</option>
+      <option value="48">48 hours</option>
+      <option value="168">1 week</option>
+      <option value="720">1 month</option>
+      <option value="8760">1 year</option>    </param>
+<!--    <param name="show_public" type="list" default="1" label="SHOW PUB" description="SHOW PUB DESC">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>
+    <param name="show_registered" type="list" default="1" label="SHOW REG" description="SHOW REG DESC">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>
+    <param name="show_special" type="list" default="0" label="SHOW SPE" description="SHOW SPE DESC">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>-->
+    <param name="@spacer" type="spacer" default="" label="" />
+    <param name="item_format" type="textarea" cols="20" rows="5" default="%A%S %I&lt;br/&gt;%M&lt;br/&gt;by:%N &lt;small&gt;%O&lt;/small&gt;&lt;br/&gt;&lt;small&gt;hits:%H&lt;/small&gt;" label="ITEM FORMAT" description="ITEM FORMAT DESC" />
+    <param name="tooltip_format" type="textarea" cols="20" rows="5" default="%F > %S, by:%N hits:%H" label="TOOLTIP FORMAT" description="TOOLTIP FORMAT DESC" />
+    <param name="date_format" type="list" default="D, d M Y H:i" label="DATE FORMAT" description="DATE FORMAT DESC">
+      <option value="m/d/Y h:ia">12/25/2010 04:09am</option>
+      <option value="m/d/Y">12/25/2010</option>
+      <option value="d/m/Y h:ia">25/12/2010 04:09am</option>
+      <option value="d/m/Y">25/12/2010</option>
+      <option value="d.m.Y h:ia">12.25.2010 04:09am</option>
+      <option value="d.m.Y">12.25.2010</option>
+      <option value="M d Y h:ia">Dec 25 2010 04:09am</option>
+      <option value="M d Y">Dec 25 2010</option>
+    </param>
+    <param name="subject_max" type="text" default="50" label="SUBJECT" description="SUBJECT DESC" />
+    <param name="message_max" type="text" default="200" label="MESSAGE" description="MESSAGE DESC" />
+    <param name="name_link" type="list" default="0" label="NAME LINK" description="NAME LINK DESC">
+      <option value="nb">NinjaBoard</option>
+      <option value="js">JomSocial</option>
+      <option value="cb">Community Builder</option>
+      <option value="cbe">Community Builder Enhanced</option>
+    </param>
+    <param name="avatar_w_h" type="radio" default="height" label="IMG W H" description="IMG W H DESC">
+      <option value="height">HEIGHT</option>
+      <option value="width">WIDTH</option>
+    </param>
+    <param name="avatar_size" type="text" default="" label="IMG SIZE" description="IMG SIZE DESC" />
+    <param name="@spacer" type="spacer" default="" label="" />
+  </params>
+</install>
