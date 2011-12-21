@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1366 2011-01-10 20:43:55Z stian $
+ * @version		$Id: html.php 1646 2011-03-17 17:34:49Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -59,7 +59,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		$this->sort		 = $state->sort ? $state->sort : 'title';
 		$this->direction = $state->direction;
 
-		$list	= KFactory::tmp($this->getModel()->getIdentifier())->sort('path_sort_ordering')->enabled('')->getList();
+		$list	= KFactory::tmp($this->getModel()->getIdentifier())->limit(0)->sort('path_sort_ordering')->enabled('')->getList();
 		$id		= $this->getModel()->getItem()->id;
 		foreach($list as $forum)
 		{
@@ -82,7 +82,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		$this->assign('total', $model->getTotal());
 		
 		$permissions = array();
-		foreach(KFactory::get('admin::com.ninjaboard.model.user_groups')->getList() as $usergroup)
+		foreach(KFactory::get('admin::com.ninjaboard.model.user_groups')->limit(0)->getList() as $usergroup)
 		{
 			$names		= array();
 			$objects	= KFactory::get('admin::com.ninjaboard.permissions')->getObjects();

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
  /**
- * @version		$Id: user.php 1375 2011-01-11 03:11:44Z stian $
+ * @version		$Id: user.php 1657 2011-03-21 21:43:08Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -12,7 +12,7 @@
  * 
  * @author Stian Didriksen <stian@ninjaforge.com>
  */
-class ComNinjaboardDatabaseRowUser extends KDatabaseRowAbstract
+class ComNinjaboardDatabaseRowUser extends KDatabaseRowDefault
 {
 	/**
 	 * Cached rowset of this users Ninjaboard usergroups
@@ -86,6 +86,7 @@ class ComNinjaboardDatabaseRowUser extends KDatabaseRowAbstract
 				$this->_usergroups = KFactory::tmp('admin::com.ninjaboard.model.usergroups')
 											->id($ids)
 											->visible(KFactory::get('lib.joomla.application')->isSite())
+											->limit(0)
 											->getList();
 			}
 

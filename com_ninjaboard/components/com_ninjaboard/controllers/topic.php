@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: topic.php 1505 2011-02-01 00:08:32Z stian $
+ * @version		$Id: topic.php 1761 2011-04-11 18:05:15Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -24,8 +24,8 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 		parent::__construct($config);
 
 		//Delete related event handlers
-		$this->registerFunctionBefore('delete', 'canDelete');
-		$this->registerFunctionAfter('delete', 'cleanupDelete');
+		$this->registerCallback('before.delete', array($this, 'canDelete'));
+		$this->registerCallback('after.delete', array($this, 'cleanupDelete'));
 		
 		$this->registerCallback('before.edit', array($this, 'canEdit'));
 		$this->registerCallback('after.edit', array($this, 'updateForums'));
@@ -66,7 +66,7 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 	public function canDelete()
 	{
 		$user = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
-		$topics = KFactory::get($this->getModel())->getList();
+		$topics = $this->getModel()->getList();
 		foreach($topics as $topic)
 		{
 			$forum = KFactory::tmp('site::com.ninjaboard.model.forums')
@@ -108,7 +108,7 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 			$symlinks->select($query, KDatabase::FETCH_ROWSET)->delete();
 			
 			//Update the forums' topics and posts count, and correct the last_post_id column
-			$forums	= KFactory::tmp('site::com.ninjaboard.model.forums')->id($topic->forum_id)->getListWithParents();
+			$forums	= KFactory::tmp('site::com.ninjaboard.model.forums')->limit(0)->id($topic->forum_id)->getListWithParents();
 			$forums->recount();
 		}
 	}
@@ -146,14 +146,14 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 		foreach($topics as $topic)
 		{
 			//Update the forums' topics and posts count, and correct the last_post_id column
-			$forums	= KFactory::tmp('site::com.ninjaboard.model.forums')->id($topic->forum_id)->getListWithParents();
+			$forums	= KFactory::tmp('site::com.ninjaboard.model.forums')->limit(0)->id($topic->forum_id)->getListWithParents();
 			$forums->recount();
 			
 			//@TODO this needs to run on the departure forum wether a ghost is left behind or not
 			if($topic->moved_from_forum_id)
 			{
 				//Update the forums' topics and posts count, and correct the last_post_id column
-				$forums	= KFactory::tmp('site::com.ninjaboard.model.forums')->id($topic->moved_from_forum_id)->getListWithParents();
+				$forums	= KFactory::tmp('site::com.ninjaboard.model.forums')->limit(0)->id($topic->moved_from_forum_id)->getListWithParents();
 				$forums->recount();
 				
 				try {
@@ -196,5 +196,7 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 		$topic	= $this->getModel()->getItem();
 
 		$this->_redirect = 'index.php?option=com_ninjaboard&view=topic&id='.$topic->id;
+		
+		return $topic;
 	}
 }

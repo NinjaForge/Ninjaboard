@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: html.php 1646 2011-03-17 17:34:49Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -23,7 +23,7 @@ class ComNinjaboardViewThemesHtml extends ComNinjaViewTemplatesHtml
             $this->_mixinMenubar();
 		}
 		
-		$this->templates = $this->getModel()->getList();
+		$this->templates = $this->getModel()->limit(0)->getList();
 
 		return parent::display();
 	}

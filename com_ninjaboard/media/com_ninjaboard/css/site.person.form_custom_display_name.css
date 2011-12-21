@@ -1,0 +1,27 @@
+.ninjaboard .element.which_name-alias {
+	margin-top: -10px;
+
+	display: -webkit-box;
+	-webkit-box-align: stretch;
+	-webkit-box-orient: horizontal;
+}
+
+.ninjaboard .element.which_name-alias label,
+.ninjaboard .element.which_name-alias > input {
+	-webkit-box-flex: 0;
+	display: block;
+}
+.ninjaboard .element.which_name-alias label {
+	padding: 1% 0;
+	border-top: 1px solid transparent;
+	border-bottom: 1px solid transparent;
+	white-space: nowrap;
+	
+}
+.ninjaboard .element.which_name-alias label::after {
+	content: '-';
+	color: transparent;
+}
+.ninjaboard .element.which_name-alias > input {
+	-webkit-box-flex: 1;
+}

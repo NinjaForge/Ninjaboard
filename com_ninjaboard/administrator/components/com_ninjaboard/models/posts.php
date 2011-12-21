@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: posts.php 1610 2011-02-27 01:02:15Z stian $
+ * @version		$Id: posts.php 1766 2011-04-11 19:54:04Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -27,8 +27,7 @@ class ComNinjaboardModelPosts extends ComDefaultModelDefault
 		
 		$this->_state
 						->insert('topic', 'int')
-						->insert('post' , 'int')
-						->insert('id'	, 'int');
+						->insert('post' , 'int');
 	}
 
 	protected function _buildQueryJoins(KDatabaseQuery $query)
@@ -60,6 +59,9 @@ class ComNinjaboardModelPosts extends ComDefaultModelDefault
 				->where('topic.enabled', '=', 1)
 				->where('forum.enabled', '=', 1)
 				->where('tbl.enabled', '=', 1);
+
+		//Building the permissions query WHERE clause
+		KFactory::get('admin::com.ninjaboard.model.people')->buildForumsPermissionsWhere($query, 'forum.ninjaboard_forum_id');
 	}
 	
 	protected function _buildQueryColumns(KDatabaseQuery $query)

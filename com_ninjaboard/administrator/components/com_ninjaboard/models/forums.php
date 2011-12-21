@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forums.php 1368 2011-01-10 21:10:39Z stian $
+ * @version		$Id: forums.php 1764 2011-04-11 19:48:58Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -29,6 +29,13 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 	 * @var array
 	 */
 	private $_parent_count = array();
+	
+	/**
+	 * Toggle wether to bypass acl or not, SEF needs to bypass acl for building urls for instance
+	 *
+	 * @var boolean
+	 */
+	protected $_acl = true;
 
 	/**
 	 * Constructor
@@ -37,8 +44,14 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 	 */
 	public function __construct(KConfig $config)
 	{
+		$config->append(array(
+			'acl' => true
+		));
+
 		parent::__construct($config);
-		
+
+		$this->_acl = $config->acl;
+
 		// Set the state
 		// @TODO we need to look at what states we can purge, is getting messy here
 		$this->_state
@@ -79,9 +92,6 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 			  ->select('last_post.created_time AS last_post_date')
 			  ->select('last_post.ninjaboard_topic_id AS last_topic_id')
 			  ->select('last_post.ninjaboard_post_id AS last_post_id');
-
-		//Build the query for fetching the permissions
-		$this->_buildPermissionsQuery($query);
 		
 		//Build query for the screen names
 		KFactory::get('admin::com.ninjaboard.model.people')->buildScreenNameQuery($query, 'person', 'usr', 'last_post_username');
@@ -102,21 +112,6 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 			$query->order($sort, 'asc');
     	}
     }
-	
-	/**
-	 * Builds the query that gets the permission level per object
-	 *
-	 * @param KDatabaseQuery $query
-	 */
-	protected function _buildPermissionsQuery(KDatabaseQuery $query)
-	{
-		if(isset($this->_permissions))	return;
-		else							$this->_permissions = true;
-		
-		//Building the permissions query WHERE clause
-		
-		KFactory::get('admin::com.ninjaboard.model.people')->buildForumsPermissionsWhere($query);
-	}
 	
 	protected function _buildQueryWhere(KDatabaseQuery $query)
 	{
@@ -156,7 +151,7 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 		}
 		
 		//Build the query for fetching the permissions
-		$this->_buildPermissionsQuery($query);
+		if($this->_acl) KFactory::get('admin::com.ninjaboard.model.people')->buildForumsPermissionsWhere($query);
 	}
 	
 	public function getList()
@@ -165,8 +160,6 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 	    {
 	        parent::getList();
 
-			if($this->getTotal() < 1) return $this->_list = array();
-	        
 	        if($this->_state->levels)
 	        {
 	        	$copied = array();
@@ -205,7 +198,7 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 	        	// Remove copied forums from main list
 	        	foreach($copied as $row)
 	        	{
-	        		$this->_list->removeRow($row);
+	        		$this->_list->extract($row);
 	        	}
 	        }
 	        
@@ -236,7 +229,7 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 	 */
 	public function getListWithParents()
 	{
-		$database = KFactory::get('lib.koowa.database');
+		$database = KFactory::get('lib.koowa.database.adapter.mysqli');
 		$table = $this->getTable();
 		$query = KFactory::tmp('lib.koowa.database.query')
 					->select('path')

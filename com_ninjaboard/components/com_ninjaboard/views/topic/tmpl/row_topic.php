@@ -1,11 +1,13 @@
-<? /** $Id: row_topic.php 1120 2010-12-03 01:25:39Z stian $ */ ?>
+<? /** $Id: row_topic.php 1663 2011-03-22 00:57:27Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? $img = isset(@$topic->params['customization']['icon']) ? @$topic->params['customization']['icon'] : '32__default.png' ?>
+<? $iconclass = 'topic-icon-'.KInflector::underscore(str_replace('.png', '', $img)) ?>
 
 <li class="row topic <?= $topic->moved_to_forum_title ? 'moved' : '' ?>">
-	
-		<dl class="icon" style="background-image: url(<?= @$img('/topic/' . $img) ?>); background-repeat: no-repeat;">
+		
+		<style type="text/css">.row .<?= $iconclass ?> {background-image: url(<?= @$img('/topic/'.$img) ?>);}</style>
+		<dl class="icon <?= $iconclass ?>">
 			<dt>
 				<a href="<?= @route('view=topic&id=' . @$topic->id) ?>" class="forumtitle subject" title="<?= @escape(@$topic->subject) ?>">
 					<?= @escape(@$topic->subject) ?>

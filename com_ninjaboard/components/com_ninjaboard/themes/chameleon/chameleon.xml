@@ -27,7 +27,7 @@
   		</element>
   	</fieldset>
   	<fieldset group="module" legend="Module Render Engine">
-  		<element name="style" void="chrome" type="getlist" get="admin::com.ninja.model.module_chrome" set="client:0;incpath:0" label="Module Style" description="Select the module chrome to use for wrapping the blocks" default="rounded" />
+  		<element name="style" void="chrome" type="getlist" get="admin::com.ninja.model.module_chrome" set="client:0;incpath:0;limit:0" label="Module Style" description="Select the module chrome to use for wrapping the blocks" default="rounded" />
   		<element name="moduleclass_sfx" type="text" void="moduleclasssfx" default="" />
   		<!--<element name="position" label="Module Position" type="text" description="Enter a module position you want to load forum lists in. Leave empty if you want to load in the component area." default="" />
   		<element name="showtitle" label="Module/Box Title" type="radio" default="1">
@@ -40,7 +40,7 @@
   		<element name="toolbar_spacing" type="text" description="The whitespace below or above the toolbar" default="20px" />
   	</fieldset>
   	<fieldset group="tmpl" legend="Element Templates">
-  		<element name="new_topic_button" type="textarea" default="&lt;a href=&quot;$link&quot; class=&quot;readon readmore button&quot;&gt;&lt;span&gt;$title&lt;/span&gt;&lt;/a&gt;" class ="value required" size="60" />
+  		<element name="new_topic_button" type="textarea" default="&lt;a href=&quot;$link&quot; class=&quot;readon readmore button&quot; rel=&quot;nofollow&quot;&gt;&lt;span&gt;$title&lt;/span&gt;&lt;/a&gt;" class ="value required" size="60" />
   		<element name="create_topic_button" type="textarea" default="&lt;a href=&quot;$link&quot; class=&quot;readon readmore button&quot;&gt;&lt;span&gt;$title&lt;/span&gt;&lt;/a&gt;" class ="value required" size="60" />
   		<element name="cancel_button" type="textarea" default="&lt;a href=&quot;#&quot;&gt;$title&lt;/a&gt;" class ="value required" size="60" />
   	</fieldset>

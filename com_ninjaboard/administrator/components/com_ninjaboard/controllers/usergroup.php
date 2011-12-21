@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: usergroup.php 1585 2011-02-18 21:05:27Z stian $
+ * @version		$Id: usergroup.php 1681 2011-03-24 21:05:53Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -24,15 +24,15 @@ class ComNinjaboardControllerUsergroup extends ComNinjaboardControllerDefault
 		parent::__construct($options);
 		
 		$this
-				->registerFunctionBefore('add'	,'setTitle')
-				->registerFunctionBefore('edit'	, 'setTitle')
-				->registerFunctionAfter('add'	, 'setPermissions')
-				->registerFunctionAfter('edit'	, 'setPermissions');
+				->registerCallback('before.add', array($this, 'setTitle'))
+				->registerCallback('before.edit', array($this, 'setTitle'))
+				->registerCallback('after.add', array($this, 'setPermissions'))
+				->registerCallback('after.edit', array($this, 'setPermissions'));
 
 		$showReminder = KFactory::get('admin::com.ninja.helper.default')->formid('show-reminder');
 		if(!KRequest::has('cookie.'.$showReminder) && $this->getModel()->getTotal() > 0)
 		{
-			$this->registerFunctionAfter('browse', 'showReminder');
+			$this->registerCallback('after.browse', array($this, 'showReminder'));
 		}
 	}
 	

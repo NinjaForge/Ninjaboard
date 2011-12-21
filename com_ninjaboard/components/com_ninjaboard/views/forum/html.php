@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1573 2011-02-17 22:51:43Z stian $
+ * @version		$Id: html.php 1651 2011-03-17 18:28:46Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -35,7 +35,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 			}
 		}
 		
-		$forums = KFactory::tmp('site::com.ninjaboard.model.forums')->sort('path_sort_ordering')->enabled(true)->recurse(1)->path($forum->id);
+		$forums = KFactory::tmp('site::com.ninjaboard.model.forums')->limit(0)->sort('path_sort_ordering')->enabled(true)->recurse(1)->path($forum->id);
 		
 		//@TODO optimize this in the model instead
 		foreach($forums->getList() as $row)
@@ -68,7 +68,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 				->setView(KFactory::get('site::com.ninjaboard.view.topics.html'))
 			
 				->direction('desc')
-				->sort('first_post.created_time')
+				->sort('last_post.created_time')
 				->limit($this->limit)
 				->offset(KRequest::get('get.offset', 'int', 0))
 				->forum($forum->id)

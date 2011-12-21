@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: phpbb.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: phpbb.php 1779 2011-04-12 15:08:41Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -53,13 +53,9 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 		$tables = array(
 			array(
 				'name' => 'attachments',
-				'options' => array(
-					'name' => 'attachments',
-					'identity_column' => 'attach_id'
-				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
-								'attach_id',
+								'attach_id AS id',
 								'post_msg_id AS post',
 								'real_filename AS name',
 								'poster_id AS joomla_user_id',
@@ -69,13 +65,10 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 			),
 			array(
 				'name' => 'forums',
-				'options' => array(
-					'name' => 'forums',
-					'identity_column' => 'forum_id'
-				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
 								'*',
+								'forum_id AS id',
 								'forum_name AS title',
 								'forum_desc AS description',
 								'forum_status AS locked',
@@ -88,12 +81,11 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 			array(
 				'name' => 'topic_symlinks',
 				'options' => array(
-					'name' => 'topics',
-					'identity_column' => 'topic_id'
+					'name' => 'topics'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
-								'topic_id',
+								'topic_id AS id',
 								'topic_moved_id AS ninjaboard_topic_id',
 								'forum_id AS ninjaboard_forum_id'
 							))
@@ -101,13 +93,10 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 			),
 			array(
 				'name' => 'topics',
-				'options' => array(
-					'name' => 'topics',
-					'identity_column' => 'topic_id'
-				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
 								'*',
+								'topic_id AS id',
 								'topic_title AS title',
 								'icon_id AS status',
 								'topic_last_post_id AS last_post_id',
@@ -119,13 +108,10 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 			),
 			array(
 				'name' => 'posts',
-				'options' => array(
-					'name' => 'posts',
-					'identity_column' => 'post_id'
-				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
-								'tbl.*',
+								'*',
+								'post_id AS id',
 								'topic_id AS ninjaboard_topic_id',
 								'icon_id AS status',
 								'poster_id AS created_by',
@@ -153,7 +139,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 																->select('config_value')
 																->from('config')
 																->where('config_name', '=', 'upload_path');
-			$path  = KFactory::get('lib.koowa.database')->select($query, KDatabase::FETCH_FIELD);
+			$path  = KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 
 			foreach($this->data['attachments'] as $id => $attachment)
 			{
@@ -179,7 +165,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 
 		parent::convert();
 		
-		$this->updateForumPaths();
+		if(isset($this->data['forums'])) $this->updateForumPaths();
 
 		return $this;
 	}
@@ -229,7 +215,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 		$converter_database = new JDatabaseMySQLi($config);
 		$this->_converter_resource	= $converter_database->_resource;
 
-		KFactory::get('lib.koowa.database')
+		KFactory::get('lib.koowa.database.adapter.mysqli')
 			->setConnection($this->_converter_resource)
 			->setTablePrefix($table_prefix);
 		
@@ -243,7 +229,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 	 */
 	public function resetDatabaseConnection()
 	{
-		KFactory::get('lib.koowa.database')
+		KFactory::get('lib.koowa.database.adapter.mysqli')
 			->setConnection($this->_ninjaboard_resource)
 			->setTablePrefix(KFactory::get('lib.joomla.config')->getValue('dbprefix'));
 

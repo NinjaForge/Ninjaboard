@@ -1,4 +1,4 @@
-<? /** $Id: move.php 1242 2010-12-19 15:29:36Z stian $ */ ?>
+<? /** $Id: move.php 1646 2011-03-17 17:34:49Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -12,7 +12,7 @@
 			<div class="element subject">
 				<label class="key" for="forum_id"><?= @text('Forum') ?></label>
 				<?
-					$list = KFactory::tmp('admin::com.ninjaboard.model.forums')->indent(1)->getList();
+					$list = KFactory::tmp('admin::com.ninjaboard.model.forums')->limit(0)->indent(1)->getList();
 					$id = $topic->forum_id;
 					foreach($list as $forum)
 					{

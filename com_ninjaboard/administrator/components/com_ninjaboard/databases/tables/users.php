@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: users.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: users.php 1690 2011-03-25 00:56:53Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -24,7 +24,6 @@ class ComNinjaboardDatabaseTableUsers extends KDatabaseTableAbstract
 	public function __construct(KConfig $options)
 	{
 		$options->name		= 'users';
-		$options->identity_column	= 'id';
 		
 		parent::__construct($options);
 	}

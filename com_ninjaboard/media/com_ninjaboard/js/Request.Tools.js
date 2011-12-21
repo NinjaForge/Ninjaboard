@@ -130,7 +130,7 @@ Request.Tools = new Class({
 		if(!importing) importing = 'Importing from %s';
 		// @TODO make translatable
 		this.options.msg.importing = importing.replace('%s', link.get('text'));
-		var request = this;
+		var request = this, total = new Date;
 				
 		new Request.JSON({
 		    url: new URI(window.location).setData({action: 'import', format: 'json', 'import': name}, true).toString(),
@@ -196,10 +196,11 @@ Request.Tools = new Class({
 									this.hide();
 								}.bind(this.options.placeholder.get('spinner', {message: msg.success}).hide(true).show(true))).delay(1200);
 								//*/
-								Notifications.createNotification(icon, document.title,  msg.success);
-								this.options.placeholder.get('spinner').msg.set('text', msg.success);
+								var message = msg.success.replace('{label}', link.get('text')).replace('{total}', total.timeDiff());
+								Notifications.createNotification(icon, document.title,  message);
+								this.options.placeholder.get('spinner').msg.set('text', message);
 								$clear(request.timer);
-								this.options.title.set('text', msg.success + ' | ' + this.options.title.get('data-title'));
+								this.options.title.set('text', message + ' | ' + this.options.title.get('data-title'));
 								request.fireEvent('complete');
 								return this;
 							}
@@ -236,9 +237,10 @@ Request.Tools = new Class({
 					
 				}.bind(this)).delay(100);
 		    	} else {
-		    		Notifications.createNotification(icon, document.title,  msg.success);
-		    		this.options.title.set('text', msg.success + ' | ' + this.options.title.get('data-title'));
-		    		this.options.placeholder.get('spinner', {message: msg.success}).hide(true).show(true);
+		    	    var message = msg.success.replace('{label}', link.get('text')).replace('{total}', total.timeDiff());
+		    		Notifications.createNotification(icon, document.title,  message);
+		    		this.options.title.set('text', message + ' | ' + this.options.title.get('data-title'));
+		    		this.options.placeholder.get('spinner', {message: message}).hide(true).show(true);
 		    		this.options.placeholder.get('spinner').element.addClass('success');
 		    		request.fireEvent('complete');
 		    	}

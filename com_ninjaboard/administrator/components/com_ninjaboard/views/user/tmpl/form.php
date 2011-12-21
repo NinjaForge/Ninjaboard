@@ -1,4 +1,4 @@
-<? /** $Id: form.php 1567 2011-02-16 23:52:24Z stian $ */ ?>
+<? /** $Id: form.php 1762 2011-04-11 18:59:09Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? @ninja('behavior.tooltip') ?>
@@ -178,7 +178,7 @@
 				</style>
 				<?= $placeholder ?>
 			<? endif ?>
-			<?//= KFactory::get('admin::com.ninjaboard.controller.profile_field')->layout('form')->user($user->id)->browse() ?>
+			<?//= KFactory::get('admin::com.ninjaboard.controller.profile_field')->layout('form')->user($user->id)->display() ?>
 		</fieldset>
 	</div>-->
 	<input type="hidden" name="params" value=" " />

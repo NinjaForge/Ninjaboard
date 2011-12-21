@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: file.php 1374 2011-01-11 02:51:22Z stian $
+ * @version		$Id: file.php 1649 2011-03-17 18:21:17Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -41,11 +41,10 @@ class ComNinjaboardViewAttachmentFile extends KViewFile
 		if($forum->attachment_permissions < 1) return $this->forbidden();
 
 
-		$attachment->type = MediaHelper::getTypeIcon($attachment->name);
 		$path = JPATH_ROOT.'/media/com_ninjaboard/attachments/'.$attachment->file;
 		
 		if(JFile::getExt($attachment->file) == 'pdf')	$this->mimetype= 'application/pdf';
-		if(MediaHelper::isImage($attachment->name))	{
+		if($attachment->isImage())	{
 			$this->disposition = $params['disposition'];
 			$this->mimetype = 'image/'.$attachment->type;
 		} else {

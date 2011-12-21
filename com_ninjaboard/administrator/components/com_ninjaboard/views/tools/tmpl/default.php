@@ -1,4 +1,4 @@
-<? /** $Id: default.php 1289 2011-01-03 02:58:03Z stian $ */ ?>
+<? /** $Id: default.php 1782 2011-04-12 21:50:02Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <script type="text/javascript" src="/ProgressBar.js"></script>
@@ -13,7 +13,7 @@
 			'token' => JUtility::getToken(),
 			'icon' => @$img('/256/ninjaboard.png'),
 			'msg'   => array(
-				'success'  => @text('Import complete!'),
+				'success'  => @text('Import complete! Converted {label} in {total}.'),
 				'failure'  => @text('Import failed!'),
 				'timeleft' => @text('timeleft'),
 				'titleleft' => @text('titleleft'),

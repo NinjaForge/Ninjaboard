@@ -1,6 +1,6 @@
 <?php defined( '_JEXEC' ) or die( 'Restricted access' );
 /**
- * @version		$Id: upgrade.php 1394 2011-01-11 22:03:28Z stian $
+ * @version		$Id: upgrade.php 1692 2011-03-25 00:58:11Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -235,5 +235,12 @@ if(!isset($tables['user_groups']['ordering']))
 if(!isset($tables['user_groups']['visible']))
 {
 	$db->setQuery("ALTER TABLE #__ninjaboard_user_groups ADD COLUMN visible TINYINT(1) NOT NULL DEFAULT '1'  AFTER `ordering`");
+	$db->query();
+}
+
+//Add avatar_on column to people
+if(!isset($tables['people']['avatar_on']))
+{
+	$db->setQuery("ALTER TABLE #__ninjaboard_people ADD `avatar_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'When the avatar was uploaded, used in urls for browser cache to work'  AFTER `avatar`;");
 	$db->query();
 }

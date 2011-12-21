@@ -2,7 +2,7 @@
  /**
  * NinjaForge Ninjaboard
  *
- * @version		$Id: router.php 1349 2011-01-07 13:25:11Z stian $
+ * @version		$Id: router.php 1773 2011-04-12 11:20:34Z stian $
  * @package		Ninjaboard
  * @copyright	Copyright (C) 2007-2010 Ninja Media Group. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -26,7 +26,10 @@ function NinjaboardBuildRoute(&$query)
 
 		if(array_key_exists('id', $query))
 		{
-			$model = KFactory::tmp('admin::com.ninjaboard.model.'.KInflector::pluralize($segments[0]));
+			$name  = KInflector::pluralize($segments[0]);
+			$model = KFactory::tmp('admin::com.ninjaboard.model.'.$name, array(
+				'acl' => false
+			));
 			$item  = KInflector::pluralize($segments[0]) != 'avatars' ? $model->id($query['id'])->getItem() : new stdClass;
 
 			if(isset($item->alias) && $query['view'] != 'person' && $query['view'] != 'avatar')
@@ -47,44 +50,15 @@ function NinjaboardBuildRoute(&$query)
 
 			unset($query['id']);
 		}
-		
-		/*//Find the correct menu item if it does not exist
-		if(!array_key_exists('Itemid',$query)){
-			static $items;
-			if (!$items) {
-				$component    = &JComponentHelper::getComponent('com_ninjaboard');
-				$menu        = &JSite::getMenu();
-				$items        = $menu->getItems('componentid', $component->id);
-			}
-			if (is_array($items))
-			{
-				foreach ($items as $item)
-				{
-					// Check if this menu item links to this view.
-					if (isset($item->query['view']) && isset($query['view']) && ($item->query['view'] == $query['view'] ) &&
-							isset($item->query['id']) && isset($query['id']) && ($item->query['id'] == $query['id'] )){
-							$query['Itemid'] = $item->id;
-							//no need to add view or alias if it's defined in the menu item
-							unset($segments[0]);
-							unset($segments[1]);
-					}
-					//less specific, at least find a forum item if the menu link doesnt exist
-					else if (!isset($query['Itemid']) && isset($item->query['view']) && ($item->query['view'] == $query['view'] )){
-							$query['Itemid'] = $item->id;
-							//no need for the view parameter already included in the menu item
-							unset($segments[0]);
-					}
-				}
-			}
-			$segments = array_values($segments);
-		}
-		//*/
 		unset($query['view']);
 		
 		
 		// everything else are filters
 		foreach($query as $key => $value)
 		{
+			//If no value at all, don't add it as it'll cause parser issues
+			if($value === '') continue;
+		
 			//Can't use SEF suffixes for formats as it fails on .json
 			if($key != 'option' && $key != 'Itemid'/* && $key != 'format'*/)
 			{
@@ -93,6 +67,28 @@ function NinjaboardBuildRoute(&$query)
 				unset($query[$key]);
 			}
 		}
+		
+		///* Find the correct menu item if it does not exist
+		if(!array_key_exists('Itemid',$query)){
+			static $items;
+			if (!$items) {
+				$component    = JComponentHelper::getComponent('com_ninjaboard');
+				$menu         = JSite::getMenu();
+				$items        = $menu->getItems('componentid', $component->id);
+			}
+			if (is_array($items))
+			{
+				foreach ($items as $item)
+				{
+				    if(isset($item->query['view']) && $item->query['view'] == 'forums')
+				    {
+				        $query['Itemid'] = $item->id;
+				        break;
+				    }
+				}
+			}
+		}
+		//*/
 		
 		//Reset keys to avoid notices in the core
 		$parts = $segments;

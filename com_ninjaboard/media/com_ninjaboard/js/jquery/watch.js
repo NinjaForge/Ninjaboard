@@ -45,6 +45,16 @@
 			}
 		);
 		
+		buttons.each(function(key, item){
+			var button = $(item).find('a'), text = button.text(), width = button.width();
+
+			button.text(settings.lang.unsubscribe);
+			width = Math.max(width, button.width());
+
+			button.text(text);
+			button.width(width);
+		});
+		
 		return this;
 	};
 })(jQuery);

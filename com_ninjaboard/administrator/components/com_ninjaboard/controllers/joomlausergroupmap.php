@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: joomlausergroupmap.php 1505 2011-02-01 00:08:32Z stian $
+ * @version		$Id: joomlausergroupmap.php 1676 2011-03-24 00:11:16Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -57,7 +57,7 @@ class ComNinjaboardControllerJoomlausergroupmap extends ComNinjaboardControllerD
 			$ids[] = $joomla;
 		}
 		
-		$table->select($query->where('joomla_gid', 'IN', $ids), KDatabase::FETCH_ROWSET)->delete();
+		$result = $table->select($query->where('joomla_gid', 'IN', $ids), KDatabase::FETCH_ROWSET)->delete();
 
 		foreach($ids as $id)
 		{			
@@ -73,5 +73,7 @@ class ComNinjaboardControllerJoomlausergroupmap extends ComNinjaboardControllerD
 		// @TODO this is a temporary workaround, find out why the proper way, using setRedirect(), stopped working.
 		echo $this->_redirect_message;
 		//$this->setRedirect('view=joomlausergroupmaps'.$tmpl, $tmpl ? '<script type="text/javascript">window.parent.document.getElementById("sbox-btn-close").fireEvent("click")</script>' : null);
+		
+		return $this->getModel()->getList();
 	}	
 }

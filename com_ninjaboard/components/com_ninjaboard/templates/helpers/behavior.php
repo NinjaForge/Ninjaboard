@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: behavior.php 1543 2011-02-15 22:18:07Z stian $
+ * @version		$Id: behavior.php 1660 2011-03-21 22:52:52Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -66,7 +66,8 @@ class ComNinjaboardTemplateHelperBehavior extends KTemplateHelperAbstract
 							'data'	=> array(
 								'_token'		=> JUtility::getToken(),
 								'subscription_type'		=> $config->type,
-								'subscription_type_id'	=> $config->type_id
+								'subscription_type_id'	=> $config->type_id,
+								'action' => 'add'
 							)
 						),
 						'unwatch'	=> array(
@@ -95,6 +96,7 @@ class ComNinjaboardTemplateHelperBehavior extends KTemplateHelperAbstract
 																		->by($me->id)
 																		->type($config->type)
 																		->type_id($config->type_id)
+																		->limit(0)
 																		->getList()
 																		->getData();
 																		

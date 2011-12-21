@@ -1,16 +1,12 @@
-<? /** $Id: row_forum.php 1506 2011-02-01 00:16:41Z stian $ */ ?>
+<? /** $Id: row_forum.php 1663 2011-03-22 00:57:27Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach (@$forums as $forum) : ?>
 	<li class="row forum">
 		<? $icon = isset($forum->params['customization']['icon']) ? $forum->params['customization']['icon'] : 'default.png' ?>
-		<? $iconclass = 'forums-'.KInflector::underscore(str_replace('.png', '', $icon)) ?>
-		<style type="text/css">
-			.row .<?= $iconclass ?> {
-				background-image: url(<?= @$img('/forums/'.$icon) ?>);
-				background-repeat: no-repeat;
-			}
-		</style>
+		<? $iconclass = 'forum-icon-'.KInflector::underscore(str_replace('.png', '', $icon)) ?>
+		<style type="text/css">.row .<?= $iconclass ?> {background-image: url(<?= @$img('/forums/'.$icon) ?>);}</style>
+		
 		<dl class="icon <?= $iconclass ?>">
 			<dt>
 				<a href="<?= @route('view=forum&id=' . $forum->id) ?>" class="forumtitle <? if(!$forum->description) echo 'no-description' ?>" title="<?= @escape($forum->title) ?>">

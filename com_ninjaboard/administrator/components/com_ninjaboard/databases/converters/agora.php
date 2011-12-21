@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: agora.php 1587 2011-02-18 22:47:48Z stian $
+ * @version		$Id: agora.php 1778 2011-04-12 15:04:15Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -34,8 +34,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 			array(
 				'name' => 'forums',
 				'options' => array(
-					'name' => 'agora_categories',
-					'identity_column' => 'id'
+					'name' => 'agora_categories'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -49,8 +48,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 			array(
 				'name' => 'forums',
 				'options' => array(
-					'name' => 'agora_forums',
-					'identity_column' => 'id'
+					'name' => 'agora_forums'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -69,8 +67,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 			array(
 				'name' => 'posts',
 				'options' => array(
-					'name' => 'agora_posts',
-					'identity_column' => 'id'
+					'name' => 'agora_posts'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -92,8 +89,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 			array(
 				'name' => 'topics',
 				'options' => array(
-					'name' => 'agora_topics',
-					'identity_column' => 'id'
+					'name' => 'agora_topics'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -107,8 +103,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 			array(
 				'name' => 'people',
 				'options' => array(
-					'name' => 'agora_users',
-					'identity_column' => 'id'
+					'name' => 'agora_users'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -121,8 +116,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 			array(
 				'name' => 'watches',
 				'options' => array(
-					'name' => 'agora_subscriptions',
-					'identity_column' => 'id'
+					'name' => 'agora_subscriptions'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -138,8 +132,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 			array(
 				'name' => 'watches',
 				'options' => array(
-					'name' => 'agora_subscriptions',
-					'identity_column' => 'id'
+					'name' => 'agora_subscriptions'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -155,8 +148,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 			array(
 				'name' => 'watches',
 				'options' => array(
-					'name' => 'agora_subscriptions',
-					'identity_column' => 'id'
+					'name' => 'agora_subscriptions'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -183,7 +175,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 																->select('conf_value')
 																->from('agora_config')
 																->where('conf_name', '=', 'o_avatars_dir');
-			$path  = KFactory::get('lib.koowa.database')->select($query, KDatabase::FETCH_FIELD);
+			$path  = KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 			
 			foreach($this->data['people'] as $id => $person)
 			{
@@ -219,7 +211,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 
 		parent::convert();
 
-		$this->updateForumPaths();
+		if(isset($this->data['forums'])) $this->updateForumPaths();
 
 		return $this;
 	}

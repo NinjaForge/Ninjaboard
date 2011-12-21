@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forum.php 1381 2011-01-11 12:34:15Z stian $
+ * @version		$Id: forum.php 1762 2011-04-11 18:59:09Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -30,8 +30,8 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerDefault
 	
 		parent::__construct($config);
 
-		$this->registerFunctionAfter('add', 'setPermissions')
-			 ->registerFunctionAfter('edit', 'setPermissions');
+		$this->registerCallback('after.add', array($this, 'setPermissions'))
+			 ->registerCallback('after.edit', array($this, 'setPermissions'));
 
 		KFactory::get('admin::com.ninjaboard.controller.maintenance')->forums();
 	}

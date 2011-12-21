@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: topics.php 1610 2011-02-27 01:02:15Z stian $
+ * @version		$Id: topics.php 1765 2011-04-11 19:49:57Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -25,7 +25,7 @@ class ComNinjaboardModelTopics extends ComDefaultModelDefault
 	public function __construct(KConfig $config)
 	{
 		parent::__construct($config);
-				
+
 		$this->_state
 						->insert('forum', 'int')
 						->insert('post' , 'int')
@@ -59,12 +59,12 @@ class ComNinjaboardModelTopics extends ComDefaultModelDefault
 			$query->where("( `tbl`.`forum_id` = '$forum' OR ('$forum' = `symlink`.`ninjaboard_forum_id` AND `tbl`.`show_symlinks` = 1 ) )");
 		}
 		
-		$query->where('forum.ninjaboard_forum_id', '!=', 'NULL')
+		$query->where('forum.ninjaboard_forum_id', '!=', '')
 			  ->where('forum.enabled', '=', 1)
 			  ->where('tbl.enabled', '=', 1);
 		
-		//Build the query for fetching the permissions
-		$this->_buildPermissionsQuery($query);
+		//Building the permissions query WHERE clause
+		KFactory::get('admin::com.ninjaboard.model.people')->buildForumsPermissionsWhere($query, 'forum.ninjaboard_forum_id');
 	}
 	
 	protected function _buildQueryColumns(KDatabaseQuery $query)
@@ -104,28 +104,8 @@ class ComNinjaboardModelTopics extends ComDefaultModelDefault
 		{
 			$query->select('IF((symlink.ninjaboard_forum_id = '.$this->_state->forum.'), forum.title, NULL) AS moved_to_forum_title');
 		}
-				
-		//Build the query for fetching the permissions
-		$this->_buildPermissionsQuery($query);
 	}
-	
-	/**
-	 * Builds the query that gets the permission level per object
-	 * 
-	 * It's called during both buildQueryColumns and buildQueryWhere, but only run once.
-	 * This is to ensure that it's always executed.
-	 *
-	 * @param KDatabaseQuery $query
-	 */
-	protected function _buildPermissionsQuery(KDatabaseQuery $query)
-	{
-		if(isset($this->_permissions))	return;
-		else							$this->_permissions = true;
-	
-		//Building the permissions query WHERE clause
-		KFactory::get('admin::com.ninjaboard.model.people')->buildForumsPermissionsWhere($query, 'forum.ninjaboard_forum_id');
-	}
-    
+
     /**
      * Get a topic row object
      *

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: assets.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: assets.php 1649 2011-03-17 18:21:17Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -26,9 +26,7 @@ class ComNinjaboardModelAssets extends ComNinjaModelTable
 	{
 		parent::__construct($config);
 		
-		// Set the state
-		// @TODO we need to look at what states we can purge, is getting messy here
-		$this->_state;
+		$this->_state->insert('limit', 'int', 0);
 	}
 	
 	protected function _buildQueryJoins(KDatabaseQuery $query)

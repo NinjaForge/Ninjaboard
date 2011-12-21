@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: tool.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: tool.php 1747 2011-04-09 21:08:10Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -29,10 +29,13 @@ class ComNinjaboardControllerTool extends ComNinjaControllerView
 	
 		parent::__construct($config);
 
-		$this->registerFunctionBefore('browse',	'raiseNotice');
+        // Make sure that only super admins can do imports
+        $this->registerCallback(array('before.display', 'before.import'), array($this, 'authorize'));
+
+		$this->registerCallback('before.display', array($this, 'raiseNotice'));
 		
 		//If there's a shortcut, run the fireShortcut function
-		if(isset($this->_request->shortcut)) $this->registerFunctionAfter('browse', 'fireShortcut');
+		if(isset($this->_request->shortcut)) $this->registerCallback('after.display', array($this, 'fireShortcut'));
 		
 		$cache = JPATH_ROOT.'/cache/com_'.$this->getIdentifier()->package . '/maintenance.forums.txt';
 		
@@ -40,6 +43,37 @@ class ComNinjaboardControllerTool extends ComNinjaControllerView
 		{
 			JFile::delete($cache);
 		}
+	}
+
+	public function authorize(KCommandContext $context)
+	{
+	    $user = KFactory::get('lib.joomla.user');
+	    $app  = KFactory::get('lib.joomla.application');
+	    if(!$user->authorize('com_config', 'manage'))
+	    {
+	        $app->redirect('index.php?option=com_ninjaboard', JText::_("You don't have permissions to use Ninjaboard administration tools."));
+
+	        return false;
+	    }
+	}
+	
+	protected function _actionDisplay(KCommandContext $context)
+	{	
+	    /*
+	    //This is used for xdebug to profile imports
+	    $this->_request->import = 'kunena';
+	    KRequest::set('post.offset', 'int', 0);
+	    $this->execute('import');
+	    //*/
+	    
+	    if(KRequest::type() != 'AJAX')
+	    {
+	    	$view = $this->getView();
+		
+		    return $view->display();
+		}
+		
+		return '';
 	}
 	
 	/**
@@ -57,7 +91,7 @@ class ComNinjaboardControllerTool extends ComNinjaControllerView
 				var button = document.getElement('.placeholder .$shortcut');
 				if(button) {
 					var delay = $('$shortcut-form') ? 300 : 1000;
-					button.fireEvent('click', [], delay);
+					button.fireEvent('mousedown', [], delay).fireEvent('click', [], delay);
 				}
 			});
 		");
@@ -76,25 +110,6 @@ class ComNinjaboardControllerTool extends ComNinjaControllerView
 	 */
 	protected function _actionImport()
 	{
-		$request   = $this->getRequest();		
-		$converter = KFactory::get($this->getModel())->getItem()->convert();
-
-		if($converter->splittable && !isset($request->offset))
-		{
-			KFactory::get('lib.koowa.application')->close();
-			return;
-		}
-		
-		if(KRequest::type() == 'AJAX')
-		{
-			/*
-			$data = array();
-			foreach($converter->data as $name => $rowset) foreach($rowset as $row) $data[$name][] = $row->getData();
-			echo json_encode($data);
-			//*/
-			KFactory::get('lib.koowa.application')->close();
-		}
-		
-		if(isset($request->print_r)) echo '<pre>', print_r($converter, true), '</pre>';
+		$this->getModel()->getItem()->convert();
 	}
 }

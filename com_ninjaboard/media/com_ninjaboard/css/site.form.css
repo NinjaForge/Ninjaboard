@@ -354,14 +354,14 @@ form .required.invalid:focus {
 
 
 .ninjaboard fieldset.outer {
-	background: hsla(0, 0%, 60%, 0.1);
+	background: hsla(0, 0%, 0%, 0.05);
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
 
 .ninjaboard fieldset.outer fieldset {
-	background: hsla(0, 0%, 100%, 0.4);
+	background: hsla(0, 0%, 100%, 0.05);
 	margin: 5px;
 }
 

@@ -1,7 +1,7 @@
-<? /** $Id: default_items.php 1299 2011-01-03 03:10:55Z stian $ */ ?>
+<? /** $Id: default_items.php 1691 2011-03-25 00:57:22Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<? foreach (@$users as $i => $user) : ?>
+<? foreach($users as $i => $user) : ?>
 <tr class="<?= @ninja('grid.zebra') ?>">
 	<?= @ninja('grid.count', array('total' => @$total)) ?>
 	<td class="grid-check">

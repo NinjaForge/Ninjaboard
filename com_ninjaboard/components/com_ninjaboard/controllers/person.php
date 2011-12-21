@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: person.php 1567 2011-02-16 23:52:24Z stian $
+ * @version		$Id: person.php 1767 2011-04-11 20:16:06Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -55,19 +55,36 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 	{
 		if(!isset($context->data->alias, $this->getRequest()->id)) return;
 		
-		$alias = $context->data->alias;
+		$alias = trim($context->data->alias);
+		
+		//Don't do anything if alias isn't a value
+		if(!$alias) return $this;
+		
+		$model = KFactory::tmp($this->getModel()->getIdentifier())->not($this->getRequest()->id);
 
 		//Lets find out if this alias is already in use by someone else
-		$count = KFactory::tmp($this->getModel()->getIdentifier())->alias($alias)->not($this->getRequest()->id)->getTotal();
-		if($count > 0 && $alias != '')
-		{
-			JError::raiseWarning(0, sprintf(JText::_('The screen name "%s" is already in use by someone else. Please choose another one.'), $context->data->alias));
-			
-			unset($context->data->alias);
-			
-			//@TODO solve this redirect so it works
-			$this->_redirect = 'index.php?option=com_ninjaboard&view=person&id='.$this->getRequest()->id.'&layout=form';
-		}
+		$count = $model->alias($alias)->getTotal();
+		if($count > 0) return $this->_checkAliasFailed($context);
+		
+		$table = KFactory::tmp('admin::com.ninjaboard.database.table.users');
+		//By making the alias all caps, MySQL will do an case insensitive search since there's no mixed casing.
+		$alias = strtoupper($alias);
+		$query = $table->getDatabase()->getQuery()
+												->where('id', 'not in', $this->getRequest()->id)
+												->where("(name LIKE '$alias' OR username LIKE '$alias')");
+		if($table->count($query) > 0) return $this->_checkAliasFailed($context);
+	}
+	
+	private function _checkAliasFailed(KCommandContext $context)
+	{
+		JError::raiseWarning(0, sprintf(JText::_('"%s" is already in use. Please choose another one.'), $context->data->alias));
+		
+		unset($context->data->alias);
+		
+		//@TODO solve this redirect so it works
+		$this->_redirect = 'index.php?option=com_ninjaboard&view=person&id='.$this->getRequest()->id.'&layout=form';
+		
+		return $this;
 	}
 
 	public function setAvatar(KCommandContext $context)
@@ -81,7 +98,10 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		//Prepare MediaHelper
 		JLoader::register('MediaHelper', JPATH_ROOT.'/components/com_media/helpers/media.php');
 
-		$person			= KFactory::tmp('admin::com.ninjaboard.model.people')->id($context->result->id)->getItem();
+		$person			= $this->getModel()->getItem();
+		
+		if(!$person->id) return;
+		
 		$error			= null;
 		$errors			= array();
 		$identifier		= $this->getIdentifier();
@@ -120,7 +140,8 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		$upload = JFile::makeSafe(uniqid(time())).'.'.JFile::getExt($avatar['name']);
 		JFile::upload($avatar['tmp_name'], $absolute.$upload);
 
-		$person->avatar = $relative.$upload;
+		$person->avatar		= $relative.$upload;
+		$person->avatar_on	= gmdate('Y-m-d H:i:s');
 		$person->save();
 		
 		return $this;
@@ -179,19 +200,22 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 	 */
 	protected function _actionCancel(KCommandContext $context)
 	{
-		$person	= KFactory::get($this->getModel())->getItem();
+		$person	= $this->getModel()->getItem();
 		
 		$this->_redirect = 'index.php?option=com_ninjaboard&view=person&id='.$person->id;
+		
+		return $person;
 	}
 
 	/**
 	 * Apply action, workaround for redirects
 	 */
-	protected function _actionApply($data)
+	protected function _actionApply($context)
 	{
-		$result = parent::_actionApply($data);
+		$result = parent::_actionApply($context);
 	
-		$this->_redirect = 'index.php?option=com_ninjaboard&view=person&id='.$result->id.'&layout=default';
+		$row = parent::_actionRead($context);
+		$this->_redirect = 'index.php?option=com_ninjaboard&view=person&id='.$row->id.'&layout=default';
 		
 		return $result;
 	}

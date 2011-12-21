@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: attachments.php 1610 2011-02-27 01:02:15Z stian $
+ * @version		$Id: attachments.php 1710 2011-03-28 01:30:31Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -42,8 +42,7 @@ class ComNinjaboardModelAttachments extends ComDefaultModelDefault
 
 		$this->_state
 						->insert('file', 'cmd')
-						->insert('post', 'int')
-						->insert('id'  , 'int');
+						->insert('post', 'int');
 	}
 	
 	protected function _buildQueryWhere(KDatabaseQuery $query)
@@ -58,16 +57,16 @@ class ComNinjaboardModelAttachments extends ComDefaultModelDefault
 	{
 		if(!isset($this->_list))
 		{
-			require_once JPATH_ROOT.'/components/com_media/helpers/media.php';
-
 			foreach(parent::getList() as $item)
 			{
-				$item->type = MediaHelper::getTypeIcon($item->file);
-				if(MediaHelper::isImage($item->file))
+				//@TODO store broken links in a separate array allowing us to list missing/deleted attachments
+				if(!$item->exists()) continue;
+
+				if($item->isImage())
 				{
 					$this->_images[] = $item;
 				}
-				else
+				elseif($item->isFile())
 				{
 					$this->_files[] = $item;
 				}

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1573 2011-02-17 22:51:43Z stian $
+ * @version		$Id: html.php 1751 2011-04-09 21:57:45Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -14,6 +14,15 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 		$params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
 		$this->assign('params', $params);
 		$person = KFactory::get($this->getModel())->getItem();
+
+        if(KFactory::get('lib.joomla.user')->guest && (!$person->id || $this->getlayout() == 'form'))
+        {
+        	$this->mixin(KFactory::get('admin::com.ninja.view.user.mixin'));
+        	
+        	$this->setLoginLayout();
+        	
+        	return parent::display();
+        }
 
 		if($this->getLayout() != 'form') {
 			$this->assign('posts', $this->render(
@@ -49,15 +58,6 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 			
 			$title = sprintf(JText::_("%s's profile"), $person->display_name);
 		} else {
-			if(KFactory::get('lib.joomla.user')->guest)
-			{
-				$this->mixin(KFactory::get('admin::com.ninja.view.user.mixin'));
-				
-				$this->setLoginLayout();
-				
-				return parent::display();
-			}
-			
 			$title = sprintf(JText::_("%s's settings"), $person->display_name);
 		
 			$this->save_button = str_replace('$title', JText::_('Save'), $this->params['tmpl']['create_topic_button']);

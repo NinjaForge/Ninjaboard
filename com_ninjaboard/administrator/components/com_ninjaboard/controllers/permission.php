@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: permission.php 1505 2011-02-01 00:08:32Z stian $
+ * @version		$Id: permission.php 1676 2011-03-24 00:11:16Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -63,5 +63,7 @@ class ComNinjaboardControllerPermission extends ComNinjaControllerView
 		}
 			
 		$this->_redirect = 'index.php?option=com_ninjaboard&view=permissions';
+		
+		return $this->getModel()->getList();
 	}
 }

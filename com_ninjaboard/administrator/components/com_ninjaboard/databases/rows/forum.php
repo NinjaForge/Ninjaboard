@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
  /**
- * @version		$Id: forum.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: forum.php 1739 2011-04-07 19:47:40Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -25,7 +25,7 @@ class ComNinjaboardDatabaseRowForum extends ComNinjaboardDatabaseRowParam
 	{
 		//Getting all subforum ids, used in following queries
 		//@TODO this needs to be optimized
-		$database = KFactory::get('lib.koowa.database');
+		$database = KFactory::get('lib.koowa.database.adapter.mysqli');
 		$table = $this->getTable();
 		$query = KFactory::tmp('lib.koowa.database.query')
 					->select('ninjaboard_forum_id')

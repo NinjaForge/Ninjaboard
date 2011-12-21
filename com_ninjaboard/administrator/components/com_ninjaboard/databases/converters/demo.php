@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: demo.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: demo.php 1744 2011-04-08 10:05:26Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -26,6 +26,8 @@ class ComNinjaboardDatabaseConvertersDemo extends ComNinjaboardDatabaseConverter
 		$this->data = json_decode(file_get_contents(JPATH_COMPONENT_ADMINISTRATOR . '/data/demo.json'), true);
 
 		parent::convert();
+
+        echo json_encode(array('splittable' => false));
 		
 		return $this;
 	}

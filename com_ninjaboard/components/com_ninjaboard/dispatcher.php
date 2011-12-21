@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: dispatcher.php 1540 2011-02-14 20:10:50Z stian $
+ * @version		$Id: dispatcher.php 1773 2011-04-12 11:20:34Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -30,6 +30,30 @@ class ComNinjaboardDispatcher extends ComDefaultDispatcher
 		//Add the "Forums" to the pathway if the current view or the last pathway item isn't "Forums"
 		$pathway = KFactory::get('lib.koowa.application')->getPathWay()->getPathway();
 		$last	 = end($pathway);
+		
+		//If no ItemID, we need to check if there exist a menu item entry for Ninjaboard
+		if(KRequest::get('get.Itemid', 'int') === NULL)
+		{
+		    $component    = JComponentHelper::getComponent('com_ninjaboard');
+		    $menu         = JSite::getMenu();
+		    $items        = $menu->getItems('componentid', $component->id);
+		    
+		    // If any menu links to Ninjaboard, find out if any root ones exists
+		    if(is_array($items))
+		    {
+		    	foreach ($items as $item)
+		    	{
+		    	    if(isset($item->query['view']) && $item->query['view'] == 'forums')
+		    	    {
+		    	        // Perform a 301 redirect to the right menu item to eliminate duplicate entrypoints
+		    	        return KFactory::get('lib.joomla.application')
+		    	                   ->redirect(JRoute::_('&Itemid='.$item->id, false), '', '', true);
+		    	    }
+		    	}
+		    }
+		    //http://localhost/ninjaboard/component/ninjaboard/2-your-first-forum?template=yoo_spark
+		    echo var_dump(KRequest::get('get.Itemid', 'int'), KRequest::has('get.Itemid'));
+		}
 		
 		//Parse the query in the pathway url
 		$query = array('Itemid' => KRequest::get('get.Itemid', 'int'));

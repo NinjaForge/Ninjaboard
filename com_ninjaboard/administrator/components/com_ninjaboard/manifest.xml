@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: manifest.xml 1616 2011-02-27 21:55:36Z stian $ -->
+<!-- $Id: manifest.xml 1785 2011-04-12 22:39:14Z stian $ -->
 <!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/component-install.dtd">
 <install type="component" version="1.5.0" method="upgrade" mootools="1.2">
 	<name>Ninjaboard</name>
@@ -11,8 +11,8 @@
 	<jslicense>MIT</jslicense>
 	<authoremail>support@ninjaforge.com</authoremail>
     <authorurl>ninjaforge.com</authorurl>
-    <updateurl>http://ninjaforge.com/index.php?option=com_ninjacentral&amp;task=download&amp;id=84&amp;Itemid=243</updateurl>
-    <support href="http://ninjaforge.com/index.php?option=com_fireboard&amp;Itemid=111&amp;func=showcat&amp;catid=54">Forums</support>
+    <updateurl>http://ninjaforge.com/extensions/ninjaboard?format=file</updateurl>
+    <support href="http://ninjaforge.com/forum/54-ninjaboard">Forums</support>
     <rate href="http://extensions.joomla.org/extensions/communication/forum/11513">Joomla Extensions Directory (JED)</rate>
     <!-- 
     	Color cheat sheat
@@ -21,8 +21,8 @@
     		- RC		blue
     		- Stable	#009199
     -->
-	<version status="Stable" color="#009199">1.0.6</version>
-	<revision>1615</revision>
+	<version status="Stable" color="#009199">1.0.7</version>
+	<revision>1784</revision>
 	<description>The sharpest user forum</description>
 
 	<!-- Credits -->
@@ -41,11 +41,13 @@
 		<a href="http://www.cquence-multimedia.nl">Dutch translation by John 'cQuencer' Bartels</a>
 		<a href="http://www.seociable.com">Swedish translation by Kristian Dahlén</a>
 		<a href="http://www.pozative.co.i">Hebrew translation by PozaTive</a>
-		<a href="http://www.falar.org">Portuguese translation by Eni Rodrigues</a>
+		<a href="http://www.falar.org">Portuguese (Brazil) translation by Eni Rodrigues</a>
+		<a href="http://cfaemaiatrofa.org/">Portuguese (Portugal) translation by Cândido Pereira</a>
 		<a href="http://www.woothemes.com/2010/08/woocons1/">WooCons by WooThemes</a>
 		<a href="http://jeffchannell.com/">Security audited by Jeff Channell</a>
 		<a>Italian translation by Valter Mura</a>
 		<a href="http://www.jonneubauer.com/">Spanish translation by Jon Neubauer</a>
+		<a href="http://www.facebook.com/JonElectron">Spanish translation by Manuel Fazio</a>
 		<a href="http://www.ergenc.org">Turkey translation by Yagiz Ergenc</a>
 	</credits>
 	
@@ -136,6 +138,7 @@
 		<language tag="nb-NO">nb-NO/nb-NO.com_ninjaboard.ini</language>
 		<language tag="nl-NL">nl-NL/nl-NL.com_ninjaboard.ini</language>
 		<language tag="pt-BR">pt-BR/pt-BR.com_ninjaboard.ini</language>
+		<language tag="pt-PT">pt-PT/pt-PT.com_ninjaboard.ini</language>
 		<language tag="sv-SE">sv-SE/sv-SE.com_ninjaboard.ini</language>
 	</languages>
 	
@@ -171,6 +174,7 @@
 
 	<deleted>
 		<admin>
+		    <file revision="1733">views/tools/json.php</file>
 			<folder revision="1201">views/templates</folder>
 			<file revision="1201">controllers/template.php</file>
 			<file revision="1201">models/templates.php</file>
@@ -343,6 +347,8 @@
 			<file>views/usersync.php</file>
 		</admin>
 		<site>
+		    <folder revision="1754">views/help</folder>
+		    <folder revision="1753">views/rules</folder>
 			<file revision="1408">controllers/default.php</file>
 			<file revision="1246">views/json.php</file>
 			<folder revision="1220">themes/legacy</folder>

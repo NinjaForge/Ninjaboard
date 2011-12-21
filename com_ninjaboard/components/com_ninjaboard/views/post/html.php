@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1593 2011-02-19 22:40:18Z stian $
+ * @version		$Id: html.php 1750 2011-04-09 21:57:02Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -13,7 +13,7 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 	{
 		$this->assign('params', KFactory::get('admin::com.ninjaboard.model.settings')->getParams());
 		$this->assign('me', KFactory::get('admin::com.ninjaboard.model.people')->getMe());
-	
+	    $this->topicreview = false;
 	
 		$post					= $this->getModel()->getItem();
 		if(!$post->ninjaboard_topic_id) $post->ninjaboard_topic_id = $this->getModel()->getState()->topic;
@@ -63,7 +63,8 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 						->post(false)
 						->topic($topic->id);
 			$view	= KFactory::tmp('site::com.ninjaboard.view.posts.html', array('model' => $model));
-			$this->topicreview = $view->assign('total', count($model->getList()))->display();
+			$total  = count($model->getList());
+			$this->topicreview = $total > 0 ? $view->assign('total', $total) : false;
 			/*
 			//@TODO figure out why action.browse is executed before this one, as that's why we have the setView workaround
 			$controller = KFactory::tmp('site::com.ninjaboard.controller.post')

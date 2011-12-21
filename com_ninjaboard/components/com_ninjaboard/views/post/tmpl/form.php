@@ -1,11 +1,11 @@
-<? /** $Id: form.php 1560 2011-02-16 14:21:11Z stian $ */ ?>
+<? /** $Id: form.php 1662 2011-03-22 00:56:30Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <div id="ninjaboard" class="ninjaboard post-form<? if(!$topic->id || $topic->first_post_id == $post->id) : ?> new-topic-form<? endif ?>">
 	<h2><?= $title ?></h2>
 	<?= @render(@template('form_inner'), false, (array)$params['module']) ?>
 
-	<? if(isset($topicreview)) : ?>
+	<? if($topicreview) : ?>
 		<div class="ninjaboard topicreview">
 			<script type="text/javascript">
 				jQuery(function($){

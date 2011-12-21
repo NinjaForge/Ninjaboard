@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: user.php 1567 2011-02-16 23:52:24Z stian $
+ * @version		$Id: user.php 1692 2011-03-25 00:58:11Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -84,7 +84,8 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 		$upload = JFile::makeSafe(uniqid(time())).'.'.JFile::getExt($avatar['name']);
 		JFile::upload($avatar['tmp_name'], $absolute.$upload);
 
-		$person->avatar = $relative.$upload;
+		$person->avatar		= $relative.$upload;
+		$person->avatar_on	= gmdate('Y-m-d H:i:s');
 		$person->save();
 		
 		return $this;

@@ -164,6 +164,7 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_people` (
   `posts` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `thumb` text NOT NULL,
   `avatar` text NOT NULL,
+  `avatar_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'When the avatar was uploaded, used in urls for browser cache to work',
   `signature` text,
   `which_name` varchar(8) NOT NULL DEFAULT '' COMMENT 'username, name or alias',
   `alias` varchar(255) NOT NULL DEFAULT '' COMMENT 'Custom screen name defined by person',

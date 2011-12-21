@@ -1,6 +1,6 @@
 <?php
  /**
- * @version		$Id: ninjaboard.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: ninjaboard.php 1655 2011-03-21 20:27:48Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -10,20 +10,19 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-//@TODO add proper error handling when com_ninja don't exist
 $ninja = JPATH_ADMINISTRATOR.'/components/com_ninja/ninja.php';
-if(file_exists($ninja)) require_once $ninja;
-else					return;
-
-/* @TODO testing upgrade script
-require_once JPATH_COMPONENT . '/install/upgrade.php';
-//*/
+if(!file_exists($ninja)) {
+	return JError::raiseWarning(0, JText::_('The Ninja Framework component (com_ninja) is required for this component to run.'));
+}
+require_once $ninja;
 
 /** 
 * If koowa is unavailable
 * Abort the dispatcher
 */
-if( !defined('KOOWA') ) return;
+if(!defined('KOOWA')) {
+	return JError::raiseWarning(0, JText::_('This component cannot run without Nooku Framework.'));
+}
 
 KFactory::map('admin::com.ninjaboard.template.helper.default', 'admin::com.ninja.helper.default');
 

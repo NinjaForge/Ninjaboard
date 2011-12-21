@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: ccboard.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: ccboard.php 1778 2011-04-12 15:04:15Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -34,8 +34,7 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 			array(
 				'name' => 'attachments',
 				'options' => array(
-					'name' => 'ccb_attachments',
-					'identity_column' => 'id'
+					'name' => 'ccb_attachments'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -50,8 +49,7 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 			array(
 				'name' => 'forums',
 				'options' => array(
-					'name' => 'ccb_category',
-					'identity_column' => 'id'
+					'name' => 'ccb_category'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -63,8 +61,7 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 			array(
 				'name' => 'forums',
 				'options' => array(
-					'name' => 'ccb_forums',
-					'identity_column' => 'id'
+					'name' => 'ccb_forums'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -82,8 +79,7 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 			array(
 				'name' => 'posts',
 				'options' => array(
-					'name' => 'ccb_posts',
-					'identity_column' => 'id'
+					'name' => 'ccb_posts'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -102,8 +98,7 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 			array(
 				'name' => 'topics',
 				'options' => array(
-					'name' => 'ccb_topics',
-					'identity_column' => 'id'
+					'name' => 'ccb_topics'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -116,8 +111,7 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 			array(
 				'name' => 'people',
 				'options' => array(
-					'name' => 'ccb_users',
-					'identity_column' => 'id'
+					'name' => 'ccb_users'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(

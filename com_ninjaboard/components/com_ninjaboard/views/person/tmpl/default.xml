@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE metadata>
-<!-- $Id: default.xml 1084 2010-11-18 19:24:15Z stian $ -->
+<!-- $Id: default.xml 1749 2011-04-09 21:33:51Z stian $ -->
 <metadata>
-	<layout hidden="true" />
+	<layout title="View Profile">
+		<message>View your own profile, or a login form if not logged in yet.</message>
+	</layout>
+
+	<!-- @group j!1.5 -->
+	<state>
+		<name>View Profile</name>
+		<description>View your own profile, or a login form if not logged in yet.</description>
+		<params>
+			<param name="deleteme" type="napi" ninja="void" />
+			<param name="ninjaboard_setting_id" type="getlist" get="admin::com.ninjaboard.model.settings" label="Setting" description="Choose a predefined setting from the Ninjaboard Settings.">
+				<option>- Use default -</option>
+			</param>
+		</params>
+	</state>
+	<!-- @end -->
+	
+	<!-- @group j!1.6 -->
+	<fields name="params" addfieldpath="/administrator/components/com_ninja/overrides">
+		<fieldset name="basic" label="Basic Options">
+				<field name="deleteme" type="napi" ninja="void" />
+		</fieldset>
+	</fields>
+	<!-- @end -->
 </metadata>

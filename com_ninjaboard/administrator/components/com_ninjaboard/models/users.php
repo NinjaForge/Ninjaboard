@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: users.php 1610 2011-02-27 01:02:15Z stian $
+ * @version		$Id: users.php 1710 2011-03-28 01:30:31Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -27,7 +27,6 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 				
 		// Set the state
 		$this->_state
-			->insert('id', 'int', true)
 			->insert('usergroup', 'int')
 			->insert('gid'		, 'boolean', false)
 			->insert('new'		, 'boolean', false);

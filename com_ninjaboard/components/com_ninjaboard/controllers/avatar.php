@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: avatar.php 1567 2011-02-16 23:52:24Z stian $
+ * @version		$Id: avatar.php 1676 2011-03-24 00:11:16Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -77,7 +77,7 @@ class ComNinjaboardControllerAvatar extends ComNinjaboardControllerAttachment
 	 */
 	protected function _actionDelete()
 	{
-		return false;
+		return $this->getModel()->getItem();
 	}
 
 	/*
@@ -89,7 +89,7 @@ class ComNinjaboardControllerAvatar extends ComNinjaboardControllerAttachment
 	 */
 	protected function _actionEdit()
 	{
-		return false;
+		return $this->getModel()->getItem();
 	}
 
 	/*
@@ -101,6 +101,6 @@ class ComNinjaboardControllerAvatar extends ComNinjaboardControllerAttachment
 	 */
 	protected function _actionAdd()
 	{
-		return false;
+		return $this->getModel()->getItem();
 	}
 }

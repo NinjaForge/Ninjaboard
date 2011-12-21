@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: legacy.php 1604 2011-02-23 13:53:07Z betweenbrain $
+ * @version		$Id: legacy.php 1774 2011-04-12 13:58:29Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -185,14 +185,14 @@ class ComNinjaboardDatabaseConvertersLegacy extends ComNinjaboardDatabaseConvert
 																->select('avatar_settings')
 																->from('ninjaboard_configs_backups')
 																->order('default_config');
-			$avatar_settings	= KFactory::get('lib.koowa.database')->select($query, KDatabase::FETCH_FIELD);
+			$avatar_settings	= KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 			
 			
 			if($avatar_settings)
 			{
-				foreach(split("\n", $avatar_settings) as $avatar_setting)
+				foreach(explode("\n", $avatar_settings) as $avatar_setting)
 				{
-					$parts = split('=', $avatar_setting);
+					$parts = explode('=', $avatar_setting);
 					if($parts[0] == 'avatar_path') $path = $parts[1];
 				}
 			}

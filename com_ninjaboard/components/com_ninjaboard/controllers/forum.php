@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forum.php 1558 2011-02-16 14:19:19Z stian $
+ * @version		$Id: forum.php 1762 2011-04-11 18:59:09Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -27,7 +27,8 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerAbstract
 			'enabled'	=> true,
 			'levels'	=> 3,
 			'limit'		=> 0,
-			'offset'	=> 0
+			'offset'	=> 0,
+			'sort'		=> 'path_sort_ordering'
 		) as $key => $val)
 		{
 			$this->_request->$key = $val;

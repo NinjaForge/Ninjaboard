@@ -1,9 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 1615 2011-02-27 21:48:03Z stian $ -->
+<!-- $Id: changelog.xml 1783 2011-04-12 22:17:44Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+	<version>1.0.7</version>
+	<date>April 12th 2011</date>
+	<state>Maintenance Release
+	    <security>Vulnerability that allowed hidden posts to be displayed outside of ones ACL permissions patched.</security>
+	    <new>New "View Profile" menu item type added, takes the users to their own profiles, or a login form if not logged in.</new>
+		<new>Portuguese (Portugal) translation - thanks Cândido Pereira!</new>
+		<upgrade>Converters now report how long a conversion took.</upgrade>
+		<upgrade>/component/ninjaboard like SEF urls are now redirected to the right menu item linking to Ninjaboard to eliminate duplicate urls.</upgrade>
+		<upgrade>Nooku Framework snapshot upgraded to Alpha 2.</upgrade>
+		<upgrade>Ninjaboard adminstration tools can only be run by super administrators from now on.</upgrade>
+		<upgrade>Profile edit form updated to look much nicer in darker templates.</upgrade>
+		<upgrade>Fixed issue where avatar uploads might not work.</upgrade>
+		<upgrade>Usability for Profile Edit form improved regarding custom display name.</upgrade>
+		<upgrade>Spanish translation files updated - thanks Manuel Fazio!</upgrade>
+		<upgrade>jQuery upgraded to 1.5.1.</upgrade>
+		<upgrade>Forums order option when creating menu items is now gone. Forums will now be sorted after your custom ordering at all times.</upgrade>
+		<upgrade>Email notification buttons now have a fixed width.</upgrade>
+		<upgrade>All PNGs are crunched, faster loading and smaller installer packages.</upgrade>
+		<upgrade>No longer fails silently when com_ninja or nooku framework is missing, you'll now get proper error messages.</upgrade>
+		<upgrade>Swedish translation files updated - thanks Kristian Dahlén!</upgrade>
+		<bugfix>Tooltips related to Chameleon Settings were missing.</bugfix>
+		<bugfix>Form radio inputs were misaligned on Linux Firefox.</bugfix>
+		<bugfix>PHP 5.3 users without date.timezone defined in their php.ini would get PHP warnings in areas Ninjaboard displayed dates.</bugfix>
+		<bugfix>Avatars didn't show in the backend when the default menu item wasn't a Ninjaboard type.</bugfix>
+		<bugfix>Link detector is now smart enough to check when it needs to add protocols to URLs.</bugfix>
+		<bugfix>Custom icon path mixed forward and back slashes</bugfix>
+		<bugfix>SEF urls now show the alias for restricted forums instead of just the id.</bugfix>
+		<bugfix>Regression could cause redirects on post cancels to fail when SEF is turned on.</bugfix>
+		<bugfix>Regression caused topics to sort by first post instead of last post.</bugfix>
+		<bugfix>Regression caused email notifications to no longer work.</bugfix>
+		<bugfix>If attachments were deleted on the filesystem, JFile warnings about not being able to open files would be thrown.</bugfix>
+		<bugfix>JPEG attachments weren't recognized as images.</bugfix>
+		<bugfix>Regression in 1.0.6 caused a maximum of 20 items to show in many lists, like forum permissions, forum parent, usergroups in usergroups mapper and such.</bugfix>
+		<bugfix>Built in updates now works again.</bugfix>
+	</state>
+
 	<version>1.0.6</version>
 	<date>February 27th 2011</date>
 	<state>Maintenance Release
@@ -80,7 +116,7 @@
 	<state>First Stable Release
 		<new>Quick Reply</new>
 		<new>Spanish translation - thanks Jon Neubauer!</new>
-		<new>Portuguese translation - thanks Eni Rodrigues!</new>
+		<new>Portuguese (Brazil) translation - thanks Eni Rodrigues!</new>
 		<upgrade>jQuery loading now respects the JFactory::getApplication()->get('jquery') convention.</upgrade>
 		<upgrade>Replaced the default (scary mask) avatar with a custom designed one.</upgrade>
 		<upgrade>Ability to add custom icons by using the Joomla! Media Manager. Use folders like /images/com_ninjaboard/forums, /images/com_ninjaboard/rank and /images/com_ninjaboard/topic.</upgrade>

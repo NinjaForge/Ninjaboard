@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: post.php 1615 2011-02-27 21:48:03Z stian $
+ * @version		$Id: post.php 1768 2011-04-11 20:38:57Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -47,8 +47,12 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		$this->registerCallback('after.add', array($this, 'notify'));
 		
 		//Delete related event handlers
-		$this->registerCallback('before.delete', 'canDelete');
-		$this->registerCallback('after.delete', 'cleanupDelete');
+		$this->registerCallback('before.delete', array($this, 'canDelete'));
+		$this->registerCallback('after.delete', array($this, 'cleanupDelete'));
+		
+		// Workaround for avoiding 404 status on editor preview ajax
+		// @TODO replace MarkItUp with a wysiwyg editor so that ajax previews are no longer necessary.
+		$this->registerCallback('after.read', array($this, 'allowPreview'));
 	}
 
 	/**
@@ -140,12 +144,12 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	public function notify(KCommandContext $context)
 	{
 		//If no id, do not notify
-		if(!$context->result->id) return
+		if(!$context->result->id) return;
 		
 		$params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
 		if($params['email_notification_settings']['enable_email_notification'])
 		{
-			KFactory::get('site::com.ninjaboard.controller.watch')->notify($context);
+			KFactory::get('site::com.ninjaboard.controller.watch')->execute('notify', $context);
 		}
 	}
 
@@ -255,6 +259,8 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		} else {
 			parent::_actionCancel($context);
 		}
+		
+		return $post;
 	}
 
 	/**
@@ -324,11 +330,11 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 				if(!$posts) $topic->delete();
 				else return false;
 			}
-			
+
 			//Update the forums' topics and posts count, and correct the last_post_id column
-			$forums	= KFactory::tmp('site::com.ninjaboard.model.forums')->id($topic->forum_id)->getListWithParents();
+			$forums	= KFactory::tmp('site::com.ninjaboard.model.forums')->limit(0)->id($topic->forum_id)->getListWithParents();
 			$forums->recount();
-			
+
 			if($row->created_by)
 			{
 				$user	= KFactory::tmp('site::com.ninjaboard.model.people')->id($row->created_by)->getItem();
@@ -341,5 +347,16 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Workaround for preview ajax requests that will fail if the status code is 404
+	 *
+	 * @param  KCommandContext $context
+	 * @return void
+	 */
+	public function allowPreview(KCommandContext $context)
+	{
+	    if($this->_request->layout == 'preview') $context->status = KHttpResponse::OK;
 	}
 }

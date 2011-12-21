@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: phpbb_users.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: phpbb_users.php 1780 2011-04-12 21:04:37Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -38,64 +38,47 @@ class ComNinjaboardDatabaseConvertersPhpbb_users extends ComNinjaboardDatabaseCo
 	public function convert()
 	{
 		//*/
-// jos_ninjaboard_people, jos_ninjaboard_posts, jos_ninjaboard_usergroup_maps, 
+        // jos_ninjaboard_people, jos_ninjaboard_posts, jos_ninjaboard_usergroup_maps, 
 		$tables = array(
-			/*'people' => array(
+			/*array(
+			    'name' => 'people',
 				'options' => array(),
 				'columns' => array('ninjaboard_person_id'),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => KFactory::tmp('lib.koowa.database.query')->select(array(
+				    '*',
+				    'ninjaboard_person_id AS id'
+				))
 			),*/
 			'attachments' => array(
-				'options' => array(),
+			    'name' => 'attachments',
+				'options' => array(
+				    'name' => 'ninjaboard_attachments'
+				),
 				'columns' => array('joomla_user_id'),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => KFactory::tmp('lib.koowa.database.query')->select(array(
+				    '*',
+				    'ninjaboard_attachment_id AS id'
+				))
 			),
 			'posts' => array(
-				'options' => array(),
+			    'name' => 'posts',
+				'options' => array(
+				    'name' => 'ninjaboard_posts'
+				),
 				'columns' => array('created_by', 'modified_by'),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => KFactory::tmp('lib.koowa.database.query')->select(array(
+				    '*',
+				    'ninjaboard_post_id AS id',
+				    'created_user_id AS created_by',
+				    'modified_user_id AS modified_by'
+				))
 			),
 		);
 
-		$offset = KRequest::get('post.offset', 'int', false);
-		foreach ( $tables as $name => $table )
-		{
-			if($offset === false)
-			{
-				$this->data[$name] = KFactory::get('admin::com.ninjaboard.database.table.'.$name)->count(clone $table['query']);
+		//This returns false if the import is big enough to be done in steps.
+		//So we need to stop the importing in this step, in order for it to initiate
+		if($this->importData($tables, 'phpbb') === false) return $this;
 
-				continue;
-			}
-			elseif ($offset !== false)
-			{
-				$query = KFactory::tmp('lib.koowa.database.query')
-					//->select($table['columns'])
-					->limit(KRequest::get('post.limit', 'int', 1000), $offset);
-			}
-			
-			$this->data[$name] = KFactory::get('admin::com.ninjaboard.database.table.'.$name)->select($query);
-			
-		}
-
-		if($offset === false)
-		{
-			$total = array_reduce($this->data, 'max');
-			$steps = floor($total / KRequest::get('post.limit', 'int', 1000));
-			if($steps > 0) 
-			{
-				echo json_encode(array('splittable' => true, 'total' => $total, 'steps' => $steps));
-				return $this;
-			}
-			else
-			{
-				echo json_encode(array('splittable' => false));
-				foreach ( $tables as $name => $table )
-				{
-					$this->data[$name] = KFactory::get('admin::com.ninjaboard.database.table.'.$name)->select(clone $table['query']);
-				}
-			}
-		}
-		
 		$ids = array();
 		foreach($this->data as $table => $rows)
 		{
@@ -104,11 +87,11 @@ class ComNinjaboardDatabaseConvertersPhpbb_users extends ComNinjaboardDatabaseCo
 			{
 				foreach($tables[$table]['columns'] as $column)
 				{
-					if($row->$column) $ids[$row->$column] = $row->$column;
+					if($row[$column]) $ids[$row[$column]] = $row[$column];
 				}
 			}
 		}
-		
+
 		//Connect the lib.koowa.database to the phpBB3 database
 		$this->setDatabaseConnection();
 		
@@ -116,33 +99,33 @@ class ComNinjaboardDatabaseConvertersPhpbb_users extends ComNinjaboardDatabaseCo
 			'name' => 'users',
 			'identity_column' => 'user_id'
 		))->select(array($ids));
-		
+
 		//Get the avatars gallery path
 		$query = KFactory::tmp('lib.koowa.database.query')
 															->select('config_value')
 															->from('config')
 															->where('config_name', '=', 'avatar_gallery_path');
-		$gallery  = KFactory::get('lib.koowa.database')->select($query, KDatabase::FETCH_FIELD);
+		$gallery  = KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 		
 		//Get the avatars uploads salt
 		$query = KFactory::tmp('lib.koowa.database.query')
 															->select('config_value')
 															->from('config')
 															->where('config_name', '=', 'avatar_salt');
-		$prefix  = KFactory::get('lib.koowa.database')->select($query, KDatabase::FETCH_FIELD);
+		$prefix  = KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 		
 		//Get the avatars uploads path
 		$query = KFactory::tmp('lib.koowa.database.query')
 															->select('config_value')
 															->from('config')
 															->where('config_name', '=', 'avatar_path');
-		$upload  = KFactory::get('lib.koowa.database')->select($query, KDatabase::FETCH_FIELD);
+		$upload  = KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 		$upload .= '/'.$prefix.'_';
 		
 		//Reconnect the lib.koowa.database to the Joomla! database
 		$this->resetDatabaseConnection();
 		
-		$db = KFactory::get('lib.koowa.database');
+		$db = KFactory::get('lib.koowa.database.adapter.mysqli');
 		
 		foreach($users as $user)
 		{
@@ -184,19 +167,21 @@ class ComNinjaboardDatabaseConvertersPhpbb_users extends ComNinjaboardDatabaseCo
 			$user->avatar = $avatar;
 		}
 		
+		$identifier = new KIdentifier('admin::com.ninjaboard.database.table.default');
 		foreach($this->data as $table => $rows)
 		{
 			if(!isset($tables[$table])) continue;
-			KFactory::get($rows->getTable())->getCommandChain()->disable();
-			foreach($rows as $row)
+			foreach($rows as $i => $row)
 			{
 				foreach($tables[$table]['columns'] as $column)
 				{
-					if($row->$column) $row->$column = $ids[$row->$column];
+					if($row[$column]) $rows[$i][$column] = $ids[$row[$column]];
 				}
-				$row->save();
 			}
-			KFactory::get($rows->getTable())->getCommandChain()->enable();
+			$identifier->name = $table;
+			$table = KFactory::get($identifier);
+
+			$this->update($rows, $table);
 		}
 		
 		$table = KFactory::get('admin::com.ninjaboard.database.table.people', array('column_map' => array(
@@ -205,6 +190,7 @@ class ComNinjaboardDatabaseConvertersPhpbb_users extends ComNinjaboardDatabaseCo
 		)));
 		if(KRequest::get('post.offset', 'int', 0) < 1) $this->_truncateTable($table);
 					
+		$columns   = $table->getColumns(true);
 		foreach($users as $user)
 		{	
 			/*	
@@ -215,8 +201,8 @@ class ComNinjaboardDatabaseConvertersPhpbb_users extends ComNinjaboardDatabaseCo
 			//*/
 			$user->set('id', $ids[$user->id]);
 
-			//Filter the data and remove unwanted columns
-			$data = $table->filter($user->getData(), true);
+			//Filter out any extra columns.
+			$data = array_intersect_key($user->getData(), $columns);
 			
 			//Get the data and apply the column mappings
 			$data = $table->mapColumns($data);
@@ -234,10 +220,7 @@ class ComNinjaboardDatabaseConvertersPhpbb_users extends ComNinjaboardDatabaseCo
 				//Do nothing, just mute the exception
 			}
 		}
-		
-		//die('<pre>'.print_r($ids, true).'</pre>');
-		//die('<pre>'.print_r($users, true).'</pre>');
-		
+
 		return $this;
 	}
 }

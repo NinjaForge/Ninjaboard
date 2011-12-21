@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: kunena.php 1498 2011-01-27 21:28:42Z stian $
+ * @version		$Id: kunena.php 1778 2011-04-12 15:04:15Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -34,8 +34,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 			array(
 				'name' => 'attachments',
 				'options' => array(
-					'name' => 'kunena_attachments',
-					'identity_column' => 'id'
+					'name' => 'kunena_attachments'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -44,14 +43,14 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 								'filename AS name',
 								'userid AS joomla_user_id',
 								'folder',
-								'hash'
+								'hash',
+								'NULL AS file'
 							))
 			),
 			array(
 				'name' => 'forums',
 				'options' => array(
-					'name' => 'kunena_categories',
-					'identity_column' => 'id'
+					'name' => 'kunena_categories'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -69,8 +68,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 			array(
 				'name' => 'topic_symlinks',
 				'options' => array(
-					'name' => 'kunena_messages',
-					'identity_column' => 'id'
+					'name' => 'kunena_messages'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -85,8 +83,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 			array(
 				'name' => 'topics',
 				'options' => array(
-					'name' => 'kunena_messages',
-					'identity_column' => 'id'
+					'name' => 'kunena_messages'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
@@ -103,8 +100,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 			array(
 				'name' => 'posts',
 				'options' => array(
-					'name' => 'kunena_messages',
-					'identity_column' => 'id'
+					'name' => 'kunena_messages'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							//->set('columns', array('!`hold` AS `enabled`'))
@@ -131,12 +127,12 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 			array(
 				'name' => 'people',
 				'options' => array(
-					'name' => 'kunena_users',
-					'identity_column' => 'userid'
+					'name' => 'kunena_users'
 				),
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
-								'*'
+								'*',
+								'userid AS id'
 							))
 			)
 		);
@@ -205,7 +201,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 
 		parent::convert();
 
-		$this->updateForumPaths();
+		if(isset($this->data['forums'])) $this->updateForumPaths();
 
 		return $this;
 	}
