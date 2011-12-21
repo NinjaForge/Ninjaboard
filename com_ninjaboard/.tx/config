@@ -1,0 +1,18 @@
+[main]
+host = https://www.transifex.net
+lang_map = en: en-GB, nl_NL: nl-NL, fr_FR: fr-FR, de_DE: de-DE, el_GR: el-GR, he_IL: he-IL, it_IT: it-IT, nb_NO: nb-NO, pt_BR: pt-BR, pt_PT: pt-PT, ru_RU: ru-RU, es_ES: es-ES, sv_SE: sv-SE, tr_TR: tr-TR, et_EE: et-EE, nl_BE: nl-BE, gu_IN: gu-IN, id_ID: id-ID, hi_IN: hi-IN, mr_IN: mr-IN, uk_UA: uk-UA, da_DK: da-DK, pl_PL: pl-PL, ko_KR: ko-KR, hu_HU: hu-HU, fa_IR: fa-IR, bg_BG: bg-BG, ar_SA: ar-SA
+
+[ninjaboard.admin_en-gbcom_ninjaboardini]
+file_filter = administrator/language/<lang>/<lang>.com_ninjaboard.ini
+source_lang = en
+source_file = administrator/language/en-GB/en-GB.com_ninjaboard.ini
+
+[ninjaboard.admin_en-gbcom_ninjaboardmenuini]
+file_filter = administrator/language/<lang>/<lang>.com_ninjaboard.menu.ini
+source_lang = en
+source_file = administrator/language/en-GB/en-GB.com_ninjaboard.menu.ini
+
+[ninjaboard.site_en-gbcom_ninjaboardini]
+file_filter = language/<lang>/<lang>.com_ninjaboard.ini
+source_lang = en
+source_file = language/en-GB/en-GB.com_ninjaboard.ini
