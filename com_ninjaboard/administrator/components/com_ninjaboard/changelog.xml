@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 1463 2011-01-20 21:34:33Z stian $ -->
+<!-- $Id: changelog.xml 1474 2011-01-21 01:02:27Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+	<version>1.0.3</version>
+	<date>January 21th 2011</date>
+	<state>Bugfix Release
+		<bugfix>Regression in attachments and avatars.</bugfix>
+	</state>
+
 	<version>1.0.2</version>
 	<date>January 20th 2011</date>
 	<state>Bugfix Release
