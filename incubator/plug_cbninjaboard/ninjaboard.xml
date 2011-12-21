@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user">
+  <name>NinjaBoard for Community Builder</name>
+  <author>NinjaForge</author>
+  <creationDate>2009-12-22</creationDate>
+  <copyright>Copyright (C) 2010 NinjaForge - All rights reserved</copyright>
+  <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+  <authorEmail>support@ninjaforge.com</authorEmail>
+  <authorUrl>http://ninjaforge.com</authorUrl>
+  <version>1.0.0</version>
+  <description>NinjaBoard for Community Builder</description>
+  <files>
+    <filename plugin="ninjaboard">ninjaboard.php</filename>
+    <filename>index.html</filename>
+    <filename>ninjaboard.css</filename>
+    <filename>post.png</filename>
+    <filename>en-GB.plg_cbninjaboard.ini</filename>
+    <filename>install.php</filename>
+  </files>
+  <params>
+    <param	name="nbPlugEnabled" type="radio" label="NinjaBoard Plugin Enabled" default="1" description="Specify Yes to enable NinjaBoard plugin.">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>
+    <param	name="nbPlugShowSubject" type="radio" label="Show Subject" default="1" description="Specify Yes to to show the Subject.">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>
+    <param	name="nbPlugTruncateSubject" type="text" label="Subject Max Length" default="25" description="Specify the number of characters to truncate the subject to." />
+    <param	name="nbPlugShowMessage" type="radio" label="Show Message" default="1" description="Specify Yes to to show the Message.">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>
+    <param	name="nbPlugTruncateMessage" type="text" label="Message Max Length" default="50" description="Specify the number of characters to truncate the message to." />
+    <param	name="nbPlugShowForum" type="radio" label="Show Forum" default="1" description="Specify Yes to to show the forum that the post is in.">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>
+    <param	name="nbPlugShowHits" type="radio" label="Show Hits" default="1" description="Specify Yes to to show the number of hits that the parent topic of the post has recieved.">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>
+    <param	name="nbPlugShowCreated" type="radio" label="Show Created Date" default="1" description="Specify Yes to to show the date and time that the post was created.">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>
+    <param	name="nbPlugShowModified" type="radio" label="Show Modified Date" default="1" description="Specify Yes to to show the date and time that the post was last modified if one exists.">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>
+    <param	name="nbPlugShowEdit" type="radio" label="Show View Link" default="1" description="Specify Yes to to show the edit link that will take the user to the post edit form.">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>
+    <param	name="nbPlugDateFormat" type="text" label="Date Format" default="D, d M" description="Specify the format dates will be shown in." />
+    <param	name="nbPlugSortBy" type="list" label="Sort By" default="1" description="Specify how you would like the posts to be sorted.">
+      <option value="0">Sort By Subject</option>
+      <option value="1">Sort By Date Created</option>
+      <option value="2">Sort By Date Modified</option>
+    </param>
+    <param name="nbPlugSortOrder" type="list" label="Sort Order" default="1" description="Specify if you would like the posts to be sorted in Ascending order or Descending order.">
+      <option value="0">ASC</option>
+      <option value="1">DESC</option>
+    </param>
+    <param	name="nbPlugPaginationCount" type="text" label="Posts Limit" default="5" description="Limit the number of posts to show, if paging is on then multiple pages of the set number will be shown, if paging is off only one page of the set number will be shown." />
+    <param	name="nbPlugShowPagination" type="list" label="Show Paging" default="0" description="Show paging for posts if the number of posts exceeds the posts limit.">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>
+  </params>
+  <tabs>
+    <tab name="NinjaBoard" description="This tab allows users to view their NinjaBoard Forum Posts" class="getNinjaBoardTab" fields="0" position="cb_tabmain" displaytype="tab">
+      <params></params>
+      <fields></fields>
+    </tab>
+  </tabs>
+  <installfile>install.php</installfile>
+  <database></database>
+</cbinstall>
