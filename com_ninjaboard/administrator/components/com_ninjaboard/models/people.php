@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: people.php 1423 2011-01-14 16:03:34Z stian $
+ * @version		$Id: people.php 1610 2011-02-27 01:02:15Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -14,7 +14,7 @@
  * 
  * @author Stian Didriksen <stian@ninjaforge.com>
  */
-class ComNinjaboardModelPeople extends KModelTable
+class ComNinjaboardModelPeople extends ComDefaultModelDefault
 {
 	/**
 	 * The current active user
@@ -122,7 +122,7 @@ class ComNinjaboardModelPeople extends KModelTable
 	/**
 	 * Gets the current joomla user with data like permissions
 	 *
-	 * If the user is a guest, we still got some guest data to load
+	 * If the user is a guest, we still have some guest data to load
 	 *
 	 * @return KDatabaseRow
 	 */
@@ -259,7 +259,7 @@ class ComNinjaboardModelPeople extends KModelTable
 			}
 			else
 			{
-				//Person got no access by default, and no forums are overriding this so we need to block all forums
+				//Person doesn't have any access by default, and no forums are overriding this so we need to block all forums
 				$query->where($key, '=', '');
 			}
 		}

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: post.php 1573 2011-02-17 22:51:43Z stian $
+ * @version		$Id: post.php 1615 2011-02-27 21:48:03Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -114,7 +114,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		$data = $context->result;
 		if(is_a($data, 'KDatabaseRowsetInterface')) $data = (object) end($data->getData());
 
-		if(!isset($data->notify_on_reply_topic)) return;
+		if(!isset($data->notify_on_reply_topic) || !$data->ninjaboard_topic_id) return;
 		
 		$table = KFactory::get('admin::com.ninjaboard.database.table.watches');
 		$type  = $table->getTypeIdFromName('topic');
@@ -139,6 +139,9 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	 */
 	public function notify(KCommandContext $context)
 	{
+		//If no id, do not notify
+		if(!$context->result->id) return
+		
 		$params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
 		if($params['email_notification_settings']['enable_email_notification'])
 		{

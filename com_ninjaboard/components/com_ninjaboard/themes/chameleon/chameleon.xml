@@ -12,7 +12,7 @@
   
   <form>
   	<fieldset group="style" legend="Theme Style">
-  		<element name="type" type="radio" default="light" class="group vertical" description="Select wether you got a light or dark overall site design.">
+  		<element name="type" type="radio" default="light" class="group vertical" description="Select wether you have a light or dark overall site design.">
   			<option value="light">Light</option>
   			<option value="dark">Dark</option>
   		</element>

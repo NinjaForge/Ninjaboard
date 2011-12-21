@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: watches.php 1401 2011-01-13 00:37:18Z stian $
+ * @version		$Id: watches.php 1615 2011-02-27 21:48:03Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -14,7 +14,7 @@
  * 
  * @author Stian Didriksen <stian@ninjaforge.com>
  */
-class ComNinjaboardModelWatches extends KModelTable
+class ComNinjaboardModelWatches extends ComDefaultModelDefault
 {
 	/**
 	 * Constructor
@@ -89,30 +89,36 @@ class ComNinjaboardModelWatches extends KModelTable
 		
 		
 		//Recipients subscribed to this topic
-		$query = KFactory::tmp('lib.koowa.database.query')
-														->select('created_by')
-														->where('subscription_type', '=', $table->getTypeIdFromName('topic'))
-														->where('subscription_type_id', '=', $this->_state->topic)
-														->where('created_by', '!=', $me->id)
-														->from('ninjaboard_subscriptions');
-		foreach($table->getDatabase()->select($query, KDatabase::FETCH_FIELD_LIST) as $id)
+		if($this->_state->topic)
 		{
-			$ids[$id] = $id;
+			$query = KFactory::tmp('lib.koowa.database.query')
+															->select('created_by')
+															->where('subscription_type', '=', $table->getTypeIdFromName('topic'))
+															->where('subscription_type_id', '=', $this->_state->topic)
+															->where('created_by', '!=', $me->id)
+															->from('ninjaboard_subscriptions');
+			foreach($table->getDatabase()->select($query, KDatabase::FETCH_FIELD_LIST) as $id)
+			{
+				$ids[$id] = $id;
+			}
 		}
 		
 		
 		//Recipients subscribed to this forum and/or parent forum(s)
-		$forums = array_filter(explode('/', $forum->path));
-		$forums[] = $forum->id;
-		$query = KFactory::tmp('lib.koowa.database.query')
-														->select('created_by')
-														->where('subscription_type', '=', $table->getTypeIdFromName('forum'))
-														->where('subscription_type_id', 'in', $forums)
-														->where('created_by', '!=', $me->id)
-														->from('ninjaboard_subscriptions');
-		foreach($table->getDatabase()->select($query, KDatabase::FETCH_FIELD_LIST) as $id)
+		if($forum->id)
 		{
-			$ids[$id] = $id;
+			$forums = array_filter(explode('/', $forum->path));
+			$forums[] = $forum->id;
+			$query = KFactory::tmp('lib.koowa.database.query')
+															->select('created_by')
+															->where('subscription_type', '=', $table->getTypeIdFromName('forum'))
+															->where('subscription_type_id', 'in', $forums)
+															->where('created_by', '!=', $me->id)
+															->from('ninjaboard_subscriptions');
+			foreach($table->getDatabase()->select($query, KDatabase::FETCH_FIELD_LIST) as $id)
+			{
+				$ids[$id] = $id;
+			}
 		}
 		
 		//Recipients subscribed to me

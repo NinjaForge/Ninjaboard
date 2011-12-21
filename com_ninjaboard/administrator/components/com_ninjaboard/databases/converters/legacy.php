@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: legacy.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: legacy.php 1604 2011-02-23 13:53:07Z betweenbrain $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -106,7 +106,7 @@ class ComNinjaboardDatabaseConvertersLegacy extends ComNinjaboardDatabaseConvert
 			$this->buildAclQueryColumn('TOPIC', 1, 3, '<'),
 			$this->buildAclQueryColumn('POST', 1, 3, '<'),
 			$this->buildAclQueryColumn('ATTACHMENT', 1, 3, '<'),
-			//Only admins got permissions beyond Has Access on forums
+			//Only admins have permissions beyond Has Access on forums
 			$this->buildAclQueryColumn('FORUM', 1, 4, '<'),
 			
 			array(

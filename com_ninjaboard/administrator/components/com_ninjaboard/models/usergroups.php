@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: usergroups.php 1375 2011-01-11 03:11:44Z stian $
+ * @version		$Id: usergroups.php 1610 2011-02-27 01:02:15Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -14,7 +14,7 @@
  * 
  * @author Stian Didriksen <stian@ninjaforge.com>
  */
-class ComNinjaboardModelUsergroups extends KModelTable
+class ComNinjaboardModelUsergroups extends ComDefaultModelDefault
 {
 	/**
 	 * Constructor

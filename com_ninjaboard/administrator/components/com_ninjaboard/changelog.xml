@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 1595 2011-02-20 01:19:04Z stian $ -->
+<!-- $Id: changelog.xml 1615 2011-02-27 21:48:03Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+	<version>1.0.6</version>
+	<date>February 27th 2011</date>
+	<state>Maintenance Release
+		<bugfix>Fixed issue where an SQL error occured if a user did not have permission to post.</bugfix>
+		<bugfix>Resolved JS error when adding a new Usergroup.</bugfix>
+		<bugfix>Fixed a problem with the list limit not being set, sometimes causing timeouts.</bugfix>
+	</state>
+
 	<version>1.0.5</version>
 	<date>February 20th 2011</date>
 	<state>Maintenance Release

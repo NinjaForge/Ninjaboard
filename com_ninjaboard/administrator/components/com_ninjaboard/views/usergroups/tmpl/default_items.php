@@ -1,4 +1,4 @@
-<? /** $Id: default_items.php 1242 2010-12-19 15:29:36Z stian $ */ ?>
+<? /** $Id: default_items.php 1604 2011-02-23 13:53:07Z betweenbrain $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <style type="text/css">
@@ -86,7 +86,7 @@
 		<? $permissions = KFactory::tmp(KFactory::get($this->getView())->getModel())->getPermissions((int)$usergroup->id) ?>
 		<? if (count($permissions) < 1) : ?>
 			<td colspan="4">
-				<?= @text('This usergroup got no permissions defined.') ?>
+				<?= @text('This usergroup doesn\'t have any permissions defined.') ?>
 			</td>
 		<? else : ?>
 			<? foreach ($columns as $column => $title) : ?>

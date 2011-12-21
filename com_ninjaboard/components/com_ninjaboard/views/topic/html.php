@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1573 2011-02-17 22:51:43Z stian $
+ * @version		$Id: html.php 1614 2011-02-27 21:47:36Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -56,10 +56,10 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 						->getOffset();
 		$offset = KRequest::get('get.offset', 'int', $offset);
 		$this->assign('posts',
-			KFactory::get('site::com.ninjaboard.controller.post')
+			KFactory::tmp('site::com.ninjaboard.controller.post')
 			
 				//@TODO Figure out why the singular view is used instead of the plural one
-				->setView(KFactory::get('site::com.ninjaboard.view.posts.html'))
+				->setView(KFactory::tmp('site::com.ninjaboard.view.posts.html'))
 			
 				->sort('created_on')
 				->limit($limit)

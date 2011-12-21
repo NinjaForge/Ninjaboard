@@ -77,7 +77,7 @@ Request.Tools = new Class({
 				form = $(link.get('data-name')+'-form'),
 				request = this.createRequest.pass([link, name], this);
 			
-			//Converter got a form	
+			//Converter has a form	
 			if(form) {
 				this.options.placeholder.grab(form.adopt(new Element('a', {
 					'class': 'confirm button',

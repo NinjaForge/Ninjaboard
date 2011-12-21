@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: dashboard.php 1557 2011-02-16 14:18:43Z stian $
+ * @version		$Id: dashboard.php 1604 2011-02-23 13:53:07Z betweenbrain $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -31,7 +31,7 @@ class ComNinjaboardControllerDashboard extends ComNinjaControllerDashboard
 	}
 	
 	/**
-	 * Checks if the site have migrated from 0.5, and got no data yet.
+	 * Checks if the site have migrated from 0.5, and doesn't have any data yet.
 	 * If true, then it'll display a message pointing to the Tools screen and the NB importer.
 	 *
 	 * @author Stian Didriksen <stian@ninjaforge.com>
@@ -88,6 +88,6 @@ class ComNinjaboardControllerDashboard extends ComNinjaControllerDashboard
 		}
 		
 		KFactory::get('admin::com.ninjaboard.controller.tool')->execute('import');
-		JError::raiseNotice(0, JText::_('In order to get you started with using Ninjaboard, Sample Content just got imported.'));
+		JError::raiseNotice(0, JText::_('In order to get you started with using Ninjaboard, Sample Content was just imported.'));
 	}
 }
