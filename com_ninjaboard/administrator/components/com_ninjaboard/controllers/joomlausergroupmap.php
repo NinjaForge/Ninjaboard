@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: joomlausergroupmap.php 1676 2011-03-24 00:11:16Z stian $
+ * @version		$Id: joomlausergroupmap.php 1796 2011-04-13 22:07:43Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -57,7 +57,7 @@ class ComNinjaboardControllerJoomlausergroupmap extends ComNinjaboardControllerD
 			$ids[] = $joomla;
 		}
 		
-		$result = $table->select($query->where('joomla_gid', 'IN', $ids), KDatabase::FETCH_ROWSET)->delete();
+		$table->getDatabase()->execute('TRUNCATE TABLE `#__ninjaboard_joomla_user_group_maps`');
 
 		foreach($ids as $id)
 		{			

@@ -1,0 +1,14 @@
+TRUNCATE TABLE `#__ninjaboard_assets`;
+TRUNCATE TABLE `#__ninjaboard_attachments`;
+TRUNCATE TABLE `#__ninjaboard_profile_fields`;
+TRUNCATE TABLE `#__ninjaboard_forums`;
+TRUNCATE TABLE `#__ninjaboard_posts`;
+TRUNCATE TABLE `#__ninjaboard_ranks`;
+TRUNCATE TABLE `#__ninjaboard_settings`;
+TRUNCATE TABLE `#__ninjaboard_subscriptions`;
+TRUNCATE TABLE `#__ninjaboard_topics`;
+TRUNCATE TABLE `#__ninjaboard_topic_symlinks`;
+TRUNCATE TABLE `#__ninjaboard_people`;
+TRUNCATE TABLE `#__ninjaboard_user_groups`;
+TRUNCATE TABLE `#__ninjaboard_user_group_maps`;
+TRUNCATE TABLE `#__ninjaboard_joomla_user_group_maps`;

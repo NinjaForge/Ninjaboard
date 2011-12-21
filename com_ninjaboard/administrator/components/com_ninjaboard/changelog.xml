@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 1783 2011-04-12 22:17:44Z stian $ -->
+<!-- $Id: changelog.xml 1803 2011-04-14 20:24:08Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+    <version>1.0.8</version>
+    <date>April 14th 2011</date>
+    <state>Maintenance Release
+        <upgrade>Swedish translation files updated - thanks Kristian Dahlén!</upgrade>
+        <bugfix>Default Nooku Framework ACL caused users in the "Registered" group to be unable to post in the forums.</bugfix>
+        <bugfix>Regression in usergroup maps caused saving to fail, and also showed incorrect mapping for the "Unregistered" usergroup.</bugfix>
+        <bugfix>Regression bug caused the sample content to no longer automatically import on first launch on new installs.</bugfix>
+    </state>
+
 	<version>1.0.7</version>
 	<date>April 12th 2011</date>
 	<state>Maintenance Release

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forums.php 1383 2011-01-11 13:17:54Z stian $
+ * @version		$Id: forums.php 1804 2011-04-14 20:52:14Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -101,6 +101,9 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
 	 */
 	public function maintenance()
 	{
+	    // On some systems, and especially if we're upgrading from something older than Ninjaboard 1.0.7 this routine may time out
+	    @set_time_limit(300);
+	
 		foreach($this->select(array('level' => 0)) as $forum)
 		{
 			$this->_setLevel($forum);

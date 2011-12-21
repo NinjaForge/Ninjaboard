@@ -1,4 +1,4 @@
-<? /** $Id: default.php 1585 2011-02-18 21:05:27Z stian $ */ ?>
+<? /** $Id: default.php 1797 2011-04-13 22:21:07Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <style type="text/css">
@@ -41,7 +41,7 @@
 			<div style="float: right">
 				<button type="submit" name="save"><?= @text('Save') ?></button>
 			</div>
-			<div class="configuration"><?= @text(KInflector::humanize(KFactory::get($this->getView())->getName())) ?></div>
+			<div class="configuration"><?= @text(KInflector::humanize($this->getView()->getName())) ?></div>
 			<input type="hidden" name="action" value="edit" />
 			<input type="hidden" name="tmpl" value="component" />
 		</fieldset>

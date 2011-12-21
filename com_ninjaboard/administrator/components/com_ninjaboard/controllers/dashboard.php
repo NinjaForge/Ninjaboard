@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: dashboard.php 1604 2011-02-23 13:53:07Z betweenbrain $
+ * @version		$Id: dashboard.php 1800 2011-04-14 19:21:31Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -25,8 +25,8 @@ class ComNinjaboardControllerDashboard extends ComNinjaControllerDashboard
 
 		if( !isset($this->_request->tmpl) || ( isset($this->_request->tmpl) && $this->_request->tmpl != 'component' ) )
 		{
-			$this->registerCallback('before.browse', array($this, 'checkMigration'));
-			$this->registerCallback('before.browse', array($this, 'checkInstall'));
+			$this->registerCallback('before.display', array($this, 'checkMigration'));
+			$this->registerCallback('before.display', array($this, 'checkInstall'));
 		}
 	}
 	

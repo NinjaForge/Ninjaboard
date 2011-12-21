@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forum.php 1762 2011-04-11 18:59:09Z stian $
+ * @version		$Id: forum.php 1799 2011-04-14 19:19:34Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -39,7 +39,7 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerAbstract
 		//Set other model states
 		//KRequest::set('get.enabled', true);
 		
-		$this->registerCallback(array('before.read', 'beforebrowse'), array($this, 'setOrdering'));
+		$this->registerCallback(array('before.read', 'before.browse'), array($this, 'setOrdering'));
 		
 		$cache = JPATH_ROOT.'/cache/com_'.$this->getIdentifier()->package . '/maintenance.forums.txt';
 		
