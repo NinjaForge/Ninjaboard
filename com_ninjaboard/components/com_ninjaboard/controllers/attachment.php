@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: attachment.php 1409 2011-01-13 02:03:32Z stian $
+ * @version		$Id: attachment.php 1487 2011-01-22 00:34:45Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -21,11 +21,8 @@ class ComNinjaboardControllerAttachment extends ComNinjaboardControllerAbstract
 	 */
 	public function __construct(KConfig $config)
 	{
-		parent::__construct($config);
-		
-		$this->_request->format = 'file';
+		KRequest::set('get.format', 'file');
 
-		//Set format if not already set
-		if(!KRequest::has('get.format', 'cmd')) KRequest::set('get.format', 'file');
+		parent::__construct($config);
 	}
 }

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: users.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: users.php 1576 2011-02-17 23:44:21Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -93,7 +93,7 @@ class ComNinjaboardModelUsers extends KModelTable
 	 */
 	protected function _buildQueryWhere(KDatabaseQuery $query)
 	{
-       	if($search = $this->_state->search)
+       	if($search = trim($this->_state->search))
 		{
 			$parts	= explode(' ', $search);
 			$states	= array();
@@ -120,10 +120,14 @@ class ComNinjaboardModelUsers extends KModelTable
 			}
 			else
 			{
+				//To avoid auto quoting, and also trim trailing whitespace
+				$search = strtoupper($search);
+				
 				$query
-					  ->where('tbl.name', 'LIKE',  '%'.$search.'%', 'or')
+					  ->where("(tbl.name LIKE '%$search%' OR tbl.username LIKE '%$search%' OR tbl.email LIKE '%$search%')")
+					  /*->where('tbl.name', 'LIKE',  '%'.$search.'%', 'or')
 					  ->where('tbl.username', 'LIKE',  '%'.$search.'%', 'or')
-					  ->where('tbl.email', 'LIKE',  '%'.$search.'%', 'or');
+					  ->where('tbl.email', 'LIKE',  '%'.$search.'%', 'or')*/;
 			}
 		}
 		

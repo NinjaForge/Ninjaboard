@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: html.php 1544 2011-02-15 22:29:30Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -13,7 +13,6 @@ class ComNinjaboardViewUsergroupsHtml extends ComNinjaboardViewHtml
 	{
 		if(!$this->getModel()->getTotal()) return parent::display();
 
-	
 		$this->_createToolbar()
 			->prepend('spacer')
 			->prepend(KFactory::get('admin::com.ninja.toolbar.button.modal', array(

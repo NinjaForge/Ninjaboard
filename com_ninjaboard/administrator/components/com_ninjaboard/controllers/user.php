@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: user.php 1388 2011-01-11 15:49:06Z stian $
+ * @version		$Id: user.php 1567 2011-02-16 23:52:24Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -23,10 +23,8 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 	{
 		parent::__construct($options);
 		
-		$this	
-				->registerFunctionBefore('add',	'setUserData')
-				->registerFunctionBefore('edit',	'setUserData')
-				->registerFunctionAfter('upload',	'setAvatar');
+		$this->registerCallback(array('before.add', 'before.edit'), array($this, 'setUserData'));
+		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setAvatar'));
 
 		$this->registerCallback('before.browse', array($this, 'showSearchTips'));
 	}
@@ -36,18 +34,60 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 		$this->_raiseClosableMessage('Use flags like username:bob and email:bob@example.com for advanced searching.');
 	}
 	
-	public function setAvatar()
+	public function setAvatar(KCommandContext $context)
 	{
-		if(!$avatar = KRequest::get('files.uploaded', 'string', false)) return;
+		//@TODO we shouldn't clear all cache, only the cache for this user
+		if(JFolder::exists(JPATH_ROOT.'/cache/com_ninjaboard/avatars')) JFolder::delete(JPATH_ROOT.'/cache/com_ninjaboard/avatars');
+	
+		//If nothing is uploaded, don't execute
+		if(!KRequest::get('files.avatar.name', 'raw')) return;
+
+		//Prepare MediaHelper
+		JLoader::register('MediaHelper', JPATH_ROOT.'/components/com_media/helpers/media.php');
+
+		$person			= KFactory::tmp('admin::com.ninjaboard.model.people')->id($context->result->id)->getItem();
+		$error			= null;
+		$errors			= array();
+		$identifier		= $this->getIdentifier();
+		$name			= $identifier->type.'_'.$identifier->package;
+		$relative		= '/media/'.$name.'/images/avatars/'.$person->id.'/';
+		$absolute		= JPATH_ROOT.$relative;
+		$attachments	= array();
 		
-		$data = array('avatar' => $avatar);
-		$data['id'] = $this->getRequest()->id;
 		
-		$rowset = KFactory::tmp('admin::com.ninjaboard.model.people')
-				->set($this->getRequest())
-				->getItem()
-				->setData($data)
-				->save();		
+		$avatar = KRequest::get('files.avatar', 'raw');
+		if(!MediaHelper::canUpload($avatar, $error)) {
+			$message = JText::_("%s failed to upload because %s");
+			JError::raiseWarning(21, sprintf($message, $avatar['name'], lcfirst($error)));
+			
+			return $this;
+		}
+		if(!MediaHelper::isImage($avatar['name'])) {
+			$message = JText::_("%s failed to upload because it's not an image.");
+			JError::raiseWarning(21, sprintf($message, $avatar['name']));
+			
+			return $this;
+		}
+		
+		$this->params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		$params = $this->params['avatar_settings'];
+		$maxSize = (int) $params['upload_size_limit'];
+		if ($maxSize > 0 && (int) $avatar['size'] > $maxSize)
+		{
+			$message = JText::_("%s failed uploading because it's too large.");
+			JError::raiseWarning(21, sprintf($message, $avatar['name']));
+			
+			return $this;
+		}
+			
+
+		$upload = JFile::makeSafe(uniqid(time())).'.'.JFile::getExt($avatar['name']);
+		JFile::upload($avatar['tmp_name'], $absolute.$upload);
+
+		$person->avatar = $relative.$upload;
+		$person->save();
+		
+		return $this;
 	}
 	
 	public function getUploadDestination()
@@ -70,7 +110,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 	{
 		$row = $this->execute('edit', $data);
 		
-		$this->_redirect = KRequest::get('session.com.dispatcher.referrer', 'url');
+		$this->_redirect = 'index.php?option=com_ninjaboard&view=users';
 		return $row;
 	}
 
@@ -85,7 +125,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 	{
 		$result = $this->execute('edit', $context);
 
-		$this->_redirect = 'view='.$this->_identifier->name.'&id='.$this->getRequest()->id;
+		$this->_redirect = 'index.php?option=com_ninjaboard&view='.$this->_identifier->name.'&id='.$this->getRequest()->id;
 		return $result;
 	}
 

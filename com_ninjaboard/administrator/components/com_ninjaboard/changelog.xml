@@ -1,9 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 1474 2011-01-21 01:02:27Z stian $ -->
+<!-- $Id: changelog.xml 1593 2011-02-19 22:40:18Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+	<version>1.0.5</version>
+	<date>February 20th 2011</date>
+	<state>Maintenance Release
+		<bugfix>Major performance bottleneck causing timeouts on larger forums when replying or editing a topic is now solved - thanks Nicholas Dionysopoulos!</bugfix>
+	</state>
+
+	<version>1.0.4</version>
+	<date>February 19th 2011</date>
+	<state>Maintenance Release
+		<security>Vulnerability in the post preview function.</security>
+		<new>Posts have now a few new dynamic css classes to them. They change depending on wether the poster is the topic creator, the poster rank, usergroups and more.</new>
+		<new>Turkey translation - thanks Yagiz Ergenc!</new>
+		<upgrade>German translation updated - thanks Wolfgang Naber!</upgrade>
+		<upgrade>Agora converter learned to handle subscriptions.</upgrade>
+		<upgrade>Post editor now fades out toolbar buttons when in preview mode to make it more distinct from edit mode.</upgrade>
+		<upgrade>Now possible to globally disable email notifications.</upgrade>
+		<upgrade>Added option that lets you display the new topic button on a topic.</upgrade>
+		<upgrade>Session is now kept alive while composing posts.</upgrade>
+		<upgrade>Avatar uploads and management lacked on the backend compared to frontend.</upgrade>
+		<upgrade>No longer needed to visit the dashboard to complete installations.</upgrade>
+		<upgrade>Norwegian translation updated.</upgrade>
+		<upgrade>English translation files updated with new strings.</upgrade>
+		<upgrade>Post edit button now got a 'edit' class to make it easier to style.</upgrade>
+		<upgrade>Italian translation upgraded - thanks Valter Mura!</upgrade>
+		<bugfix>Usergroups mapper works with IE8 once again, an unclosed div caused it to break.</bugfix>
+		<bugfix>Fixed IE8 issue where post preview would cause text to overlap, making it unreadable.</bugfix>
+		<bugfix>Trailing whitespace in user search box were not trimmed.</bugfix>
+		<bugfix>Fixed issue where searching in the Ninjaboard Users backend would reveal people that are disabled that would otherwise be hidden.</bugfix>
+		<bugfix>Signatures with images in them could cause text overlaps with the post text making it unreadable.</bugfix>
+		<bugfix>Sometimes a post could overlap and cause parts of the previous post to be unselectable (for instance you couldn't click a link).</bugfix>
+		<bugfix>Fixed issue where Watches filter would cause an http 500 error screen with an sql syntax error.</bugfix>
+		<bugfix>Fixed missing Map icon on the Usergroups screen.</bugfix>
+		<bugfix>Ninjaboard no longer changes the scripts load order on site as it caused js errors on some sites. It's also more failsafe should multiple jQuery instances load on the same page.</bugfix>
+		<bugfix>Added compatability with Safety Extender - thanks zone.ee!</bugfix>
+		<bugfix>Forum titles weren't vertically centered like topic titles when no forum descriptions.</bugfix>
+		<bugfix>Resolved styling issues with RocketTheme Grunge.</bugfix>
+		<bugfix>Compatibility fixes with the new 2011 RocketTheme templates.</bugfix>
+		<bugfix>Kunena converter failed on topic shadows (moved topics) due to typo.</bugfix>
+		<bugfix>Performance issues in Kunena converter.</bugfix>
+		<bugfix>Fixing issues with avatars on some host setups.</bugfix>
+		<log>Removed post preview button as it mislead users into thinking it would preview the post on page, not just the editor text. We'll add back the preview button when it actually behaves like that.</log>
+	</state>
+
 	<version>1.0.3</version>
 	<date>January 21th 2011</date>
 	<state>Bugfix Release

@@ -1,4 +1,4 @@
-<? /** $Id: form_inner.php 1416 2011-01-13 22:41:58Z stian $ */ ?>
+<? /** $Id: form_inner.php 1585 2011-02-18 21:05:27Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -7,13 +7,44 @@
 <link rel="stylesheet" href="/bbcode.css" />
 
 <style type="text/css">
-	#text_preview {
+	
+	#text_preview {	
 		display:none;
 		padding: 5px;
 		border: 1px solid transparent;
+		overflow: auto;
+	}
+	/* Hide any dropdown menus */
+	.markItUpHeader.previewing ul li ul {
+		opacity: 0;
+		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+		filter: alpha(opacity=0);
+	}
+	.markItUpHeader .markItUpButton, .markItUpHeader .markItUpSeparator {
+		-webkit-transition: opacity 0s linear;
+		-moz-transition: opacity 0s linear;
+		transition: opacity 0s linear;
+	}
+	.markItUpHeader.previewing .markItUpButton, .markItUpHeader.previewing .markItUpSeparator {
+		-webkit-transition: opacity 300ms linear;
+		-moz-transition: opacity 300ms linear;
+		transition: opacity 300ms linear;
+		opacity: 0.2;
+		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+		filter: alpha(opacity=20);
+	}
+	.markItUpHeader.previewing .markItUpButton.button_preview {
+		opacity: 1;
+		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+		filter: alpha(opacity=100);
 	}
 	#text.previewing {
+		-webkit-user-select: none;
 		color: transparent;
+		opacity: 0.6;
+		
+		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+		filter: alpha(opacity=0);
 	}
 	#text::-webkit-input-placeholder {
 		color: currentcolor;
@@ -46,7 +77,11 @@
 
 
 <script type="text/javascript">
-	jQuery.noConflict();
+	//jQuery version of keepalive
+	setInterval(function(){
+		jQuery.get(<?= json_encode(KRequest::url()->get(KHttpUri::PART_BASE ^ KHttpUri::PART_PATH).@route()) ?>);
+	}, <?= 60000 * max(1, (int)JFactory::getApplication()->getCfg('lifetime')) ?>);
+
 	jQuery(function($){
 		var form = $('#<?= @id() ?>');
 		$('#<?= @id('cancel') ?>', '#<?= @id('save') ?>').click(function(event){
@@ -158,7 +193,7 @@
 			</div>
 		<? endif ?>
 		<div class="element wider" style="text-align:center;position:relative">
-			<textarea name="text" id="text" placeholder="<?= @text('Enter some text') ?>"><?= @$post->text ?></textarea>
+			<textarea name="text" id="text" placeholder="<?= @text('Enter some text') ?>"><?= @escape($post->text) ?></textarea>
 			<div id="text_preview"></div>
 		</div>
 
@@ -204,10 +239,10 @@
 				<div id="<?= @id('save') ?>">
 					<?= @$create_topic_button ?>
 				</div>
-				&#160;
+				<? /*&#160;
 				<div id="<?= @id('preview') ?>">
 					<?= $preview_button ?>
-				</div>
+				</div>*/ ?>
 				&#160;
 				<div id="<?= @id('cancel') ?>"><?= str_replace('$title', @text('Cancel'), @$topic->params['tmpl']['cancel_button']) ?></div>
 			</div>

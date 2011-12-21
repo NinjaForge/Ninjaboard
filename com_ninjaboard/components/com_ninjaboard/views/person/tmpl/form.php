@@ -1,4 +1,4 @@
-<? /** $Id: form.php 1302 2011-01-03 03:12:26Z stian $ */ ?>
+<? /** $Id: form.php 1543 2011-02-15 22:18:07Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -7,7 +7,6 @@
 
 <script type="text/javascript" src="/jquery.min.js"></script>
 <script type="text/javascript">
-	jQuery.noConflict();
 	jQuery(function($){
 		var form = $('#<?= @id() ?>');
 		$('#<?= @id('cancel') ?>').click(function(event){

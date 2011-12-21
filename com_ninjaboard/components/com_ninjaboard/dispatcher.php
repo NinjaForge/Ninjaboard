@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: dispatcher.php 1438 2011-01-19 23:49:21Z stian $
+ * @version		$Id: dispatcher.php 1540 2011-02-14 20:10:50Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -33,12 +33,23 @@ class ComNinjaboardDispatcher extends ComDefaultDispatcher
 		
 		//Parse the query in the pathway url
 		$query = array('Itemid' => KRequest::get('get.Itemid', 'int'));
-		if($last) parse_str(str_replace('index.php?',  '', $last->link), $query);
+		if(is_object($last) && isset($last->link)) parse_str(str_replace('index.php?',  '', $last->link), $query);
 
 		// We need to find out if the menu item link has a view param
-		$menuquery = array('view' => '');
-		$menu = JSite::getMenu()->getItem($query['Itemid']);
-		parse_str(str_replace('index.php?',  '',$menu->link), $menuquery); // remove "index.php?" and parse
+		$menuquery	= array('view' => '');
+		$menu		= JSite::getMenu();
+		$item		= $menu->getItem($query['Itemid']);
+		
+		//Menu item id is invalid, so lets get the active menu item
+		if(!$item)	$item = $menu->getActive();
+		
+		//There is no active menu item, so we must be on the default page (without Itemid)
+		if(!$item)	$item = $menu->getDefault();
+
+		//Menu is still false, so abort the operation to prevent warnings
+		if(!$item) return;
+
+		parse_str(str_replace('index.php?',  '',$item->link), $menuquery); // remove "index.php?" and parse
 		if(!isset($menuquery['view'])) $menuquery['view'] = '';
 		
 		if($view->getName() != 'forums' && (!$last || KInflector::pluralize($menuquery['view']) != 'forums'))

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: post.php 1410 2011-01-13 02:14:14Z stian $
+ * @version		$Id: post.php 1573 2011-02-17 22:51:43Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -40,15 +40,33 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 
 		//Register validation event
 		//@TODO we shouldn't have to attach to the save and apply events. But KControllerView expects 'edit' to succeed.
-		$this->registerFunctionBefore(array('add', 'edit', 'save', 'apply'), 'validate');
+		$this->registerCallback(array('before.add', 'before.edit', 'before.save', 'before.apply'), array($this, 'validate'));
 
-		$this->registerFunctionAfter(array('add', 'edit'), array('setNotify', 'setAttachments'));
-		$this->registerFunctionAfter('add', 'notify');
+		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setNotify'));
+		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setAttachments'));
+		$this->registerCallback('after.add', array($this, 'notify'));
 		
 		//Delete related event handlers
-		$this->registerFunctionBefore('delete', 'canDelete');
-		$this->registerFunctionAfter('delete', 'cleanupDelete');
+		$this->registerCallback('before.delete', 'canDelete');
+		$this->registerCallback('after.delete', 'cleanupDelete');
 	}
+
+	/**
+     * Initializes the default configuration for the object
+     *
+     * Called from {@link __construct()} as a first step of object instantiation.
+     *
+     * @param 	object 	An optional KConfig object with configuration options.
+     * @return void
+     */
+    protected function _initialize(KConfig $config)
+    {
+    	$config->append(array(
+    		'persistent'	=> false,
+        ));
+
+        parent::_initialize($config);
+    }
 
 	/**
 	 * Validates the entered data
@@ -121,7 +139,11 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	 */
 	public function notify(KCommandContext $context)
 	{
-		KFactory::get('site::com.ninjaboard.controller.watch')->notify($context);
+		$params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		if($params['email_notification_settings']['enable_email_notification'])
+		{
+			KFactory::get('site::com.ninjaboard.controller.watch')->notify($context);
+		}
 	}
 
 	public function setAttachments(KCommandContext $context)
@@ -194,11 +216,11 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		if($row->ninjaboard_topic_id && $row->id)
 		{
 			$append = $this->_redirect_hash ? '#p'.$row->id : '';
-			$this->setRedirect('view=topic&id='.$row->ninjaboard_topic_id.'&post='.$row->id.$append);
+			$this->setRedirect('index.php?option=com_ninjaboard&view=topic&id='.$row->ninjaboard_topic_id.'&post='.$row->id.$append);
 		}
 		elseif($row->ninjaboard_topic_id)
 		{
-			$this->setRedirect('view=topic&id='.$row->ninjaboard_topic_id);
+			$this->setRedirect('index.php?option=com_ninjaboard&view=topic&id='.$row->ninjaboard_topic_id);
 		}
 
 		return $result;
@@ -221,12 +243,12 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 
 		if($isset['post']) {
 			$append = $this->_redirect_hash ? '#p'.$post->id : '';
-			$this->_redirect = 'view=topic&id='.$post->ninjaboard_topic_id.'&post='.$post->id.$append;
+			$this->_redirect = 'index.php?option=com_ninjaboard&view=topic&id='.$post->ninjaboard_topic_id.'&post='.$post->id.$append;
 			
 		} elseif($isset['topic']) {
-			$this->_redirect = 'view=topic&id='.$this->_request->topic;
+			$this->_redirect = 'index.php?option=com_ninjaboard&view=topic&id='.$this->_request->topic;
 		} elseif($isset['forum']) {
-			$this->_redirect = 'view=forum&id='.$this->_request->forum;
+			$this->_redirect = 'index.php?option=com_ninjaboard&view=forum&id='.$this->_request->forum;
 		} else {
 			parent::_actionCancel($context);
 		}
@@ -244,7 +266,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	public function canDelete()
 	{
 		$user = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
-		$rows = KFactory::get($this->getModel())->getList();
+		$rows = $this->getModel()->getList();
 		foreach($rows as $row)
 		{
 			$topic = KFactory::tmp('site::com.ninjaboard.model.topics')

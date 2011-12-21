@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1384 2011-01-11 13:56:29Z stian $
+ * @version		$Id: html.php 1539 2011-02-14 20:10:30Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -92,9 +92,9 @@ class ComNinjaboardViewHtml extends ComNinjaboardViewDefault
 	public function setBreadcrumbs()
 	{
 		$pathway = KFactory::get('lib.koowa.application')->getPathWay();
-		$menu	 = JSite::getMenu()->getActive()->query;
 		
 		//@TODO Don't add a pathway item that's a duplicate of something else
+		//$menu	 = JSite::getMenu()->getActive()->query;
 		//if()
 		
 		$pathway->addItem($this->getDocumentSubtitle(), $this->createRoute());

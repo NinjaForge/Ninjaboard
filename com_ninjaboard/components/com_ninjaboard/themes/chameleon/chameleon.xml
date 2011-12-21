@@ -82,6 +82,10 @@
   			<option value="classic">Pagination and toolbar both top and bottom.</option>
   			<option value="minimal">Toolbar top and pagination bottom.</option>
   		</element>
+  		<element name="new_topic_button" type="radio" default="forum" description="Where to see the new topic button." class="group vertical">
+  			<option value="topic">Button visible both on forum pages and from a topic.</option>
+  			<option value="forum">Button only visible on forum pages.</option>
+  		</element>
   		<element name="show_usergroups" type="radio" default="1" description="Show usergroups information in posts and people profiles. Useful if you want your users to know who's a moderator and such.">
   			<option value="1">Yes</option>
   			<option value="0">No</option>

@@ -1,4 +1,4 @@
-<? /** $Id: form.php 1418 2011-01-13 23:20:02Z stian $ */ ?>
+<? /** $Id: form.php 1545 2011-02-15 23:04:58Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? @ninja('behavior.livetitle', array('title' => @$rank->title)) ?>
@@ -25,7 +25,7 @@
 			</div>
 			<div class="element">
 				<?= KFactory::tmp('admin::com.ninja.element.note', array(
-					'node' => simplexml_load_string('<param name="hint" type="note" class="note" slide="true" description="Go to the Joomla! media manager, and upload icons here: /com_ninjaboard/rank. Create the folders if they don\'t already exist." show="Show how to upload custom icons." hide="Hide how to upload custom icons." />'),
+					'node' => simplexml_load_string('<param name="hint" type="note" class="note" slide="true" description="Go to the Joomla! media manager, and upload icons here: %s. Create the folders if they don\'t already exist." eval="return JPATH_ROOT.\'/images/com_ninjaboard/rank\';" show="Show how to upload custom icons." hide="Hide how to upload custom icons." />'),
 					'value'	=> '',
 					'field'	=> 'note'
 				)) ?>

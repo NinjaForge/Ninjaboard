@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: manifest.xml 1474 2011-01-21 01:02:27Z stian $ -->
+<!-- $Id: manifest.xml 1593 2011-02-19 22:40:18Z stian $ -->
 <!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/component-install.dtd">
 <install type="component" version="1.5.0" method="upgrade" mootools="1.2">
 	<name>Ninjaboard</name>
@@ -21,8 +21,8 @@
     		- RC		blue
     		- Stable	#009199
     -->
-	<version status="Stable" color="#009199">1.0.3</version>
-	<revision>1468</revision>
+	<version status="Stable" color="#009199">1.0.5</version>
+	<revision>1589</revision>
 	<description>The sharpest user forum</description>
 
 	<!-- Credits -->
@@ -35,6 +35,7 @@
 		<a href="http://jonasraskdesign.com/iconarchive/iconarchive.html">Danish Royalty Free Icons from Jonas Rask</a>
 		<a href="http://www.nooku.org/en/framework.html">Ninjaboard is powered by the Nooku Framework</a>
 		<a href="http://webdesign-welt.de">German translation by Lintzy</a>
+		<a>German translation by Wolfgang Naber</a>
 		<a href="http://thegathering.gr">Greek translation by Kostas M.</a>
 		<a href="http://www.netactivity.net">French translation by Xavier</a>
 		<a href="http://www.cquence-multimedia.nl">Dutch translation by John 'cQuencer' Bartels</a>
@@ -45,6 +46,7 @@
 		<a href="http://jeffchannell.com/">Security audited by Jeff Channell</a>
 		<a>Italian translation by Valter Mura</a>
 		<a href="http://www.jonneubauer.com/">Spanish translation by Jon Neubauer</a>
+		<a href="http://www.ergenc.org">Turkey translation by Yagiz Ergenc</a>
 	</credits>
 	
 	<!-- Application/site -->
@@ -103,10 +105,8 @@
 			<language tag="el-GR">el-GR/el-GR.com_ninjaboard.menu.ini</language>
 			<language tag="en-GB">en-GB/en-GB.com_ninjaboard.ini</language>
 			<language tag="en-GB">en-GB/en-GB.com_ninjaboard.menu.ini</language>
-			
 			<language tag="es-ES">es-ES/es-ES.com_ninjaboard.ini</language>
 			<language tag="es-ES">es-ES/es-ES.com_ninjaboard.menu.ini</language>
-			
 			<language tag="fr-FR">fr-FR/fr-FR.com_ninjaboard.ini</language>
 			<language tag="fr-FR">fr-FR/fr-FR.com_ninjaboard.menu.ini</language>
 			<language tag="he-IL">he-IL/he-IL.com_ninjaboard.ini</language>
@@ -119,6 +119,8 @@
 			<language tag="nl-NL">nl-NL/nl-NL.com_ninjaboard.menu.ini</language>
 			<language tag="sv-SE">sv-SE/sv-SE.com_ninjaboard.ini</language>
 			<language tag="sv-SE">sv-SE/sv-SE.com_ninjaboard.menu.ini</language>
+			<language tag="tr-TR">tr-TR/tr-TR.com_ninjaboard.ini</language>
+			<language tag="tr-TR">tr-TR/tr-TR.com_ninjaboard.menu.ini</language>
 		</languages>
 	</administration>
 	

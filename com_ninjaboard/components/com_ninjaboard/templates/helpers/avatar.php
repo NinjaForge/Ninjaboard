@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: avatar.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: avatar.php 1571 2011-02-17 21:33:39Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -92,7 +92,8 @@ class ComNinjaboardTemplateHelperAvatar extends KTemplateHelperAbstract
 	 */
 	public function image($config = array())
 	{
-		$params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		$params		= KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		$prepend	= KFactory::get('lib.joomla.application')->isAdmin() ? KRequest::root().'/' : '';
 	
 		$config = new KConfig($config);
 		$config->append(array(
@@ -101,8 +102,8 @@ class ComNinjaboardTemplateHelperAvatar extends KTemplateHelperAbstract
 			'class'		=> 'avatar',
 			'link'		=> 'person'
 		))->append(array(
-			'avatarurl'		=> JRoute::_('&view=avatar&id='.$config->id.'&thumbnail='.$config->thumbnail),
-			'profileurl'	=> JRoute::_('&view=person&id='.$config->id)
+			'avatarurl'		=> $prepend.JRoute::_('&view=avatar&id='.$config->id.'&thumbnail='.$config->thumbnail),
+			'profileurl'	=> $prepend.JRoute::_('&view=person&id='.$config->id)
 		));
 		
 		$attribs = array(

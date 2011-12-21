@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: avatar.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: avatar.php 1567 2011-02-16 23:52:24Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -23,14 +23,18 @@ class ComNinjaboardControllerAvatar extends ComNinjaboardControllerAttachment
 	 */
 	public function __construct(KConfig $config)
 	{
+		KRequest::set('get.format', 'file');
+
 		//When no id is set in the url, then we should assume the user wants to see his own profile
 		$me		= KFactory::get('site::com.ninjaboard.model.people')->getMe();
-		$config->request->append(array(
-			'id'   => $me->id
+		$config->append(array(
+			'request' => array(
+				'id'   => $me->id
+			)
 		));
-		
+
 		parent::__construct($config);
-		
+
 		//@TOD To prevent errors like on profile edit screen, remember to remove this line if we add layouts
 		$this->_request->layout = 'default';
 		$this->_request->format = 'file';
@@ -44,11 +48,13 @@ class ComNinjaboardControllerAvatar extends ComNinjaboardControllerAttachment
 		$request	= $this->getRequest();
 		$row		= parent::_actionRead($context);
 		
+		//Only auto create people that exist
 		if(!$row->id && $request->id) {
 			//Check that the person exists, before creating Ninjaboard record
 			$exists = KFactory::get('site::com.ninjaboard.model.users')->id($request->id)->getTotal() > 0;
 			if(!$exists) {
-				JError::raiseError(404, JText::_('Person not found.'));
+				JError::raiseWarning(404, JText::_('Person not found.'));
+				return $row;
 			}
 		
 			$row->id = $request->id;
@@ -57,11 +63,6 @@ class ComNinjaboardControllerAvatar extends ComNinjaboardControllerAttachment
 			//In order to get the data from the jos_users table, we need to rerun the query by getting a fresh row and setting the data
 			$new = KFactory::tmp($this->getModel())->id($row->id)->getItem();
 			$row->setData($new->getData());
-		}
-		
-		//an id is absolutely required
-		if(!$row->id) {
-			JError::raiseError(404, JText::_('Avatar not found.'));
 		}
 
 		return $row;

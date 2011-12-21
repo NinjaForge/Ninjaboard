@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: joomlausergroupmap.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: joomlausergroupmap.php 1505 2011-02-01 00:08:32Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -68,7 +68,7 @@ class ComNinjaboardControllerJoomlausergroupmap extends ComNinjaboardControllerD
 		
 		$tmpl = false;
 		if(KRequest::get('post.tmpl', 'cmd') == 'component') $tmpl = '&tmpl=component';
-		$this->_redirect = 'view=joomlausergroupmaps'.$tmpl;
+		$this->_redirect = 'index.php?option=com_ninjaboard&view=joomlausergroupmaps'.$tmpl;
 		if($tmpl) $this->_redirect_message = '<script type="text/javascript">window.parent.document.getElementById("sbox-btn-close").fireEvent("click")</script>';
 		// @TODO this is a temporary workaround, find out why the proper way, using setRedirect(), stopped working.
 		echo $this->_redirect_message;

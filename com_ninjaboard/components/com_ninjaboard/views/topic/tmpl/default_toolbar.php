@@ -1,8 +1,9 @@
-<? /** $Id: default_toolbar.php 1351 2011-01-07 14:32:45Z stian $ */ ?>
+<? /** $Id: default_toolbar.php 1573 2011-02-17 22:51:43Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? if ($reply_topic_button or $move_topic_button or $delete_topic_button) : ?>
 	<div class="start">
+		<? if(isset($new_topic_button)) : ?><div class="action"><?= $new_topic_button ?> </div><? endif ?>
 		<div class="action reply-topic"><?= $reply_topic_button ?></div>
 		<div class="action"><?= $move_topic_button ?></div>
 		<div class="action"><?= $delete_topic_button ?></div>

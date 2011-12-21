@@ -1,4 +1,4 @@
-<? /** $Id: default.php 1242 2010-12-19 15:29:36Z stian $ */ ?>
+<? /** $Id: default.php 1565 2011-02-16 16:27:14Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -7,9 +7,9 @@
 
 	<div class="header relative">
 		<script type="text/javascript">
-			jQuery.noConflict()(function($){
+			jQuery(function($){
 				$('[name=type_name]').change(function(){
-					var url = '<?= @route('type_name=%24type_name%24', true) ?>'.replace('%24type_name%24', $(this).val());
+					var url = '<?= @route('type_name=%24type_name%24', true) ?>'.replace('$type_name$', $(this).val());
 
 					window.location.href = url;
 				});
@@ -46,7 +46,7 @@
 				<tr>
 					<td colspan="4" style="text-align: right;">
 						<script type="text/javascript">
-							jQuery.noConflict()(function($){
+							jQuery(function($){
 								$('.<?= @id('remove-selected') ?>').click(function(event){
 									event.preventDefault();
 									if(event.target == this) return;

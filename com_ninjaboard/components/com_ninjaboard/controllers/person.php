@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: person.php 1409 2011-01-13 02:03:32Z stian $
+ * @version		$Id: person.php 1567 2011-02-16 23:52:24Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -30,8 +30,9 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		
 		parent::__construct($config);
 
-		$this->registerFunctionBefore(array('edit', 'apply', 'save'), array('checkPermissions', 'checkAlias'));
-		$this->registerFunctionAfter(array('add', 'edit'), 'setAvatar');
+		$this->registerCallback(array('before.edit', 'before.apply', 'before.save'), array($this, 'checkPermissions'));
+		$this->registerCallback(array('before.edit', 'before.apply', 'before.save'), array($this, 'checkAlias'));
+		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setAvatar'));
 	}
 
 	public function checkPermissions()
@@ -64,11 +65,11 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 			
 			unset($context->data->alias);
 			
-			//@TODO solve this redirect so it owrks
-			$this->_redirect = 'view=person&id='.$this->getRequest()->id.'&layout=form';
+			//@TODO solve this redirect so it works
+			$this->_redirect = 'index.php?option=com_ninjaboard&view=person&id='.$this->getRequest()->id.'&layout=form';
 		}
 	}
-	
+
 	public function setAvatar(KCommandContext $context)
 	{
 		//@TODO we shouldn't clear all cache, only the cache for this user
@@ -80,8 +81,7 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		//Prepare MediaHelper
 		JLoader::register('MediaHelper', JPATH_ROOT.'/components/com_media/helpers/media.php');
 
-		$data			= $context['result'];
-		$person			= KFactory::get($this->getModel())->getItem();
+		$person			= KFactory::tmp('admin::com.ninjaboard.model.people')->id($context->result->id)->getItem();
 		$error			= null;
 		$errors			= array();
 		$identifier		= $this->getIdentifier();
@@ -94,11 +94,15 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		$avatar = KRequest::get('files.avatar', 'raw');
 		if(!MediaHelper::canUpload($avatar, $error)) {
 			$message = JText::_("%s failed to upload because %s");
-			return JError::raiseWarning(21, sprintf($message, $avatar['name'], lcfirst($error)));
+			JError::raiseWarning(21, sprintf($message, $avatar['name'], lcfirst($error)));
+			
+			return $this;
 		}
 		if(!MediaHelper::isImage($avatar['name'])) {
 			$message = JText::_("%s failed to upload because it's not an image.");
-			return JError::raiseWarning(21, sprintf($message, $avatar['name']));
+			JError::raiseWarning(21, sprintf($message, $avatar['name']));
+			
+			return $this;
 		}
 		
 		$this->params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
@@ -107,7 +111,9 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		if ($maxSize > 0 && (int) $avatar['size'] > $maxSize)
 		{
 			$message = JText::_("%s failed uploading because it's too large.");
-			return JError::raiseWarning(21, sprintf($message, $avatar['name']));
+			JError::raiseWarning(21, sprintf($message, $avatar['name']));
+			
+			return $this;
 		}
 			
 
@@ -116,6 +122,8 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 
 		$person->avatar = $relative.$upload;
 		$person->save();
+		
+		return $this;
 	}
 
 	/**
@@ -173,7 +181,7 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 	{
 		$person	= KFactory::get($this->getModel())->getItem();
 		
-		$this->_redirect = 'view=person&id='.$person->id;
+		$this->_redirect = 'index.php?option=com_ninjaboard&view=person&id='.$person->id;
 	}
 
 	/**
@@ -183,7 +191,7 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 	{
 		$result = parent::_actionApply($data);
 	
-		$this->_redirect = 'view=person&id='.$result->id.'&layout=default';
+		$this->_redirect = 'index.php?option=com_ninjaboard&view=person&id='.$result->id.'&layout=default';
 		
 		return $result;
 	}

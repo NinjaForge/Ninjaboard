@@ -400,7 +400,7 @@
     "posts": [{
         "id": "1",
         "subject": "Nooku Framework 0.7",
-        "text": "Ninjaboard is using the 0.7 version of the Nooku Framework (Codename Koowa).\r\nThe 0.7 is going stable Q3 2010.",
+        "text": "Ninjaboard is using the 0.7 version of the Nooku Framework (Codename Koowa).",
         "created_on": "2009-09-21 21:41:37",
         "created_by": "62",
         "ninjaboard_topic_id": "1",

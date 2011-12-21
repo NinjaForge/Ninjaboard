@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: agora.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: agora.php 1587 2011-02-18 22:47:48Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -117,6 +117,57 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 								'signature',
 								'num_posts AS posts'
 							))
+			),
+			array(
+				'name' => 'watches',
+				'options' => array(
+					'name' => 'agora_subscriptions',
+					'identity_column' => 'id'
+				),
+				'query' => KFactory::tmp('lib.koowa.database.query')
+							->select(array(
+								'CONCAT(user_id, topic_id, forum_id, category_id) AS id',
+								'jos_id AS created_by',
+								'NOW() AS created_on',
+								'1 AS subscription_type',
+								'(category_id + (SELECT MAX(id) FROM #__agora_forums)) AS subscription_type_id',
+							))
+							->join('left', 'agora_users', 'user_id = id')
+							->where('category_id', '>', 0)
+			),
+			array(
+				'name' => 'watches',
+				'options' => array(
+					'name' => 'agora_subscriptions',
+					'identity_column' => 'id'
+				),
+				'query' => KFactory::tmp('lib.koowa.database.query')
+							->select(array(
+								'CONCAT(user_id, topic_id, forum_id, category_id) AS id',
+								'jos_id AS created_by',
+								'NOW() AS created_on',
+								'1 AS subscription_type',
+								'forum_id AS subscription_type_id',
+							))
+							->join('left', 'agora_users', 'user_id = id')
+							->where('forum_id', '>', 0)
+			),
+			array(
+				'name' => 'watches',
+				'options' => array(
+					'name' => 'agora_subscriptions',
+					'identity_column' => 'id'
+				),
+				'query' => KFactory::tmp('lib.koowa.database.query')
+							->select(array(
+								'CONCAT(user_id, topic_id, forum_id, category_id) AS id',
+								'jos_id AS created_by',
+								'NOW() AS created_on',
+								'3 AS subscription_type',
+								'topic_id AS subscription_type_id',
+							))
+							->join('left', 'agora_users', 'user_id = id')
+							->where('topic_id', '>', 0)
 			)
 		);
 

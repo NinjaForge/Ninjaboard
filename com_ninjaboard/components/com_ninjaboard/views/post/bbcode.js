@@ -4,10 +4,11 @@
 // Copyright (C) 2008 Jay Salvat
 // http://markitup.jaysalvat.com/
 // ----------------------------------------------------------------------------
+(function($){
 var NB = {
 	customPreview: function (markItUp) {
-	    var preview_pane = jQuery('#' + markItUp.textarea.id + '_preview');
-	    var txtarea = jQuery('#' + markItUp.textarea.id);
+	    var preview_pane = $('#' + markItUp.textarea.id + '_preview');
+	    var txtarea = $('#' + markItUp.textarea.id);
 	    var txtarea_footer = txtarea.parent().find('.markItUpFooter');
 	    
 	    // Swap the preview pane and the edit pane
@@ -21,22 +22,33 @@ var NB = {
 											      				.replace(/\)/g, '%29')
 											      				.replace(/\*/g, '%2A')
 											      				.replace(/%20/g, '+');
-	      jQuery.get(myBbcodeSettings.previewParserPath, { text: value}, function(content) { formatted_text = content; } );
+	      $.get(myBbcodeSettings.previewParserPath, {text: value}, function(content){
+	      	 formatted_text = content;
+	      	 
+	      	 //To prevent accidental editing
+	      	 txtarea.blur();
+	      	 
+	      	 //IE needs a tiny timeout
+	      	 if($.browser.msie) {
+		      	 setTimeout(function(){
+		      	 	txtarea.blur();
+		      	 }, 100);
+	      	 }
+	      });
 	      preview_pane.html('');
 	      preview_pane.html(formatted_text);
 	      
 	      preview_pane.width(txtarea.width());
-	      txtarea.addClass('previewing');
+	      txtarea.add(txtarea.prev()).addClass('previewing');
 	      txtarea_footer.hide();
 	      preview_pane.show().css('position', 'absolute').css(txtarea.position()).width(txtarea.width()).height(txtarea.height());
 
-          
-	      
 	      txtarea.parent().find('.button_preview a').addClass('previewing');
 	    } else {
 	      preview_pane.hide();
 	      preview_pane.html('');
-	      txtarea.removeClass('previewing');
+	      txtarea.add(txtarea.prev()).removeClass('previewing');
+
 	      txtarea_footer.show();
 	      txtarea.parent().find('.button_preview a').removeClass('previewing');
 	    }
@@ -77,7 +89,7 @@ myBbcodeSettings = {
       {name:'Quotes', openWith:'[quote]', closeWith:'[/quote]'}, 
       {name:'Code', openWith:'[code]', closeWith:'[/code]'}, 
       {separator:'---------------' },
-      {name:'Clean', className:"clean", replaceWith:function(h) { return h.selection.replace(/\[(.*?)\]/g, "") } },
       {name:'Preview', className:"button_preview", beforeInsert:function(markItUp) { return NB.customPreview(markItUp) } }
    ]
 }
+})(jQuery);

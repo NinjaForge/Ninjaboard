@@ -14,11 +14,7 @@ jQuery(function($){
 		}
 		$(this).next().removeClass('hover-previous');
 	});
-	
-	$('.footer.signature', '.ninjaboard').each(function(){
-		$(this).parent().css('padding-bottom', Math.max($(this).innerHeight() + 20, 60));
-	});
-	
+
 	//Shortcut key for reply topic
 	//ALT-R or ALT-SHIFT-R (Windows, Linux) or Ctrl-Option-R or Ctrl-R on Mac OS X (depending on the browser!) 
 	$('.new-topic a', '.ninjaboard').first().attr('accesskey', 'n');
@@ -27,3 +23,14 @@ jQuery(function($){
 	//ALT-N or ALT-SHIFT-N (Windows, Linux) or Ctrl-Option-N or Ctrl-N on Mac OS X (depending on the browser!) 
 	$('.reply-topic a', '.ninjaboard').first().attr('accesskey', 'r');
 });
+
+//Set the right padding on domready, and on load to catch any images
+(function($){
+	var setBottomPadding = function(){
+		$('.footer.signature', '.ninjaboard').each(function(){
+			$(this).parent().css('padding-bottom', Math.max($(this).innerHeight() + 20, 60));
+		});
+	};
+	$(setBottomPadding);
+	$(window).load(setBottomPadding);
+})(jQuery);

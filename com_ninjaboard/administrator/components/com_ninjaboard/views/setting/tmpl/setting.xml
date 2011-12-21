@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: setting.xml 1327 2011-01-05 00:24:07Z stian $ -->	
+<!-- $Id: setting.xml 1573 2011-02-17 22:51:43Z stian $ -->	
 <form>
 	<fieldset group="board_details" class="adminlist" description="Parameters for board configuration">
 		<element name="theme" type="request" key="name" request="name" get="admin::com.ninjaboard.model.themes" default="chameleon" load="&amp;option=com_ninjaboard&amp;view=theme&amp;layout=settings&amp;format=raw" />
@@ -60,6 +60,10 @@
 	</fieldset>-->
 
 	<fieldset group="email_notification_settings">
+		<element name="enable_email_notification" type="radio" default="1">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</element>
 		<element name="auto_notify_admins" type="radio" default="yes" class="group vertical" description="Decide wether or not to notify all users with «Receive System E-mails» enabled on all new posts.">
 			<option value="yes">Yes</option>
 			<option value="no">No</option>

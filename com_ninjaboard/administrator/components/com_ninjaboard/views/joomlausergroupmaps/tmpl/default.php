@@ -1,4 +1,4 @@
-<? /** $Id: default.php 1242 2010-12-19 15:29:36Z stian $ */ ?>
+<? /** $Id: default.php 1585 2011-02-18 21:05:27Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <style type="text/css">
@@ -75,6 +75,7 @@
 				</ul>
 			</div>
 		</div>
+	</div>
 
 	<div class="clr"></div>
 	<h5 style="text-align: center;"><?= @text("Note: Super Administrators will always have full permissions and no access restrictions throughout Ninjaboard") ?></h5>

@@ -1,4 +1,4 @@
-<? /** $Id: default.php 1285 2011-01-03 02:32:46Z stian $ */ ?>
+<? /** $Id: default.php 1541 2011-02-14 20:13:37Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -63,6 +63,6 @@
 	<? endif ?>
 
 	<? if(!KFactory::get('lib.joomla.user')->guest) : ?>
-	<?= KFactory::tmp('site::com.ninjaboard.controller.post')->layout('quick')->topic($topic->id)->read() ?>
+	<?= KFactory::tmp('site::com.ninjaboard.controller.post')->layout('quick')->topic($topic->id)->display() ?>
 	<? endif ?>
 </div>

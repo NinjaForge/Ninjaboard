@@ -13,6 +13,7 @@
 	position: relative;
 	min-height: 200px;
 	float: none;
+	overflow: hidden;
 }
 
 .ninjaboard .section {
@@ -134,6 +135,8 @@ div.mod-monitor div.box-t2 {
 	padding: 0 0 0 0;
 	background: transparent;
 	opacity: 0;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
 	clear: both;
 	display: block;
 	width: 100%;
@@ -198,7 +201,7 @@ div.mod-monitor div.box-t2 {
 
 
 /*Color styling: light*/
-.category .topiclist dl, .category .topiclist dl {
+.category .topiclist dl {
 	-webkit-box-shadow: rgba(255,255,255,0) 0 -1px 0;
 	-moz-box-shadow: rgba(255,255,255,0) 0 -1px 0;
 	box-shadow: rgba(255,255,255,0) 0 -1px 0;
@@ -335,11 +338,15 @@ div.mod-monitor div.box-t2 {
 
 
 
-.category .topiclist.forums dl.icon dt .subject {
+.category .topiclist.forums dl.icon dt .subject,
+.category .topiclist.forums dl.icon dt .forumtitle.no-description {
 	display: block;
-	padding-left: 50px;
+	padding-left: 50px!important;
 	min-height: 42px;
-	line-height: 3.8em;
+	line-height: 3.8em!important;
+}
+.category .topiclist.forums dl.icon dt .forumtitle.no-description {
+	padding-left: 0!important;
 }
 
 .dark .category .topiclist.forums dl:hover + dl {
@@ -478,11 +485,15 @@ div.mod-monitor div.box-t2 {
 	transition-property: color, border, opacity;
 	transition-duration: 0.6s, 0.6s, 0.6s;
 	opacity: 1;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
 }
 
 .separator-currentcolor .category .topiclist:hover .separator {
 	border-left-color: currentcolor;
 	opacity: 0.4;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+	filter: alpha(opacity=40);
 	-webkit-transition-duration: 0.3s;
 	-moz-transition-duration: 0.3s;
 	transition-duration: 0.3s;
@@ -490,6 +501,8 @@ div.mod-monitor div.box-t2 {
 
 .separator-currentcolor .category .topiclist:hover dl:hover .separator {
 	opacity: 1;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
 	border-left-color: currentcolor;
 }
 
@@ -511,7 +524,7 @@ div.mod-monitor div.box-t2 {
 }
 
 .category .topiclist li .separator, .category .topiclist li .separator:hover {
-	display: block;
+	display: block!important;
 	top: 10%;
 	bottom: 10%;
 	position: absolute;
@@ -599,11 +612,17 @@ div.mod-monitor div.box-t2 {
 
 
 
-.ninjaboard li.row {
+.ninjaboard li.row,
+#ninjaboard li.row,
+.ninjaboard li.header,
+#ninjaboard li.header {
 	padding: 0;
+	margin: 0;
+	background-image: none;
 }
 
-.ninjaboard ul.topiclist {
+.ninjaboard ul.topiclist,
+#ninjaboard ul.topiclist {
 	display: block;
 	list-style-type: none;
 	margin: 0;
@@ -622,8 +641,21 @@ ul.topiclist dl {
 	position: relative;
 }
 
+/* Reset some RocketTheme css */
+ul.topiclist li.header dl {
+	background-image: none;
+}
+ul.topiclist li.row dl,
+ul.topiclist li.header dl {
+	float: none;
+	height: auto;
+	width: auto;
+}
 ul.topiclist li.row dl {
 	padding: 2px 0;
+	margin: 0;
+}
+ul.topiclist li.header dl {
 	margin: 0;
 }
 
@@ -797,6 +829,10 @@ li.moved dl.icon dt a em {
 	font-size: 0.7em;
 	left: 55px;
 	opacity: 0.6;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+	filter: alpha(opacity=60);
+	border: none;
+	background: none;
 }
 .category .topiclist.forums li.moved dl.icon dt .subject {
 	line-height: 2.7em;
@@ -915,6 +951,7 @@ dd.option {
 	border-radius: 4px;
 	text-transform: capitalize;
 	text-decoration: none;
+	width: auto;
 }
 #ninjaboard .toolbar a:hover,
 .ninjaboard .attachment .button:hover {
@@ -937,6 +974,7 @@ dd.option {
 #ninjaboard .toolbar a .symbol {
 	margin-right: 1px;
 	padding: 1px;
+	font-size: inherit;
 }
 #text_preview {
 	text-align: left;

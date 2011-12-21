@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: kunena.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: kunena.php 1498 2011-01-27 21:28:42Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -75,7 +75,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 				'query' => KFactory::tmp('lib.koowa.database.query')
 							->select(array(
 								'id',
-								'message AS ninjaboard_topic_id',
+								'id AS ninjaboard_topic_id',
 								'catid AS ninjaboard_forum_id'
 							))
 							->join('left', 'kunena_messages_text', 'mesid = id')
@@ -94,9 +94,8 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 								'catid AS forum_id',
 								'topic_emoticon AS status',
 								'id AS first_post_id',
-								'(SELECT SUM(hits) FROM #__kunena_messages WHERE parent = tbl.id OR id = tbl.id) AS hits',
-								'(SELECT COUNT(*) FROM #__kunena_messages WHERE parent = tbl.id) AS replies',
-								'(SELECT MAX(id) FROM #__kunena_messages WHERE parent = tbl.id OR id = tbl.id) AS last_post_id',
+								'(SELECT COUNT(*) FROM #__kunena_messages WHERE thread = tbl.id AND id != tbl.id) AS replies',
+								'(SELECT MAX(id) FROM #__kunena_messages WHERE thread = tbl.id) AS last_post_id',
 							))
 							->where('parent', '=', 0)
 							->where('moved', '=', 0)
@@ -123,7 +122,8 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 								'ip AS user_ip',
 								'FROM_UNIXTIME(modified_time) AS mofidied_on',
 								'modified_reason AS edit_reason',
-								'message AS text',
+								//@TODO syntax error in nooku database query class if the value is NULL
+								'IFNULL(message, \'\') AS text',
 							))
 							->join('left', 'kunena_messages_text', 'mesid = id')
 							->where('moved', '=', 0)

@@ -1,8 +1,8 @@
-<? /** $Id: form_custom_display_name.php 1263 2010-12-21 01:33:24Z stian $ */ ?>
+<? /** $Id: form_custom_display_name.php 1543 2011-02-15 22:18:07Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <script type="text/javascript">
-jQuery.noConflict()(function($){
+jQuery(function($){
 	var focusInput = function(){
 		if($('#use_alias').is(':checked')) $('#alias').select();
 	};

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: attachment.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: attachment.php 1543 2011-02-15 22:18:07Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -31,7 +31,7 @@ class ComNinjaboardTemplateHelperAttachment extends KTemplateHelperAbstract
 		$show = json_encode(JText::_('Show allowed file types'));
 		$hide = json_encode(JText::_('Hide allowed file types'));
 		KFactory::get('admin::com.ninja.helper.default')->js("
-			jQuery.noConflict()(function($){
+			jQuery(function($){
 				$('.allowed-file-extensions-toggle').click(function(event){
 					event.preventDefault();
 

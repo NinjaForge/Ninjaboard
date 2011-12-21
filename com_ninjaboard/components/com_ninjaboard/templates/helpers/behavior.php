@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: behavior.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: behavior.php 1543 2011-02-15 22:18:07Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -56,7 +56,7 @@ class ComNinjaboardTemplateHelperBehavior extends KTemplateHelperAbstract
 			$loaded[$selector] = true;
 			KFactory::get('admin::com.ninja.helper.default')->js('/watch.js');
 			KFactory::get('admin::com.ninja.helper.default')->js('
-				jQuery.noConflict()(function($){
+				jQuery(function($){
 					$(\'.'.$selector.'\').ninjaboardWatch('.json_encode(array(
 						'active'	=> $config->active,
 						'hover'		=> $config->hover,

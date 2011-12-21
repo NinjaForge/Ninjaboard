@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: usergroup.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: usergroup.php 1585 2011-02-18 21:05:27Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -50,7 +50,7 @@ class ComNinjaboardControllerUsergroup extends ComNinjaboardControllerDefault
 		JError::raiseNotice(0, 
 			sprintf(
 				JText::_('Remember to map your Joomla! groups to Ninjaboard. Hover %s to see where. %s'),
-				'<a href="#" id="' . $id . '">' .
+				'<a href="#" id="' . $id . '" style="text-decoration: underline">' .
 					JText::_('here') .
 				'</a>',
 				'<a href="#" id="' . $close . '">[' .
@@ -98,8 +98,8 @@ class ComNinjaboardControllerUsergroup extends ComNinjaboardControllerDefault
 			".mask {
 				position: absolute;
 				opacity: 0.4;
+				-ms-filter:\"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)\";
 				filter: alpha(opacity=40);
-				-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
 				z-index: 999;
 				background: #000;
 				top: 0;

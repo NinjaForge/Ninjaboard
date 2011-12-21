@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: topic.php 1410 2011-01-13 02:14:14Z stian $
+ * @version		$Id: topic.php 1505 2011-02-01 00:08:32Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -98,7 +98,7 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 		foreach($topics as $topic)
 		{
 			//@TODO find a better way to set the redirect
-			$this->_redirect   		 = 'view=forum&id='.$topic->forum_id;
+			$this->_redirect   		 = 'index.php?option=com_ninjaboard&view=forum&id='.$topic->forum_id;
 			$this->_redirect_message = sprintf(JText::_('Topic «%s» deleted.'), $topic->subject);
 		
 			$query = KFactory::tmp('lib.koowa.database.query')->where('ninjaboard_topic_id', '=', $topic->id);
@@ -180,7 +180,7 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 
 		if($row->id)
 		{
-			$this->setRedirect('view=topic&id='.$row->id);
+			$this->setRedirect('index.php?option=com_ninjaboard&view=topic&id='.$row->id);
 		}
 
 		return $result;
@@ -195,6 +195,6 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 	{
 		$topic	= $this->getModel()->getItem();
 
-		$this->_redirect = 'view=topic&id='.$topic->id;
+		$this->_redirect = 'index.php?option=com_ninjaboard&view=topic&id='.$topic->id;
 	}
 }

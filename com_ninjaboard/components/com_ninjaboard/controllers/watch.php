@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: watch.php 1409 2011-01-13 02:03:32Z stian $
+ * @version		$Id: watch.php 1530 2011-02-14 17:35:24Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -76,7 +76,7 @@ class ComNinjaboardControllerWatch extends ComNinjaboardControllerAbstract
 		$this->getModel()->by($me->id);
 		
 		//Set the redirect
-		$this->_redirect = 'view=watches';
+		$this->_redirect = 'index.php?option=com_ninjaboard&view=watches';
 	}
 
 	/**
@@ -92,8 +92,7 @@ class ComNinjaboardControllerWatch extends ComNinjaboardControllerAbstract
 		$app		= KFactory::get('lib.joomla.application');
 		$params		= KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
 
-		$url		= KRequest::url();
-		$root		= $url->scheme.'://'.$url->host;
+		$root		= KRequest::url()->get(KHttpUri::PART_BASE ^ KHttpUri::PART_PATH);
 		$link		= $root.JRoute::_('index.php?option=com_ninjaboard&view=topic&id='.$post->ninjaboard_topic_id.'&post='.$post->id).'#p'.$post->id;
 		$watches	= $root.JRoute::_('index.php?option=com_ninjaboard&view=watches');
 

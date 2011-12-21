@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1368 2011-01-10 21:10:39Z stian $
+ * @version		$Id: html.php 1573 2011-02-17 22:51:43Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -63,13 +63,17 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		
 		$this->assign('topics', 
 			KFactory::get('site::com.ninjaboard.controller.topic')
+			
+				//@TODO Figure out why the singular view is used instead of the plural one
+				->setView(KFactory::get('site::com.ninjaboard.view.topics.html'))
+			
 				->direction('desc')
 				->sort('first_post.created_time')
 				->limit($this->limit)
 				->offset(KRequest::get('get.offset', 'int', 0))
 				->forum($forum->id)
 				->layout('list')
-				->browse()
+				->display()
 		);
 		
 		$this->assign('pagination', 
@@ -89,7 +93,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		}
 
 		$me  = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
-		$this->watch_button = (bool)$me->id;
+		$this->watch_button = $me->id && $forum->params['email_notification_settings']['enable_email_notification'];
 
 		$this->new_topic_button = '<div class="new-topic">'.str_replace(
 			array('$title', '$link'), 

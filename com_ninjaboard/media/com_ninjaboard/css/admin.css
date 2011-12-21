@@ -94,6 +94,8 @@ form table.adminlist:hover tbody tr.selected:hover > td a {
 /** toolbar icons */
 div.toolbar.inactive	{
 	opacity: 0.6;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+	filter: alpha(opacity=60);
 }
 
 .toolbar.inactive:hover {
@@ -221,4 +223,6 @@ float: none;
 .icon-toggle.icon-toggle-locked-false {
 	background-image: url(../../com_ninja/images/16/unlock.png);
 	opacity: 0.4;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+	filter: alpha(opacity=40);
 }

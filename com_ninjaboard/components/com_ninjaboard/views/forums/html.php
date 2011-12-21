@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1371 2011-01-11 02:06:37Z stian $
+ * @version		$Id: html.php 1541 2011-02-14 20:13:37Z stian $
  * @forum	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -42,15 +42,19 @@ class ComNinjaboardViewForumsHtml extends ComNinjaboardViewHtml
 				$this->limit	= KRequest::get('get.limit', 'int', 10);
 				$this->offset	= KRequest::get('get.offset', 'int', 0);
 				$this->total	= KFactory::get('site::com.ninjaboard.model.topics')->getTotal();
-				
+
 				$this->assign('topics', 
 					KFactory::get('site::com.ninjaboard.controller.topic')
+
+						//@TODO Figure out why the singular view is used instead of the plural one
+						->setView(KFactory::get('site::com.ninjaboard.view.topics.html'))
+
 						->direction('desc')
 						->sort('last_post.created_time')
 						->limit($this->limit)
 						->offset($this->offset)
 						->layout('list')
-						->browse()
+						->display()
 				);
 				
 				$this->assign('pagination', 

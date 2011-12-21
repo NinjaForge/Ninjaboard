@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: html.php 1573 2011-02-17 22:51:43Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -16,7 +16,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		$this->user = KFactory::get('lib.joomla.user');
 		
 		$me  = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
-		$this->watch_button = (bool)$me->id;
+		$this->watch_button = $me->id && $this->forum->params['email_notification_settings']['enable_email_notification'];
 		
 		//Assign forum permissions to topic
 		$topic->forum_permissions = $this->forum->forum_permissions;
@@ -57,15 +57,27 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		$offset = KRequest::get('get.offset', 'int', $offset);
 		$this->assign('posts',
 			KFactory::get('site::com.ninjaboard.controller.post')
+			
+				//@TODO Figure out why the singular view is used instead of the plural one
+				->setView(KFactory::get('site::com.ninjaboard.view.posts.html'))
+			
 				->sort('created_on')
 				->limit($limit)
 				->offset($offset)
 				->post(false)
 				->topic($topic->id)
 				->layout('default')
-				->browse()
+				->display()
 		);
 
+		if($this->forum->params['view_settings']['new_topic_button'] == 'topic')
+		{
+			$this->new_topic_button = '<div class="new-topic">'.str_replace(
+				array('$title', '$link'), 
+				array(JText::_('New Topic'), $this->createRoute('view=post&forum='.$this->forum->id)), 
+				$this->forum->params['tmpl']['new_topic_button']
+			).'</div>';
+		}
 		
 		$button = str_replace(
 			array('$title', '$link'), 

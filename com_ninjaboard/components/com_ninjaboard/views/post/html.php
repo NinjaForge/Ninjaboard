@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: html.php 1593 2011-02-19 22:40:18Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -54,6 +54,36 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 			$this->_subtitle = $topic->title;
 			$this->title = sprintf(JText::_('Post Reply to %s in %s'), "'".$topic->title."'", $forum->title);
 			$this->notify = $this->me->notify_on_reply_topic;
+			
+			$model	= KFactory::tmp('site::com.ninjaboard.model.posts')
+						->sort('created_on')
+						->direction('desc')
+						->limit(5)
+						->offset(0)
+						->post(false)
+						->topic($topic->id);
+			$view	= KFactory::tmp('site::com.ninjaboard.view.posts.html', array('model' => $model));
+			$this->topicreview = $view->assign('total', count($model->getList()))->display();
+			/*
+			//@TODO figure out why action.browse is executed before this one, as that's why we have the setView workaround
+			$controller = KFactory::tmp('site::com.ninjaboard.controller.post')
+				->sort('created_on')
+				->direction('desc')
+				->limit(5)
+				->offset(0)
+				->post(false)
+				->topic($topic->id)
+				->setModel(KFactory::tmp('site::com.ninjaboard.model.posts'));
+			$this->topicreview = $controller
+			
+				//@TODO Figure out why the singular view is used instead of the plural one
+				//@NOTE A fresh model is passed to the view as com.ninjaboard.controller.post have already 
+				//      executed browse at this point. Remember to investigate why that is
+				->setView(KFactory::tmp('site::com.ninjaboard.view.posts.html', array('model' => $controller->getModel()->set($controller->getRequest()))))
+			
+				->layout('default')
+				->display();
+			 //*/
 		} else {
 			$this->title = $this->_subtitle = sprintf(JText::_('Create New Topic in %s'), $forum->title);
 			$this->notify = $this->me->notify_on_create_topic;

@@ -1,48 +1,112 @@
-<? /** $Id: form.php 1188 2010-12-08 22:56:12Z stian $ */ ?>
+<? /** $Id: form.php 1567 2011-02-16 23:52:24Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? @ninja('behavior.tooltip') ?>
+<? $params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams() ?>
 
-<form action="<?= @route('id=' . @$user->id) ?>" method="post" id="<?= @id() ?>">
+<style type="text/css">
+.ninja-form .element.avatar {
+	min-height: 37px;
+}
+.ninja-form .element .avatar.value {
+	margin-right: 10px;
+}
+.ninja-form .element.avatar .avatar.upload,
+.ninja-form .element.avatar .avatar.delete {
+	display: none;
+}
+.ninja-form .element.avatar .avatar.options {
+	display: inline-block;
+}
+.ninja-form .element .avatar.options {
+	display: none;
+}
+.ninja-form .element .avatar.options {
+	display: inline-block;
+	width: 250px;
+	position: absolute;
+}
+.ninja-form .element .avatar a {
+	display: block;
+}
+.ninja-form .element .avatar-image-extensions,
+.ninja-form .element .allowed-file-extensions {
+	text-transform: uppercase;
+}
+.ninja-form .element .avatar.options {
+	top: 10px;
+	left: <?= max((int)$params['avatar_settings']['large_thumbnail_width'], 0) + 173 ?>px;
+}
+</style>
+
+<script type="text/javascript">
+	window.addEvent('domready', function(){
+		var form = $('<?= @id() ?>');
+		$$('.change-image').addEvent('click', function(event){
+			event.preventDefault();
+			$$('.avatar.upload').show();
+			$$('.avatar.options, img.avatar, a.avatar').hide();
+		});
+		$$('.delete-image').addEvent('click', function(event){
+			event.preventDefault();
+			$$('.avatar.delete').show();
+			$$('.avatar.options, img.avatar, a.avatar').hide();
+			$$('.avatar.delete input').set('disabled', false);
+		});
+		$$('.cancel-delete').addEvent('click', function(event){
+			event.preventDefault();
+			$$('.avatar.delete').hide();
+			$$('.avatar.options, img.avatar, a.avatar').setStyle('display', 'inline-block');
+			$$('.avatar.delete input').set('disabled', 'disabled');
+		});
+		$$('.cancel-upload').addEvent('click', function(event){
+			event.preventDefault();
+			$$('.avatar.upload').hide();
+			$$('.avatar.options, img.avatar, a.avatar').setStyle('display', 'inline-block');
+		});
+	});
+</script>
+
+<form action="<?= @route('id=' . @$user->id) ?>" method="post" id="<?= @id() ?>" enctype="multipart/form-data">
 	<div class="col width-50">	
 		<fieldset class="adminform ninja-form">
 			<legend><?= @text('Ninjaboard User Details') ?></legend>
-			<div class="element">
-				<? @ninja('behavior.uploader') ?>
-				<label for="avatarfile" class="key">
-					<?= @text('Upload Avatar') ?>
+			<div class="element avatar">
+				<label class="key">
+					<?= @text("Avatar") ?>
 				</label>
-				<? @$size = \@getimagesize(JPATH_ROOT.'/'.@$user->avatar) ?>
-				<div id="demo-portrait" style="background-image: url(<?= KRequest::root().@$user->avatar ?>); height: <?= @$size[1] ?>px; width: <?= @$size[0] ?>px;" class="value">
-					<a href="#" id="select-0" title="Please upload only images, maximal 2 Mb filesize!">
-						<?= @text('Upload new Avatar') ?>
-					</a>
-				</div>
-				<!--<input disabled="true" type="file" name="avatarfile" id="avatarfile" size="40" value="" maxlength="50" class="inputbox value" /> Our file upload api isn't ready just yet-->
+				<?= @helper('site::com.ninjaboard.template.helper.avatar.image', array(
+					'id'		=> $user->id,
+					'class'		=> 'avatar value'
+				)) ?>
+				
+				<span class="avatar options">
+					<a href="#" class="change-image"><?= @text('Change image') ?></a>
+					<a href="#" class="delete-image"><?= @text('Delete this image') ?></a>
+				</span>
+				
+				<span class="avatar upload">
+					<?= @helper('site::com.ninjaboard.template.helper.avatar.input') ?>
+					<small>
+						<?= @helper('site::com.ninjaboard.template.helper.avatar.upload_size_limit', array('params' => $params)) ?>
+						<span class="avatar-image-extensions">
+							<?= @helper('site::com.ninjaboard.template.helper.avatar.extensions') ?>
+						</span>
+					</small>
+					<a href="#" class="cancel-upload"><?= @text('Cancel upload') ?></a>
+				</span>
+				
+				<span class="avatar delete">
+					<strong><?= @text("Click save if you're sure you want to delete this picture.") ?></strong>
+					<input type="hidden" name="avatar" disabled="disabled" />
+					<a href="#" class="cancel-delete"><?= @text('Do not delete this image.') ?></a>
+				</span>
 			</div>
-			<!--<div class="element">
-						<label for="avatarimage" class="key">
-							<?= @text('User Avatar') ?>
-						</label>
-					<? if (@$avatar) : ?>
-						<img src="<?= @$avatar ?>" id="avatarimage" class="value" />
-					<? else : ?>
-						<p class="value"><img style="vertical-align:middle;" src="<?= @mediaurl ?>/com_ninjaboard/images/avatar.png" title="This is the avatar shown until you upload your own." />This is your avatar until you upload one yourself.</p>
-					<? endif ?>
-			</div>-->
-				<? if (@$avatar) : ?>
-				<div class="element">
-					<label for="deleteavatar">
-						<?= @text('NB_DELETEAVATARIMAGE') ?>
-					</label>
-					<input type="checkbox" name="deleteavatar" value="1" />
-					</div>
-				<? endif ?>	
 			<div class="element">
 				<label for="signature" class="key">
 					<?= @text('Forum Signature') ?>
 				</label>
-				<textarea name="signature" id="signature" rows="5" cols="40" class="inputbox value" placeholder="<?= @text('Singatures can have bbcode in them.') ?>"><?= $user->signature ?></textarea>
+				<textarea name="signature" id="signature" rows="5" cols="40" class="inputbox value" placeholder="<?= @text('Signatures can have bbcode in them.') ?>"><?= $user->signature ?></textarea>
 			</div>
 		</fieldset>
 		<fieldset class="adminform ninja-form">
