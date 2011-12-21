@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: mod_ninjaboard_posts.xml 2278 2011-07-24 23:11:56Z captainhook $ -->
+<!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/module-install.dtd">
+<install type="module" version="1.5.0" method="upgrade">
+	<name>Ninjaboard Posts</name>
+	<author>NinjaForge</author>
+    <creationDate>2011-01-15</creationDate>
+	<copyright>(C) 2007-2010 Ninja Media Group. All rights reserved.</copyright>
+	<license>GNU GPLv3</license>
+	<csslicense>CC-BY</csslicense>
+	<jslicense>MIT</jslicense>
+	<authoremail>support@ninjaforge.com</authoremail>
+    <authorurl>ninjaforge.com</authorurl>
+    <support href="http://ninjaforge.com/index.php?option=com_fireboard&amp;Itemid=111&amp;func=showcat&amp;catid=54">Forums</support>
+    <!-- 
+    	Color cheat sheat
+    		- Alpha		darkorange
+    		- Beta		red
+    		- RC		blue
+    		- Stable	#009199
+    -->
+	<version status="Beta" color="red">1.0.0</version>
+	<revision>1478</revision>
+	<description>Renders latest posts with the same look and feel like the regular component list</description>
+
+	<changelogs>
+	
+		<version>1.0.0Beta</version>
+		<date>TBA</date>
+		<state>First Release
+			<log>Initial beta version release of Ninjaboard Posts module.</log>
+		</state>
+		
+	</changelogs>
+
+	<files>
+		<file module="mod_ninjaboard_posts">mod_ninjaboard_posts.php</file>
+		<file>html.php</file>
+	</files>
+
+	<languages folder="languages">
+		<language tag="en-GB">en-GB/en-GB.mod_ninjaboard_posts.ini</language>
+	</languages>
+
+	<params>
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX"/>
+		<param name="@spacer" type="spacer" default="" label=""
+			description="" />
+		<param name="collapse_content" type="radio" default="1" label="Collapse Post Content" 
+			description="This will hide the actual post content of each post to keep the display cleaner, and use a toggle on the frontend 
+			for users to display or hide the post content. Setting this option to 'No' will show the post content without the toggle ability.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="display_avatar" type="radio" default="1" label="Display Avatar" 
+			description="Option to display the users avatar in the post content.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="posts_num" type="text" default="10" label="Number of Posts to Display"
+			description="Sets how many posts will be displayed in the module." />
+	</params>
+	<params group="advanced">
+		<param name="cache" type="list" default="1" label="Caching" description="Select whether to cache the content of this module">
+			<option value="1">Use global</option>
+			<option value="0">No caching</option>
+		</param>
+		<param name="cache_time" type="text" default="900" label="Cache Time" description="The time before the module is recached"/>
+	</params>
+</install>
