@@ -1,6 +1,6 @@
 <?php defined( '_JEXEC' ) or die( 'Restricted access' );
 /**
- * @version		$Id: upgrade.php 1692 2011-03-25 00:58:11Z stian $
+ * @version		$Id: upgrade.php 2000 2011-06-29 16:09:04Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -23,7 +23,8 @@ foreach(array(
 	'user_groups',
 	'user_group_maps',
 	'joomla_user_group_maps',
-	'iconsets'
+	'iconsets',
+	'message_recipients'
 ) as $name)
 {
 	$tables[] = '#__ninjaboard_'.$name;
@@ -125,10 +126,10 @@ if(!isset($tables['forums']['path_sort']))
 //Upgrade people table to allow Email Updates
 if(!isset($tables['people']['notify_on_create_topic']))
 {
-	$db->setQuery("ALTER TABLE #__ninjaboard_people ADD COLUMN notify_on_create_topic TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Subscribe to threads I create'  AFTER `params`");
+	$db->setQuery("ALTER TABLE #__ninjaboard_people ADD COLUMN notify_on_create_topic TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT 'Subscribe to threads I create'  AFTER `params`");
 	$db->query();
 	
-	$db->setQuery("ALTER TABLE #__ninjaboard_people ADD COLUMN notify_on_reply_topic TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Subscribe to threads I reply to'  AFTER `notify_on_create_topic`");
+	$db->setQuery("ALTER TABLE #__ninjaboard_people ADD COLUMN notify_on_reply_topic TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT 'Subscribe to threads I reply to'  AFTER `notify_on_create_topic`");
 	$db->query();
 }
 
@@ -238,9 +239,67 @@ if(!isset($tables['user_groups']['visible']))
 	$db->query();
 }
 
+if(isset($tables['message_recipients']['deleted_on']))
+{
+	$db->setQuery("ALTER TABLE `#__ninjaboard_message_recipients` DROP `deleted_on`;");
+	$db->query();
+
+	$db->setQuery("ALTER TABLE #__ninjaboard_message_recipients ADD COLUMN is_deleted TINYINT(1) UNSIGNED NOT NULL DEFAULT '0'  AFTER `is_read`");
+	$db->query();
+}
+
+//If temporary id don't exist, then tables need multiple changes
+if(!isset($tables['people']['temporary_id']))
+{
+	//First change everything to MyISAM as we are not using InnoDB features
+	$db->setQuery("ALTER TABLE `#__ninjaboard_people` TYPE = MyISAM;");
+	$db->query();
+	
+	$db->setQuery("ALTER TABLE `#__ninjaboard_user_group_maps` TYPE = MyISAM;");
+	$db->query();
+	
+	$db->setQuery("ALTER TABLE `#__ninjaboard_joomla_user_group_maps` TYPE = MyISAM;");
+	$db->query();
+	
+	$db->setQuery("ALTER TABLE `#__ninjaboard_iconsets` TYPE = MyISAM;");
+	$db->query();
+	
+	$db->setQuery("ALTER TABLE `#__ninjaboard_attachments` TYPE = MyISAM;");
+	$db->query();
+	
+	$db->setQuery("ALTER TABLE `#__ninjaboard_posts` TYPE = MyISAM;");
+	$db->query();
+	
+	$db->setQuery("ALTER TABLE `#__ninjaboard_ranks` TYPE = MyISAM;");
+	$db->query();
+	
+	$db->setQuery("ALTER TABLE `#__ninjaboard_people` ADD `temporary_id` int(11) UNSIGNED NULL DEFAULT '0' COMMENT 'Used only by converters for user sync' AFTER `notify_on_reply_topic`;");
+	$db->query();
+	
+	$db->setQuery("ALTER TABLE `#__ninjaboard_people` ADD INDEX `temporary_id` (`temporary_id`);");
+	$db->query();
+}
+
 //Add avatar_on column to people
 if(!isset($tables['people']['avatar_on']))
 {
 	$db->setQuery("ALTER TABLE #__ninjaboard_people ADD `avatar_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'When the avatar was uploaded, used in urls for browser cache to work'  AFTER `avatar`;");
+	$db->query();
+}
+
+//Adjust subject length, and remove deprecated column
+if(isset($tables['posts']['access']))
+{
+	$db->setQuery("ALTER TABLE `#__ninjaboard_posts` DROP `access`;");
+	$db->query();
+	
+	$db->setQuery("ALTER TABLE `#__ninjaboard_posts` CHANGE `subject` `subject` varchar(100) NOT NULL DEFAULT '';");
+	$db->query();
+}
+
+//Upgrade people table to allow Email Updates on private messaging
+if(!isset($tables['people']['notify_on_private_message']))
+{
+	$db->setQuery("ALTER TABLE #__ninjaboard_people ADD COLUMN notify_on_private_message TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT 'Notify me when I receive a private message'  AFTER `notify_on_reply_topic`");
 	$db->query();
 }

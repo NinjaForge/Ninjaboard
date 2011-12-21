@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forums.php 1937 2011-05-24 12:42:47Z stian $
+ * @version		$Id: forums.php 1985 2011-06-28 17:16:15Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -94,7 +94,8 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 			  ->select('last_post.ninjaboard_post_id AS last_post_id');
 		
 		//Build query for the screen names
-		KFactory::get('admin::com.ninjaboard.model.people')->buildScreenNameQuery($query, 'person', 'usr', 'last_post_username');
+		KFactory::get('admin::com.ninjaboard.model.people')
+			->buildScreenNameQuery($query, 'person', 'usr', 'last_post_username', 'IFNULL(last_post.guest_name, \''.JText::_('Anonymous').'\')');
 		
 		if(KFactory::get('lib.joomla.user')->guest) {
 		    $query->select(array('0 AS new', '1 AS unread'));
@@ -147,6 +148,9 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 		{
 			$query->where('tbl.enabled', '=', $this->_state->enabled);
 		}
+		
+		//Build the query for fetching the permissions
+		if($this->_acl) KFactory::get('admin::com.ninjaboard.model.people')->buildForumsPermissionsWhere($query);
 
 		// If we have an id, we shouldn't add other where statements
 		// @TODO check if it's safe to do this
@@ -175,9 +179,6 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 		{
 			$query->where("CONCAT(tbl.title, ' ', tbl.description)", 'LIKE', '%'.$search.'%');			
 		}
-		
-		//Build the query for fetching the permissions
-		if($this->_acl) KFactory::get('admin::com.ninjaboard.model.people')->buildForumsPermissionsWhere($query);
 	}
 	
 	public function getList()

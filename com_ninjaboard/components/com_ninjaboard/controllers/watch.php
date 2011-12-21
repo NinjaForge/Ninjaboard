@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: watch.php 1938 2011-05-24 13:13:41Z stian $
+ * @version		$Id: watch.php 2073 2011-07-06 12:51:27Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -96,14 +96,12 @@ class ComNinjaboardControllerWatch extends ComNinjaboardControllerAbstract
 		$link		= $root.JRoute::_('index.php?option=com_ninjaboard&view=topic&id='.$post->ninjaboard_topic_id.'&post='.$post->id).'#p'.$post->id;
 		$watches	= $root.JRoute::_('index.php?option=com_ninjaboard&view=watches');
 
-		$db			= JFactory::getDBO();
 		$sitename 	= $app->getCfg( 'sitename' );
 		$mailfrom 	= $app->getCfg( 'mailfrom' );
 		$fromname 	= $app->getCfg( 'fromname' );
-		$siteURL	= JURI::base();
 
 		if ( ! $mailfrom  || ! $fromname ) {
-			$fromname = $me->name;
+			$fromname = $me->display_name;
 			$mailfrom = $me->email;
 		}
 
@@ -117,13 +115,13 @@ class ComNinjaboardControllerWatch extends ComNinjaboardControllerAbstract
 		foreach ($recipients as $row )
 		{
 			if($params->email_notification_settings->include_post == 'yes') {
-				$message = JText::_( 'NOTIFY_USER_INCLUDING_POST' );
+				$message = str_replace('/n', "\n", JText::_( 'NOTIFY_USER_INCLUDING_POST' ));
 				if($message == 'NOTIFY_USER_INCLUDING_POST') $message = "Hello %s,\n\nA new message was posted in the thread \"%s\" by %s:\n\n<%s>\n\nMessage:\n%s\n\n\nTo edit your Email Updates, go to %s\n\n- %s";
 				$message = sprintf ($message , $row->name, $topic->subject, $me->display_name, $link, KFactory::get('lib.koowa.filter.string')->sanitize($text), $watches, $fromname);
 				$message = html_entity_decode($message, ENT_QUOTES);
 				JUtility::sendMail($mailfrom, $fromname, $row->email, $subject, $message);
 			} else {
-				$message = JText::_( 'NOTIFY_USER' );
+				$message = str_replace('/n', "\n", JText::_( 'NOTIFY_USER' ));
 				if($message == 'NOTIFY_USER') $message = "Hello %s,\n\nA new message was posted in the thread \"%s\" by %s:\n\n<%s>\n\n\n\nTo edit your Email Updates, go to %s\n\n- %s";
 				$message = sprintf ($message , $row->name, $topic->subject, $me->display_name, $link, $watches, $fromname);
 				$message = html_entity_decode($message, ENT_QUOTES);

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: joomlausergroupmap.php 1796 2011-04-13 22:07:43Z stian $
+ * @version		$Id: joomlausergroupmap.php 1809 2011-04-15 18:42:23Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>

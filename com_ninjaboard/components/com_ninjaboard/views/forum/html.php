@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1826 2011-04-26 22:10:53Z stian $
+ * @version		$Id: html.php 1838 2011-04-28 23:39:48Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -61,20 +61,24 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 							->offset(KRequest::get('get.offset', 'int', 0))
 							->getTotal();
 		
-		$this->assign('topics', 
-			KFactory::get('site::com.ninjaboard.controller.topic')
-			
-				//@TODO Figure out why the singular view is used instead of the plural one
-				->setView(KFactory::get('site::com.ninjaboard.view.topics.html'))
-			
-				->direction('desc')
-				->sort('last_post.created_time')
-				->limit($this->limit)
-				->offset(KRequest::get('get.offset', 'int', 0))
-				->forum($forum->id)
-				->layout('list')
-				->display()
-		);
+		if($this->total > 0) {
+			$this->assign('topics', 
+				KFactory::get('site::com.ninjaboard.controller.topic')
+				
+					//@TODO Figure out why the singular view is used instead of the plural one
+					->setView(KFactory::get('site::com.ninjaboard.view.topics.html'))
+				
+					->direction('desc')
+					->sort('last_post.created_time')
+					->limit($this->limit)
+					->offset(KRequest::get('get.offset', 'int', 0))
+					->forum($forum->id)
+					->layout('list')
+					->display()
+			);
+		} else {
+			$this->assign('topics', false);
+		}
 		
 		$this->assign('pagination', 
 			KFactory::get('site::com.ninjaboard.template.helper.paginator', array('name' => 'topics'))
@@ -99,8 +103,8 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
         if(KFactory::get('lib.joomla.user')->guest || ($forum->topic_permissions > 1 && $forum->post_permissions > 1))
         {
     		$this->new_topic_button = '<div class="new-topic">'.str_replace(
-    			array('$title', '$link'), 
-    			array(JText::_('New Topic'), $this->createRoute('view=post&forum='.$forum->id)), 
+    			array('$title', '$link', '$class'), 
+    			array(JText::_('New Topic'), $this->createRoute('view=post&forum='.$forum->id), 'action-new'), 
     			$forum->params['tmpl']['new_topic_button']
     		).'</div>';
     	}

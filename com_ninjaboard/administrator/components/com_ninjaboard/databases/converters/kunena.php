@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: kunena.php 1778 2011-04-12 15:04:15Z stian $
+ * @version		$Id: kunena.php 1787 2011-04-12 23:38:17Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -134,6 +134,38 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 								'*',
 								'userid AS id'
 							))
+			),
+			array(
+				'name' => 'watches',
+				'options' => array(
+					'name' => 'kunena_subscriptions_categories',
+					'identity_column' => 'id'
+				),
+				'query' => KFactory::tmp('lib.koowa.database.query')
+							->select(array(
+								'CONCAT(catid, userid) AS id',
+								'userid AS created_by',
+								'NOW() AS created_on',
+								'1 AS subscription_type',
+								'catid AS subscription_type_id',
+							))
+							->where('catid', '>', 0)
+			),
+			array(
+				'name' => 'watches',
+				'options' => array(
+					'name' => 'kunena_subscriptions',
+					'identity_column' => 'id'
+				),
+				'query' => KFactory::tmp('lib.koowa.database.query')
+							->select(array(
+								'(CONCAT(thread, userid) + (SELECT MAX(ninjaboard_subscription_id) FROM #__ninjaboard_subscriptions)) AS id',
+								'userid AS created_by',
+								'NOW() AS created_on',
+								'3 AS subscription_type',
+								'thread AS subscription_type_id',
+							))
+							->where('thread', '>', 0)
 			)
 		);
 

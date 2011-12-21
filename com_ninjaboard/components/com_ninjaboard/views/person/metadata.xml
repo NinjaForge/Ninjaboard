@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE metadata>
-<!-- $Id: metadata.xml 1749 2011-04-09 21:33:51Z stian $ -->
+<!-- $Id: metadata.xml 1787 2011-04-12 23:38:17Z stian $ -->
 <metadata>
 	<view title="Profile">
 		<message>View or edit the profile of a person.</message>

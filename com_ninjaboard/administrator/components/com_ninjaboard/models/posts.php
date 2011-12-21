@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: posts.php 1827 2011-04-26 22:24:31Z stian $
+ * @version		$Id: posts.php 1996 2011-06-29 15:44:02Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -71,7 +71,8 @@ class ComNinjaboardModelPosts extends ComDefaultModelDefault
 		
 		if($search = $this->_state->search)
 		{
-			$query->where("CONCAT(tbl.subject, ' ', tbl.text)", 'LIKE', '%'.$search.'%');			
+		    $search = '\'%'.strtoupper($search).'%\'';
+			$query->where("(tbl.subject LIKE $search OR tbl.text LIKE $search OR first_post.subject LIKE $search)");			
 		}
 		
 		$query
@@ -100,7 +101,7 @@ class ComNinjaboardModelPosts extends ComDefaultModelDefault
 			  ->select('(SELECT title FROM #__ninjaboard_ranks WHERE person.posts >= min AND enabled = 1 ORDER BY min DESC LIMIT 1) AS rank_title');
 		
 		//Build query for the screen names
-		KFactory::get('admin::com.ninjaboard.model.people')->buildScreenNameQuery($query, 'person', 'user');
+		KFactory::get('admin::com.ninjaboard.model.people')->buildScreenNameQuery($query, 'person', 'user', 'display_name', 'IFNULL(tbl.guest_name, \''.JText::_('Anonymous').'\')');
 		
 		if($search = $this->_state->search)
 		{

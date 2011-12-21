@@ -1,4 +1,4 @@
-<? /** $Id: form_details.php 1359 2011-01-10 19:45:28Z stian $ */ ?>
+<? /** $Id: form_details.php 2130 2011-07-07 22:02:20Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? @ninja('behavior.livetitle', array('title' => @$setting->title)) ?>
@@ -7,7 +7,7 @@
 	<legend><?= @text('Details') ?></legend>		
 		<div class="element">
 			<label class="key" for="title"><?= @text('Title') ?></label>
-			<input type="text" name="title" id="title" class="inputbox required value" rel="<?= @text('Not so fast, you forgot the title.') ?>" size="50" value="<?= @escape($setting->title) ?>" maxlength="100" />
+			<input type="text" name="title" id="title" class="inputbox required value" size="50" value="<?= @escape($setting->title) ?>" maxlength="100" />
 		</div>
 		<script type="text/javascript">
 			//Using onLoad in addition to onDomReady as the images in the labels changes the <li> width once loaded

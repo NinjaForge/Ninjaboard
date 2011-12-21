@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: person.php 1767 2011-04-11 20:16:06Z stian $
+ * @version		$Id: person.php 1841 2011-04-29 18:59:50Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -21,18 +21,24 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 	 */
 	public function __construct(KConfig $config)
 	{
-		//When no id is set in the url, then we should assume the user wants to see his own profile
-		$me		= KFactory::get('site::com.ninjaboard.model.people')->getMe();
-		$config->request->append(array(
-			'user' => true,
-			'id'   => $me->id
-		));
-		
 		parent::__construct($config);
 
+		$this->registerCallback('before.read', array($this, 'setMe'));
 		$this->registerCallback(array('before.edit', 'before.apply', 'before.save'), array($this, 'checkPermissions'));
 		$this->registerCallback(array('before.edit', 'before.apply', 'before.save'), array($this, 'checkAlias'));
 		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setAvatar'));
+	}
+	
+	public function setMe()
+	{
+		//When no id is set in the url, then we should assume the user wants to see his own profile
+		$me		= KFactory::get('site::com.ninjaboard.model.people')->getMe();
+		$this->_request->append(array(
+			'user' => true,
+			'id'   => $me->id
+		));
+
+		$this->getModel()->set($this->getRequest());
 	}
 
 	public function checkPermissions()

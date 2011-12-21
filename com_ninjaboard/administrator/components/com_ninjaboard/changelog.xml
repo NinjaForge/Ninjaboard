@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 1957 2011-06-16 11:37:53Z stian $ -->
+<!-- $Id: changelog.xml 2145 2011-07-08 11:42:35Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+	<version>1.1</version>
+	<date>July 8th 2011</date>
+	<state>Major Release
+		<!-- Changelog for 1.1 is very incomplete -->
+		<new>Private Messaging, using a conversation based UI instead of an inbox/outbox.</new>
+		<new>Vanity SEF urls for forums and topics.</new>
+		<new>SMF converter added</new>
+		<new>New "Ninjaboard Quickpanel" module, bundled with the core package.</new>
+		<upgrade>Posts blocks now have same styling as forums blocks on the forums page. You can toggle the behavior from the Settings page.</upgrade>
+		<upgrade>Updated French translation - thanks lavsteph!</upgrade>
+		<upgrade>SEF router upgraded with a cache layer for parsing and rendering, performance measured between 30%-50% on pages with a lot of links, due to the reduced amount of SQL queries and other expensive code.</upgrade>
+		<upgrade>bbCode parser upgraded with a cache layer, performance increase measured between 10%-20% on pages with posts and signatures.</upgrade>
+		<upgrade>URL slugs now transliterate UTF8 characters, even Greek!</upgrade>
+		<upgrade>Added option to configure the lightbox rel attribute for image attachments.</upgrade>
+		<upgrade>Avatars now send proper caching headers to enable browser caching.</upgrade>
+		<upgrade>ccBoard converter now supports html.</upgrade>
+		<bugfix>Latest Posts on the user profile page displayed latest topics that were started by the user. It now shows the latest topics the user have contributed to not just started.</bugfix>
+		<bugfix>.wrap no longer have float:left, this solves issues in for posts blocks in some templates not expanding the background to the full height of the post.</bugfix>
+		<bugfix>The .poster-is-topic-creator class was only applied correctly if the last post were made by the topic starter.</bugfix>
+		<bugfix>Users were still able to configure email notification settings when email notifications were globally disabled.</bugfix>
+		<bugfix>Fixed issue where search results didn't match by subject unless it was the first post in a topic.</bugfix>
+		<bugfix>Fixed issues with plugins like Remember Me, where an additional page refresh were needed in order to be logged in to the forums.</bugfix>
+		<bugfix>Fixed issue in bbCode parser where urls with closing tags with no whitespace or linebreaks first would lead to broken syntax.</bugfix>
+		<bugfix>Fixed bug where a topic where still accessible by link if the parent forum allowed forum access, but had topics set to no access.</bugfix>
+		<bugfix>SEF links in 3rd party extensions linking to forums that the user can't access were missing the alias, only showing the id due to ACL query WHERE statements.</bugfix>
+		<bugfix>Fixed rare bug that caused forums to be accessible by link even when the ACL were configured to disallow it.</bugfix>
+		<bugfix>Duplicate/Redundant CSS fixed for the forum and topic icons in the list view.</bugfix>
+		<log>All translations are now fully automated by Transifex, find us here: https://www.transifex.net/projects/p/ninjaboard/</log>
+		<log>Maximum subject character length for posts have been changed from 255 to 100 in the database schema.</log>
+	</state>
+
     <version>1.0.13</version>
     <date>June 16th 2011</date>
     <state>Maintenance Release

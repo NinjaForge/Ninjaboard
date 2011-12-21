@@ -25,6 +25,10 @@
   			<option value="separator-gray">Gray</option>
   			<option value="separator-currentcolor">Separators have the same colors as links</option>
   		</element>
+  		<element name="posts_wrap_style" type="radio" class="group vertical" default="extra" description="Wether to use the same styling as forum blocks or no styling beyond the module style. The default is 'Extra', but if you apply good module styling you likely want to set this to 'Standard'.">
+  		    <option value="standard">Standard</option>
+  			<option value="extra">Extra</option>
+  		</element>
   	</fieldset>
   	<fieldset group="module" legend="Module Render Engine">
   		<element name="style" void="chrome" type="getlist" get="admin::com.ninja.model.module_chrome" set="client:0;incpath:0;limit:0" label="Module Style" description="Select the module chrome to use for wrapping the blocks" default="rounded" />
@@ -90,6 +94,7 @@
   			<option value="1">Yes</option>
   			<option value="0">No</option>
   		</element>
+  		<element name="lightbox" type="text" description="The lightbox identifier used in post image uploads rel attribute. It's usually lightbox." default="lightbox" />
   		<!--<spacer />
   		<element name="color_label_0" type="colorlabel" default="rgb(90,155,90)" />
   		<element name="color_label_1" type="colorlabel" default="rgb(187, 197, 154)" />

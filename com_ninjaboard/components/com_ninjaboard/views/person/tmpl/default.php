@@ -1,4 +1,4 @@
-<? /** $Id: default.php 1355 2011-01-10 18:33:32Z stian $ */ ?>
+<? /** $Id: default.php 2141 2011-07-08 10:46:01Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -9,9 +9,13 @@
 			<?= $edit_button ?>
 		</div>
 	<? endif ?>
-	<? if($watch_button && $person->id != $me->id) : ?>
+	<? if(($watch_button || $message_button) && $person->id != $me->id) : ?>
 		<div class="header end">
-			<?= @helper('site::com.ninjaboard.template.helper.behavior.watch') ?>
+			<? if($message_button) echo @helper('site::com.ninjaboard.template.helper.behavior.message', array(
+			    'message_to_id'           => $person->id,
+			    'message_to_display_name' => $person->display_name
+			)) ?>
+			<? if($watch_button)   echo @helper('site::com.ninjaboard.template.helper.behavior.watch') ?>
 		</div>
 	<? endif ?>
 	
@@ -40,7 +44,14 @@
 	
 	</div>
 	<? if($person->posts) : ?>
-		<?= @helper('site::com.ninjaboard.template.helper.template.space') ?>
-		<?= $posts ?>
+	    <?= @helper('site::com.ninjaboard.template.helper.template.space') ?>
+    	<div class="header relative">
+    		<?= $pagination ?>
+    		<div style="clear:both"></div>
+    	</div>
+    	<?= $topics ?>
+    	<div class="footer relative">
+    		<?= $pagination ?>
+    	</div>
 	<? endif ?>
 </div>

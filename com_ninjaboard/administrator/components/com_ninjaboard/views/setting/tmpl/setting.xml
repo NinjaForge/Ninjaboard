@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: setting.xml 1573 2011-02-17 22:51:43Z stian $ -->	
+<!-- $Id: setting.xml 1997 2011-06-29 15:44:18Z stian $ -->	
 <form>
 	<fieldset group="board_details" class="adminlist" description="Parameters for board configuration">
 		<element name="theme" type="request" key="name" request="name" get="admin::com.ninjaboard.model.themes" default="chameleon" load="&amp;option=com_ninjaboard&amp;view=theme&amp;layout=settings&amp;format=raw" />
@@ -59,8 +59,8 @@
 	    <element name="image_links_to" type="text" size="50" default="http://www.ninjaboard.org/"/>
 	</fieldset>-->
 
-	<fieldset group="email_notification_settings">
-		<element name="enable_email_notification" type="radio" default="1">
+	<fieldset group="email_notification_settings" legend="Email Notifications Settings">
+		<element name="enable_email_notification" label="Enable Email Notifications" type="radio" default="1">
 			<option value="1">Yes</option>
 			<option value="0">No</option>
 		</element>
@@ -71,6 +71,13 @@
 		<element name="include_post" type="radio" default="yes" class="group vertical" description="Choose if you want people to be able to read the post or visit the site first.">
 			<option value="yes">Yes</option>
 			<option value="no">No</option>
+		</element>
+	</fieldset>
+	
+	<fieldset group="messaging_settings">
+		<element name="enable_messaging" type="radio" default="1">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
 		</element>
 	</fieldset>
 

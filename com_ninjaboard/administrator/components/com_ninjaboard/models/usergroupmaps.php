@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: usergroupmaps.php 1610 2011-02-27 01:02:15Z stian $
+ * @version		$Id: usergroupmaps.php 1611 2011-02-27 01:07:31Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>

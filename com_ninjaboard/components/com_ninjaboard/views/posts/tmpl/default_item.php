@@ -1,15 +1,17 @@
-<? /** $Id: default_item.php 1577 2011-02-18 00:17:09Z stian $ */ ?>
+<? /** $Id: default_item.php 2131 2011-07-07 22:02:45Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? /* Prepare the batch of css classes we wrap our posts with */ ?>
 <? 
+    $class[] = 'ninjaboard-post';
+	$class[] = $forum->params->style->posts_wrap_style == 'extra' ? 'ninjaboard-block' : '';
 	$class[] = @id();
 	$class[] = 'poster-rank-'.@escape(KInflector::underscore($post->rank_title));
 	foreach($post->usergroups as $usergroup)
 	{
 		$class[] = 'poster-usergroup-'.@escape(KInflector::underscore($usergroup->title));
 	}
-	if($topic->created_user_id == $post->created_by)
+	if($topic->started_by == $post->created_by)
 	{
 		$class[] = 'poster-is-topic-creator';
 	}

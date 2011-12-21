@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: phpbb.php 1779 2011-04-12 15:08:41Z stian $
+ * @version		$Id: phpbb.php 1787 2011-04-12 23:38:17Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -146,7 +146,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 				$from	= JPATH_ROOT.'/'.$this->getPath().'/'.$path.'/'.$attachment['file'];
 				$file	= JPATH_ROOT.'/media/com_ninjaboard/attachments/'.$attachment['file'].'.'.$attachment['extension'];
 				
-				//Don't do anything if avatar don't exist
+				//Don't do anything if attachment don't exist
 				if(!JFile::exists($from)) continue;
 				
 				JFile::copy($from, $file);

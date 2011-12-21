@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE metadata>
-<!-- $Id: default.xml 1648 2011-03-17 18:19:59Z stian $ -->
+<!-- $Id: default.xml 1653 2011-03-17 18:40:38Z stian $ -->
 <metadata>
 	<layout title="Forum">
 		<message>Renders a forum and its subforums if any.</message>

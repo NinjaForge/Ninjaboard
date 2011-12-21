@@ -1,8 +1,8 @@
-<? /** $Id: default_announcements.php 959 2010-09-21 14:33:17Z stian $ */ ?>
+<? /** $Id: default_announcements.php 2126 2011-07-07 20:51:36Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 <!-- replace "announcement" with class suffix -->
 <? /*
-<div class="category">	
+<div class="ninjaboard-block category">	
 	<ul class="topiclist header">
 		<li class="row">
 				<span><?= @text('Announcements') ?></span>

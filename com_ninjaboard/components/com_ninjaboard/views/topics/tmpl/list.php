@@ -1,7 +1,7 @@
-<? /** $Id: list.php 1399 2011-01-12 23:36:25Z stian $ */ ?>
+<? /** $Id: list.php 2126 2011-07-07 20:51:36Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<div class="category topics">
+<div class="ninjaboard-block category topics">
 	<ul class="topiclist">
 		<li class="header">
 			<dl class="icon">

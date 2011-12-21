@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: users.php 1710 2011-03-28 01:30:31Z stian $
+ * @version		$Id: users.php 1814 2011-04-20 23:46:01Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -29,7 +29,8 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 		$this->_state
 			->insert('usergroup', 'int')
 			->insert('gid'		, 'boolean', false)
-			->insert('new'		, 'boolean', false);
+			->insert('new'		, 'boolean', false)
+			->insert('me'       , 'boolean', true);
 	}
 
 	protected function _buildQueryJoins(KDatabaseQuery $query)
@@ -62,8 +63,6 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 	
 	protected function _buildQueryColumns(KDatabaseQuery $query)
 	{
-		
-
 		$query
 			  ->select(array('person.*', 'tbl.*'))
 			  ->select(array(
@@ -81,6 +80,10 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 			  ));
 
 		parent::_buildQueryColumns($query);
+		
+		//Build query for the screen names
+		KFactory::get('admin::com.ninjaboard.model.people')
+			->buildScreenNameQuery($query, 'person', 'tbl', 'display_name');
 	}
 
 	/**
@@ -123,7 +126,7 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 				$search = strtoupper($search);
 				
 				$query
-					  ->where("(tbl.name LIKE '%$search%' OR tbl.username LIKE '%$search%' OR tbl.email LIKE '%$search%')")
+					  ->where("(tbl.name LIKE '%$search%' OR tbl.username LIKE '%$search%' OR tbl.email LIKE '%$search%' OR person.alias LIKE '%$search%')")
 					  /*->where('tbl.name', 'LIKE',  '%'.$search.'%', 'or')
 					  ->where('tbl.username', 'LIKE',  '%'.$search.'%', 'or')
 					  ->where('tbl.email', 'LIKE',  '%'.$search.'%', 'or')*/;
@@ -134,6 +137,12 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 		if($group)
 		{
 			$query->where('tbl.gid', '=',  (int)$group);
+		}
+		
+		if(!$this->_state->me)
+		{
+		    $me = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+			$query->where('tbl.id', '!=', $me->id);
 		}
 		
 		//Don't show blocked users

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: avatar.php 1758 2011-04-11 16:30:22Z stian $
+ * @version		$Id: avatar.php 1787 2011-04-12 23:38:17Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -100,7 +100,8 @@ class ComNinjaboardTemplateHelperAvatar extends KTemplateHelperAbstract
 			'id'		=> KFactory::get('admin::com.ninjaboard.model.people')->getMe()->id,
 			'thumbnail'	=> 'large',
 			'class'		=> 'avatar',
-			'link'		=> 'person'
+			'link'		=> 'person',
+			'type'		=> 'css'	//optionally tag (<img>)
 		));
 		
 		$person		= KFactory::tmp('admin::com.ninjaboard.model.people')->id($config->id)->getItem();
@@ -119,20 +120,27 @@ class ComNinjaboardTemplateHelperAvatar extends KTemplateHelperAbstract
 		$height = $params['avatar_settings'][$config->thumbnail.'_thumbnail_height'];
 		$width  = $params['avatar_settings'][$config->thumbnail.'_thumbnail_width'];
 		
-		/* @TODO Following is the <img /> version, likely going to be deprecated
-		$attribs['src']		= $config->url;
-		$attribs['height']	= $height;
-		$attribs['width']	= $width;
-		
-		$html  = '<img '.KHelperArray::toString($attribs).' />';
+		///* @TODO Following is the <img /> version, likely going to be deprecated
+		if($config->type == 'tag')
+		{
+			
+			$attribs['src']		= $config->avatarurl;
+			$attribs['height']	= $height;
+			$attribs['width']	= $width;
+			unset($attribs['href']);
+
+			$html  = '<img '.KHelperArray::toString($attribs).' />';
+		}
 		//*/
-
-		$style  = 'background-image: url('.$config->avatarurl.'); ';
-		$style .= 'height: '.$height.'px; ';
-		$style .= 'width: '.$width.'px;';
-		$attribs['style'] = $style;
-
-		$html = '<a '.KHelperArray::toString($attribs).'></a>';
+		else
+		{
+			$style  = 'background-image: url('.$config->avatarurl.'); ';
+			$style .= 'height: '.$height.'px; ';
+			$style .= 'width: '.$width.'px;';
+			$attribs['style'] = $style;
+	
+			$html = '<a '.KHelperArray::toString($attribs).'></a>';
+		}
 		
 		return $html;
 	}

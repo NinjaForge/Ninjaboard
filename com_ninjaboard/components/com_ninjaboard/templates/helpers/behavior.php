@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: behavior.php 1660 2011-03-21 22:52:52Z stian $
+ * @version		$Id: behavior.php 1882 2011-05-20 21:18:16Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -110,6 +110,48 @@ class ComNinjaboardTemplateHelperBehavior extends KTemplateHelperAbstract
 		));
 		$html[] = '<div '.$attr.'>';
 		$html[] = '<a>'.($watching ? $config->lang->subscribed : $config->lang->subscribe).'</a>';
+		$html[] = '</div>';
+		
+		return implode($html);
+	}
+	
+	/**
+	 * Email Updates button
+	 *
+	 * @author Stian Didriksen
+	 */
+	public function message($config = array())
+	{
+		$config = new KConfig($config);
+		
+		$config->append(array(
+			'message_to_id'           => false,
+			'message_to_display_name' => false,
+			'header' => JText::_('Send %s a message:')
+		));
+		
+		KFactory::get('admin::com.ninja.helper.default')->js('/reveal.js');
+		KFactory::get('admin::com.ninja.helper.default')->css('/reveal.css');
+		KFactory::get('admin::com.ninja.helper.default')->js("
+		jQuery(function($){
+		    var messageform = $('#ninjaboard-message-form'), title = messageform.find('.reply-to'), input = messageform.find('input[name=to]');
+
+		    messageform.appendTo(document.body).addClass('replying');
+		    
+		    title.text(".json_encode(sprintf($config->header, $config->message_to_display_name)).");
+		    input.val(".json_encode($config->message_to_id).");
+		});
+		");
+		
+		$html[] = '<a class="ninjaboard-button ninjaboard-button-secondary ninjaboard-button-message" href="#" data-reveal-id="ninjaboard-message-form">'.JText::_('Message').'</a>';
+		
+		$template = KFactory::get('site::com.ninjaboard.view.message.html')->getTemplate();
+		$params   = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		$form     = $template->loadIdentifier('site::com.ninjaboard.view.message.form', array('params' => $params));
+		
+		$html[] = '<div id="ninjaboard-message-form" class="reveal-modal">';
+		$html[] = $form;
+		$html[] = '<a class="close-reveal-modal">&#215;</a>';
 		$html[] = '</div>';
 		
 		return implode($html);

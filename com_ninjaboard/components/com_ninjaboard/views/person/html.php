@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1751 2011-04-09 21:57:45Z stian $
+ * @version		$Id: html.php 2142 2011-07-08 10:46:45Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -25,21 +25,29 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
         }
 
 		if($this->getLayout() != 'form') {
-			$this->assign('posts', $this->render(
-				KFactory::get('site::com.ninjaboard.controller.topic')
-					
-					//@TODO Figure out why the singular view is used instead of the plural one
-					->setView(KFactory::get('site::com.ninjaboard.view.topics.html'))
-					
-					->direction('desc')
-					->sort('first_post.created_time')
-					->limit(KRequest::get('get.limit', 'int', 10))
-					->offset(KRequest::get('get.offset', 'int', 0))
-					->at($this->getModel()->getItem()->id)
+		    $controller = KFactory::get('site::com.ninjaboard.controller.topic')
+		    	
+		    	//@TODO Figure out why the singular view is used instead of the plural one
+		    	->setView(KFactory::get('site::com.ninjaboard.view.topics.html'))
+		    	
+		    	->direction('desc')
+		    	->sort('first_post.created_time')
+		    	->limit(KRequest::get('get.limit', 'int', 10))
+		    	->offset(KRequest::get('get.offset', 'int', 0))
+		    	->at($this->getModel()->getItem()->id);
+		    $model = $controller->getModel();
+		    $state = $model->getState();
+			$this->assign('topics', $this->render(
+			    $controller
 					->layout('list')
 					->display(), 
-				JText::_('Latest Posts'), 
+				JText::_('Latest Topics'), 
 				$params['module'])
+			);
+
+			$this->assign('pagination', 
+				KFactory::get('site::com.ninjaboard.template.helper.paginator', array('name' => 'topics'))
+					->pagination($model->getTotal(), $state->offset, $state->limit, 4, false)
 			);
 			
 			$me		= KFactory::get($this->getModel())->getMe();
@@ -54,7 +62,8 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 				$this->edit_button = false;
 			}
 			
-			$this->watch_button = $me->id && $this->params['email_notification_settings']['enable_email_notification'];
+			$this->message_button = $me->id && $this->params['messaging_settings']['enable_messaging'];
+			$this->watch_button   = $me->id && $this->params['email_notification_settings']['enable_email_notification'];
 			
 			$title = sprintf(JText::_("%s's profile"), $person->display_name);
 		} else {

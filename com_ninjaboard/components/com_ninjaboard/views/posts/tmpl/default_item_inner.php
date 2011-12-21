@@ -1,4 +1,4 @@
-<? /** $Id: default_item_inner.php 1374 2011-01-11 02:51:22Z stian $ */ ?>
+<? /** $Id: default_item_inner.php 1704 2011-03-26 23:47:36Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <div class="wrap">
@@ -14,7 +14,7 @@
 			<ol class="images">
 				<? foreach ($images as $attachment) : ?>
 				<li>
-					<a href="<?= @route('view=attachment&id='.$attachment->id.'&post='.$post->id.'&format=file') ?>" title="<?= @escape($attachment->name) ?>" target="_blank" rel="lightbox[p<?= $post->id ?>]">
+					<a href="<?= @route('view=attachment&id='.$attachment->id.'&post='.$post->id.'&format=file') ?>" title="<?= @escape($attachment->name) ?>" target="_blank" rel="<?= $params['view_settings']['lightbox'] ?>[p<?= $post->id ?>]">
 						<img src="<?= @route('view=attachment&id='.$attachment->id.'&post='.$post->id.'&format=file') ?>" alt="<?= $attachment->type ?>" style="max-width: 128px;" />
 					</a>
 				</li>
@@ -46,7 +46,11 @@
 		</div>		
 	</div>
 	<div class="user sidebar">
+		<? if($post->created_by) : ?>
 		<a href="<?= @route('view=person&id='.$post->created_by) ?>"><h6 class="username"><?= $post->display_name ?></h6></a>
+		<? else : ?>
+		<h6 class="username"><?= $post->display_name ?></h6>
+		<? endif ?>
 
 		<? if($params['avatar_settings']['enable_avatar']) : ?>
 		<?= @helper('site::com.ninjaboard.template.helper.avatar.image', array(

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: topics.php 1920 2011-05-23 12:14:11Z stian $
+ * @version		$Id: topics.php 2143 2011-07-08 11:23:00Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -61,7 +61,9 @@ class ComNinjaboardModelTopics extends ComDefaultModelDefault
 	{
 		parent::_buildQueryWhere($query);
 		
-		if($this->_state->at) $query->where('first_post.created_user_id', '=', $this->_state->at);
+		if($this->_state->at) {
+		    $query->where('(SELECT ninjaboard_topic_id FROM #__ninjaboard_posts WHERE ninjaboard_topic_id = tbl.ninjaboard_topic_id AND created_user_id = '.$this->_state->at.' LIMIT 0 , 1) = tbl.ninjaboard_topic_id');
+		}
 		
 		// @TODO commeted out until we figure out why it breaks the posting
 		//$query->where('first_post.subject', '!=', '', 'AND');
@@ -103,13 +105,14 @@ class ComNinjaboardModelTopics extends ComDefaultModelDefault
 				->select('first_post.subject AS alias')
 				->select('last_post.subject AS last_post_subject')
 				->select('first_post.created_time AS first_post_date')
+				->select('first_post.created_user_id AS started_by')
 				->select('last_post.created_user_id')
 				->select('last_post.created_time AS last_post_date');
 		
 		//Build query for the screen names
 		KFactory::get('admin::com.ninjaboard.model.people')
-				->buildScreenNameQuery($query, 'first_post_person', 'first_post_user', 'first_post_username')
-				->buildScreenNameQuery($query, 'last_post_person', 'last_post_user', 'last_post_username');
+				->buildScreenNameQuery($query, 'first_post_person', 'first_post_user', 'first_post_username', 'IFNULL(first_post.guest_name, \''.JText::_('Anonymous').'\')')
+				->buildScreenNameQuery($query, 'last_post_person', 'last_post_user', 'last_post_username', 'IFNULL(last_post.guest_name, \''.JText::_('Anonymous').'\')');
 		
 		if($this->_state->forum)
 		{

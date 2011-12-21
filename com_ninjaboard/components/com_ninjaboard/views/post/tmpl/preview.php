@@ -1,4 +1,4 @@
-<? /** $Id: preview.php 1768 2011-04-11 20:38:57Z stian $ */ ?>
+<? /** $Id: preview.php 1787 2011-04-12 23:38:17Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <?= str_replace(

@@ -1,4 +1,4 @@
-<? /** $Id: form.php 1762 2011-04-11 18:59:09Z stian $ */ ?>
+<? /** $Id: form.php 1787 2011-04-12 23:38:17Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? @ninja('behavior.tooltip') ?>

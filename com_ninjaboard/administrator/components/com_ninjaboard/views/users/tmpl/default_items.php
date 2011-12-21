@@ -1,4 +1,4 @@
-<? /** $Id: default_items.php 1691 2011-03-25 00:57:22Z stian $ */ ?>
+<? /** $Id: default_items.php 1696 2011-03-25 01:24:34Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach($users as $i => $user) : ?>

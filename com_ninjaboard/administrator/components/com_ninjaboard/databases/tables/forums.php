@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forums.php 1804 2011-04-14 20:52:14Z stian $
+ * @version		$Id: forums.php 1883 2011-05-20 22:27:25Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -147,7 +147,7 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
 		
 		foreach($this->select(array('alias' => '')) as $forum)
 		{
-			$forum->alias = KFactory::tmp('lib.koowa.filter.slug')->sanitize($forum->title);
+			$forum->alias = KFactory::tmp('admin::com.ninjaboard.filter.slug')->sanitize($forum->title);
 			$forum->save();
 		}
 		

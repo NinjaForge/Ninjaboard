@@ -1,4 +1,4 @@
-<? /** $Id: default.php 1782 2011-04-12 21:50:02Z stian $ */ ?>
+<? /** $Id: default.php 1793 2011-04-13 21:29:06Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <script type="text/javascript" src="/ProgressBar.js"></script>
@@ -12,39 +12,17 @@
 		new Request.Tools(<?= json_encode(array(
 			'token' => JUtility::getToken(),
 			'icon' => @$img('/256/ninjaboard.png'),
+			'limit' => KRequest::get('get.limit', 'int', 500),
 			'msg'   => array(
 				'success'  => @text('Import complete! Converted {label} in {total}.'),
 				'failure'  => @text('Import failed!'),
 				'timeleft' => @text('timeleft'),
 				'titleleft' => @text('titleleft'),
 				'confirm'	=> @text('Import from {label} now&hellip;'),
+				'imported'	=> @text('{label} imported successfully!'),
 				'warning'  => sprintf(@text("You're about to import from {label}.%sThe imported data will replace any current data.%sMake sure to take a backup on forehand,%s so you can recover if anything goes wrong."), "\n\n", "\n\n", "\n")
 			)
 		)) ?>);
-		
-		var setData = function(){		
-			var request = document.getElement('.placeholder a.phpbb').retrieve('request');
-
-			if(!request.options.data) request.options.data = {};
-			
-			$$('#phpbb .value').each(function(element){
-				request.options.data[element.get('name')] = element.get('value');
-				if(localStorage) localStorage.setItem(element.get('name'), element.get('value'));
-			});
-		};
-
-		document.getElement('.placeholder a.phpbb').addEvent('mousedown', setData);
-		$$('#phpbb .value').addEvent('change', setData);
-		
-		if(localStorage) {
-			$$('#phpbb .value').each(function(element){
-				element.set('value', localStorage.getItem(element.get('name')) ? localStorage.getItem(element.get('name')) : element.get('value'));
-			});
-		}
-		
-		/*$('juser').addEvent('change', function(){
-			this.get('checked') ? this.getParent().removeClass('hide') : this.getParent().addClass('hide');
-		});*/
 	});
 	
 	// Preload some images

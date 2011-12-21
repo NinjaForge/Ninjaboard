@@ -1,4 +1,4 @@
-<? /** $Id: default.php 1402 2011-01-13 00:41:26Z stian $ */ ?>
+<? /** $Id: default.php 1633 2011-03-08 02:00:50Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -8,12 +8,7 @@
 
 <style type="text/css">
 	#ninjaboard .title a {
-		display: inline-block;
 		background-image: url(<?= $img ?>); 
-		background-repeat: no-repeat;
-		padding-left: 37px;
-		min-height: 32px;
-		line-height: 1.3em;
 	}
 </style>
 
@@ -42,17 +37,20 @@
 		
 		<?= $block_subforums ?>
 	
-		<? if($forum->topic_permissions > 0) : ?>
+		<? if($forum->topic_permissions > 0 && $topics) : ?>
 			<?= $pagination ?>
 			<div style="clear:both"></div>
 		<? endif ?>
 	
 	</div>
-	
-	<? if($forum->topic_permissions > 0) : ?>
+
+	<? if($forum->topic_permissions > 0 && $topics) : ?>
 		<?= @render($topics, false, $forum->params['module']) ?>
 		<div class="footer relative">
 			<?= $pagination ?>
 		</div>
+	<? /* If the user can't create anything, don't show anything */ ?>
+	<? elseif($forum->topic_permissions > 1) : ?>
+		<h2 class="message"><?= @text('No topics found here yet, go ahead and start one.') ?></h2>
 	<? endif ?>
 </div>

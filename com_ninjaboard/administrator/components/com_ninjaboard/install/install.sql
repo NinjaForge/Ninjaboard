@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_attachments` (
   `post_id` int(11) unsigned NOT NULL DEFAULT '0',
   `params` text NOT NULL,
   KEY `attach_post` (`post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE IF NOT EXISTS `#__ninjaboard_forums` (
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_profile_fields` (
 
 CREATE TABLE IF NOT EXISTS `#__ninjaboard_posts` (
   `ninjaboard_post_id` SERIAL,
-  `subject` varchar(255) NOT NULL DEFAULT '',
+  `subject` varchar(100) NOT NULL DEFAULT '',
   `text` text NOT NULL,
   `created_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00'  COMMENT '',
   `created_user_id` int(11) unsigned NOT NULL default 0,
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_posts` (
   `guest_email` varchar(255) DEFAULT '',
   KEY `user_id` (`created_user_id`),
   KEY `ninjaboard_topic_id` (`ninjaboard_topic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE IF NOT EXISTS `#__ninjaboard_ranks` (
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_ranks` (
   `params` text NOT NULL,
   `checked_out` int(11) unsigned NOT NULL DEFAULT '0',
   `checked_out_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE IF NOT EXISTS `#__ninjaboard_settings` (
@@ -159,6 +159,14 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_topic_symlinks` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE IF NOT EXISTS `#__ninjaboard_topic_slugs` (
+  `ninjaboard_topic_slug` varchar(100) NOT NULL DEFAULT '',
+  `ninjaboard_topic_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`ninjaboard_topic_slug`),
+  KEY `ninjaboard_topic_id` (`ninjaboard_topic_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE IF NOT EXISTS `#__ninjaboard_people` (
   `ninjaboard_person_id` int(11) unsigned NOT NULL DEFAULT '0',
   `posts` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -171,9 +179,12 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_people` (
   `params` text NOT NULL,
   `notify_on_create_topic` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Subscribe to threads I create',
   `notify_on_reply_topic` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Subscribe to threads I reply to',
+  `notify_on_private_message` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Notify me when I receive a private message',
+  `temporary_id` int(11) UNSIGNED NULL DEFAULT '0' COMMENT 'Used only by converters for user sync',
   PRIMARY KEY (`ninjaboard_person_id`),
-  KEY `which_name` (`which_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `which_name` (`which_name`),
+  KEY `temporary_id` (`temporary_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE IF NOT EXISTS `#__ninjaboard_user_groups` (
@@ -190,14 +201,14 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_user_group_maps` (
   `joomla_user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Foreign Key to #__users.id',
   `ninjaboard_user_group_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Foreign Key to #__ninjaboard_user_groups.id',
   PRIMARY KEY (`joomla_user_id`,`ninjaboard_user_group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE IF NOT EXISTS `#__ninjaboard_joomla_user_group_maps` (
   `joomla_gid` int(10) unsigned NOT NULL DEFAULT '0',
   `ninjaboard_gid` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`joomla_gid`,`ninjaboard_gid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE IF NOT EXISTS `#__ninjaboard_log_topic_reads` (
@@ -215,4 +226,24 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_iconsets` (
   `iconset` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `params` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `#__ninjaboard_messages` (
+  `ninjaboard_message_id` SERIAL,
+  `created_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_by` int(11) unsigned NOT NULL DEFAULT '0',
+  `subject` tinytext NOT NULL,
+  `text` text NOT NULL,
+  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'Deleted by sender'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Private messages, direct messages';
+
+
+CREATE TABLE IF NOT EXISTS `#__ninjaboard_message_recipients` (
+  `ninjaboard_message_id` bigint(20) unsigned NOT NULL,
+  `user_id` int(11) unsigned NOT NULL,
+  `is_bcc` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `is_read` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ninjaboard_message_id`,`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

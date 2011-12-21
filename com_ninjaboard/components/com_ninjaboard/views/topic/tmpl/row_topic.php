@@ -1,4 +1,4 @@
-<? /** $Id: row_topic.php 1939 2011-05-24 14:35:13Z stian $ */ ?>
+<? /** $Id: row_topic.php 1943 2011-05-24 23:26:49Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? $img = isset(@$topic->params['customization']['icon']) ? @$topic->params['customization']['icon'] : '32__default.png' ?>
@@ -29,16 +29,20 @@
 			</dd>
 			<dd class="lastpost">
 				<a href="#" class="separator"></a>
-				<span class="lastpost">
+				<span>
 				<? if (@$topic->last_post_id) : ?>
 					<dfn>Last post</dfn>
 					<a href="<?= @route('view=topic&id=' . @$topic->id . '&post='.@$topic->last_post_id.'#p' . @$topic->last_post_id) ?>">
 						<img src="<?= @$img('/16/page.png') ?>" alt="<?= @text('View the latest post') ?>" title="<?= @escape(@$topic->last_post_subject) ?>" />
 					</a>
 					 <?= @text('by') ?>  
-					 <a href="<?= @route('view=person&id=' . @$topic->created_user_id) ?>" class="username-coloured">
-					 	<?= @escape(@$topic->last_post_username) ?>
+					 <? if($topic->created_user_id) : ?>
+					 <a href="<?= @route('view=person&id=' . $topic->created_user_id) ?>" class="username-coloured">
+					 	<?= @escape($topic->last_post_username) ?>
 					 </a>
+					 <? else : ?>
+					 	<?= @escape($topic->last_post_username) ?>
+					 <? endif ?>
 					 <br />
 					 <em>
 					 	<?= @ninja('date.html', array('date' => @$topic->last_post_date)) ?>

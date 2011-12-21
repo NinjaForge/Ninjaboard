@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1900 2011-05-22 21:03:40Z stian $
+ * @version		$Id: html.php 1986 2011-06-28 17:37:05Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -23,8 +23,8 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		$topic->topic_permissions = $this->forum->topic_permissions;
 		$topic->post_permissions = $this->forum->post_permissions;
 		$topic->attachment_permissions = $this->forum->attachment_permissions;
-		
-		if((!$this->forum->id || !$topic->id) && KFactory::tmp('lib.joomla.user')->guest)
+
+		if((!$this->forum->id || !$topic->id || $topic->topic_permissions < 1) && KFactory::tmp('lib.joomla.user')->guest)
 		{
 			$this->mixin(KFactory::get('admin::com.ninja.view.user.mixin'));
 			
@@ -162,8 +162,8 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		$html[] = '<input type="hidden" name="action" value="'.$action.'" />';
 		$html[] = '<input type="hidden" name="_token" value="'.JUtility::getToken().'" />';
 		$html[] = str_replace(
-			array('$title', '$link'), 
-			array(JText::_($title), '#'), 
+			array('$title', '$link', '$class'), 
+			array(JText::_($title), '#', 'action-'.$action), 
 			$this->forum->params['tmpl']['new_topic_button']
 		);
 		$html[] = '</form>';

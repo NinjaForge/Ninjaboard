@@ -62,15 +62,19 @@ Request.Tools = new Class({
 		var links = this.options.placeholder.getElements('a')
 			msg   = this.options.msg,
 			token = this.options.token,
+			limit = this.options.limit.toInt(),
 			icon  = this.options.icon,
 			time  = 0,
 			start = 0,
 			left  = 0,
 			end   = 0,
 			dur   = [],
-			timer = ($lambda).periodical(1000);
+			timer = 0;
 
-		if(Notifications.checkPermission()) Notifications.requestPermission();
+		//Desktop notifications
+		links.addEvent('click', function(){
+			if(Notifications.checkPermission()) Notifications.requestPermission();
+		});
 
 		links.store('request', this).each(function(link){
 			var name = link.get('data-name'),
@@ -131,7 +135,10 @@ Request.Tools = new Class({
 		// @TODO make translatable
 		this.options.msg.importing = importing.replace('%s', link.get('text'));
 		var request = this, total = new Date;
-				
+		
+		//@TODO icons are too blurry
+		//icon = link.getElement('span').getStyle('background-image').replace(/^url\(/, '').replace(/\)$/, '');
+
 		new Request.JSON({
 		    url: new URI(window.location).setData({action: 'import', format: 'json', 'import': name}, true).toString(),
 		    data: new Hash({
@@ -139,7 +146,7 @@ Request.Tools = new Class({
 		    	format: 'json',
 		    	'import': name,
 		    	'_token': token,
-		    	limit: 500
+		    	limit: limit
 		    }).extend(this.options.data),
 		    placeholder: this.options.placeholder,
 		    title: this.options.title,
@@ -199,7 +206,7 @@ Request.Tools = new Class({
 								var message = msg.success.replace('{label}', link.get('text')).replace('{total}', total.timeDiff());
 								Notifications.createNotification(icon, document.title,  message);
 								this.options.placeholder.get('spinner').msg.set('text', message);
-								$clear(request.timer);
+								$clear(timer);
 								this.options.title.set('text', message + ' | ' + this.options.title.get('data-title'));
 								request.fireEvent('complete');
 								return this;
@@ -214,14 +221,20 @@ Request.Tools = new Class({
 							this.options.placeholder.get('spinner').msg.set('text', msg.importing + msg.timeleft.replace('%s',this.end.timeDiffInWords(this.now)));
 							
 							//request.timer = $clear(request.timer);
-							this.options.title.set('text', msg.titleleft.replace('%s',this.now.timeDiff(this.end.clone().decrement('second'))) + this.options.title.get('data-title'));
 							//this.end.increment('second');
 							
 							var self = this;
-							if(!request.timer){
-								request.timer = (function(){
-									self.options.title.set('text', msg.titleleft.replace('%s',self.now.timeDiff(self.end.decrement('second'))) + self.options.title.get('data-title'));
-								}).periodical(1000);
+							if(!timer){
+								var updateTitle = (function(){
+									var accurate = self.now.timeDiff(self.end.decrement('ms', 100));
+									self.options.title.set('text', msg.titleleft.replace('%s', accurate) + self.options.title.get('data-title'));
+									var relative = msg.timeleft.replace('%s', self.end.timeDiffInWords(self.now));
+									self.options.placeholder.get('spinner').msg.set('text', msg.importing + relative);
+									
+									
+								});
+								updateTitle();
+								timer = updateTitle.periodical(100);
 							}
 
 							time = new Date;
@@ -247,9 +260,9 @@ Request.Tools = new Class({
 		    	
 		    },
 		    onFailure: function(){
-		    	Notifications.createNotification(icon, document.title,  msg.failure);
 		    	this.options.placeholder.get('spinner', {message: msg.failure}).hide(true).show(true);
 		    	this.options.placeholder.get('spinner').element.addClass('failed');
+		    	Notifications.createNotification(icon, document.title,  msg.failure);
 		    }
 		}).post();
 
@@ -262,7 +275,7 @@ Request.Tools = new Class({
 		this.options.title.set('text', this.options.msg.failure + ' | ' + this.options.title.get('data-title'));
 
 		this.options.placeholder.get('spinner').msg.setStyle('width', this.options.placeholder.get('spinner').msg.getWidth()).set('text', this.options.msg.failure);
-		Notifications.createNotification(this.options.icon, document.title,  this.options.msg.failure);
+		Notifications.createNotification(icon, document.title,  this.options.msg.failure);
 		//placeholder.get('spinner', {message: msg.failure}).hide(true).show(true);
 		//placeholder.get('spinner').element.addClass('failed');
 	}

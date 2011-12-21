@@ -1,4 +1,4 @@
-<? /** $Id: form.php 1543 2011-02-15 22:18:07Z stian $ */ ?>
+<? /** $Id: form.php 2001 2011-06-29 16:21:31Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -54,7 +54,7 @@
 	}
 </style>
 
-<div id="ninjaboard">
+<div id="ninjaboard" class="person">
 	<h1><?= $title ?></h1>
 	<form action="<?= @route('id='.$person->id) ?>" method="post" id="<?= @id() ?>" class="ninjaboard" enctype="multipart/form-data">
 		<fieldset class="ninja-form outer">
@@ -100,7 +100,7 @@
 					<label class="key" for="signature">
 						<?= @text("Signature") ?>
 					</label>
-					<textarea name="signature" id="signature" placeholder="<?= @text('This is your forum signature…') ?>" class="value"><?= $person->signature ?></textarea>
+					<textarea name="signature" id="signature" placeholder="<?= @text('This is your forum signature…') ?>" class="value"><?= @escape($person->signature) ?></textarea>
 				</div>
 			</fieldset>
 			
@@ -117,6 +117,7 @@
 			</fieldset>
 			<? endif ?>
 			
+			<? if($params->email_notification_settings->enable_email_notification) : ?>
 			<fieldset>
 				<h2><?= @text('Email Notifications') ?></h2>
 				<div class="element">
@@ -137,7 +138,19 @@
 						<?= @text('Subscribe to threads I reply to') ?>
 					</label>
 				</div>
+				<? if($params->messaging_settings->enable_messaging) : ?>
+				<div class="element">
+					<div class="key">
+						<input type="hidden" name="notify_on_private_message" value="0" />
+						<input type="checkbox" name="notify_on_private_message" <? if($person->notify_on_private_message) echo 'checked' ?> id="notify_on_private_message" value="1" />
+					</div>
+					<label for="notify_on_private_message">
+						<?= @text('Notify me when I receive a private message') ?>
+					</label>
+				</div>
+				<? endif ?>
 			</fieldset>
+			<? endif ?>
 			
 			<div class="element footer">
 				<div class="inner">

@@ -20,11 +20,11 @@
 }
 
 /*@TODO this needs to be more accurately 10px from the right edge. 99% works for now */
-.category .topiclist.forums dl.icon {
+.ninjaboard-block .topiclist.forums dl.icon {
 	background-position: 99% center;
 }
 
-.category .topiclist.forums dl.icon dt .subject {
+.ninjaboard-block .topiclist.forums dl.icon dt .subject {
 	padding-left: 0;
 	padding-right: 50px;
 }

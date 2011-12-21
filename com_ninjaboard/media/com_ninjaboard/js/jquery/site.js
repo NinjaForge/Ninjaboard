@@ -1,14 +1,14 @@
 jQuery(function($){
 	$('li.row', '#ninjaboard').hover(function(){
 		if($(this).is(':first-child')) {
-			$(this).closest('.category').find('li.header').addClass('hover-next');
+			$(this).closest('.ninjaboard-block').find('li.header').addClass('hover-next');
 		} else {
 			$(this).prev().addClass('hover-next');
 		}
 		$(this).next().addClass('hover-previous');
 	}, function(){
 		if($(this).is(':first-child')) {
-			$(this).closest('.category').find('li.header').removeClass('hover-next');
+			$(this).closest('.ninjaboard-block').find('li.header').removeClass('hover-next');
 		} else {
 			$(this).prev().removeClass('hover-next');
 		}

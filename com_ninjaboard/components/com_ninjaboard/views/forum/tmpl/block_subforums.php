@@ -1,7 +1,7 @@
-<? /** $Id: block_subforums.php 1246 2010-12-20 01:18:11Z stian $ */ ?>
+<? /** $Id: block_subforums.php 2126 2011-07-07 20:51:36Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<div class="category">
+<div class="ninjaboard-block category">
 	<ul class="topiclist">
 		<li class="header">
 			<dl class="icon">

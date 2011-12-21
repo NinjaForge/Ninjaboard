@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: abstract.php 1784 2011-04-12 22:32:41Z stian $
+ * @version		$Id: abstract.php 1948 2011-06-08 17:34:10Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -172,7 +172,7 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
 			    $params = array('');
 			    foreach($data as $key => $val)
 				{
-				    $params[0] .= is_int($val) ? 'i' : is_float($val) ? 'd' : 's';
+				    $params[0] .= (false !== filter_var($val, FILTER_VALIDATE_INT)) ? 'i' : 's';
 				    
 				     
 					$params[] = is_array($val) ? json_encode($val) : $val;
@@ -221,7 +221,7 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
 	    $columns   = $table->getColumns(true);
 	    $primaries = $table->getPrimaryKey();
     
-	    foreach($rows as $row)
+	    foreach($rows as $id => $row)
 		{
 			//@TODO Do not import rows that are without ids, they can cause duplicate key errors
 			//if(!isset($row['id'])) continue;
@@ -239,7 +239,11 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
 			$data = array_intersect_key($row, $columns);
 			
 			//Get the primaries
-			$where = $table->mapColumns(array_intersect_key($row, $primaries));
+			$where = array_intersect_key($row, $primaries);
+
+			//Set the id back, to allow changing the primary key as used in the smf_users converter on the people table
+			if(isset($where['id'])) $where['id'] = (int)$id;
+			$where = $table->mapColumns($where);
 
 			//Get the data and apply the column mappings
 			$data = $table->mapColumns($data);
@@ -262,27 +266,31 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
 			        	$keys[] = $key.' = ?';
 			        }
 
-			        $query     = 'UPDATE '.$base.' SET '.implode(', ', $vals).' WHERE '.implode(', ', $keys);
+			        $query     = 'UPDATE '.$base.' SET '.implode(', ', $vals).' WHERE '.implode(' AND ', $keys);
 			        $statement = $mysqli->prepare($query) or die('failed to prepare query statement: '.$query);
+			        //if($base == $table->getDatabase()->quoteName($dbprefix.'ninjaboard_people')) echo $query, "\n";
 			    }
 			
 			    $params = array('');
 			    foreach($data as $key => $val)
 				{
-				    $params[0] .= is_int($val) ? 'i' : is_float($val) ? 'd' : 's';
+				    $params[0] .= (false !== filter_var($val, FILTER_VALIDATE_INT)) ? 'i' : 's';
 					$params[] = is_array($val) ? json_encode($val) : $val;
 				}
 				foreach($where as $key => $val)
 				{
-				    $params[0] .= is_int($val) ? 'i' : is_float($val) ? 'd' : 's';
+				    $params[0] .= (false !== filter_var($val, FILTER_VALIDATE_INT)) ? 'i' : 's';
 					$params[] = is_array($val) ? json_encode($val) : $val;
 				}
+
+                //if($base == $table->getDatabase()->quoteName($dbprefix.'ninjaboard_people')) echo implode($params, ', '), "\n";
 
                 //Bind the params to the prepared statement in a dynamic fashion
 			    call_user_func_array(array($statement, 'bind_param'), $this->refValues($params));
 
 			    //Execute the prepared statement, it's super fast!
-			    $statement->execute();
+			    //@TODO throw exception here
+			    if(!$statement->execute()) echo $statement->error, "\n", 'with the bindings: '.implode(', ', $params), "\n", 'and the following query:', $query, "\n";
 			/*
 			} catch(KDatabaseException $e) {
 			    // The following is for a query used should we get a duplicate key error
@@ -552,7 +560,7 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
  * Detailed copyright and licensing information can be found
  * in the gpl-3.0.txt file which should be included in the distribution.
  * 
- * @version		$Id: abstract.php 1784 2011-04-12 22:32:41Z stian $
+ * @version		$Id: abstract.php 1948 2011-06-08 17:34:10Z stian $
  * @copyright  2007 - 2010 jVitals
  * @license   GPLv3 Open Source
  * @link       http://jvitals.com

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: rss.php 1671 2011-03-23 00:12:42Z stian $
+ * @version		$Id: rss.php 1679 2011-03-24 01:24:49Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>

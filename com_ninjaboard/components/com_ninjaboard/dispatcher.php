@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: dispatcher.php 1807 2011-04-14 21:31:04Z stian $
+ * @version		$Id: dispatcher.php 1809 2011-04-15 18:42:23Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -9,6 +9,8 @@
 
 /**
  * Ninjaboard Dispatcher, obviously
+ *
+ * @IMPORTANT Don't ever use KFactory::tmp on the dispatcher, always use KFactory::get
  *
  * @package Ninjaboard
  */
@@ -20,7 +22,10 @@ class ComNinjaboardDispatcher extends ComDefaultDispatcher
 	 * @param 	object 	An optional KConfig object with configuration options.
 	 */
 	public function __construct(KConfig $config)
-	{
+	{	
+		//Do all the factory mappings and such
+		self::register();
+
 		parent::__construct($config);
 
 		$view = $this->getController()->getView();
@@ -87,12 +92,82 @@ class ComNinjaboardDispatcher extends ComDefaultDispatcher
 		$this->registerCallback('after.render', array($view, 'setBreadcrumbs'));
 	}
 
-    protected function _initialize(KConfig $config)
-    {
-        $config->append(array(
-                'controller_default' => 'forum'
-        ));
+	/**
+	 * Initialize method
+	 *
+	 * @param $config
+	 * 				->controller_default	The default controller
+	 */
+	protected function _initialize(KConfig $config)
+	{
+		$config->append(array(
+			'controller_default' => 'forum'
+		));
 
-        parent::_initialize($config);
-    }
+		parent::_initialize($config);
+	}
+
+	/**
+	 * Register mapped objects to the factory, and other things necessary for Ninjaboard to operate properly
+	 *
+	 * This function can only be executed once, statically
+	 *
+	 * Example:
+	 * 		<code>
+	 *			 if( !KLoader::path('site::com.ninjaboard.dispatcher') ) return;
+	 *			 
+	 *			 //Initialize the dispatcher just so models are mapped, and everything else Ninjaboard needs to run
+	 *			 KLoader::load('site::com.ninjaboard.dispatcher');
+	 *			 ComNinjaboardDispatcher::register();
+	 * 		</code>
+	 *
+	 * @author Stian Didriksen <stian@ninjaforge.com>
+	 * @return boolean	true means it registered, false means it have already registered
+	 */
+	public static function register()
+	{
+		static $instance;
+
+		if(isset($instance)) return false;
+
+		// We like code reuse, so we map the frontend models to the backend models
+		foreach(array('avatars', 'forums', 'settings', 'users', 'usergroups', 'people', 'profiles', 'topics', 'posts', 'attachments', 'watches', 'messages') as $model)
+		{
+			KFactory::map('site::com.ninjaboard.model.'.$model, 'admin::com.ninjaboard.model.'.$model);
+		}
+		
+		foreach(array('forum') as $row)
+		{
+			KFactory::map('site::com.ninjaboard.database.row.'.$row, 'admin::com.ninjaboard.database.row.'.$row);
+		}
+		
+		KFactory::map('site::com.ninjaboard.database.table.topics', 	'admin::com.ninjaboard.database.table.topics');
+		KFactory::map('site::com.ninjaboard.database.table.posts', 	'admin::com.ninjaboard.database.table.posts');
+		KFactory::map('site::com.ninjaboard.database.table.attachments', 	'admin::com.ninjaboard.database.table.attachments');
+		KFactory::map('site::com.ninjaboard.database.table.users', 	'admin::com.ninjaboard.database.table.users');
+		KFactory::map('site::com.ninjaboard.database.table.people', 	'admin::com.ninjaboard.database.table.people');
+		KFactory::map('site::com.ninjaboard.database.table.settings', 	'admin::com.ninjaboard.database.table.settings');
+		KFactory::map('site::com.ninjaboard.database.table.watches', 	'admin::com.ninjaboard.database.table.watches');
+		KFactory::map('site::com.ninjaboard.database.table.messages', 	'admin::com.ninjaboard.database.table.messages');
+		
+		//@TODO temporary mappings
+		KFactory::map('site::com.ninjaboard.model.rules', 	'admin::com.ninjaboard.model.profile_fields');
+		KFactory::map('site::com.ninjaboard.model.helps', 	'admin::com.ninjaboard.model.profile_fields');
+		
+		//Set napi to load jquery scripts instead of mootools
+		KFactory::get('admin::com.ninja.helper.default')->framework('jquery');
+		
+		//The following makes sure MooTools always loads first when needed and only loads jQuery if it isn't already
+		if(KFactory::get('lib.joomla.application')->getTemplate() != 'morph' && !JFactory::getApplication()->get('jquery')) {
+			KFactory::get('admin::com.ninja.helper.default')->js('/jquery.min.js');
+			
+			//Set jQuery as loaded, used in template frameworks like Warp5
+			JFactory::getApplication()->set('jquery', true);
+		}
+		
+		//Load the ninjaboard plugins
+		JPluginHelper::importPlugin('ninjaboard', null, true, KFactory::get('lib.koowa.event.dispatcher'));
+		
+		return $instance = true;
+	}
 }

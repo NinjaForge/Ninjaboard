@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
  /**
- * @version		$Id: attachment.php 1659 2011-03-21 21:44:56Z stian $
+ * @version		$Id: attachment.php 1724 2011-03-28 16:46:16Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -46,7 +46,7 @@ class ComNinjaboardDatabaseRowAttachment extends KDatabaseRowDefault
 		{
 			if(!isset($this->_type))
 			{
-				$this->_type = MediaHelper::getTypeIcon($this->file);
+				$this->_type = MediaHelper::getTypeIcon($this->name);
 			}
 
 			return $this->_type;
@@ -79,7 +79,7 @@ class ComNinjaboardDatabaseRowAttachment extends KDatabaseRowDefault
 		if(!isset($this->_is_image))
 		{
 			//Dirty hack as MediaHelper::isImage mistakenly thinks jpeg files aren't images
-			$this->_is_image = MediaHelper::isImage(str_replace('.jpeg', '.jpg', $this->file));
+			$this->_is_image = MediaHelper::isImage(str_replace('.jpeg', '.jpg', $this->name));
 		}
 		return $this->_is_image;
 	}

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: people.php 1919 2011-05-23 11:48:00Z stian $
+ * @version		$Id: people.php 1926 2011-05-23 12:40:18Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -274,13 +274,17 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 	 *
 	 * LOWER() is used in order to avoid KDatabaseQuery from quoting the string values
 	 *
-	 * @param  string $person_alias		This is for defining the key for the alias for the jos_ninjaboard_people table
-	 * @param  string $user_alias		This is for defining the key for the alias for the jos_users table
-	 * @param  string $column			Column name you want it to alias to, default is display_name
+	 * @param  KDatabaseQuery	$query				The database query instance we're adding these statements to
+	 * @param  string			$person_alias		This is for defining the key for the alias for the jos_ninjaboard_people table
+	 * @param  string			$user_alias			This is for defining the key for the alias for the jos_users table
+	 * @param  string			$column				Column name you want it to alias to, default is display_name
+	 * @param  string			$fallback			The fallback if no name could be found in the database
 	 * @return $this
 	 */
-	public function buildScreenNameQuery(KDatabaseQuery $query, $person_alias = 'tbl', $user_alias = 'user', $column = 'display_name')
+	public function buildScreenNameQuery(KDatabaseQuery $query, $person_alias = 'tbl', $user_alias = 'user', $column = 'display_name', $fallback = '')
 	{
+		if(!$fallback) $fallback = '\''.JText::_('Anonymous').'\'';
+
 		//Decide wether to display realname or username
 		$params			= KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
 		$display_name	= $params['view_settings']['display_name'];
@@ -295,7 +299,7 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 				"IF($person_alias.which_name = LOWER('USERNAME'), $user_alias.username, ".
 					"IF($person_alias.which_name = LOWER('NAME'), $user_alias.name, ".
 						"IF($person_alias.which_name = LOWER('ALIAS') AND $person_alias.alias != '', $person_alias.alias, ".
-							'IFNULL('.$user_alias.'.'.$display_name.', \''.JText::_('Anonymous').'\')'.
+							'IFNULL('.$user_alias.'.'.$display_name.', '.$fallback.')'.
 						')'.
 					')'.
 				') AS '.$column
@@ -308,7 +312,7 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 			$query->select(
 				"IF($person_alias.which_name = LOWER('USERNAME'), $user_alias.username, ".
 					"IF($person_alias.which_name = LOWER('NAME'), $user_alias.name, ".
-						'IFNULL('.$user_alias.'.'.$display_name.', \''.JText::_('Anonymous').'\')'.
+						'IFNULL('.$user_alias.'.'.$display_name.', '.$fallback.')'.
 					')'.
 				') AS '.$column
 			);
@@ -317,7 +321,7 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 		//Users can't configure the screen name
 		else
 		{
-			$query->select('IFNULL('.$user_alias.'.'.$display_name.', \''.JText::_('Anonymous').'\') AS '.$column);
+			$query->select('IFNULL('.$user_alias.'.'.$display_name.', '.$fallback.') AS '.$column);
 		}
 		
 		return $this;

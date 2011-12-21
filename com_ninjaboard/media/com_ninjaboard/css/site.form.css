@@ -231,6 +231,9 @@ form .required.invalid:focus {
 	background-color: white;
 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#CCC))!important;
 	background-image: -moz-linear-gradient(top, white, #CCC)!important;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd');
+	float:left;
+	width:100%;
 	padding-top: 5px!important;
 	-webkit-border-top-left-radius: 5px;
 	-webkit-border-top-right-radius: 5px;
@@ -241,7 +244,7 @@ form .required.invalid:focus {
 }
 #ninjaboard .markItUpHeader > ul {
 	display: inline-block;
-	text-align: center;
+	width:100%;
 }
 #ninjaboard .markItUpButton {
 	background-image: none;
@@ -335,23 +338,18 @@ form .required.invalid:focus {
 	position: relative;
 	line-height: 1.7em;
 	font-size: 13px;
+	width:100%;
 }
 
 .ninjaboard .element.footer .inner > * {
-	display: block;
+	display: inline;
 	float: right;
 	margin: 10px;
 }
-.ninjaboard .element.footer .inner #com-ninjaboard-post-cancel {
-	position: absolute;
-	right: 100%;
-	top: 50%;
-	margin: 10px 0;
-	padding: 0;
-	margin-top: -0.9em;
-	height: 22px;
-}
 
+.ninjaboard .element.footer .inner a {
+	display: block;
+}
 
 .ninjaboard fieldset.outer {
 	background: hsla(0, 0%, 0%, 0.05);
@@ -393,5 +391,16 @@ form .required.invalid:focus {
 	position: static;
 	text-align: left !important;
 	display: block;
-	margin-bottom: 5px;
+    margin: 0 0 5px;
+    padding: 0 0 5px;
+}
+
+.reveal-modal.replying .element.name-to {
+    display: none;
+}
+.reveal-modal.creating .reply-to {
+    display: none;
+}
+.reveal-modal .ninja-form {
+    border: none;
 }

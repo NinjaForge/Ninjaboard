@@ -1,7 +1,11 @@
-<? /** $Id: default.php 1825 2011-04-26 22:04:40Z stian $ */ ?>
+<? /** $Id: default.php 1946 2011-06-06 00:12:54Z betweenbrain $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
+<!--[if IE 6]>
+ <script type="text/javascript" src="/DD_belatedPNG_0.0.8a-min.js"></script>
+ <script>DD_belatedPNG.fix('#ninjaboard .title a,.rank_icon img,#ninjaboard li.markItUpButton a');</script>
+ <![endif]-->
 
 <? $img = isset(@$topic->params['customization']['icon']) ? @$topic->params['customization']['icon'] : '32__default.png' ?>
 

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: ccboard.php 1778 2011-04-12 15:04:15Z stian $
+ * @version		$Id: ccboard.php 1787 2011-04-12 23:38:17Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -126,6 +126,16 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 		//This returns false if the import is big enough to be done in steps.
 		//So we need to stop the importing in this step, in order for it to initiate
 		if($this->importData($tables, 'ccboard') === false) return $this;
+
+		//Convert html 2 bbcode where needed
+		if(isset($this->data['posts']))
+		{
+			foreach($this->data['posts'] as $id => $post)
+			{
+				if(!isset($this->data['posts'][$id]['text'])) continue;
+				$this->data['posts'][$id]['text'] = html2bbcode($post['text']);
+			}
+		}
 
 		//Move over file attachments
 		if(isset($this->data['attachments']))

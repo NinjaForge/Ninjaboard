@@ -1,4 +1,4 @@
-<? /** $Id: form_inner.php 1818 2011-04-25 20:36:58Z stian $ */ ?>
+<? /** $Id: form_inner.php 1821 2011-04-25 21:26:07Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -221,6 +221,16 @@
 				<?= @helper('site::com.ninjaboard.template.helper.attachment.extensions') ?>
 			</div>
 		</div>
+		<? /* @TODO sticky is WIP */ ?><!--
+		<? if($forum->topic_permissions > 2 && (!$topic->id || $topic->first_post_id == $post->id)) : ?>
+			<div class="element">
+				<label for="sticky">
+					<input type="hidden" name="sticky" value="0" />
+					<input type="checkbox" name="sticky" <? if($topic->sticky) echo 'checked' ?> id="sticky" value="1" />
+					<?= @text('Sticky topic') ?>
+				</label>
+			</div>
+		<? endif ?>-->
 
 		<div class="element"></div>
 
