@@ -1,15 +1,17 @@
-<? /** $Id: row_topic.php 1903 2011-05-22 22:54:16Z stian $ */ ?>
+<? /** $Id: row_topic.php 1939 2011-05-24 14:35:13Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? $img = isset(@$topic->params['customization']['icon']) ? @$topic->params['customization']['icon'] : '32__default.png' ?>
 <? $iconclass = 'topic-icon-'.KInflector::underscore(str_replace('.png', '', $img)) ?>
 
+<style type="text/css">.ninjaboard .unread-indicator {background-image: url(<?= @$img('/unread.png') ?>);}</style>
+
 <li class="row topic <?= $topic->moved_to_forum_title ? 'moved' : '' ?> <?= $topic->new && $topic->unread ? 'unread' : '' ?> <?= !$topic->unread ? 'read' : '' ?>">
 		
 		<style type="text/css">.row .<?= $iconclass ?> {background-image: url(<?= @$img('/topic/'.$img) ?>);}</style>
-		<style type="text/css">li.unread dl.icon dt {background-image: url(<?= @$img('/32/unread_badge.png') ?>);}</style>
 		<dl class="icon <?= $iconclass ?>">
 			<dt>
+			    <span class="unread-indicator"></span>
 				<a href="<?= @route('view=topic&id=' . @$topic->id) ?>" class="forumtitle subject" title="<?= @escape(@$topic->subject) ?>">
 					<?= @escape(@$topic->subject) ?>
 					<? if($topic->moved_to_forum_title) : ?>

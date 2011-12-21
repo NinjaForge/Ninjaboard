@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: watch.php 1530 2011-02-14 17:35:24Z stian $
+ * @version		$Id: watch.php 1938 2011-05-24 13:13:41Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -51,7 +51,7 @@ class ComNinjaboardControllerWatch extends ComNinjaboardControllerAbstract
 	{
 		$me = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
 		if(!$me->id) return false;
-	
+
 		foreach(array('subscription_type', 'subscription_type_id') as $required)
 		{
 			if(!isset($context->data->$required)) return false;

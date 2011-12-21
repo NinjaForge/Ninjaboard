@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 1924 2011-05-23 12:29:09Z stian $ -->
+<!-- $Id: changelog.xml 1939 2011-05-24 14:35:13Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+    <version>1.0.12</version>
+    <date>May 24th 2011</date>
+    <state>Maintenance Release
+        <upgrade>Changed unread indicator on forums and topics to be a span tag instead of just a background image on the li tag itself.</upgrade>
+        <bugfix>Fixed regression bug that caused the "Notify me when a reply is posted" checkbox when posting to no longer function.</bugfix>
+        <bugfix>Fixed issue where forums are marked as read when latest topic is viewed, disregarding other unread topics within a forum.</bugfix>
+        <bugfix>Fixed regression bug where an sql error would happen instead of a 404 when topic isn't found.</bugfix>
+    </state>
+
     <version>1.0.11</version>
     <date>May 23th 2011</date>
     <state>Maintenance Release

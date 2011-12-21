@@ -1178,3 +1178,17 @@ a.inherit-color, a.inherit-color:link, a.inherit-color:visited, a.inherit-color:
 .ninjaboard .watch.watching.unwatch a:active {
 	-webkit-box-shadow: none;
 }
+
+.ninjaboard .unread-indicator {
+    display: none!important;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    left: 5px;
+    top: 5px;
+    height: 9px;
+    width: 9px;
+}
+.ninjaboard .unread .unread-indicator {
+    display: block!important;
+}

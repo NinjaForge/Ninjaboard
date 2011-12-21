@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: post.php 1852 2011-05-18 21:48:35Z stian $
+ * @version		$Id: post.php 1938 2011-05-24 13:13:41Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -130,7 +130,8 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 															->type_id($data->ninjaboard_topic_id)
 															->execute('delete');
 		
-		if($data->notify_on_reply_topic) {
+		if($data->notify_on_reply_topic)
+		{
 			KFactory::get('site::com.ninjaboard.controller.watch')->execute('add', array(
 				'subscription_type'		=> $type,
 				'subscription_type_id'	=> $data->ninjaboard_topic_id

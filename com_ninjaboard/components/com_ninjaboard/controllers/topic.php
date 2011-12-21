@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: topic.php 1904 2011-05-22 22:55:15Z stian $
+ * @version		$Id: topic.php 1929 2011-05-23 22:52:04Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -213,6 +213,9 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
         $me    = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
         $table = KFactory::get('admin::com.ninjaboard.database.table.logtopicreads');
         $topic = $context->result;
+
+        //Don't log if there is no topic id
+        if(!$topic->id) return;
 
         $data = array(
             'created_by' => $me->id,

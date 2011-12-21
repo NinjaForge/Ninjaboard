@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forums.php 1920 2011-05-23 12:14:11Z stian $
+ * @version		$Id: forums.php 1937 2011-05-24 12:42:47Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -78,17 +78,6 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 				->join('left', 'ninjaboard_posts AS first_post', 'first_post.ninjaboard_post_id = topic.first_post_id')
 				->join('left', 'users AS usr', 'usr.id = last_post.created_user_id')
 				->join('left', 'ninjaboard_people AS person', 'person.ninjaboard_person_id = last_post.created_user_id');
-
-		if(!KFactory::get('lib.joomla.user')->guest)
-        {
-            $me = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
-
-    		$query->join('left', 'ninjaboard_log_topic_reads AS log', 
-    		    'log.created_by = '.$me->id.' AND '.
-    		    'log.ninjaboard_forum_id = tbl.ninjaboard_forum_id AND '.
-    		    'log.ninjaboard_topic_id = topic.ninjaboard_topic_id'
-    		);
-    	}
 	}
 	
 	protected function _buildQueryColumns(KDatabaseQuery $query)
@@ -117,11 +106,19 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 		                  ->where('created_by', '=', $me->id)
 		                  ;
 		    $start = $table->select($select, KDatabase::FETCH_FIELD);
+            
+            $subquery = KFactory::tmp('lib.koowa.database.query')
+                            ->select('COUNT(*)')
+                            ->where('tmp_topic.forum_id = tbl.ninjaboard_forum_id')
+                            ->where('(topic_read.created_on > tmp_post.created_time || tmp_post.created_user_id = '.(int)$me->id.')')
+                            ->join('left', 'ninjaboard_log_topic_reads AS topic_read', 'tmp_topic.ninjaboard_topic_id = topic_read.ninjaboard_topic_id AND topic_read.created_by = '.$me->id)
+                            ->join('left', 'ninjaboard_posts AS tmp_post', 'tmp_post.ninjaboard_post_id = tmp_topic.last_post_id')
+                            ->from('ninjaboard_topics AS tmp_topic');
 
 		    $query->select(array(
 		        //The conversion to unix timestamp and back is because koowa will quote raw datetime strings in select queries
 		        'IF(UNIX_TIMESTAMP(last_post.created_time) > '.(int)$start.', 1, 0) AS new',
-		        'IF(log.created_on > last_post.created_time || last_post.created_user_id = '.(int)$me->id.', 0, 1) AS unread'
+		        'IF(tbl.topics != 0 && ('.$subquery.') = tbl.topics, 0, 1) AS unread'
 		    ));
 		}
 	}
