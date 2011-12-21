@@ -1,0 +1,224 @@
+
+
+/* Removing ugly right border on last #submenu li a */
+div.header {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+
+div.header .editable {
+	color: inherit;
+	white-space: nowrap;
+}
+
+div.header .editable.editing {
+	white-space: normal;
+}
+
+label img {
+	vertical-align: bottom;
+}
+
+h3.title {
+	position: relative;
+}
+
+h3.title span var {
+	position: absolute;
+	left: 155px;
+	font-style: normal;
+	font-weight: lighter;
+	text-transform: lowercase;
+}
+
+/* @group Table styling */
+/*form table.adminlist {
+	border-spacing: 0px 0px;
+}
+form table.adminlist tbody tr td {
+	border-left: 0px hidden transparent !important;
+	border-top: 0px hidden transparent !important;
+	border-right: 0px hidden transparent !important;
+	border-bottom: 1px solid #ECECEC !important;
+}
+
+
+form table.adminlist tbody tr.selected, 
+form table.adminlist tbody tr.selected td, 
+form table.adminlist tbody tr.selected:hover > td,
+form table.adminlist:hover tbody tr.selected:hover > td {
+	-webkit-transition: 0s all;
+	background-color: #2B91E3 !important;
+	color: #CDE7FD !important;
+}
+form table.adminlist tbody.selected-single tr.selected, 
+form table.adminlist tbody.selected-single tr.selected td, 
+form table.adminlist tbody.selected-single tr.selected:hover > td,
+form table.adminlist:hover tbody.selected-single tr.selected:hover > td {
+	-webkit-box-shadow: inset #187dd3 0 1px 0, inset #004ba5 0 -1px 0;
+	-moz-box-shadow: inset #187dd3 0 1px 0, inset #004ba5 0 -1px 0;
+	box-shadow: inset #187dd3 0 1px 0, inset #004ba5 0 -1px 0;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#2c8bdc), to(#0e67ca));
+	background-image: -moz-linear-gradient(top, #2c8bdc, #0e67ca);
+	text-shadow: rgba(0, 0, 0, 0.33) 0 1px 0;
+}
+form table.adminlist tbody tr.selected td, 
+form table.adminlist tbody tr.selected:hover > td,
+form table.adminlist:hover tbody tr.selected:hover > td {
+	border-bottom-color: white;
+}
+
+body.inactive form table.adminlist tbody tr.selected, 
+body.inactive form table.adminlist tbody tr.selected td, 
+body.inactive form table.adminlist tbody tr.selected:hover > td,
+body.inactive form table.adminlist:hover tbody tr.selected:hover > td {
+	-webkit-box-shadow: inset rgb(151, 151, 151) 0 1px 0;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(180, 180, 180)), to(rgb(138, 138, 138)));
+}
+
+
+
+form table.adminlist tbody tr.selected a, 
+form table.adminlist tbody tr.selected td a, 
+form table.adminlist tbody tr.selected:hover > td a,
+form table.adminlist:hover tbody tr.selected:hover > td a {
+	color: white;
+}*/
+/* @end */
+
+/** menu icons */
+.icon-16-archive 		{ background-image: url(../images/menu/icon-16-archive.png); }
+
+/** toolbar icons */
+div.toolbar.inactive	{
+	opacity: 0.6;
+}
+
+.toolbar.inactive:hover {
+	cursor: default;
+	color: inherit;
+	border-color: transparent;
+}
+
+
+.icon-32-send 			{ background-image: url(../images/toolbar/icon-32-send.png); }
+.icon-32-preferences 			{ background-image: url(../images/32/preferences.png); }
+
+.icon-32-settings 			{ background-image: url(../images/32/settings.png); }
+.icon-32-users 			{ background-image: url(../images/32/users.png); }
+.icon-32-usergroups 			{ background-image: url(../images/32/usergroups.png); }
+.icon-32-ranks 			{ background-image: url(../images/32/ranks.png); }
+.icon-32-remove 			{ background-image: url(../images/32/remove.png); }
+
+
+/*APLite styling*/
+.icon-32-themes, .icon-32-theme 			{ background-image: url(../images/32/themes.png); }
+.icon-32-iconsets, .icon-32-icon 			{ background-image: url(../images/32/iconsets.png); }
+.icon-32-profile_fields,
+.icon-32-profile_field						{ background-image: url(../images/32/profile_fields.png); }
+.icon-32-lists,
+.icon-32-list						{ background-image: url(../images/32/lists.png); }
+.icon-32-listvalues,
+.icon-32-listvalue					{ background-image: url(../images/32/listvalues.png); }
+.icon-32-sets,
+.icon-32-set						{ background-image: url(../images/32/sets.png); }
+.icon-32-import 					{ background-image: url(../images/32/import.png); }
+
+/*Admin Form CSS*/
+.admintable .key, .adminlist th {
+	white-space: nowrap;
+}
+.adminlist th a img{
+	vertical-align: middle;
+}
+
+/*AP Lite fix*/
+@media all and (min-width: 400px) and (max-width: 1288px) {
+
+	#ap-content .width-50 {
+		//width: 48%;
+	}
+
+}
+
+.acl-label {
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	background-color: rgba(20,20,20,0.5);
+	background-image: -moz-linear-gradient(top, bottom, from(rgba(255,255,255,0.5)), to(rgba(90,90,90,0.0)));
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.5)), to(rgba(90,90,90,0.0)));
+	color: white;
+	display: inline-block;
+	font-size: 0.95em;
+	padding: 0.2em 0.5em;
+	text-shadow: rgba(0,0,0,0.2) 0px -1px 0px;
+	text-transform: uppercase;
+}
+
+.nf-legends {
+	display: block;
+	clear: both;
+	text-align: center;
+	padding: 5px;
+	width: 100%;
+}
+
+.nf-legends strong, .paramlist_key strong {
+	text-transform: capitalize;
+}
+
+.nowrap td,
+.nowrap th,
+td.nowrap,
+th.nowrap,
+.nowrap {
+	white-space: nowrap;
+}
+
+
+/* Styling for access level checklist */
+.checklist.rules {
+	margin: 0;
+	padding: 0;
+	margin-left: 27px;
+}
+
+.checklist.rules li {
+	list-style: none;
+	margin: 0px;
+	padding: 5px;
+	margin-left: -30px;
+}
+
+.checklist.rules input {	
+margin: 5px 5px 10px 0px;
+width: auto;
+float: none;
+}
+
+.checklist.rules label {
+	clear: left;
+	margin: 5px 5px 2px 0px;
+	font-size: 12px;
+	min-width: 135px;
+	float: none;
+}
+
+.checklist.rules span.gi {
+	color: rgb(255, 102, 0);
+	font-weight: bold;
+	margin-right: 5px;
+}
+
+.icon-toggle.icon-toggle-locked-true, .icon-toggle.icon-toggle-locked-false {
+	margin-right: 10px;
+}
+.icon-toggle.icon-toggle-locked-true {
+	background-image: url(../../com_ninja/images/16/lock.png);
+}
+.icon-toggle.icon-toggle-locked-false {
+	background-image: url(../../com_ninja/images/16/unlock.png);
+	opacity: 0.4;
+}

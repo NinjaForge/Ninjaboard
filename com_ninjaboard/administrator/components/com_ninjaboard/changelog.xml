@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: changelog.xml 1425 2011-01-14 22:57:16Z stian $ -->
+<!-- @TODO make changelog.dtd -->
+<!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
+
+<changelogs>
+	<version>1.0</version>
+	<date>January 15th 2011</date>
+	<state>First Stable Release
+		<new>Quick Reply</new>
+		<new>Spanish translation - thanks Jon Neubauer!</new>
+		<new>Portuguese translation - thanks Eni Rodrigues!</new>
+		<upgrade>jQuery loading now respects the JFactory::getApplication()->get('jquery') convention.</upgrade>
+		<upgrade>Replaced the default (scary mask) avatar with a custom designed one.</upgrade>
+		<upgrade>Ability to add custom icons by using the Joomla! Media Manager. Use folders like /images/com_ninjaboard/forums, /images/com_ninjaboard/rank and /images/com_ninjaboard/topic.</upgrade>
+		<upgrade>Upgraded MooTools from 1.2.4 to 1.2.5 to resolve IE9 and IE8 problems.</upgrade>
+		<upgrade>Ability to set visibility on Usergroups, applied on the frontend.</upgrade>
+		<upgrade>Settings now automatically makes sure that at least one profile is set as default.</upgrade>
+		<upgrade>Improved post layout.</upgrade>
+		<upgrade>Added accesskey attributes to New Topic (key=N) and Reply Topic (key=R) buttons.</upgrade>
+		<upgrade>Topic urls now also include the subject as slug, not just the id.</upgrade>
+		<upgrade>Forum icon now shows on the regular forum layout, not just lists.</upgrade>
+		<upgrade>Option to show peoples usergroups in their posts and profiles.</upgrade>
+		<upgrade>Resolved performance bottlenecks in views due to canned code that were left behind.</upgrade>
+		<upgrade>Forum reordering no longer have the cases where you have to click multiple times to change the position in the list.</upgrade>
+		<upgrade>Image attachments markup updated with a rel="lightbox[postid]" to support lightbox plugins.</upgrade>
+		<upgrade>Post editor text now set to inherit the color in order to stay readable on dark templates without general forms styling.</upgrade>
+		<upgrade>Reply Topic and Create Topic buttons now always show, clicking it while logged out will render a login form, and redirect you to the post form once logged in.</upgrade>
+		<upgrade>Newest posts now in a list at the bottom while replying a topic.</upgrade>
+		<upgrade>Dedicated Preview button added when writing posts (as the magnifying glass in the editor weren't obvious).</upgrade>
+		<upgrade>Compatibility added for the following admin templates: AdminPraise2, APLite, AdminPad, Stainless, AdminPraise3, JB Crisp, JB Simpla and RT MissionControl.</upgrade>
+		<upgrade>Attachments ease of use improved. Shows allowed file extensions, max upload filesize and more.</upgrade>
+		<upgrade>Dutch translation files updated - thanks John Bartels!</upgrade>
+		<upgrade>Swedish translation files updated - thanks Kristian Dahlén!</upgrade>
+		<upgrade>Filters (All | Enabled - Disabled) added to forums, settings and ranks in the administrator.</upgrade>
+		<upgrade>Norwegian translation files updated - thanks Svein Wisnaes and Torkil Johnsen!</upgrade>
+		<bugfix>Various IE issues resolved.</bugfix>
+		<bugfix>Forum icons could not have whitespace in their filenames.</bugfix>
+		<bugfix>Labels did not inherit colors from the template, resulting in hard to read form labels in darker templates.</bugfix>
+		<bugfix>Breadcrumbs missed the "Forums" part in some cases.</bugfix>
+		<bugfix>A new forum defaulted to the top of the list.</bugfix>
+		<bugfix>Forum headers didn't show anywhere.</bugfix>
+		<bugfix>Attachment permissions only applied on who could upload them. But not on who could see and download them.</bugfix>
+		<bugfix>Subforums missing from "Forum" view.</bugfix>
+		<bugfix>Blocked users showed in the Users list.</bugfix>
+		<bugfix>Fixed breaking code due to changes in j!1.6 RC.</bugfix>
+		<bugfix>Any HTML were stripped out of posts.</bugfix>
+		<bugfix>File attachment links broke when SEF urls with file endings were on.</bugfix>
+		<bugfix>Theme name missing from Settings view.</bugfix>
+		<bugfix>Disabled Ranks no longer render.</bugfix>
+		<bugfix>Ranks no longer render if a user don't have one, avoiding 404 image requests.</bugfix>
+		<bugfix>Topics and Posts in disabled forums could still be accessed by search, latest topics lists and on profile pages.</bugfix>
+		<bugfix>Fixing $params not defined notice in forums view when forums without subforums rendered.</bugfix>
+	</state>
+
+	<version>1.0RC7</version>
+	<date>December 21st 2010</date>
+	<state>Bugfix Release
+		<new>Suhosin is now automatically detected, and instructions on how to configure it to allow Ninjaboard to run is provided.</new>
+		<new>Option to disable avatars</new>
+		<upgrade>Italian translation upgraded, and also includes the administrator - thanks Valter Mura!</upgrade>
+		<upgrade>Forums view now renders forums that are without subforums.</upgrade>
+		<upgrade>Forum descriptions now support bbCode.</upgrade>
+		<upgrade>Sortables added to Usergroups allowing you to change the order of them.</upgrade>
+		<upgrade>There's an ID column added to the users view.</upgrade>
+		<upgrade>Administrator Forums view now have a search field.</upgrade>
+		<bugfix>Error when posting if there were no email notifications recipients.</bugfix>
+		<bugfix>Topics order is now sorting by the date of the last post instead of the first one, so active topics will be on top of the list.</bugfix>
+		<bugfix>Post editor didn't prepend [*] when creating lists, confusing users.</bugfix>
+		<bugfix>Fixed issue where the Ninja system plugin would throw an Fatal error if com_ninja were uninstalled before Nooku Framework.</bugfix>
+		<bugfix>Fixed rare case in SEF router that resulted in 404 messages when other variables were appended to a view=forum url.</bugfix>
+		<bugfix>Fixes done in Usergroup tables to make the AEC Ninjaboard Micro Integration work again.</bugfix>
+		<bugfix>Regression fixed with menu items Settings and Forums select popups.</bugfix>
+		<bugfix>Posts had an ordering issue.</bugfix>
+		<bugfix>Email notification links had faulty links when SEF is on.</bugfix>
+	</state>
+
+	<version>1.0.0RC6</version>
+	<date>December 13th 2010</date>
+	<state>Major Release
+		<security>Low priority frontend XSS with image attachment file names.</security>
+		<security>Low priority frontend XSS with post titles, only when editing one.</security>
+		<security>Low priority admin XSS with search field not escaping output.</security>
+		<security>Low priority admin XSS vulnerability where managers+ could exploit the forum title field.</security>
+		<new>Chameleon now configurable under Settings. Page Class Suffixes are entirely optional as a result.</new>
+		<new>Theme API enabled. Each theme may have its own settings that are shown conditionally under "Settings".</new>
+		<new>Possible to select topic layout, wether to have pagination both top or bottom, or just at the bottom.</new>
+		<new>Chameleon now also integrates with the pagination styling that your template provides.</new>
+		<new>Users can define their own custom screen name, or to show username, or real name.</new>
+		<new>Agora converter, supports avatars and attachments.</new>
+		<new>Move topics added.</new>
+		<new>ccBoard converter, support avatars and attachments.</new>
+		<new>Italian frontend translation - thanks Valter Mura!</new>
+		<new>Installable on Joomla! 1.6!</new>
+		<new>New and improved installer that's much faster due to making use of AJAX.</new>
+		<new>Hebrew translation - thanks PozaTive!</new>
+		<new>Email Notifications. Subscribe to forum, topic or person.</new>
+		<new>Converter APIs now made completely dynamic. You can even add new converters to the Tools screen now from a system or ninjaboard plugin.</new>
+		<new>More forum icons, this time selected icons from WooCons.</new>
+		<upgrade>bbCode parser now matches urls, using http://daringfireball.net/2010/07/improved_regex_for_matching_urls/ but without allowing javascript, file, jar or data protocols.</upgrade>
+		<upgrade>Avatars resizing now also crops, while maintaining aspect ratio. Making sure images always have the specified dimensions.</upgrade>
+		<upgrade>Permalinks now include the post date, not just the tiny icon to the left of it.</upgrade>
+		<upgrade>SEF urls are optimized and tweaked. One of the changes is the /forum/ part is gone (but those old urls work so don't worry about any 404s).</upgrade>
+		<upgrade>phpBB3 converter upgraded to support shadow topics, avatars and attachments.</upgrade>
+		<upgrade>phpBB3 converter is now configured by specifying the path to the installation. Database details are fetched from the forum configuration instead of manually entering them.</upgrade>
+		<upgrade>Ninjaboard 0.5 converter now supports avatars and attachments. Meaning the migration support to 1.0 is 100% complete!</upgrade>
+		<upgrade>bbCode updated to support [list=] for ordered lists, [size] support added, [quote] implementation improved.</upgrade>
+		<upgrade>Kunena converter upgraded to support avatars, shadow topics and attachments.</upgrade>
+		<upgrade>Major overhaul to Converter API and UI.</upgrade>
+		<upgrade>List styling is more minimal than before.</upgrade>
+		<upgrade>Menu XML updated to work with 1.6</upgrade>
+		<upgrade>Upgraded from GPLv2 to GPLv3</upgrade>
+		<upgrade>Database schema upgrades no longer runs during install, but on first load post install. This prevents script timeouts while upgrading your forums.</upgrade>
+		<upgrade>Forums in the admin now sort by custom ordering by default to avoid confusion.</upgrade>
+		<upgrade>The forums on the frontend now order by custom ordering by default, instead of by id.</upgrade>
+		<upgrade>ACL queries are now much more conditional. Resulting in 10x faster loadtimes.</upgrade>
+		<upgrade>Better dates display, instead of "2 months" ago you get "12 aug".</upgrade>
+		<upgrade>Nooku Framework updated to rev2646</upgrade>
+		<upgrade>Updated French translation - thanks Xavier!</upgrade>
+		<upgrade>Updated Dutch translation - thanks John Bartels!</upgrade>
+		<upgrade>Better button alignments on frontend forms.</upgrade>
+		<upgrade>mod_breadcrumbs is now autorendered when needed, ensuring that the forum navigation is always available.</upgrade>
+		<upgrade>Sample content are now automatically imported on fresh installs. Making Ninjaboard work more out of the box.</upgrade>
+		<bugfix>Increased converter ajax timeout to 400ms to allow /really/ big imports.</bugfix>
+		<bugfix>Multiple duplicate posts were made if the user clicked multiple times on the Submit button.</bugfix>
+		<bugfix>Post links always showed the first page in the topic. It now correctly opens the right page with the post. Same is true for redirects and email notification links.</bugfix>
+		<bugfix>SEO Setting -> Add Suffix to URL broke file attachment links.</bugfix>
+		<bugfix>Fixed fatal error after Ninjaboard 0.5 migrations due to empty ninjaboard_user_group_maps table.</bugfix>
+		<bugfix>phpBB3 bbCode not properly converted - thanks for the patch Yireo!</bugfix>
+		<bugfix>Resolved conflict with Fabrik in relations to SEF.</bugfix>
+		<bugfix>Rank icons set to a fixed height of 16px in some places.</bugfix>
+		<bugfix>Some buttons, like Delete topic, had a style attribute with display:inline breaking some layouts.</bugfix>
+		<bugfix>Topics and Posts columns in the forum admin were swapped.</bugfix>
+		<bugfix>Fixed MAX_JOIN_SIZE issue due to large joins in the acl queries.</bugfix>
+		<bugfix>Problem with clicking checkboxes in lists fixed.</bugfix>
+		<bugfix>Fixed forums ordering issue where Forums with an ID like 13 came before 8.</bugfix>
+		<bugfix>Show username setting in configuration wasn't working</bugfix>
+		<bugfix>Image helper for resizing avatars now fully supports the FTP Layer.</bugfix>
+		<bugfix>Default avatar changed when gravatar got turned on.</bugfix>
+		<bugfix>Gravatars didn't work with allow_url_fopen=off, changed to cURL helper instead of JFile::read.</bugfix>
+		<bugfix>console.log debug call caused the delete button to not work in other browsers than Chrome, Safari and Firefox.</bugfix>
+		<bugfix>Orphan topics incorrectly showed up in Latest Topics lists.</bugfix>
+		<bugfix>Backend user edit view now correctly reveal default assigned usergroups, not just manual overrides.</bugfix>
+		<log>The "Forums title for subforums" option deprecated as no one ever use it.</log>
+	</state>
+
+	<version>1.0.0RC5</version>
+	<date>September 17th 2010</date>
+	<state>Minor Release
+		<bugfix>Ajax requests, like post deletion, seized functioning when SEF + URL suffix were turned on.</bugfix>
+		<bugfix>Avatars failed to render when SEF with URL suffix were enabled on the site.</bugfix>
+		<bugfix>Default avatars sometimes didn't render if Gravatar were enabled.</bugfix>
+		<bugfix>Warp5.5 changed how module chrome works, and thus Chameleon failed to take on Warp5.5 template styling.</bugfix>
+	</state>
+
+	<version>1.0.0RC4</version>
+	<date>September 16th 2010</date>
+	<state>Major Release
+		<new>Basic user profile editing frontend. Set avatar and forum signature.</new>
+		<new>Avatars now got cached thumbnails. Supports both GD2 and ImageMagick</new>
+		<new>Gravatar support added.</new>
+		<upgrade>RTL support complete.</upgrade>
+		<upgrade>Basic forms validation added to topics creation, replying and editing.</upgrade>
+		<upgrade>Confirmation dialog when deleting topics and posts to prevent accidental deletions.</upgrade>
+		<upgrade>Removed br tags from forum titles. Using span{display:block} instead.</upgrade>
+		<upgrade>Forum descriptions are no longer cut off in forums view.</upgrade>
+		<upgrade>Posts count displayed, not just ranks and stars.</upgrade>
+		<upgrade>Forum and Topic toolbar now both top and bottom.</upgrade>
+		<bugfix>Color and font size dropdowns in posts editor were visible on page load.</bugfix>
+		<bugfix>No longer possible to create topics and posts without a subject and text.</bugfix>
+		<bugfix>Fixed issue with Artisteer templates that caused the delete topic button to fail.</bugfix>
+		<bugfix>Fixed FireFox error while editing post.</bugfix>
+		<bugfix>Fixed duplicate subject titles in topic view.</bugfix>
+		<bugfix>Fixed translation errors in core.</bugfix>
+		<bugfix>Tooltips were broken.</bugfix>
+		<bugfix>Impossible to delete avatar.</bugfix>
+		<bugfix>Added missing translation strings from the menu manager.</bugfix>
+	</state>
+
+	<version>1.0.0RC3</version>
+	<date>September 9th 2010</date>
+	<state>Minor Release
+		<new>Swedish translation - thanks Kristian Dahlén!</new>
+		<bugfix>Check for updates failed when open_basedir were set.</bugfix>
+		<bugfix>Dutch translation failed to install due to missing tags in manifest.xml</bugfix>
+		<bugfix>Ninjaboard usergroups mapper have 0 as the default value, but looks like it's the first most Ninjaboard group visually speaking. Now the default value is exactly what you expect it to be.</bugfix>
+		<bugfix>If a forum alias started with an number, it would 404 frontend when SEF turned on.</bugfix>
+		<bugfix>Forum reordering arrows worked reversed.</bugfix>
+	</state>
+
+	<version>1.0.0RC2</version>
+	<date>September 7th 2010</date>
+	<state>Minor Release
+		<bugfix>Error when adding forum fixed.</bugfix>
+	</state>
+
+	<version>1.0.0RC1</version>
+	<date>September 1st 2010</date>
+	<state>Major Release
+		<new>Dutch translation and improved localization support in core - thanks John 'cQuencer' Bartels!</new>
+		<upgrade>No sort/reorder option in forums.</upgrade>
+		<upgrade>Improved button markup.</upgrade>
+		<upgrade>Pagination now consistent.</upgrade>
+		<upgrade>Forum descriptions are now an h3 tag, instead of css2 generated content (using ::after).</upgrade>
+		<bugfix>Rounded Chameleon failed to apply the hover hilite on the top border, while squared worked as expected.</bugfix>
+		<bugfix>Fixed issue with enable, disable and default toolbar actions.</bugfix>
+		<bugfix>Avatar upload works properly again.</bugfix>
+		<bugfix>Several bugfixes made to the Users view. Ranks, Ninjaboard usergroups all display correctly now.</bugfix>
+	</state>
+
+	<version>1.0.0Beta6</version>
+	<date>August 31st 2010</date>
+	<state>Major Release
+		<new>French translation - thanks Xavier!</new>
+		<new>Greek translation - thanks Kostas M.!</new>
+		<new>Refreshed list view UI.</new>
+		<bugfix>Items 5-10 disappeared when j! global config -&gt; list lenght = 5.</bugfix>
+		<bugfix>Fixed issue in Ninjaboard 0.5 converter.</bugfix>
+		<bugfix>Forum permissions sometimes didn't save correctly.</bugfix>
+		<bugfix>Topics didn't show more than 6 posts, and no pagination.</bugfix>
+		<bugfix>Issue when deleting posts and topics solved.</bugfix>
+		<bugfix>Fixed css double spaces and @import usage that broke in RokGZipper.</bugfix>
+	</state>
+
+	<version>1.0.0Beta5 take 6</version>
+	<date>August 8th 2010</date>
+	<state>Minor Release
+		<upgrade credit="Lintzy">English and German translations improved.</upgrade>
+		<upgrade>Backend list view shows more clearly which rows you got selected.</upgrade>
+		<upgrade>Forums frontend now have a default icon.</upgrade>
+		<bugfix>Kunena converter failed to import the replies count, last post id on topics, and the post dates.</bugfix>
+		<bugfix>Regression in post preview ajax.</bugfix>
+		<bugfix>Fixed a rare case where the guest user failed to map correctly.</bugfix>
+		<bugfix>If you edited a post, only the attachments for that post were visible after redirect.</bugfix>
+		<bugfix>Fixed saving error in usegroup maps.</bugfix>
+		<bugfix>Latest topics feature under Forums view were broken.</bugfix>
+		<bugfix>Typo in topics model caused a performance issue.</bugfix>
+		<bugfix>A regression caused permissions not to apply to the "Latest topics" list.</bugfix>
+	</state>
+
+	<version>1.0.0Beta5 take 5</version>
+	<date>August 5th 2010</date>
+	<state>Minor Release
+		<upgrade>German translation updated.</upgrade>
+		<upgrade>Changed wording of usergroups reminder.</upgrade>
+		<upgrade>Extension updater in dashboard now displays error messages on failure.</upgrade>
+		<upgrade>Firefox issue with converters resolved.</upgrade>
+		<bugfix>Kunena converter is fixed, and thus re-enabled.</bugfix>
+		<bugfix>Fixed regression where topics more than 10 but less than 20 wouldn't show until the total were bigger than 20.</bugfix>
+		<bugfix>Fixed pagination php notices and warnings.</bugfix>
+		<bugfix>Fixed regression in search plugin.</bugfix>
+		<bugfix>AJAX conflict fixed with extensions like Sobi2 and JomSocial.</bugfix>
+	</state>
+
+	<version>1.0.0Beta5 take 4</version>
+	<date>August 4th 2010</date>
+	<state>Minor Release
+		<bugfix>Resolved php notices in the admin stats module.</bugfix>
+		<bugfix>No longer showing views in menu manager that can't be used yet.</bugfix>
+		<bugfix>Resolved redirect problem when cancelling creations, replies and editing of posts and topics.</bugfix>
+		<bugfix>Resolving breadcrumbs problem.</bugfix>
+		<bugfix>Forums were in the wrong order on forums view.</bugfix>
+		<bugfix>Fixed uninstall regression.</bugfix>
+		<bugfix>Fixed PHP notices and warnings frontend and admin.</bugfix>
+		
+	</state>
+
+	<version>1.0.0Beta5 take 3</version>
+	<date>August 2nd 2010</date>
+	<state>Minor Release focusing on Attachments
+		<upgrade>Added option under Settings allowing you to change wether to view attachments inline, or download them.</upgrade>
+		<bugfix>Regression in post controller caused the post_id not being set in uploaded attachments.</bugfix>
+		<bugfix>Attachments showed while editing a post, listed the obfuscated names instead of the real ones.</bugfix>
+		<bugfix>Attachments view didn't support the FTP layer.</bugfix>
+		<bugfix>The mime type were always text/html, except for PDFs, causing images to be turned into weird characters when viewed directly (not in the img tag)</bugfix>
+	</state>
+
+	<version>1.0.0Beta5 take 2</version>
+	<date>August 1st 2010</date>
+	<state>Minor Release
+		<upgrade>Text color set to white instead of semi-transparent on Usergroups labels to improve readability.</upgrade>
+		<bugfix>Bug in Mapper prevented FireFox to save the Mappings consistently.</bugfix>
+		<bugfix>Icon alignment without left margin in topics lists when using light Chameleon.</bugfix>
+		<bugfix>Topic ajax preview had a regression and didn't actually preview your post.</bugfix>
+		<bugfix>Forum per forum chameleon settings couldn't be set to inherit the current settings profile.</bugfix>
+		<bugfix>Regression where guests were unable to see forums on some servers setups.</bugfix>
+	</state>
+
+	<version>1.0.0Beta5 take 1</version>
+	<date>July 27th 2010</date>
+	<state>Major Release
+		<new>Views like Forums in the admin now have maintenance mode that runs once per week. They will automatically fix table relations and such when needed.</new>
+		<new>Full downgrade support. Ninjaboard 0.5 tables are backed up during install, and will be recovered during uninstall to allow downgrades.</new>
+		<new>Users can now be assigned to more than one usergroup at once.</new>
+		<new>Possible to adjust spacing between forum boxes</new>
+		<new>Custom designed premium topic icons, exclusively for Ninjaboard.</new>
+		<new>Person page frontend. Shows the avatar, user rank and the persons latest topics.</new>
+		<new>Auto-translator, updates your NB language file with untranslated strings for your convenience. Turn on Language debugging under Global Config to activate it.</new>
+		<new>Tools screen upgraded</new>
+		<new>Norwegian translation on frontend.</new>
+		<upgrade>Ninjaboard Stats Admin Module. Go to the module manager &gt; administrator and publish it to ninjaboard-dashboard-tabs.</upgrade>
+		<upgrade>Chameleons compatibility with Gantry Framework and Warp5 are improved.</upgrade>
+		<upgrade>Views like the forums and topics views are now taking advantage of HMVC.</upgrade>
+		<upgrade>The forms styling when creating a topic, posting a reply or editing a post are now even sexier and more user friendly.</upgrade>
+		<upgrade>Usergroups are now easier to setup, as you get a live, human readable paragraph to the right explaining your permissions configurations.</upgrade>
+		<upgrade>Improved the Sample Content available on the Tools screen.</upgrade>
+		<upgrade>Added option to not make the forums title in forums view linkable. Instead of just showing a permalink, or making it linkable (which don't work well in all templates)</upgrade>
+		<upgrade>Much more localizable, javascript that were previously hardcoded, now uses JText for translatability.</upgrade>
+		<upgrade>Forums styling is enhanced to take advantage of more CSS3 features, and subtle hilites between rows that change correctly based on mouse hover.</upgrade>
+		<upgrade>Ninjaboard 1.0 can now install on a 0.5 site, and it'll present you an option to import the 0.5 data into your 1.0 database after upgrade.</upgrade>
+		<upgrade>Styling of moderation tools frontend upgraded to use Chameleon.</upgrade>
+		<upgrade>Advanced CSS3 (like gradients) no longer favor WebKit based browsers. Gecko and Presto support added.</upgrade>
+		<upgrade>Usability of usergroup Mapper is improved. Easier to click and drag, and mouseover highlight the end point.</upgrade>
+		<upgrade>phpBB3 converter vastly improved.</upgrade>
+		<upgrade>Converter speeds are dramatically faster. Things that used to take 3 hours, now take literally 3 minutes.</upgrade>
+		<upgrade>Major speed improvements, queries no longer recurse!</upgrade>
+		<upgrade>bbCode parser upgraded to support more tags, like table tags.</upgrade>
+		<bugfix>Super admins didn't have full permissions at all times.</bugfix>
+		<bugfix>In some cases the acl didn't apply as expected.</bugfix>
+		<bugfix>Forums view show the correct username, instead of just "Anonymous"</bugfix>
+		<bugfix>SEF issue with posting now fixed.</bugfix>
+		<bugfix>Uninstalling com_ninja before the ninja system plugin used to break the joomla site.</bugfix>
+	</state>
+
+	<version>1.0.0Beta4 take 3</version>
+	<date>May 13th 2010</date>
+	<state>Converter Release
+		<new>phpBB3 converter</new>
+		<upgrade>Major upgrades and enhancements to the converters UI.</upgrade>
+	</state>
+
+	<version>1.0.0Beta4 take 2</version>
+	<date>May 10th 2010</date>
+	<state>Quickfix
+		<bugfix>No Access - Didn't work on a per forum basis.</bugfix>
+		<bugfix>Fatal error when editing settings</bugfix>
+	</state>
+
+	<version>1.0.0Beta4 take 1</version>
+	<date>May 9th 2010</date>
+	<state>Quickfix
+		<bugfix>Chameleon not working on topics.</bugfix>
+		<bugfix>Linked forum titles have terrible colors.</bugfix>
+		<bugfix>Fixed a rare case of wsod frontend with a "E_FATAL #3 argument is not an array" error.</bugfix>
+	</state>
+
+	<version>1.0.0Beta4</version>
+	<date>May 8th 2010</date>
+	<state>Major Release
+		<new>A hint message is displayed in Usergroups about the "Maps" feature.</new>
+		<new>Two module positions now available in the admin dashboard. 'ninjaboard-dashboard-tabs' and 'ninjaboard-dashboard-accordions'.</new>
+		<new>Admin stats module, to be used in the dashboard.</new>
+		<bugfix>Fixed sortables in Settings view.</bugfix>
+		<bugfix>Fixed PHP 5.3 call-time pass-by-reference warning in the post controller</bugfix>
+		<bugfix>Fixed "New Topic" button that was shown to users who don't have post access</bugfix>
+		<bugfix>Fixed behavior.livetitle that were using shorttags</bugfix>
+		<bugfix>Fixed IE bug in toolbar.js</bugfix>
+		<bugfix>The sample content importer didn't import usergroup permissions correctly, neither did the mappings.</bugfix>
+		<bugfix>Permissions got mixed up if you logged in as a different user, due to a session issue</bugfix>
+		<bugfix>Forum per forum permissions didn't apply properly on frontend.</bugfix>
+		<upgrade>Backend usergroups view now display the rules so you can at glance see how the usergroups are setup.</upgrade>
+		<upgrade>You're now notified in the usergroups backend if a group don't have permission rules defined (as caused by the fault in the sample content importer).</upgrade>
+		<upgrade>Forums titles are now linkable.</upgrade>
+		<upgrade>Possible to hide the "Forums" title.</upgrade>
+		<upgrade>Improved german translation - thanks Lintzy!</upgrade>
+		<upgrade>Forum per forum permissions got a code refactor, and UI redesign.</upgrade>
+	</state>
+
+	<version>1.0.0Beta3</version>
+	<date>April 19th 2010</date>
+	<state>Major Release
+		<new>Remote updater built right into the dashboard, staying up to date is just one click's effort</new>
+		<bugfix>Usergroups saving error fixed.</bugfix>
+		<bugfix>Error when assigning a specific user to a specific usergroup.</bugfix>
+		<upgrade>FireFox CSS3 support now on the same level and degree as for WebKit.</upgrade>
+	</state>
+
+	<version>1.0.0Beta2</version>
+	<date>April 5th 2010</date>
+	<state>Major Release
+		<upgrade>Settings that isn't active yet, are hidden until stable.</upgrade>
+		<new>Latest topics support</new>
+		<new>Attachments with acl support.</new>
+		<upgrade>All post dates change based on the user locale correctly.</upgrade>
+		<new>Complete core SEF support.</new>
+		<bugfix>When a user posts, the posts count for that user correctly updates, but only if the post were made.</bugfix>
+		<upgrade>Post stats bubble up the tree, meaning that the latest post in a child forum, is also the latest post in the parent forum.</upgrade>
+		<upgrade>Forums can now override some chameleon settings on a per-forum basis.</upgrade>
+		<upgrade>Complete permissions control per-forum.</upgrade>
+		<new>Integrates with core search.</new>
+		<new>We now got full css, js, images and html layouts overridability for Morph themelets.</new>
+		<upgrade>Overal stability improved.</upgrade>
+		<upgrade>Sample content importer now works.</upgrade>
+		<bugfix>Disabled forums no longer display frontend.</bugfix>
+		<bugfix>Frontend forums were unbrowsable if not logged in.</bugfix>
+		<bugfix>Breadcrumbs now works again.</bugfix>
+		<bugfix>Odd behavior where forums would be duplicated down the tree on first load, but load correctly on second load.</bugfix>
+		<bugfix>Sometimes the add/edit forum, and add/edit usergroup screen would produce a fatal error.</bugfix>
+	</state>
+
+	<version>1.0.0Beta1</version>
+	<date>March 14th 2010</date>
+	<state>Major Release
+		<new>Sample content, Ninjaboard and Kunena importers in the tools screen.</new>
+		<new>The toolbar now got keyboard shortcuts.</new>
+		<upgrade>More interactive toolbar, only show buttons when needed.</upgrade>
+		<upgrade>Installing 1.0 over an existing 0.5 installation is now 100% safe.</upgrade>
+		<bugfix>ACL defaults are now much more out-of-the-box.</bugfix>
+		<bugfix>Subforums are now behaving more properly when changing parent forums.</bugfix>
+		<bugfix>Usergroups couldn't save due to a bug in the controller.</bugfix>
+		<bugfix>Dropped the #__ninjaboard_view_forums table view as it caused errors on 0.5 =&gt; 1.0 migrations.</bugfix>
+	</state>
+
+	<version>1.0.0Alpha2</version>
+	<date>February 6th 2010</date>
+	<state>Minor Release
+		<upgrade>New and improved ACL (Permissions) system based on feedback from tester group and the Nooku Framework team.</upgrade>
+		<bugfix>Solved issues related to forums that made forums invisible on the backend when disabled.</bugfix>
+		<bugfix>Various other bugfixes and small improvements and tweaks to Ninjaboard in overall.</bugfix>
+	</state>
+
+	<version>1.0.0Alpha1</version>
+	<date>February 1st 2010</date>
+	<state>Major Release
+		<new>All code from scratch using Nooku Framework</new>
+		<new>Auto skinning template engine</new>
+		<new>User friendly backend UI, and much much more</new>
+	</state>
+	
+	<version>0.5.4</version>
+	<date>01:24 AM Nov 14st 2009</date>
+	<state>Maintenance Release
+		<!-- Bugfixes -->
+		<bugfix>Fixed PHP 5.3 incompatibility issues with the use of ereg(). Replaced with strstr().</bugfix>
+		<bugfix>Fixed an issue with ninjaboard_blue style that made the css fail to load on domains with paths.</bugfix>
+	</state>
+	
+	<version>0.5.3</version>
+	<date>6:04 AM Aug 21st 2009</date>
+	<state>Maintenance Release
+		<!-- Bugfixes -->
+		<bugfix>Important fix to long, multipage threads</bugfix>
+		<!-- Improved Features -->
+		<new>Subject can be disabled for replies, and is auto-populated</new>
+	</state>
+
+	<version>0.5.2</version>
+	<date>6:04 AM Aug 21st 2009</date>
+	<state>Minor Feature and Bugfix Release
+		<!-- Bugfixes -->
+		<bugfix>Minor fixes to BBCode - size and lists</bugfix>
+		<!-- Improved Features -->
+		<upgrade>Buttons completely reworked to be text with a background image, not pure images. This allows for MUCH easier translation and fixes a few issues people were having with invisible buttons.</upgrade>
+	</state>
+	
+	<version>0.5.1beta</version>
+	<date>5:00 PM Aug 9th 2009</date>
+	<state>Feature and Bugfix Release
+		<!-- Bugfixes -->
+		<bugfix>Jpeg added to default avatar file types (not just jpg)</bugfix>
+		<bugfix>Signatures now allow BBcode</bugfix>
+		<bugfix>posts from unpublished forums no longer appear in latest posts</bugfix>
+		<bugfix>rank shows in preview correctly</bugfix>
+		<bugfix>special characters no longer break forum names</bugfix>
+		<!-- Localization Improvements-->
+		<locale>Default install data now translatable</locale>
+		<!-- Refactored or cleaned up code. Code that doesn't fix anything or add any features -->
+		<log> Some back end screens made fully MVC</log>
+		<log>Miscellaneous CSS changes to output for easier readability</log>
+		<!-- New Features -->
+		<new>BBcode Editor</new>
+		<new>Attachments engine. Can define file types and image types for attachments</new>
+		<new>BBcode Parser for greater security</new>
+		<new>Category appears in breadcrumb</new>
+		<!-- User Interface improvements -->
+		<ui title="Back-end User Interface">Timezone and time format lists reformatted to be easier to understand</ui>
+		<!-- Improved Features -->
+		<upgrade>Quotes now show who said it</upgrade>
+		<upgrade>code beautifier for [code] tags</upgrade>
+	</state>
+	
+	<version>0.5.0beta</version>
+	<date>May 2009</date>
+	<state>First Release
+		<log>Initial beta version release of Ninjaboard.</log>
+	</state>
+	
+</changelogs>

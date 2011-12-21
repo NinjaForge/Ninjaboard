@@ -1,0 +1,119 @@
+.ninjaboard .section {
+	float: right;
+}
+
+.ninjaboard .footer.signature {
+	left: 130px;
+	right: 0;
+}
+
+.ninjaboard .user {
+	float: left;
+	text-align: right;
+}
+
+.ninjaboard .pagination {
+	margin-left: 0px;
+	margin-right: auto;
+	/*for the shadow parts*/
+	float: left;
+}
+
+/*@TODO this needs to be more accurately 10px from the right edge. 99% works for now */
+.category .topiclist.forums dl.icon {
+	background-position: 99% center;
+}
+
+.category .topiclist.forums dl.icon dt .subject {
+	padding-left: 0;
+	padding-right: 50px;
+}
+ul.topiclist dt {
+	float: right;
+	padding-right: 5px;
+	padding-left: 0;
+	margin-right: 0;
+	margin-left: 5px;
+}
+
+ul.topiclist dd {
+	float: right;
+	margin-left: auto;
+	margin-right: 0;
+}
+ul.topiclist li.row dt a.subforum, ul.topiclist li.row dt strong {
+	background-position: 100% 50%;
+	float: right;
+}
+ul.topiclist li.row dt a.subforum {
+	padding-left: 1px;
+	padding-right: 16px;
+}
+ul.topiclist li.row dt a.subforum .icon {
+	right: 0;
+	left: auto;
+}
+
+
+.forum-image {
+	float: left;
+	padding-top: 5px;
+	margin-right: 5px;
+}
+
+li.header dl.icon dt {
+	/* Tweak for headers alignment when folder icon used */	
+	padding-right: 50px;
+	padding-left: 0;
+}
+#ninjaboard .topics .topiclist li.header dl.icon dt {
+	padding-left: auto;
+	padding-right: 0;
+}
+.topiclist li.header dl.icon dt span {
+	padding-left: 0;
+	padding-right: 50px;
+}
+
+
+li.header dl.icon dt * {
+	padding-right: 8px;
+	padding-left: 0;
+}
+/* Forum list column styles */
+dl.icon {
+	/*@TODO this needs to be more accurately 10px from the right edge. 99% works for now */
+	background-position: 99% 50%;		/* Position of folder icon */
+}
+
+dl.icon dt {
+	/*@TODO this needs to be more accurately 5px from the right edge. 99% works for now */
+	background-position: 99% 95%;
+}
+li.forum dl.icon dt {
+	padding-right: 50px;
+	padding-left: 0;
+}
+dd.lastpost span, ul.topiclist dd.searchby span, ul.topiclist dd.info span, ul.topiclist dd.time span, dd.redirect span, dd.moderation span {
+	padding-right: 10px;
+	padding-left: 0;
+}
+#text_preview {
+	text-align: right;
+}
+#ninjaboard.person .avatar {
+	float: right;
+	margin-right: auto;
+	margin-left: 10px;
+}
+
+#ninjaboard.person h2 {
+	clear: right;
+}
+
+.ninjaboard .header .start, .ninjaboard .footer .start {
+	float: right;
+}
+.ninjaboard .header.end, .ninjaboard .header .end, .ninjaboard .footer .end {
+	float: left;
+}

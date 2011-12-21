@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/module-install.dtd">
+<install type="module" version="1.5.0" method="upgrade" client="administrator" position="">
+	<name>Ninjaboard Stats</name>
+	<author>NinjaForge</author>
+	<creationDate>2010-05-01 11:35:45</creationDate>
+	<copyright>(C) 2007-2010 Ninja Media Group. All rights reserved.</copyright>
+	<license>GNU GPLv3</license>
+	<csslicense>CC-BY</csslicense>
+	<jslicense>MIT</jslicense>
+	<authoremail>support@ninjaforge.com</authoremail>
+	<authorurl>ninjaforge.com</authorurl>
+	<version status="Stable" color="green">1.0.0</version>
+	<description>Allows you to display stats in the Ninjaboard dashboard. Remember to publish to either the 'ninjaboard-dashboard-tabs' or the 'ninjaboard-dashboard-accordions' positions.</description>
+
+	<files folder="administrator/modules/mod_ninjaboard_stats">
+		<file module="mod_ninjaboard_stats">mod_ninjaboard_stats.php</file>
+		<file>html.php</file>
+		<folder>tmpl</folder>
+	</files>
+
+	<params>
+		<param name="cache" type="list" default="1" label="Caching" description="Select whether to cache the content of this module">
+			<option value="1">Use global</option>
+			<option value="0">No caching</option>
+		</param>
+
+		<param name="layout" type="list" default="popular_topics" label="Data" description="Select what data to visualize.">
+			<option value="popular_topics">Popular topics</option>
+			<option value="most_replied_topics">Most replied topics</option>
+			
+			<!--<option value="usergroups">Usergroups</option>-->
+		</param>
+		
+		<param name="limit" type="list" default="5" label="List limit" description="How many rows you want to have in the chart">
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="20">20</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+			<option value="0">all</option>
+		</param>
+
+		<!--<param name="layout" type="filelist" directory="/administrator/modules/mod_ninjaboard_stats/tmpl" />-->
+	</params>
+
+</install>

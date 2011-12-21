@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: manifest.xml 1427 2011-01-18 02:21:19Z stian $ -->
+<!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/component-install.dtd">
+<install type="component" version="1.5.0" method="upgrade" mootools="1.2">
+	<name>Ninjaboard</name>
+	<author>NinjaForge</author>
+    <creationDate>2011-01-15</creationDate>
+	<copyright>(C) 2007-2010 Ninja Media Group. All rights reserved.</copyright>
+	<license>GNU GPLv3</license>
+	<csslicense>CC-BY</csslicense>
+	<jslicense>MIT</jslicense>
+	<authoremail>support@ninjaforge.com</authoremail>
+    <authorurl>ninjaforge.com</authorurl>
+    <updateurl>http://ninjaforge.com/index.php?option=com_ninjacentral&amp;task=download&amp;id=84&amp;Itemid=243</updateurl>
+    <support href="http://ninjaforge.com/index.php?option=com_fireboard&amp;Itemid=111&amp;func=showcat&amp;catid=54">Forums</support>
+    <rate href="http://extensions.joomla.org/extensions/communication/forum/11513">Joomla Extensions Directory (JED)</rate>
+	<version status="Stable" color="#009199">1.0.0</version>
+	<revision>1425</revision>
+	<description>The sharpest user forum</description>
+
+	<!-- Credits -->
+	<credits>
+		<a href="http://www.joomlacontenteditor.net/">phpBB3 converter sponsored by JCE</a>
+		<a href="http://kamikaze00x.deviantart.com/">Beautiful topic icons designed by Parthiban Mohanraj</a>
+		<a href="http://www.datenshi.1k.fr/" title="Visit his portfolio">Icons from Gary leleu</a>
+		<a href="http://www.midtonedesign.com" title="Visit his portfolio">Icons from Jonatan Castro Fernandez</a>
+		<a href="http://www.woothemes.com/2009/09/woofunction-178-amazing-web-design-icons/">WooFunction icons</a>
+		<a href="http://jonasraskdesign.com/iconarchive/iconarchive.html">Danish Royalty Free Icons from Jonas Rask</a>
+		<a href="http://www.nooku.org/en/framework.html">Ninjaboard is powered by the Nooku Framework</a>
+		<a href="http://webdesign-welt.de">German translation by Lintzy</a>
+		<a href="http://thegathering.gr">Greek translation by Kostas M.</a>
+		<a href="http://www.netactivity.net">French translation by Xavier</a>
+		<a href="http://www.cquence-multimedia.nl">Dutch translation by John 'cQuencer' Bartels</a>
+		<a href="http://www.seociable.com">Swedish translation by Kristian Dahlén</a>
+		<a href="http://www.pozative.co.i">Hebrew translation by PozaTive</a>
+		<a href="http://www.falar.org">Portuguese translation by Eni Rodrigues</a>
+		<a href="http://www.woothemes.com/2010/08/woocons1/">WooCons by WooThemes</a>
+		<a href="http://jeffchannell.com/">Security audited by Jeff Channell</a>
+		<a>Italian translation by Valter Mura</a>
+		<a href="http://www.jonneubauer.com/">Spanish translation by Jon Neubauer</a>
+	</credits>
+	
+	<!-- Application/site -->
+	<files folder="components/com_ninjaboard">
+
+		<file>htaccess.txt</file>
+		<file>dispatcher.php</file>
+		<file>ninjaboard.php</file>
+		<file>router.php</file>
+
+		<folder>controllers</folder>
+		<folder>databases</folder>
+		<folder>iconsets</folder>
+		<folder>templates</folder>
+		<folder>themes</folder>
+		<folder>views</folder>
+
+	</files>
+	
+	<administration>
+		<menu img="../media/com_ninja/images/16/ninjaforge.png">Ninjaboard</menu>
+		<submenu>
+            <menu view="dashboard" img="../media/com_ninja/images/16/dashboard.png">Dashboard</menu>
+            <menu view="forums" img="../media/com_ninjaboard/images/16/forums.png">Forums</menu>
+            <menu view="settings" img="../media/com_ninja/images/16/settings.png">Settings</menu>
+            <menu view="themes" img="../media/com_ninjaboard/images/16/themes.png">Themes</menu>
+			<menu view="users" img="../media/com_ninja/images/16/users.png">Users</menu>
+            <menu view="usergroups" img="../media/com_ninja/images/16/usergroups.png">Usergroups</menu>
+            <menu view="ranks" img="../media/com_ninjaboard/images/16/ranks.png">Ranks</menu>
+            <menu view="tools" img="../media/com_ninja/images/16/tools.png">Tools</menu>
+        </submenu>
+		
+		<files folder="administrator/components/com_ninjaboard">
+
+			<file>changelog.xml</file>
+			<file>htaccess.txt</file>
+			<file>ninjaboard.php</file>
+			<file>permissions.php</file>
+
+			<folder>controllers</folder>
+			<folder>data</folder>
+			<folder>databases</folder>
+			<folder>filters</folder>
+			<folder>helpers</folder>
+			<folder>install</folder>
+			<folder>models</folder>
+			<folder>templates</folder>
+			<folder>views</folder>
+
+		</files>
+		
+		<languages folder="administrator/language">
+			<language tag="de-DE">de-DE/de-DE.com_ninjaboard.ini</language>
+			<language tag="de-DE">de-DE/de-DE.com_ninjaboard.menu.ini</language>
+			<language tag="el-GR">el-GR/el-GR.com_ninjaboard.ini</language>
+			<language tag="el-GR">el-GR/el-GR.com_ninjaboard.menu.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_ninjaboard.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_ninjaboard.menu.ini</language>
+			
+			<language tag="es-ES">es-ES/es-ES.com_ninjaboard.ini</language>
+			<language tag="es-ES">es-ES/es-ES.com_ninjaboard.menu.ini</language>
+			
+			<language tag="fr-FR">fr-FR/fr-FR.com_ninjaboard.ini</language>
+			<language tag="fr-FR">fr-FR/fr-FR.com_ninjaboard.menu.ini</language>
+			<language tag="he-IL">he-IL/he-IL.com_ninjaboard.ini</language>
+			<language tag="he-IL">he-IL/he-IL.com_ninjaboard.menu.ini</language>
+			<language tag="it-IT">it-IT/it-IT.com_ninjaboard.ini</language>
+			<language tag="it-IT">it-IT/it-IT.com_ninjaboard.menu.ini</language>
+			<language tag="nb-NO">nb-NO/nb-NO.com_ninjaboard.ini</language>
+			<language tag="nb-NO">nb-NO/nb-NO.com_ninjaboard.menu.ini</language>
+			<language tag="nl-NL">nl-NL/nl-NL.com_ninjaboard.ini</language>
+			<language tag="nl-NL">nl-NL/nl-NL.com_ninjaboard.menu.ini</language>
+			<language tag="sv-SE">sv-SE/sv-SE.com_ninjaboard.ini</language>
+			<language tag="sv-SE">sv-SE/sv-SE.com_ninjaboard.menu.ini</language>
+		</languages>
+	</administration>
+	
+	
+	<languages folder="language">
+		<language tag="de-DE">de-DE/de-DE.com_ninjaboard.ini</language>
+		<language tag="el-GR">el-GR/el-GR.com_ninjaboard.ini</language>
+		<language tag="en-GB">en-GB/en-GB.com_ninjaboard.ini</language>
+		<language tag="es-ES">es-ES/es-ES.com_ninjaboard.ini</language>
+		<language tag="fr-FR">fr-FR/fr-FR.com_ninjaboard.ini</language>
+		<language tag="he-IL">he-IL/he-IL.com_ninjaboard.ini</language>
+		<language tag="it-IT">it-IT/it-IT.com_ninjaboard.ini</language>
+		<language tag="nb-NO">nb-NO/nb-NO.com_ninjaboard.ini</language>
+		<language tag="nl-NL">nl-NL/nl-NL.com_ninjaboard.ini</language>
+		<language tag="pt-BR">pt-BR/pt-BR.com_ninjaboard.ini</language>
+		<language tag="sv-SE">sv-SE/sv-SE.com_ninjaboard.ini</language>
+	</languages>
+	
+	
+	<media folder="media/com_ninjaboard" destination="com_ninjaboard">
+		<folder>attachments</folder>
+		<folder>css</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+		<file>htaccess.txt</file>
+	</media>
+
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">install/install.sql</file>
+		</sql>
+	</install>
+	
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">install/uninstall.sql</file>
+		</sql>
+	</uninstall>	
+	
+	<installfile>install/install.php</installfile>
+	<!-- For j1.6 -->
+	<scriptfile>install/install.php</scriptfile>
+	
+	<!-- 
+		Long list over deprecated files and folders as time went by
+		If they exist on the current install, they'll be deleted in order to keep things clean.
+	-->
+
+	<deleted>
+		<admin>
+			<folder revision="1201">views/templates</folder>
+			<file revision="1201">controllers/template.php</file>
+			<file revision="1201">models/templates.php</file>
+			<file revision="1185">install/uninstall.php</file>
+			<file revision="1059">databases/tables/usergroup_maps.php</file>
+			<file revision="1059">models/usergroup_maps.php</file>
+			<file revision="1056">controllers/joomla_usergroup_map.php</file>
+			<file revision="1056">databases/tables/joomla_usergroup_maps.php</file>
+			<file revision="1056">models/joomla_usergroup_maps.php</file>
+			<folder revision="1056">views/joomla_usergroup_maps</folder>
+			<folder revision="1042">behaviors</folder>
+			<folder revision="1042">converters</folder>
+			<folder revision="1042">rows</folder>
+			<folder revision="1042">rowsets</folder>
+			<folder revision="1042">tables</folder>
+			<file revision="958">helpers/migrator.php</file>
+			<file revision="936">converters/default.php</file>
+			<file revision="796">install/import.mysql.utf8.sql</file>
+			<file revision="776">helpers/acl.php</file>
+			<file revision="776">converters/kunena_old.php</file>
+			<file revision="776">behaviors/restrictable.php</file>
+			<file revision="575">views/forums/tmpl/rowset_forums.php</file>
+			<file revision="575">views/forums/tmpl/row_forum.php</file>
+			<file revision="531">models/import.php</file>
+			<file revision="241">models/group.php</file>
+			<file revision="231">controllers/joomla_user_group_map.php</file>
+			<file revision="231">controllers/user_group.php</file>
+			<file revision="231">models/user_groups.php</file>
+			<file revision="231">tables/joomla_user_group_maps.php</file>
+			<file revision="231">tables/user_group_maps.php</file>
+			<folder revision="231">views/joomla_user_group_maps</folder>
+			<folder revision="231">views/user_groups</folder>
+			<folder revision="231">views/user_group</folder>
+			<file revision="227">rows/user_group.php</file>
+			<file revision="213">controllers/access_level.php</file>
+			<file revision="213">models/access_levels.php</file>
+			<folder revision="213">views/access_levels</folder>
+			<folder revision="213">views/access_level</folder>
+			<file revision="212">views/user_group/html.php</file>
+			<file revision="186">views/rank/html.php</file>
+			<file revision="106">views/ajax.php</file>
+			<file revision="103">models/categories.php</file>
+			<file revision="103">rows/category.php</file>
+			<file revision="103">controllers/category.php</file>
+			<folder revision="103">views/category</folder>
+			<folder revision="103">views/categories</folder>
+			<file revision="50">views/forums/ajax.php</file>
+			<file revision="50">views/categories/ajax.php</file>
+			<file revision="50">helpers/default.php</file>
+			<folder revision="50">elements</folder>
+			<file revision="50">helpers/form.php</file>
+			<file revision="50">views/setting/html.php</file>
+			<file revision="50">helpers/selects.php</file>
+			<folder revision="46">views/templates/tmpl</folder>
+			<file revision="41">rows/default.php</file>
+			<file revision="25">view/templates/tmpl/form_items.php</file>
+			<file revision="25">view/iconsets/tmpl/form_items.php</file>
+			<folder revision="8">views/field</folder>
+			<file revision="8">controllers/field.php</file>
+			<folder revision="8">views/fields</folder>
+			<file revision="8">controllers/fields.php</file>
+			<folder revision="8">views/group</folder>
+			<file revision="8">controllers/group.php</file>
+			<folder revision="8">views/groups</folder>
+			<folder revision="8">views/list</folder>
+			<folder revision="8">views/lists</folder>
+			<folder revision="8">views/listvalue</folder>
+			<folder revision="8">views/listvalues</folder>
+			<folder revision="8">models/listvalues.php</folder>
+			<folder revision="8">views/set</folder>
+			<folder revision="8">views/sets</folder>
+			<folder revision="7">database</folder>
+			<file revision="7">controllers/listvalue.php</file>
+			<folder revision="7">tables/rows</folder>
+			<file revision="7">controllers/set.php</file>
+			<file revision="7">tables/user_groups.php</file>
+			
+			<!-- Removed since 0.5 -->
+			<folder>css</folder>
+			<folder>images</folder>
+			<folder>js</folder>
+			<folder>params</folder>
+			<folder>views/buttonsetall</folder>
+			<folder>views/buttonsetsingle</folder>
+			<folder>views/categoryall</folder>
+			<folder>views/categorysingle</folder>
+			<folder>views/configall</folder>
+			<folder>views/configsingle</folder>
+			<folder>views/designall</folder>
+			<folder>views/designsingle</folder>
+			<folder>views/emoticonsetall</folder>
+			<folder>views/emoticonsetsingle</folder>
+			<folder>views/iconsetall</folder>
+			<folder>views/iconsetsingle</folder>
+			<folder>views/styleall</folder>
+			<folder>views/stylesingle</folder>
+			<folder>views/templateall</folder>
+			<folder>views/templatesingle</folder>
+			<file>changelog.php</file>
+			<file>controllers/buttonset.php</file>
+			<file>controllers/config.php</file>
+			<file>controllers/design.php</file>
+			<file>controllers/emoticonset.php</file>
+			<file>controllers/files.php</file>
+			<file>controllers/index.html</file>
+			<file>controllers/ninjaboard.php</file>
+			<file>controllers/profilefield.php</file>
+			<file>controllers/profilefieldlist.php</file>
+			<file>controllers/profilefieldlistvalue.php</file>
+			<file>controllers/profilefieldset.php</file>
+			<file>controllers/rank.php</file>
+			<file>controllers/style.php</file>
+			<file>controllers/terms.php</file>
+			<file>controllers/timeformat.php</file>
+			<file>controllers/timezone.php</file>
+			<file>controllers/usersync.php</file>
+			<file>copyright.php</file>
+			<file>helpers/file.php</file>
+			<file>helpers/HTML_ninjahelper_admin.php</file>
+			<file>helpers/index.html</file>
+			<file>index.html</file>
+			<file>license.php</file>
+			<file>models/categoryall.php</file>
+			<file>models/index.html</file>
+			<file>tables/index.html</file>
+			<file>tables/ninjaboardcategory.php</file>
+			<file>tables/ninjaboardconfig.php</file>
+			<file>tables/ninjaboarddesign.php</file>
+			<file>tables/ninjaboardforum.php</file>
+			<file>tables/ninjaboardgroup.php</file>
+			<file>tables/ninjaboardgroupsmapping.php</file>
+			<file>tables/ninjaboardgroupsmappingtypes.php</file>
+			<file>tables/ninjaboardpost.php</file>
+			<file>tables/ninjaboardprofile.php</file>
+			<file>tables/ninjaboardprofilefield.php</file>
+			<file>tables/ninjaboardprofilefieldlist.php</file>
+			<file>tables/ninjaboardprofilefieldlistvalue.php</file>
+			<file>tables/ninjaboardprofilefieldset.php</file>
+			<file>tables/ninjaboardrank.php</file>
+			<file>tables/ninjaboardsession.php</file>
+			<file>tables/ninjaboardsubscriptions.php</file>
+			<file>tables/ninjaboardterms.php</file>
+			<file>tables/ninjaboardtimeformat.php</file>
+			<file>tables/ninjaboardtimezone.php</file>
+			<file>tables/ninjaboardtopic.php</file>
+			<file>tables/ninjaboarduser.php</file>
+			<file>toolbar.ninjaboard.html.php</file>
+			<file>toolbar.ninjaboard.php</file>
+			<file>views/category.php</file>
+			<file>views/config.php</file>
+			<file>views/dashboard/index.html</file>
+			<file>views/dashboard/tmpl/index.html</file>
+			<file>views/dashboard/view.html.php</file>
+			<file>views/design.php</file>
+			<file>views/emoticonset.php</file>
+			<file>views/forum.php</file>
+			<file>views/group.php</file>
+			<file>views/index.html</file>
+			<file>views/ninjaboard.php</file>
+			<file>views/profilefield.php</file>
+			<file>views/profilefieldlist.php</file>
+			<file>views/profilefieldlistvalue.php</file>
+			<file>views/profilefieldset.php</file>
+			<file>views/rank.php</file>
+			<file>views/template.php</file>
+			<file>views/terms.php</file>
+			<file>views/timeformat.php</file>
+			<file>views/timezone.php</file>
+			<file>views/user.php</file>
+			<file>views/usersync.php</file>
+		</admin>
+		<site>
+			<file revision="1408">controllers/default.php</file>
+			<file revision="1246">views/json.php</file>
+			<folder revision="1220">themes/legacy</folder>
+			<file revision="1188">views/forum/tmpl/default_topics.php</file>
+			<folder revision="1042">behaviors</folder>
+			<folder revision="1042">helpers</folder>
+			<folder revision="1042">templates/chameleon</folder>
+			<folder revision="1042">templates/legacy</folder>
+			<folder revision="776">views/profile</folder>
+			<folder revision="776">commands</folder>
+			<file revision="773">views/post/tmpl/block_post_main.php</file>
+			<file revision="773">views/post/tmpl/block_post.php</file>
+			<file revision="575">views/topics/tmpl/block_topics.php</file>
+			<folder revision="548">models</folder>
+			<folder revision="548">tables</folder>
+			<folder revision="369">views/system</folder>
+			<file revision="369">views/topic/tmpl/preview.php</file>
+			<file revision="369">views/topic/tmpl/form.php</file>
+			<file revision="369">views/topic/tmpl/form_reply.php</file>
+			<file revision="369">views/topic/tmpl/form_add.php</file>
+			<file revision="369">views/topic/bbcode.js</file>
+			<file revision="363">views/forums/tmpl/default_item.php</file>
+			<file revision="360">views/forums/tmpl/block_forums.php</file>
+			<file revision="103">controllers/category.php</file>
+			<folder revision="103">views/category</folder>
+			<folder revision="103">views/categories</folder>
+			<file revision="52">models/forums.php</file>
+			<folder revision="50">templates/chameleon/_blocks</folder>
+			<folder revision="50">templates/chameleon/categories</folder>
+			<file revision="48">models/categories.php</file>
+			<file revision="38">views/topic/tmpl/form_topic.php</file>
+			<folder revision="31">views/_blocks</folder>
+			<folder revision="15">templates/ancient</folder>
+			<folder revision="15">controller</folder>
+			
+			<!-- Removed since 0.5 -->
+			<folder>system</folder>
+			<folder>views/board</folder>
+			<folder>views/editpost</folder>
+			<folder>views/editprofile</folder>
+			<folder>views/edittopic</folder>
+			<folder>views/information</folder>
+			<folder>views/latestposts</folder>
+			<folder>views/login</folder>
+			<folder>views/movetopic</folder>
+			<folder>views/register</folder>
+			<folder>views/reportpost</folder>
+			<folder>views/requestlogin</folder>
+			<folder>views/resetlogin</folder>
+			<folder>views/search</folder>
+			<folder>views/terms</folder>
+			<folder>views/userlist</folder>
+			<folder>views/userposts</folder>
+			<folder>views/whosonline</folder>
+			<file>helpers/fb.php</file>
+			<file>helpers/FirePHP.class.php</file>
+			<file>helpers/index.html</file>
+			<file>helpers/ninjaboard.php</file>
+			<file>helpers/syslog.php</file>
+			<file>views/forum/index.html</file>
+			<file>views/forum/tmpl/index.html</file>
+			<file>views/forum/tmpl/ninjaboard.php</file>
+			<file>views/forum/tmpl/ninjaboard.xml</file>
+			<file>views/forum/view.html.php</file>
+			<file>views/profile/index.html</file>
+			<file>views/profile/tmpl/index.html</file>
+			<file>views/profile/tmpl/ninjaboard.php</file>
+			<file>views/profile/tmpl/ninjaboard.xml</file>
+			<file>views/profile/view.html.php</file>
+			<file>views/topic/index.html</file>
+			<file>views/topic/tmpl/index.html</file>
+			<file>views/topic/tmpl/ninjaboard.php</file>
+			<file>views/topic/tmpl/ninjaboard.xml</file>
+			<file>views/topic/view.html.php</file>
+		</site>
+		<media>
+			<file revision="1408">images/16/users.png</file>
+			<file revision="1408">images/16/usergroups.png</file>
+			<file revision="1401">images/triangle-down-focus.png</file>
+			<file revision="1401">images/triangle-down.png</file>
+			<file revision="1401">images/triangle-right.png</file>
+			<file revision="1401">images/triangle-up-focus.png</file>
+			<file revision="1401">images/triangle-up.png</file>
+			<file revision="1401">images/48/avatar.png</file>
+			<file revision="1401">images/48/iconsets.png</file>
+			<file revision="1401">images/48/people.png</file>
+			<file revision="1401">images/48/permissions.png</file>
+			<file revision="1401">images/48/profile_fields.png</file>
+			<file revision="1401">images/32/avatar.png</file>
+			<file revision="1401">images/32/default.png</file>
+			<file revision="1401">images/32/icons.png</file>
+			<file revision="1401">images/32/install.png</file>
+			<file revision="1401">images/32/people.png</file>
+			<file revision="1401">images/32/profile_fields.png</file>
+			<file revision="1401">images/32/sets.png</file>
+			<file revision="1401">images/16/avatar.png</file>
+			<file revision="1401">images/16/save.png</file>
+			<file revision="1401">images/16/ninjaforge.png</file>
+			<file revision="1401">images/16/profile_fields.png</file>
+			<file revision="1401">images/16/people.png</file>
+			<file revision="1401">images/16/iconsets.png</file>
+			<file revision="1395">images/48/users.png</file>
+			<file revision="1395">images/48/usergroups.png</file>
+			<file revision="1202">images/jce_logo_black.png</file>
+			<file revision="1056">css/admin.joomla_usergroup_maps.css</file>
+			<folder revision="764">fonts</folder>
+			<file revision="548">css/form.css</file>
+			<file revision="231">images/48/tools.png</file>
+			<file revision="231">images/32/tools.png</file>
+			<file revision="231">images/16/tools.png</file>
+			<file revision="231">images/48/user_groups.png</file>
+			<file revision="231">images/32/user_groups.png</file>
+			<file revision="231">images/16/user_groups.png</file>
+			<file revision="213">images/48/access_levels.png</file>
+			<file revision="213">images/32/access_levels.png</file>
+			<file revision="213">images/16/access_levels.png</file>
+			<file revision="103">images/48/categories.png</file>
+			<file revision="103">images/32/categories.png</file>
+			<file revision="103">images/16/categories.png</file>
+			<file revision="50">js/ninja.js</file>
+		</media>
+	</deleted>
+	
+	<!-- Defines what tables to migrate from Ninjaboard 0.5 -->
+	<migrate>
+		<tables>
+			<table>ninjaboard_categories</table>
+			<table>ninjaboard_configs</table>
+			<table>ninjaboard_designs</table>
+			<table>ninjaboard_forums</table>
+			<table>ninjaboard_forums_auth</table>
+			<table>ninjaboard_groups</table>
+			<table>ninjaboard_groups_mapping</table>
+			<table>ninjaboard_groups_mapping_types</table>
+			<table>ninjaboard_groups_users</table>
+			<table>ninjaboard_posts</table>
+			<table>ninjaboard_posts_guests</table>
+			<table>ninjaboard_profiles</table>
+			<table>ninjaboard_profiles_fields</table>
+			<table>ninjaboard_profiles_fields_lists</table>
+			<table>ninjaboard_profiles_fields_lists_values</table>
+			<table>ninjaboard_profiles_fields_sets</table>
+			<table>ninjaboard_ranks</table>
+			<table>ninjaboard_session</table>
+			<table>ninjaboard_terms</table>
+			<table>ninjaboard_timeformats</table>
+			<table>ninjaboard_timezones</table>
+			<table>ninjaboard_topics</table>
+			<table>ninjaboard_users</table>
+			<table>ninjaboard_subscriptions</table>
+			<table>ninjaboard_attachments</table>
+		</tables>
+	</migrate>
+</install>

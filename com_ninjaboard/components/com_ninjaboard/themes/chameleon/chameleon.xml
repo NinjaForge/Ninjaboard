@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="extension" extension="ninjaboard" group="template" method="upgrade">
+  <name>Chameleon</name>
+	<author>http://ninjaforge.com</author>
+  <creationDate>2009-10-05</creationDate>
+	<copyright>NinjaForge.com</copyright>
+	<license>GNU GPLv3</license>
+	<authoremail>stian@ninjaforge.com</authoremail>
+  <authorurl>ninjaforge.com</authorurl>
+	<version>1.0.0</version>
+  <description>Chameleon is a revolutionary new template engine able to camouflage itself into any Joomla! template all by itself.</description>
+  
+  <form>
+  	<fieldset group="style" legend="Theme Style">
+  		<element name="type" type="radio" default="light" class="group vertical" description="Select wether you got a light or dark overall site design.">
+  			<option value="light">Light</option>
+  			<option value="dark">Dark</option>
+  		</element>
+  		<element name="border" type="radio" default="norounded" class="group vertical" description="Wether you want rounded borders or not.">
+  			<option value="norounded">Not rounded</option>
+  			<option value="rounded">Rounded</option>
+  			<option value="rounded small-radius">Rounded with lesser radius</option>
+  		</element>
+  		<element name="separators" type="radio" class="group vertical" default="separator-gray">
+  			<option value="separator-gray">Gray</option>
+  			<option value="separator-currentcolor">Separators have the same colors as links</option>
+  		</element>
+  	</fieldset>
+  	<fieldset group="module" legend="Module Render Engine">
+  		<element name="style" void="chrome" type="getlist" get="admin::com.ninja.model.module_chrome" set="client:0;incpath:0" label="Module Style" description="Select the module chrome to use for wrapping the blocks" default="rounded" />
+  		<element name="moduleclass_sfx" type="text" void="moduleclasssfx" default="" />
+  		<!--<element name="position" label="Module Position" type="text" description="Enter a module position you want to load forum lists in. Leave empty if you want to load in the component area." default="" />
+  		<element name="showtitle" label="Module/Box Title" type="radio" default="1">
+  			<option value="1">Show Title</option>
+  			<option value="0">Hide Title</option>
+  		</element>-->
+  	</fieldset>
+  	<fieldset group="template" legend="Template">
+  		<element name="general_spacing" type="text" description="The spacing between posts, forums etc" default="10px" />
+  		<element name="toolbar_spacing" type="text" description="The whitespace below or above the toolbar" default="20px" />
+  	</fieldset>
+  	<fieldset group="tmpl" legend="Element Templates">
+  		<element name="new_topic_button" type="textarea" default="&lt;a href=&quot;$link&quot; class=&quot;readon readmore button&quot;&gt;&lt;span&gt;$title&lt;/span&gt;&lt;/a&gt;" class ="value required" size="60" />
+  		<element name="create_topic_button" type="textarea" default="&lt;a href=&quot;$link&quot; class=&quot;readon readmore button&quot;&gt;&lt;span&gt;$title&lt;/span&gt;&lt;/a&gt;" class ="value required" size="60" />
+  		<element name="cancel_button" type="textarea" default="&lt;a href=&quot;#&quot;&gt;$title&lt;/a&gt;" class ="value required" size="60" />
+  	</fieldset>
+  	
+  	<fieldset group="view_settings" legend="View Settings" description="Parameters for individual View Configuration">
+  		<element name="displayed_elements" type="check" class="group vertical">
+  			<!--<option value="statistic">Statistic</option>
+  			<option value="whosonline">Who's online</option>
+  			<option value="legend">Legend</option>
+  			<option value="myprofile">"My Profile" Link</option>
+  			<option value="register">"Register" link</option>
+  			<option value="login">"Login" link</option>
+  			<option value="logout">"Logout" link</option>
+  			<option value="serach">"Search" link</option>
+  			<option value="terms">"Terms and Conditions" link</option>-->
+  			<!--<option value="latestposts">Latest Posts</option>-->
+  			<option value="showtopics">Latest Topics</option>
+  			<!--<option value="userlist">Userlist</option>-->
+  		</element>
+  		<element name="display_name" type="radio" default="username" class="group vertical">
+  			<option value="username">Username</option>
+  			<option value="name">Real name</option>
+  		</element>
+  		<element name="change_display_name" type="radio" default="custom" class="group vertical">
+  			<option value="custom">Users can set custom screen names.</option>
+  			<option value="yes">Users decide which display name to use but not make a custom one.</option>
+  			<option value="no">Not allowed</option>
+  		</element>
+  		<element name="forums_title" type="genericlist" default="raw">
+  			<option value="linkable">is linkable</option>
+  			<option value="raw">not linkable</option>
+  			<option value="permalink">not linkable, render "[permalink]" below instead</option>
+  		</element>
+  		<element name="pagination" label="Pagination Style" type="radio" default="core" class="group vertical" description="The custom Ninjaboard pagination style might not work well in all sites and vice versa.">
+  			<option value="core">Joomla! core</option>
+  			<option value="ninjaboard">Ninjaboard custom</option>
+  		</element>
+  		<element name="topic_layout" label="Topic Layout" type="radio" default="minimal" class="group vertical" description="How you want your topic layout to be like..">
+  			<option value="classic">Pagination and toolbar both top and bottom.</option>
+  			<option value="minimal">Toolbar top and pagination bottom.</option>
+  		</element>
+  		<element name="show_usergroups" type="radio" default="1" description="Show usergroups information in posts and people profiles. Useful if you want your users to know who's a moderator and such.">
+  			<option value="1">Yes</option>
+  			<option value="0">No</option>
+  		</element>
+  		<!--<spacer />
+  		<element name="color_label_0" type="colorlabel" default="rgb(90,155,90)" />
+  		<element name="color_label_1" type="colorlabel" default="rgb(187, 197, 154)" />
+  		<element name="color_label_2" type="colorlabel" default="rgb(222, 169, 86)" />
+  		<element name="color_label_3" type="colorlabel" default="rgb(209, 111, 101)" />
+  		<element name="color_label_4" type="colorlabel" default="rgb(177, 62, 60)" />-->
+  	</fieldset>
+  </form>
+</install>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE metadata>
+<!-- $Id: default.xml 1422 2011-01-14 14:26:35Z stian $ -->
+<metadata>
+	<layout title="Watches">
+		<message>Manage your email subscriptions.</message>
+	</layout>
+
+	<!-- @group j!1.5 -->
+	<state>
+		<name>Watches</name>
+		<description>Manage your email subscriptions.</description>
+		<params>
+			<param name="deleteme" type="napi" ninja="void" />
+			<param name="ninjaboard_setting_id" type="getlist" get="admin::com.ninjaboard.model.settings" key="id" val="title" label="Setting" description="Choose a predefined setting from the Ninjaboard Settings.">
+				<option>- Use default -</option>
+			</param>
+		</params>
+	</state>
+	<!-- @end -->
+	
+	<!-- @group j!1.6 -->
+	<fields name="params" addfieldpath="/administrator/components/com_ninja/overrides">
+		<fieldset name="basic" label="Basic Options">
+				<field name="deleteme" type="napi" ninja="void" />
+		</fieldset>
+	</fields>
+	<!-- @end -->
+</metadata>

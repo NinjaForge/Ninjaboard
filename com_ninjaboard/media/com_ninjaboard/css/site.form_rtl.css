@@ -1,0 +1,18 @@
+.ninja-form .element.wider,
+html[dir="rtl"] .ninja-form .element.wider {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.ninjaboard .element .avatar.value {
+	margin-left: 10px;
+	margin-right: 0;
+}
+
+.ninjaboard .element.footer .inner {
+	float: left;
+}
+
+.ninjaboard .element.footer .inner > * {
+	float: left;
+}

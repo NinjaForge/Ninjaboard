@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE metadata>
+<!-- $Id: default.xml 1422 2011-01-14 14:26:35Z stian $ -->
+<metadata>
+	<layout title="Forum">
+		<message>Renders a forum and its subforums if any.</message>
+	</layout>
+	
+	<!-- @group j!1.5 -->
+	<state>
+		<name>Forum</name>
+		<description>Renders a forum and its subforums if any.</description>
+		<url>
+			<param name="urldeleteme" type="napi" ninja="void" grouptag="url" formname="urlparams" />
+			<param name="id" type="getlist" default="" get="admin::com.ninjaboard.model.forums" set="indent:1;enabled:1;sort:path_sort_ordering" label="Forum" description="Choose a forum." />
+		</url>
+		<params>
+			<param name="deleteme" type="napi" ninja="void" />
+			<param name="ninjaboard_setting_id" type="getlist" get="admin::com.ninjaboard.model.settings" label="Setting" description="Choose a predefined setting from the Ninjaboard Settings.">
+				<option>- Use default -</option>
+			</param>
+		</params>
+	</state>
+	<!-- @end -->
+	
+	<!-- @group j!1.6 -->
+	<fields name="request" addfieldpath="/administrator/components/com_ninja/overrides">
+		<fieldset name="request">
+			<field name="urldeleteme" type="napi" ninja="void" grouptag="url" formname="urlparams" />
+		</fieldset>
+	</fields>
+	<fields name="params">
+		<fieldset name="basic" label="Basic Options">
+				<field name="deleteme" type="napi" ninja="void" />
+		</fieldset>
+	</fields>
+	<!-- @end -->
+</metadata>

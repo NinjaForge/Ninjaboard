@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: setting.xml 1327 2011-01-05 00:24:07Z stian $ -->	
+<form>
+	<fieldset group="board_details" class="adminlist" description="Parameters for board configuration">
+		<element name="theme" type="request" key="name" request="name" get="admin::com.ninjaboard.model.themes" default="chameleon" load="&amp;option=com_ninjaboard&amp;view=theme&amp;layout=settings&amp;format=raw" />
+		<!--<element name="iconset" type="genericlist" key="name" get="admin::com.ninjaboard.model.iconsets" />-->
+		<!--<element name="enable_terms" type="radio" default="1" description="NB_ENABLETERMSDESC">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</element>
+		<element name="term_id" type="text" default="not activated yet" disabled="true" />-->
+		<!--<element name="time_format" type="timeformats"  description="NB_TIMEFORMATDESC" />-->
+		<!--<spacer />-->
+		<!--<element name="flood_interval" type="text" size="5" default="10"  description="NB_FLOODINTERVALDESC" />
+		<spacer />-->
+		<!--<element name="enable_bbcode" type="radio" default="1"  description="NB_ENABLEBBCODEDESC">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</element>-->
+		<!--<element name="enable_emoticons" type="radio" default="1"  description="NB_ENABLEEMOTICONSDESC">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</element>
+		<spacer />
+		<element name="guest" type="genericlist" default="0"  description="NB_ENABLEGUESTNAMEDESC">
+			<option value="0">Disabled</option>
+			<option value="1">Enabled, name required</option>
+			<option value="2">Enabled, name optional</option>
+		</element>-->
+		<!--<spacer />
+		<element name="enable_reply_subject" type="radio" default="1"  description="NB_ENABLEREPLYSUBJECTDESC">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</element>	-->
+	</fieldset>
+	
+	<!--<fieldset group="feed_settings" legend="Feed Settings" description="Parameters for individual Feed Configuration">
+		<element name="enable_feeds" type="radio" default="1"  description="NB_ENABLEFEEDSDESC">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</element>
+		<element name="feed_items_type" type="genericlist">
+			<option value="0">Forum Topics</option>
+			<option value="1">Forum Posts</option>
+		</element>
+	    <spacer />
+	    <element name="description_enabled" type="radio" default="0"  description="NB_FEEDDESCHTMLSYNDICATEDESC">
+	      <option value="1">Yes</option>
+	      <option value="0">No</option>
+	    </element>
+	    <text name="description_length" default="140" />
+	    <spacer />
+	    <element name="feed_image_logo" type="radio" default="1"  description="NB_FEEDIMAGEHTMLSYNDICATEDESC">
+	      <option value="1">Enabled</option>
+	      <option value="0">Disabled</option>
+	    </element>
+	    <element name="image_title" type="text" size="50" default="Ninjaboard Logo"  description="NB_FEEDIMAGETITLEDESC" />
+	    <element name="image_location" type="text" size="50" default="http://www.ninjaboard.org/images/logo.png"/>
+	    <element name="image_links_to" type="text" size="50" default="http://www.ninjaboard.org/"/>
+	</fieldset>-->
+
+	<fieldset group="email_notification_settings">
+		<element name="auto_notify_admins" type="radio" default="yes" class="group vertical" description="Decide wether or not to notify all users with «Receive System E-mails» enabled on all new posts.">
+			<option value="yes">Yes</option>
+			<option value="no">No</option>
+		</element>
+		<element name="include_post" type="radio" default="yes" class="group vertical" description="Choose if you want people to be able to read the post or visit the site first.">
+			<option value="yes">Yes</option>
+			<option value="no">No</option>
+		</element>
+	</fieldset>
+
+	<fieldset group="attachment_settings" legend="Attachment Settings" description="Parameters for individual Attachment Configuration">
+		<element name="enable_attachments" type="radio" default="1">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</element>
+		<element name="@description" type="description">Configure allowed filetypes and upload limits in the Joomla Global Configuration.</element>
+		<element name="disposition" label="Web browsers" type="radio" default="inline" class="group vertical">
+			<option value="inline">view attachments inline</option>
+			<option value="attachment">download attachments</option>
+		</element>
+	</fieldset>
+	
+	<fieldset group="avatar_settings">
+		<element name="enable_avatar" type="radio" default="1">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</element>
+		<element name="enable_gravatar" type="radio" default="1" label="Integrate with Gravatar" description="Checkout gravatar.com to learn more about Globally Recognized Avatars.">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</element>
+		<element name="upload_size_limit" type="bytes" default="716800" description="In bytes. Use 0 for unlimited" placeholder="716800" class="value required validate-integer" onzero="No upload size limit." />
+		<element name="thumbnail_quality" type="range" default="75" />
+		<element name="large_thumbnail_width" type="text" default="100" />
+		<element name="large_thumbnail_height" type="text" default="100" />
+		<element name="small_thumbnail_width" type="text" default="50" />
+		<element name="small_thumbnail_height" type="text" default="50" />
+	</fieldset>
+</form>

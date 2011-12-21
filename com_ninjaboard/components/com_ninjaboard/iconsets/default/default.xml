@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="extension" extension="ninjaboard" group="iconsets">
+    <name>Default</name>
+    <foldername>default</foldername>
+	<author>Ninjaboard - Ninja Media Group</author>
+    <creationDate>2009-04-08</creationDate>
+	<copyright>(C) 2007-2010 Ninja Media Group. All rights reserved.</copyright>
+	<license>GNU GPLv3</license>
+	<authoremail>support@ninjaforge.com</authoremail>
+    <authorurl>ninjaforge.com</authorurl>
+	<version>0.0.1</version>
+    <description>The default iconset</description>
+</install>

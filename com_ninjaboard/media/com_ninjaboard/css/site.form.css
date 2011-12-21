@@ -1,0 +1,397 @@
+.ninja-col {
+	display: block;
+	clear: both;
+}
+.ninja-form .key {
+	color: inherit;
+}
+.ninja-form .value {
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	float: none;
+	margin: 0 0 0 0;
+}
+.ninja-form textarea {
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	color: inherit;
+}
+input {
+	color: inherit;
+}
+/* Styling for invalid data */
+fieldset.ninja-form, .ninja-form fieldset, .ninja-form .element.wider .group {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: 0;
+}
+.ninja-form div.element.wider:last-child {
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	-moz-border-radius-bottomLeft: 3px;
+	-moz-border-radius-bottomRight: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+}
+form .required.invalid {
+	background: url(../images/errorIcon.png) 100% 50% no-repeat;
+	background-origin: content-box;
+	padding-right: 2px;
+	border-color: red;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	background-color: hsla(0, 100%, 50%, 0.05);
+}
+form .required.invalid::-webkit-input-placeholder {
+	color: hsl(0, 70%, 50%);
+}
+textarea::-webkit-input-placeholder {
+	/*text-align: center;*/
+}
+
+form .required.invalid:focus {
+	-webkit-box-shadow: red 0 0 4px;
+	-moz-box-shadow: red 0 0 4px;
+	background-color: hsla(0, 100%, 50%, 0.1);
+	outline: none;
+}
+
+.ninja-form .key {
+	display: inline-block;
+	/*background-color: hsl(0, 0%, 96%);
+	border-bottom: 1px solid hsl(0, 0%, 91%);
+	border-right: 1px solid hsl(0, 0%, 91%);*/
+	font-weight: bold;
+	text-align: right!important;
+	/*max-width: 25%;*/
+	/*min-width: 25%;*/
+	white-space: nowrap;
+	padding: 3px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	/*-webkit-transition: max-width 400ms linear;*/
+	position: absolute;
+	left: 10px;
+	width: 140px;
+	top: 50%;
+	height: 1em;
+	margin-top: -0.9em;
+}
+.ninja-form .col .key {
+	left: 0;
+}
+.ninja-form .key + * {
+	
+}
+.ninja-form .key:hover{
+	/*max-width: 40%;*/
+	/*-webkit-transition: max-width 400ms linear;*/
+}
+/*.ninja-form .key:empty {
+	display: none;
+}*/
+
+.ninja-form .element.wider .value {
+	margin-left: 153px;
+	display: inline-block;
+}
+
+.ninja-form .element.wider {
+	margin: 0;
+	padding: 10px 5px;
+	position: relative;
+	background-image: none;
+}
+.ninja-form .element.wider .markItUp, .ninja-form .element.wider .markItUpContainer > * {
+	display: inline-block;
+}
+.ninja-form .element.wider * .markItUpDropMenu ul {
+	display: none;
+}
+
+.ninja-form .element.wider option{
+	display: block;
+}
+
+.ninja-form .element.wider ul {
+	margin: 0;
+	padding: 0;
+	margin-left: 153px;
+}
+
+.ninja-form .element.wider .group {
+	background-color: #EBEBEB;
+	background-color: hsla(0, 0%, 94%, 0.8);
+	border: 1px solid #E6E6E6;
+	border-color: hsla(0, 0%, 90%, 0.8);
+	padding: 1px 0 0 1px;
+}
+.ninja-form .element.wider .group .value {
+	margin: 0 1px 1px 0;
+}
+.ninja-form .element.wider .group .value:active, .ninja-form .element.wider .group .value:checked {
+	background-color: hsla(0, 0%, 84%, 0.8);
+}
+.ninja-form .element.wider .group .value * {
+	padding: 3px 0;
+	height: 1em;
+	clear: none;
+}
+.ninja-form .element.wider .group .value input {
+	padding-left: 2px;
+	padding-right: 2px;
+	clear: none;
+}
+.ninja-form .element.wider .group .value label {
+	padding-right: 3px;
+	padding-left: 3px;
+	clear: none;
+}
+
+.ninja-form .element.wider .group.vertical .value {
+	display: block;
+	position: relative;
+}
+.ninja-form .element.wider .group.vertical .value input {
+	position: absolute;
+	top: 0px;
+}
+.ninja-form .element.wider .group.vertical .value label {
+	display: block;
+	padding-left: 18px;
+	clear: none;
+}
+
+
+#enabled1 {
+	background-image: url(../images/16/enabled.png);
+	background-position: left center;
+}
+
+/*Extra styling */
+.ninja-form .element.wider .col {
+	text-align: center;
+}
+.ninja-form .col .key {
+	position: relative;
+	text-align: center;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.ninja-form .col .value {
+	margin-left: 0;
+	min-width: 50%;
+	max-width: 100%;
+}
+
+.ninja-form .divider.horizontal::before {
+	content: '\007D';
+	display: block;
+	left: 0;
+	margin-left: -40px;
+	position: absolute;
+}
+.ninja-form .divider.horizontal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	height: 40px;
+	width: 40px;
+	margin-top: -20px;
+	margin-left: -20px;
+	white-space: nowrap;
+}
+.ninja-form .divider.horizontal::after {
+	content: '\007B';
+	display: block;
+	left: auto;
+	right: 0px;
+	top: 0px;
+	margin-right: -20px;
+	position: absolute;
+}
+.ninja-form .divider.horizontal::before, .ninja-form .divider.horizontal::after {
+	color: hsla(0, 0%, 0%, 0.09);
+	font-weight: lighter;
+	font-size: 90px;
+	top: -45px;
+}
+#ninjaboard .bbcode, #ninjaboard .bbcode .markItUp, #ninjaboard .bbcode .markItUp .markItUpContainer, #ninjaboard .bbcode .markItUp .markItUpContainer .markItUpHeader, #ninjaboard .bbcode .markItUp .markItUpContainer .markItUpFooter, #ninjaboard .footer .value, #ninjaboard .footer .value div {
+	padding: 0;
+	background-image: none;
+}
+#ninjaboard .markItUpHeader {
+	display: block;
+	text-align: center;
+	background-color: white;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#CCC))!important;
+	background-image: -moz-linear-gradient(top, white, #CCC)!important;
+	padding-top: 5px!important;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+#ninjaboard .markItUpHeader > ul {
+	display: inline-block;
+	text-align: center;
+}
+#ninjaboard .markItUpButton {
+	background-image: none;
+}
+#ninjaboard .markItUpButton a {
+	border: none;
+}
+#ninjaboard li.markItUpButton, 
+#ninjaboard li.markItUpSeparator { 
+    padding-left: 0; 
+}
+#com-ninjaboard-post fieldset, form#com-ninjaboard-topic fieldset {
+	width: 76%;
+	border: transparent none 0px;
+}
+#markItUpText {
+	display: block;
+}
+#markItUpText textarea {
+	/*width: 76%;*/
+	width: 98%;
+	-webkit-border-top-left-radius: 0;
+	-webkit-border-top-right-radius: 0;
+	-moz-border-radius-topleft: 0;
+	-moz-border-radius-topright: 0;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+.ninjaboard div.button { 
+    background-color: #FFFFFF !important; 
+}
+
+
+.ninjaboard .element.avatar {
+	min-height: 37px;
+}
+.ninjaboard .element .avatar.value {
+	margin-right: 10px;
+}
+.ninjaboard .element.avatar .avatar.upload,
+.ninjaboard .element.avatar .avatar.delete {
+	display: none;
+}
+.ninjaboard .element.avatar .avatar.options {
+	display: inline-block;
+}
+.ninjaboard .element .avatar.options {
+	display: none;
+}
+.ninjaboard .element .avatar.options {
+	display: inline-block;
+	width: 250px;
+	position: absolute;
+}
+.ninjaboard .element .avatar a {
+	display: block;
+}
+.ninjaboard .element .avatar-image-extensions,
+.ninjaboard .element .allowed-file-extensions {
+	text-transform: uppercase;
+}
+
+#attachments {
+	background: none;
+}
+#attachments li {
+	list-style: none;
+}
+.ninjaboard .element .allowed-file-extensions,
+.ninjaboard .element .attachments-extensions-help,
+.ninjaboard .element .click-submit {
+	display: none;
+}
+.ninjaboard .element .allowed-file-extensions-toggle {
+	display: inline-block;
+}
+
+
+
+.ninjaboard .element.footer {
+	overflow: hidden;
+}
+
+/* Override reset.css */
+.ninjaboard .element.footer .inner p {
+	/*margin: 0;*/
+}
+
+.ninjaboard .element.footer .inner {
+	float: right;
+	position: relative;
+	line-height: 1.7em;
+	font-size: 13px;
+}
+
+.ninjaboard .element.footer .inner > * {
+	display: block;
+	float: right;
+	margin: 10px;
+}
+.ninjaboard .element.footer .inner #com-ninjaboard-post-cancel {
+	position: absolute;
+	right: 100%;
+	top: 50%;
+	margin: 10px 0;
+	padding: 0;
+	margin-top: -0.9em;
+	height: 22px;
+}
+
+
+.ninjaboard fieldset.outer {
+	background: hsla(0, 0%, 60%, 0.1);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.ninjaboard fieldset.outer fieldset {
+	background: hsla(0, 0%, 100%, 0.4);
+	margin: 5px;
+}
+
+.ninjaboard fieldset.outer fieldset h2 {
+	margin: 10px 20px;
+	padding: 0;
+}
+
+.ninjaboard .ninja-form .remove {
+	padding: 3px;
+	margin: 6px;
+	color: white;
+	background: gray;
+	display: inline-block;
+	line-height: 8px;
+	font-size: 10px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	width: 8px;
+	height: 8px;
+}
+
+.ninjaboard.post-form .ninja-form .element {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.ninjaboard.post-form .ninja-form .element .key {
+	position: static;
+	text-align: left !important;
+	display: block;
+	margin-bottom: 5px;
+}

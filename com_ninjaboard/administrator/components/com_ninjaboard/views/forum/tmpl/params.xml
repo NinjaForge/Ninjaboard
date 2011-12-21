@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: params.xml 1418 2011-01-13 23:20:02Z stian $ -->	
+<form>
+	<params group="customization">
+		<param name="pageclass_sfx" type="text" default="forum" label="Page Class Sfx" description="Sfx used for specific styling on the forum page." />
+		<param name="blockclass_sfx" type="text" default="forum" label="Block Class Sfx" description="Sfx used for specific styling on the forum block, as seen in the Board Index view." />
+		<param name="icon" type="images" label="Forum Icon" path="media/com_ninjaboard/images/forums" default="default.png" />
+		<param name="hint" type="note" class="note" slide="true" description="Go to the Joomla! media manager, and upload icons here: /com_ninjaboard/forums. Create the folders if they don't already exist." show="Show how to upload custom icons." hide="Hide how to upload custom icons." />
+	</params>
+	<params group="module" legend="Module Render Engine" toggle="disabled">
+		<param name="moduleclass_sfx" type="text" default="forum" />
+		<param name="style" type="chrome" default="rounded" />
+		<!--<param name="position" label="Module Position" type="text" description="Enter a module position you want to render this forum. Leave empty if you want to load in the component area." default="" />-->
+	</params>
+</form>

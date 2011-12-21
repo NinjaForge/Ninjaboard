@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE metadata>
+<!-- $Id: metadata.xml 1087 2010-11-18 19:45:45Z stian $ -->
+<metadata>
+	<view title="Edit Profile">
+		<message>Profile edit form, letting the logged in user upload an avatar, set forum signature and more.</message>
+	</view>
+</metadata>

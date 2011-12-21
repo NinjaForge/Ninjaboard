@@ -1,0 +1,108 @@
+<?php defined( 'KOOWA' ) or die( 'Restricted access' );
+/**
+ * @version		$Id: avatars.php 1357 2011-01-10 18:45:58Z stian $
+ * @category	Ninjaboard
+ * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
+ * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
+ * @link     	http://ninjaforge.com
+ */
+
+/**
+ * Ninjaboard Avatars model
+ *
+ * Gets the avatars, allowing gravatar, cb integration and more through a single interface
+ * 
+ * @author Stian Didriksen <stian@ninjaforge.com>
+ */
+class ComNinjaboardModelAvatars extends ComNinjaboardModelPeople
+{
+	public function __construct($config)
+	{
+		parent::__construct($config);
+		
+		$this->_state
+					->insert('thumbnail', 'cmd', 'large');
+	}
+
+	public function getItem()
+	{
+		if(!$this->_item)
+		{
+			$this->_item = parent::getItem();
+			$id			 = $this->_item->id ? $this->_item->id : $this->_state->id;
+			
+			$settings = KFactory::get('site::com.ninjaboard.model.settings')->getParams();
+			$settings = $settings['avatar_settings'];
+			$this->_item->default = $this->_item->avatar;
+			
+			$size = $this->_state->thumbnail == 'small' ? 'small' : 'large';
+			
+			//Always check if there exist an alternate avatar
+			if(KFactory::get('lib.koowa.filter.url')->validate($this->_item->default)) {
+				// Prepare curl
+				$curl = KFactory::get('admin::com.ninja.helper.curl');
+				$opt  = array(
+								CURLOPT_RETURNTRANSFER => true
+						);
+				$curl->addSession($this->_item->default, $opt );
+		
+				$image = $curl->exec();
+				if($image != '404 Not Found') {
+					$dest  = '/media/com_ninjaboard/images/avatars/'.$id.'/avatar.png';
+					JFile::write(JPATH_ROOT.$dest, $image);
+					$this->_item->default = $dest;
+				} else {
+					$this->_item->default = '/media/com_ninjaboard/images/avatar.png';
+				}
+			} elseif(!JFile::exists(JPATH_ROOT.$this->_item->default) || $this->_item->default == '/media/com_ninjaboard/images/avatar.png') {
+				if($settings['enable_gravatar']) {
+					//@TODO refactor to use KFactory
+					$this->_item->default = new ComNinjaboardHelperGravatar($this->_item->email, 404);
+					//Gravatars are square, so use the largest value as size
+					$gsize = max($settings[$size.'_thumbnail_width'], $settings[$size.'_thumbnail_height']);
+					$this->_item->default->size = $gsize;
+					$this->_item->default = $this->_item->default->getSrc();
+
+					// Prepare curl
+					$curl = KFactory::get('admin::com.ninja.helper.curl');
+					$opt  = array(
+									CURLOPT_RETURNTRANSFER => true
+							);
+					$curl->addSession($this->_item->default, $opt );
+			
+					$image = $curl->exec();
+					if($image != '404 Not Found') {
+						$dest  = '/media/com_ninjaboard/images/avatars/'.$id.'/gravatar.png';
+						JFile::write(JPATH_ROOT.$dest, $image);
+						$this->_item->default = $dest;
+					} else {
+						$this->_item->default = '/media/com_ninjaboard/images/avatar.png';
+					}
+				} else {
+					$this->_item->default = '/media/com_ninjaboard/images/avatar.png';
+				}
+			}
+
+			$this->_item->image = KFactory::get('admin::com.ninja.helper.image', array('image' => JPATH_ROOT.$this->_item->default));
+
+			$from	= $this->_item->image->width / $this->_item->image->height;
+			$to		= $settings[$size.'_thumbnail_width'] / $settings[$size.'_thumbnail_height'];
+			if($from > $to) {
+				$this->_item->image->resize(false, $settings[$size.'_thumbnail_height'], ComNinjaHelperImage::HEIGHT);
+			} else {
+				$this->_item->image->resize($settings[$size.'_thumbnail_width'], false, ComNinjaHelperImage::WIDTH);
+			}
+			
+			$this->_item->image
+								->crop($settings[$size.'_thumbnail_width'], $settings[$size.'_thumbnail_height'])
+								->quality($settings['thumbnail_quality']);
+		}
+
+		return $this->_item;
+	}
+	
+	public function getImage()
+	{
+		return $this->getItem()->image;
+	}
+}
