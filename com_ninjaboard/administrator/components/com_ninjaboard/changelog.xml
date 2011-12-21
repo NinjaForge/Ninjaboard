@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 2341 2011-08-01 23:05:30Z stian $ -->
+<!-- $Id: changelog.xml 2352 2011-08-06 15:01:26Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+    <version>1.1.5</version>
+    <date>August 6th 2011</date>
+    <state>Maintenance Release
+        <upgrade>Installer script now automatically detects and corrects the "System - Remember Me" issue with Nooku Framework caused by the Koowa system plugin executing first.</upgrade>
+        <upgrade>Synced with the latest translation updates from our Transifex project.</upgrade>
+        <bugfix>Fixed regression from 1.1.4 that caused Ninjaboard to seize working until the Koowa system plugin were ordered to execute before the Ninja system plugin.</bugfix>
+        <bugfix>Fixed rare case where an SQL error were generated if you visited one top level forum with a few subforums while the ACL were by default set to No Access, but in a usergroup set all forums to Has Access.</bugfix>
+    </state>
+
     <version>1.1.4</version>
     <date>August 2nd 2011</date>
     <state>Maintenance Release

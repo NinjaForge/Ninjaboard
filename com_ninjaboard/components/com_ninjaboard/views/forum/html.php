@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 2265 2011-07-22 13:15:57Z stian $
+ * @version		$Id: html.php 2347 2011-08-06 14:06:09Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -35,10 +35,11 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 			}
 		}
 		
-		$forums = KFactory::tmp('site::com.ninjaboard.model.forums')->limit(0)->sort('path_sort_ordering')->enabled(true)->recurse(1)->path($forum->id);
+		$model = KFactory::tmp('site::com.ninjaboard.model.forums')->limit(0)->sort('path_sort_ordering')->enabled(true)->recurse(1)->path($forum->id);
+		$forums = $model->getList();
 		
 		//@TODO optimize this in the model instead
-		foreach($forums->getList() as $row)
+		foreach($forums as $row)
 		{
 			$rows = KFactory::tmp('site::com.ninjaboard.model.forums')
 							->sort('path_sort_ordering')
@@ -50,7 +51,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 			$row->subforums = $rows->getList();
 		}
 		
-		$this->assign('forums', $forums->getList());
+		$this->assign('forums', $forums);
 		
 		$this->limit	= KRequest::get('get.limit', 'int', 10);
 		$this->total	= KFactory::tmp('site::com.ninjaboard.model.topics')
@@ -85,7 +86,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 				->pagination($this->total, KRequest::get('get.offset', 'int', 0), $this->limit, 4)
 		);
 		
-		if($forums->getTotal())
+		if($model->getTotal())
 		{
 			ob_start();
 			echo $this->getTemplate()->loadIdentifier('site::com.ninjaboard.view.forum.block_subforums', $this->_data)->render(true);

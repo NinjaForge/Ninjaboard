@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: manifest.xml 2343 2011-08-01 23:33:59Z stian $ -->
+<!-- $Id: manifest.xml 2353 2011-08-06 15:17:23Z stian $ -->
 <!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/component-install.dtd">
 <install type="component" version="1.5.0" method="upgrade" mootools="1.2">
     <name>Ninjaboard</name>
     <author>NinjaForge</author>
-    <creationDate>2011-08-02</creationDate>
+    <creationDate>2011-08-06</creationDate>
     <copyright>(C) 2007-2010 Ninja Media Group. All rights reserved.</copyright>
     <license>GNU GPLv3</license>
     <csslicense>CC-BY</csslicense>
@@ -22,8 +22,8 @@
                 - GM            #D6B600
                 - Stable        #009199
     -->
-    <version status="Stable" color="#009199">1.1.4</version>
-    <revision>2342</revision>
+    <version status="Stable" color="#009199">1.1.5</version>
+    <revision>2352</revision>
     <description>The sharpest user forum</description>
     <credits>
         <a href="http://www.joomlaworks.gr/">SMF converter, Vanity URLs, Private Messaging sponsored by JoomlaWorks</a>
