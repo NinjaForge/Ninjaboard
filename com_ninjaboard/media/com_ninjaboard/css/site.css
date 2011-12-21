@@ -126,7 +126,7 @@ div.mod-monitor div.box-t2 {
 	position: relative;
 	/*overflow: hidden;*/
 	display: inline-block;
-	width: 100%;
+	width: 100%!important;
 }
 
 .ninjaboard-spacer {

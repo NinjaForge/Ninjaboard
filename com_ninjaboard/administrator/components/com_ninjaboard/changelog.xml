@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 1593 2011-02-19 22:40:18Z stian $ -->
+<!-- $Id: changelog.xml 1595 2011-02-20 01:19:04Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
@@ -7,6 +7,8 @@
 	<version>1.0.5</version>
 	<date>February 20th 2011</date>
 	<state>Maintenance Release
+		<bugfix>Fixed error were Avatar quality slider in non-webkit browsers would always show as 0.</bugfix>
+		<bugfix>Fixing issue that caused some templates to mistakenly hide sidebars thinking the main layouts where form layouts.</bugfix>
 		<bugfix>Major performance bottleneck causing timeouts on larger forums when replying or editing a topic is now solved - thanks Nicholas Dionysopoulos!</bugfix>
 	</state>
 
