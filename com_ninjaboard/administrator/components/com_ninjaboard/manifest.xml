@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: manifest.xml 1427 2011-01-18 02:21:19Z stian $ -->
+<!-- $Id: manifest.xml 1462 2011-01-20 19:03:33Z stian $ -->
 <!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/component-install.dtd">
 <install type="component" version="1.5.0" method="upgrade" mootools="1.2">
 	<name>Ninjaboard</name>
@@ -14,8 +14,15 @@
     <updateurl>http://ninjaforge.com/index.php?option=com_ninjacentral&amp;task=download&amp;id=84&amp;Itemid=243</updateurl>
     <support href="http://ninjaforge.com/index.php?option=com_fireboard&amp;Itemid=111&amp;func=showcat&amp;catid=54">Forums</support>
     <rate href="http://extensions.joomla.org/extensions/communication/forum/11513">Joomla Extensions Directory (JED)</rate>
-	<version status="Stable" color="#009199">1.0.0</version>
-	<revision>1425</revision>
+    <!-- 
+    	Color cheat sheat
+    		- Alpha		darkorange
+    		- Beta		red
+    		- RC		blue
+    		- Stable	#009199
+    -->
+	<version status="Stable" color="#009199">1.0.1</version>
+	<revision>1461</revision>
 	<description>The sharpest user forum</description>
 
 	<!-- Credits -->

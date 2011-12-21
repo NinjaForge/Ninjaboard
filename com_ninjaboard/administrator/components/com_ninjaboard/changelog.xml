@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 1425 2011-01-14 22:57:16Z stian $ -->
+<!-- $Id: changelog.xml 1462 2011-01-20 19:03:33Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+	<version>1.0.1</version>
+	<date>January 20th 2011</date>
+	<state>Security Release
+		<security>Security vulnerability in Nooku Framework exposed the database prefix on the site if user generated content had text like `#__menus`.</security>
+	</state>
+
 	<version>1.0</version>
 	<date>January 15th 2011</date>
 	<state>First Stable Release

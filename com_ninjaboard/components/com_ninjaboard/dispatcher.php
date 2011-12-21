@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: dispatcher.php 1393 2011-01-11 21:58:55Z stian $
+ * @version		$Id: dispatcher.php 1438 2011-01-19 23:49:21Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -32,13 +32,15 @@ class ComNinjaboardDispatcher extends ComDefaultDispatcher
 		$last	 = end($pathway);
 		
 		//Parse the query in the pathway url
-		$query = array('Itemid' => false);
+		$query = array('Itemid' => KRequest::get('get.Itemid', 'int'));
 		if($last) parse_str(str_replace('index.php?',  '', $last->link), $query);
 
 		// We need to find out if the menu item link has a view param
 		$menuquery = array('view' => '');
 		$menu = JSite::getMenu()->getItem($query['Itemid']);
 		parse_str(str_replace('index.php?',  '',$menu->link), $menuquery); // remove "index.php?" and parse
+		if(!isset($menuquery['view'])) $menuquery['view'] = '';
+		
 		if($view->getName() != 'forums' && (!$last || KInflector::pluralize($menuquery['view']) != 'forums'))
 		{
 			$forum = KFactory::tmp('site::com.ninjaboard.controller.forum', array('request' => array('view' => 'forums')))->getView();
