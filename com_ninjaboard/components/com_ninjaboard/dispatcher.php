@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: dispatcher.php 1773 2011-04-12 11:20:34Z stian $
+ * @version		$Id: dispatcher.php 1807 2011-04-14 21:31:04Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -51,8 +51,6 @@ class ComNinjaboardDispatcher extends ComDefaultDispatcher
 		    	    }
 		    	}
 		    }
-		    //http://localhost/ninjaboard/component/ninjaboard/2-your-first-forum?template=yoo_spark
-		    echo var_dump(KRequest::get('get.Itemid', 'int'), KRequest::has('get.Itemid'));
 		}
 		
 		//Parse the query in the pathway url

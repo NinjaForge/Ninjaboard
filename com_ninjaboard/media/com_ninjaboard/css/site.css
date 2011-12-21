@@ -1,3 +1,11 @@
+
+/* To avoid scrollbars because of stuff like long links or code blocks */
+.ninjaboard pre,
+.ninjaboard .text,
+#text_preview {
+	word-wrap: break-word;
+}
+
 .ninjaboard .ninja-form .element:nth-child(odd), .ninjaboard .ninja-form .spacer:nth-child(odd), .ninja-form tbody tr:nth-child(odd) {
 	background-color: transparent;
 }

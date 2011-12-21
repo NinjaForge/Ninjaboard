@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 1803 2011-04-14 20:24:08Z stian $ -->
+<!-- $Id: changelog.xml 1829 2011-04-26 22:43:19Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+    <version>1.0.9</version>
+    <date>April 27th 2011</date>
+    <state>Maintenance Release
+        <upgrade>Performance optimization makes topic pages load twice as fast.</upgrade>
+        <upgrade>Instead of automatically importing sample content when Ninjaboard got no data, you now see a notice in the administrator giving you the option to do it until you have at least 1 forum setup.</upgrade>
+        <bugfix>Fixed annoying double encode issue with URLs that made special characters display in their entity form.</bugfix>
+        <bugfix>Fixed issue where scrollbars would appear in pre blocks and on long URLs in posts.</bugfix>
+        <bugfix>Fixed issue where New Topic and Reply Topic were shown when the user weren't authorized to perform those actions. Clicking them would result in blank pages with no error message, this is also fixed now.</bugfix>
+        <bugfix>Fixed CSS problems when previewing a post.</bugfix>
+    </state>
+
     <version>1.0.8</version>
     <date>April 14th 2011</date>
     <state>Maintenance Release

@@ -1,4 +1,4 @@
-<? /** $Id: form_inner.php 1768 2011-04-11 20:38:57Z stian $ */ ?>
+<? /** $Id: form_inner.php 1818 2011-04-25 20:36:58Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />
@@ -12,6 +12,7 @@
 		display:none;
 		padding: 5px;
 		border: 1px solid transparent;
+		margin: 0;
 		overflow: auto;
 	}
 	/* Hide any dropdown menus */
@@ -172,7 +173,6 @@
 			$(this).prev().attr('checked', true).trigger('change');
 		});
 		
-		$('#text_preview').insertAfter($('#text'));
 		$('#<?= @id('preview') ?>').click(function(event){
 			event.preventDefault();
 			$('#markItUpText .button_preview').triggerHandler('mousedown');

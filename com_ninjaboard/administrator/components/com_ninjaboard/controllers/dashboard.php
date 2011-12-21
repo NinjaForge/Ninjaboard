@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: dashboard.php 1800 2011-04-14 19:21:31Z stian $
+ * @version		$Id: dashboard.php 1816 2011-04-25 20:12:55Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -26,7 +26,7 @@ class ComNinjaboardControllerDashboard extends ComNinjaControllerDashboard
 		if( !isset($this->_request->tmpl) || ( isset($this->_request->tmpl) && $this->_request->tmpl != 'component' ) )
 		{
 			$this->registerCallback('before.display', array($this, 'checkMigration'));
-			$this->registerCallback('before.display', array($this, 'checkInstall'));
+			$this->registerCallback('before.display', array(KFactory::get('admin::com.ninjaboard.controller.forum'), 'checkInstall'));
 		}
 	}
 	
@@ -58,36 +58,5 @@ class ComNinjaboardControllerDashboard extends ComNinjaControllerDashboard
 			JText::_('Click here to migrate.').
 			'</a>'
 		));
-	}
-
-	/**
-	 * Checks if the site is a clean and fresh install
-	 * If true, then it'll display a message pointing to the Tools screen and the Sample Content importer.
-	 *
-	 * @author Stian Didriksen <stian@ninjaforge.com>
-	 */
-	public function checkInstall()
-	{
-		//Do nothing if there's already data in Ninjaboard
-		$existing = KFactory::get('admin::com.ninjaboard.model.forums')->getTotal();
-		if($existing) return $this;
-	
-		// Check if migration table exists, and if it contain data
-		$migrated = 0;
-		try {
-			$migrated = KFactory::get('admin::com.ninjaboard.model.forums_backups')->getTotal();
-		} catch(KDatabaseTableException $e) {
-			//Do nothing
-		}
-		
-		//We can't auto import sample data
-		if($migrated) return;
-		
-		foreach(array('assets', 'forums', 'joomlausergroupmaps', 'posts', 'ranks', 'topics', 'usergroups') as $model) {
-			if(KFactory::tmp('admin::com.ninjaboard.model.'.$model)->getTotal()) return;
-		}
-		
-		KFactory::get('admin::com.ninjaboard.controller.tool')->execute('import');
-		JError::raiseNotice(0, JText::_('In order to get you started with using Ninjaboard, Sample Content was just imported.'));
 	}
 }

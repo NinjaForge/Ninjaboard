@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1614 2011-02-27 21:47:36Z stian $
+ * @version		$Id: html.php 1827 2011-04-26 22:24:31Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -61,6 +61,9 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 				//@TODO Figure out why the singular view is used instead of the plural one
 				->setView(KFactory::tmp('site::com.ninjaboard.view.posts.html'))
 			
+			    //Model needs to run with the acl flag off for performance reasons
+			    ->setModel(KFactory::get('site::com.ninjaboard.model.posts')->setAcl(false))
+			
 				->sort('created_on')
 				->limit($limit)
 				->offset($offset)
@@ -79,11 +82,15 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 			).'</div>';
 		}
 		
-		$button = str_replace(
-			array('$title', '$link'), 
-			array(JText::_('Reply topic'), $this->createRoute('view=post&topic='.$topic->id)), 
-			$this->forum->params['tmpl']['new_topic_button']
-		);
+		$button = false;
+		if(KFactory::get('lib.joomla.user')->guest || $this->forum->post_permissions > 1)
+		{
+    		$button = str_replace(
+    			array('$title', '$link'), 
+    			array(JText::_('Reply topic'), $this->createRoute('view=post&topic='.$topic->id)), 
+    			$this->forum->params['tmpl']['new_topic_button']
+    		);
+		}
 		//$this->reply_topic_button = $this->forum->post_permissions > 1 ? $button : null;
 		$this->reply_topic_button = $button;
 		

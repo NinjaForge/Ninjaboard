@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: manifest.xml 1805 2011-04-14 20:58:43Z stian $ -->
+<!-- $Id: manifest.xml 1830 2011-04-26 22:48:18Z stian $ -->
 <!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/component-install.dtd">
 <install type="component" version="1.5.0" method="upgrade" mootools="1.2">
 	<name>Ninjaboard</name>
 	<author>NinjaForge</author>
-    <creationDate>2011-01-15</creationDate>
+    <creationDate>2011-04-27</creationDate>
 	<copyright>(C) 2007-2010 Ninja Media Group. All rights reserved.</copyright>
 	<license>GNU GPLv3</license>
 	<csslicense>CC-BY</csslicense>
@@ -21,8 +21,8 @@
     		- RC		blue
     		- Stable	#009199
     -->
-	<version status="Stable" color="#009199">1.0.8</version>
-	<revision>1804</revision>
+	<version status="Stable" color="#009199">1.0.9</version>
+	<revision>1829</revision>
 	<description>The sharpest user forum</description>
 
 	<!-- Credits -->
@@ -49,6 +49,8 @@
 		<a href="http://www.jonneubauer.com/">Spanish translation by Jon Neubauer</a>
 		<a href="http://www.facebook.com/JonElectron">Spanish translation by Manuel Fazio</a>
 		<a href="http://www.ergenc.org">Turkey translation by Yagiz Ergenc</a>
+		<a>Russian translation by Alex Alyasiev</a>
+		<a href="http://www.toralko.net/articles/news/configure-ninjaboard-in-minutes.html">Quickstart guide by Steven Zeegers</a>
 	</credits>
 	
 	<!-- Application/site -->
@@ -120,6 +122,8 @@
 			<language tag="nb-NO">nb-NO/nb-NO.com_ninjaboard.menu.ini</language>
 			<language tag="nl-NL">nl-NL/nl-NL.com_ninjaboard.ini</language>
 			<language tag="nl-NL">nl-NL/nl-NL.com_ninjaboard.menu.ini</language>
+			<language tag="ru-RU">ru-RU/ru-RU.com_ninjaboard.ini</language>
+			<language tag="ru-RU">ru-RU/ru-RU.com_ninjaboard.menu.ini</language>
 			<language tag="sv-SE">sv-SE/sv-SE.com_ninjaboard.ini</language>
 			<language tag="sv-SE">sv-SE/sv-SE.com_ninjaboard.menu.ini</language>
 			<language tag="tr-TR">tr-TR/tr-TR.com_ninjaboard.ini</language>
@@ -140,6 +144,7 @@
 		<language tag="nl-NL">nl-NL/nl-NL.com_ninjaboard.ini</language>
 		<language tag="pt-BR">pt-BR/pt-BR.com_ninjaboard.ini</language>
 		<language tag="pt-PT">pt-PT/pt-PT.com_ninjaboard.ini</language>
+		<language tag="ru-RU">ru-RU/ru-RU.com_ninjaboard.ini</language>
 		<language tag="sv-SE">sv-SE/sv-SE.com_ninjaboard.ini</language>
 	</languages>
 	

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1750 2011-04-09 21:57:02Z stian $
+ * @version		$Id: html.php 1826 2011-04-26 22:10:53Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -33,7 +33,7 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 		}
 		elseif(!$forum->id || $forum->post_permissions < 2)
 		{
-			//JError::raiseNotice(401, JText::_("You don't have the permissions to post in this forum."));
+			JError::raiseNotice(401, JText::_("You don't have the permissions to post in this forum."));
 			return;
 		}
 		

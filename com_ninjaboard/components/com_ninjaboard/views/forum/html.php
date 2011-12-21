@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1651 2011-03-17 18:28:46Z stian $
+ * @version		$Id: html.php 1826 2011-04-26 22:10:53Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -95,11 +95,15 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		$me  = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
 		$this->watch_button = $me->id && $forum->params['email_notification_settings']['enable_email_notification'];
 
-		$this->new_topic_button = '<div class="new-topic">'.str_replace(
-			array('$title', '$link'), 
-			array(JText::_('New Topic'), $this->createRoute('view=post&forum='.$forum->id)), 
-			$forum->params['tmpl']['new_topic_button']
-		).'</div>';
+        $this->new_topic_button = false;
+        if(KFactory::get('lib.joomla.user')->guest || ($forum->topic_permissions > 1 && $forum->post_permissions > 1))
+        {
+    		$this->new_topic_button = '<div class="new-topic">'.str_replace(
+    			array('$title', '$link'), 
+    			array(JText::_('New Topic'), $this->createRoute('view=post&forum='.$forum->id)), 
+    			$forum->params['tmpl']['new_topic_button']
+    		).'</div>';
+    	}
 		
 		$this->assign('toolbar', $this->new_topic_button);
 		

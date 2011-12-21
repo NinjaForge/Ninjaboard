@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: posts.php 1766 2011-04-11 19:54:04Z stian $
+ * @version		$Id: posts.php 1827 2011-04-26 22:24:31Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -16,6 +16,13 @@
  */
 class ComNinjaboardModelPosts extends ComDefaultModelDefault
 {
+    /**
+     * Flag for toggling on/off acl queries
+     *
+     * @var boolean
+     */
+    protected $_acl = true;
+
 	/**
 	 * Constructor
 	 *
@@ -29,6 +36,19 @@ class ComNinjaboardModelPosts extends ComDefaultModelDefault
 						->insert('topic', 'int')
 						->insert('post' , 'int');
 	}
+
+    /**
+     * Sets the acl flag, for performance reasons
+     *
+     * @param  $acl boolean
+     * @return $this
+     */
+    public function setAcl($acl)
+    {
+        $this->_acl = $acl;
+        
+        return $this;
+    }
 
 	protected function _buildQueryJoins(KDatabaseQuery $query)
 	{
@@ -61,7 +81,7 @@ class ComNinjaboardModelPosts extends ComDefaultModelDefault
 				->where('tbl.enabled', '=', 1);
 
 		//Building the permissions query WHERE clause
-		KFactory::get('admin::com.ninjaboard.model.people')->buildForumsPermissionsWhere($query, 'forum.ninjaboard_forum_id');
+		if($this->_acl) KFactory::get('admin::com.ninjaboard.model.people')->buildForumsPermissionsWhere($query, 'forum.ninjaboard_forum_id');
 	}
 	
 	protected function _buildQueryColumns(KDatabaseQuery $query)
