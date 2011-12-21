@@ -1,0 +1,391 @@
+/**
+ * @version $Id: colors.css 597 2009-04-20 18:25:22 +0200 uwalter $
+ * @package NinjaForge.Ninjaboard
+ * @copyright Copyright (C) 2007-2008 Ninja Media Group. All rights reserved.
+ * @license GNU/GPL. Please see license.php in Ninjaboard directory 
+ * for copyright notices and details.
+ * Ninjaboard is free software. This version may have been NOT modified.
+ */
+
+/* @begin basics - Default definitions */
+#nbWrapper {
+	background-color:#fff;
+	color:#666;
+}
+#nbWrapper div.nbSeparator {
+	[if lt IE 7] border-bottom-color:#4374A0;
+	[if ! lt IE 7] background-color:#4374A0;
+	border-top-color:#fff;
+}
+#nbWrapper .invalid {
+	border-color:#f00;
+}
+#nbWrapper input:active,    #nbWrapper input:focus,
+#nbWrapper textarea:active, #nbWrapper textarea:focus {
+	border-color:#4374A0;
+}
+#nbWrapper fieldset,
+#nbWrapper textarea {
+	border-color:#ccc;
+}
+#nbWrapper legend {
+	color:#4472a0;
+}
+/* @end basics - Default definitions */
+
+/* @begin Ninjaboard Header */
+#nbHeader a {
+	color:#88A7C3;
+}
+#nbHeader a:link,
+#nbHeader a:visited {
+	border-bottom-color:#fff;
+}
+#nbHeader a:hover,
+#nbHeader a:active,
+#nbHeader a:focus {
+	border-bottom-color:#88A7C3;
+}
+#nbBreadCrumbs {
+	color:#395872;
+}
+#nbBreadCrumbs a {
+	color:#88A7C3;
+}
+/* @end Ninjaboard Header */
+
+/* @begin Board :: overview and category view. */
+div.nbCategoryHeader {
+	background:url(images/bar-large.png) 0 0 repeat-x;
+	border-top-color:#fff;
+}
+div.nbBarShadow {
+	background:url(images/bar-large.png) left bottom repeat-x;
+}
+
+div.nbCategoryHeader span.slidingBar-trigger {
+	background:url(images/arrowDown.png) center center no-repeat;
+}
+.closed div.nbCategoryHeader span.slidingBar-trigger {
+	background:url(images/arrowRight.png) center center no-repeat;
+}
+
+div.nbCategoryHeader a {
+	color: #fff;
+}
+div.nbCategoryHeader a:link,
+div.nbCategoryHeader a:visited {
+	text-shadow-color:#4473A1;
+}
+div.nbCategoryHeader a:hover,
+div.nbCategoryHeader a:active,
+div.nbCategoryHeader a:focus {
+	text-shadow-color:#4473A1;
+}
+
+div.nbCategoryTitles {
+	border-bottom-color:#88a7c3;
+}
+div.nbPostsHeader,
+div.nbTopicsHeader,
+div.nbForumsHeader {
+	color:#395872;
+}
+div.nbTopicsWrapper,
+div.nbForumsWrapper {
+	border-bottom-color:#b5cce1;
+}
+
+div.nbPostsText,
+div.nbTopicsText,
+div.nbForumsText {
+	color:#4771a1;
+}
+div.nbPostsText a {
+	color:#3f76a0;
+}
+div.nbTopicsText span {
+	color:#395872;
+}
+div.nbForumsText a {
+	color:#3f76a0;
+}
+/* @end Board :: overview and category view. */
+
+/* @begin Borad :: Lastest Items */
+div.nbCategoryHeader span.nbLatest {
+	color: #fff;
+}
+div.nbDatesText span {
+	color:#395872;
+}
+div.nbAuthorsText a {color:#3f76a0;}
+div.nbAuthorsText span {
+	color:#4771a1;
+}
+/* @end Borad :: Lastest Items */
+
+/* @begin Board :: Statistics */
+#nbForumLegend h1,
+#nbBoardLegend h1,
+#nbOnlineUsers h1,
+#nbOnlineStats h1,
+#nbBoardStats  h1, #nbBoardStats dl dd,
+#nbBoardFooter h1 {
+	color:#4771a1;
+} 
+#nbOnlineUsers a, #nbOnlineStats a,
+#nbBoardStats  a, #nbBoardFooter a {
+	color:#3f76a0;
+} 
+/* @end Board :: Statistics */
+
+/* @begin Board :: Footer */
+#nbBoardFooter a:link,
+#nbBoardFooter a:visited {
+	border-bottom-color:#fff;
+}
+#nbBoardFooter a:hover,
+#nbBoardFooter a:focus,
+#nbBoardFooter a:active {
+	border-bottom-color:#3f76a0;
+}
+/* @end Board :: Footer */
+
+/* @begin forum view */
+div.nbCategoryHeader span.nbForumHeader {
+	color:#fff;
+}
+div.nbCategoryFooter {
+	background:url(images/bar-large.png) 0 0 repeat-x;
+	border-top-color:#fff;
+}
+div.nbCategoryFooter .nbInputSearch {
+	border-color:#4771a1;
+}
+div.nbCategoryFooter .nbSubmitSearch {
+	background:transparent;
+	padding:3px 6px;
+}
+/* @end forum view */
+
+/* @begin topic edit */
+#nbIconPreview,
+#attachmentList,
+#attachmentFile,
+input.nbInputBox,
+a.nbEditorButton,
+textarea.nbEditor,
+#jcarousel .jcarousel-item-selected img {
+	border-color:#ccc;
+}
+#attachmentList {
+	background: #fbfbfb;
+}
+#nbEditTopic div.nbLeft,
+#nbEditTopic legend {
+	color:#666;
+}
+
+#jcarousel img {
+	border-color:#fff;
+}
+/* @end topic edit */
+
+/* @begin move topic view */
+#nbMoveTopic li {
+	background-color:#fff;
+	border-top:2px solid #fff;
+	border-bottom:2px solid #fff;
+}
+#nbMoveTopic li.nbForumSelected {
+	color:#333;
+	background-color:#c3d2e5;
+	border-top:2px solid #84a7db;
+	border-bottom:2px solid #84a7db;
+}
+/* @end move topic view */
+
+/* @begin posts view */
+/* Left column - user information */
+div.nbPostsWrapper div.nbLeft img.nbAvatar {
+	background-color:#e5edf4;
+	border-color:#b6cde3;
+}
+div.nbPostsWrapper div.nbLeft a {
+	color:#4771a1;
+}
+
+/* Right column - bubble post */
+div.nbPostsWrapper div.nbRight div.nbBubbleWrapper {
+	background-color:#e5edf4;
+	border-color:#b6cde3;
+}
+div.nbPostsWrapper div.nbRight div.nbtl {
+	background:url(images/bubble-tl.png) left top no-repeat;
+}
+div.nbPostsWrapper div.nbRight div.nbtr {
+	background:transparent url(images/bubble-tr.png) right top no-repeat;
+}
+div.nbPostsWrapper div.nbRight div.nbbl {
+	background:transparent url(images/bubble-bl.png) left bottom no-repeat;
+}
+div.nbPostsWrapper div.nbRight div.nbbr {
+	background:transparent url(images/bubble-br.png) right bottom no-repeat;
+}
+div.nbPostsWrapper div.nbRight div.nbbr,
+div.nbPostsWrapper div.nbRight div.nbbr a {
+	color:#4472a0;
+}
+div.nbPostsWrapper div.nbRight div.nbBubble {
+	background:transparent url(images/bubble.png) 0 0 no-repeat;
+}
+div.nbPostsWrapper div.nbRight div.nbFrom {
+	border-bottom-color:#4472a0;
+}
+div.nbPostsWrapper div.nbRight div.nbPost span.quote {
+	background-color:#f1f4fa;
+	border-color:#4472a0;
+}
+div.nbPostsWrapper div.nbRight div.nbPost pre.code {
+	background-color:#fafdff;
+	border-color:#4472a0;
+	color:#666;
+}
+div.nbPostsWrapper div.nbRight div.nbSignature {
+	border-top-color:#4472a0;
+}
+/* @end posts view */
+
+/* @begin profile view */
+#nbProfile label span {
+	color:#f00;
+}
+/* @end profile view */
+
+/* @begin login view */
+#nbLogin input.nbInputBox {
+	border-color:#ccc;
+}
+/* @end login view */
+
+/* @begin system messages */
+#nb-info {
+	border-bottom-color:#395872;
+	border-top-color:#395872;
+	background-color:#e5edf4;
+	color:#4771a1;
+}
+#nb-error {
+	border-bottom-color:#f00;
+	border-top-color:#f00;
+	background-color:#fae8ef;
+	color:#f00;
+}
+#nb-alert {
+	border-bottom-color:#f46500;
+	border-top-color:#f46500;
+	background-color:#fff58a;
+	color:#f46500;
+}
+/* @end system messages */
+
+ul.nbControls {
+  margin:5px 10px 0 0;
+  padding:0;
+  list-style-type:none;
+  background:none;
+}
+ul.nbControls li {
+  float:right;
+  margin-left:7px;
+}
+
+/* REQUIRED BUTTON STYLES */
+button { 
+	position: relative;
+	border: 0; 
+	padding: 0;
+	cursor: pointer;
+	overflow: visible; /* removes extra side padding in IE */ 
+}
+
+button::-moz-focus-inner {
+	border: none; /*  overrides extra padding in Firefox */
+}
+
+button span { 
+	position: relative;
+	display: block; 
+	white-space: nowrap;	
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	/* Safari and Google Chrome only - fix margins */
+	button span {
+		margin-top: -1px;
+	}
+}
+		
+/* OPTIONAL BUTTON STYLES for applying custom look and feel: */		
+button.nb-buttons,
+a.nb-buttons { 
+	color:#444 !important;
+	font-weight:bold !important;
+	font-size:10px;
+	text-transform:uppercase;
+  padding: 0 8px 0 0;
+  display:block; 
+	text-align: center; 
+	background: transparent url(images/nb-buttons.png) no-repeat 100% -50px;
+  line-height:15px;
+  height:15px;
+}
+	
+button.nb-buttons span,
+a.nb-buttons span {
+	padding: 0 0 0 8px; 
+	height:15px;
+	display:block;
+	line-height:15px;
+	background: transparent url(images/nb-buttons.png) no-repeat 0 0; 
+	text-shadow:0 1px 1px #FFF;
+}
+	
+button.nb-buttons:hover,
+a.nb-buttons:hover {
+	background-position: 100% -75px; 
+	text-decoration:none !important;
+}
+	
+button.nb-buttons:hover span,
+a.nb-buttons:hover span {
+	background-position: 0 -25px;
+	color:#4D81BC !important;
+	cursor:pointer !important;
+}
+
+a.buttonNewTopic,
+a.buttonPostReply {
+  height:24px !important;
+  line-height:24px !important;
+  background-position: 100% -148px;
+  padding: 0 12px 0 0 !important;
+}
+a.buttonNewTopic:hover,
+a.buttonPostReply:hover {
+  background-position: 100% -175px ;
+  cursor:pointer !important;
+}
+a.buttonNewTopic span,
+a.buttonPostReply span {
+  padding: 0 0 0 12px !important;
+  height:24px !important;
+  line-height:24px !important;
+  background-position: 0 -94px;
+  font-size:12px !important;
+}
+a.buttonNewTopic:hover span,
+a.buttonPostReply:hover span {
+  background-position: 0 -121px;  
+}

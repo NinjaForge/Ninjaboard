@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="style">
+    <name>Ninjaboard - Style Blue</name>
+	<author>NinjaForge Team</author>
+    <creationDate>2009-04-20</creationDate>
+	<copyright>(C) 2007-2009 Ninja Media Group. All rights reserved.</copyright>
+	<license>GNU/GPL</license>
+	<authoremail>support@ninjaforge.com</authoremail>
+    <authorurl>http://www.sonixsoft.de</authorurl>
+	<version>0.0.1</version>
+    <description>Ninjaboard Style Blue</description>
+    <files>
+		<folder>behaviors</folder>
+		<folder>images</folder>
+		<filename>jcarousel-skin-nfnb.css</filename>
+		<filename>ninjaboard_blue.css</filename>
+		<filename>conditional.css</filename>
+		<filename>colors.css</filename>
+		<filename>ccss.php</filename>
+    </files>
+</install>
+

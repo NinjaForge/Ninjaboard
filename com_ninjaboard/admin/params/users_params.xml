@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="component">
+	<name>Users</name>
+	<author>Ninja Forge</author>
+	<creationDate>April 2006</creationDate>
+	<copyright>(C) 2005 - 2009 NinjaForge. All rights reserved.</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>support@ninjaforge.com</authorEmail>
+	<authorUrl>ninjaforge.com</authorUrl>
+	<version>1.5.0</version>
+	<description>User Manager</description>
+	<params>
+    <param name="admin_language" type="languages" client="administrator" default="" label="Back-end Language" description="paramAdminLanguage" />
+    <param name="language" type="languages" client="site" default="" label="Front-end Language" description="paramLanguage" />
+    <param name="helpsite" type="helpsites" default="" label="Help Site" description="Help site for this User" />
+	</params>
+</install>

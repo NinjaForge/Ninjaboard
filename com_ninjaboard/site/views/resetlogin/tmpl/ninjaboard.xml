@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="NB_RESETLOGINLAYOUT">
+		<message>
+			<![CDATA[NB_RESETLOGINLAYOUTDESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>NB_RESETLOGINLAYOUT</name>
+		<description>NB_RESETLOGINLAYOUTDESC</description>
+	</state>
+</metadata>

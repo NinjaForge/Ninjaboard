@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="emoticonset">
+	<name>Ninjaboard - Emoticon Set Yellow</name>
+	<author>Ninjaboard - Ninja Media Group</author>
+	<creationDate>01/15/2008</creationDate>
+	<copyright>(C) 2007-2008 Ninja Media Group. All rights reserved.</copyright>
+	<license>GNU/GPL</license>
+	<authoremail>n/a</authoremail>
+	<authorurl>http://www.sonixsoft.de</authorurl>
+	<version>0.7.0</version>
+	<description>Ninjaboard - Standard Emoticon Set for Ninjaboard.</description>
+	<emoticonset>
+		<emoticon filename="smiley_biggrin.png" codes=":grin:,:),:-)" emoticon="NB_SMILEYVERYHAPPY" hidden="0" />
+		<emoticon filename="smiley_confused.png" codes=":con:,:?,:-?" emoticon="NB_SMILEYCONFUSED" hidden="0" />
+		<emoticon filename="smiley_cool.png" codes=":cool:,8),8-)" emoticon="NB_SMILEYCOOL" hidden="0" />
+		<emoticon filename="smiley_lol.png" codes=":lol:" emoticon="NB_SMILEYLAUGHING" hidden="0" />
+		<emoticon filename="smiley_sad.png" codes=":sad:,:(,:-(" emoticon="NB_SMILEYSAD" hidden="0" />
+		<emoticon filename="smiley_shocked.png" codes=":shock:" emoticon="NB_SMILEYSHOCKED" hidden="0" />
+		<emoticon filename="smiley_smile.png" codes=":smile:,:),:-)" emoticon="NB_SMILEYSMILE" hidden="0" />
+		<emoticon filename="smiley_surprised.png" codes=":eek:,:o,:-o" emoticon="NB_SMILEYSUPRISED" hidden="0" />
+	</emoticonset>
+</install>

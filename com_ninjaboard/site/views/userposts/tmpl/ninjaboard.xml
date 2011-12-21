@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="NB_USERPOSTSLAYOUT">
+		<message>
+			<![CDATA[NB_USERPOSTSLAYOUTDESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>NB_USERPOSTSLAYOUT</name>
+		<description>NB_USERPOSTSLAYOUTDESC</description>
+	</state>
+</metadata>

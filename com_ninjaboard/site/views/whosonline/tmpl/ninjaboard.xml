@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="NB_WHOSONLINELAYOUT">
+		<message>
+			<![CDATA[NB_WHOSONLINELAYOUTDESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>NB_WHOSONLINELAYOUT</name>
+		<description>NB_WHOSONLINELAYOUTDESC</description>
+		<params>
+		</params>
+	</state>
+</metadata>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="NB_PROFILELAYOUT">
+		<message>
+			<![CDATA[NB_PROFILELAYOUTDESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>NB_PROFILELAYOUT</name>
+		<description>NB_PROFILELAYOUTDESC</description>
+	</state>
+</metadata>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="buttonset">
+	<name>Ninjaboard - Blue Button Set</name>
+	<author>Ninjaboard - Ninja Media Group</author>
+	<creationDate>2009-05-19</creationDate>
+	<copyright>(C) 2007-2008 Ninja Media Group. All rights reserved.</copyright>
+	<license>GNU/GPL</license>
+	<authoremail>support@ninjaforge.com</authoremail>
+	<authorurl>http://ninjaforge.de</authorurl>
+	<version>0.0.1</version>
+	<description>Blue Button Set for Ninjaboard Standard Template</description>
+	<buttonset translateable="1" sprite="sprite.png" spriteIE="sprite.gif">
+		<button filename="button_addfile.png" function="buttonAddFile" x="NB_BUTTONX" hover="NB_BUTTONHOVERYADDFILE" active="NB_BUTTONACTIVEYADDFILE" y="NB_BUTTONYADDFILE" width="NB_BUTTONWADDFILE" height="NB_BUTTONSMALL" title="NB_BUTTONADDFILE" />
+		<button filename="button_cancel.png" function="buttonCancel" x="NB_BUTTONX" hover="NB_BUTTONHOVERYCANCEL" active="NB_BUTTONACTIVEYCANCEL" y="NB_BUTTONYCANCEL" width="NB_BUTTONWCANCEL" height="NB_BUTTONSMALL" title="NB_BUTTONCANCEL" />
+		<button filename="button_delete.png" function="buttonDelete" x="NB_BUTTONX" hover="NB_BUTTONHOVERYDELETE" active="NB_BUTTONACTIVEYDELETE" y="NB_BUTTONYDELETE" width="NB_BUTTONWDELETE" height="NB_BUTTONSMALL" title="NB_BUTTONDELETE" />
+		<button filename="button_edit.png" function="buttonEdit" x="NB_BUTTONX" hover="NB_BUTTONHOVERYEDIT" active="NB_BUTTONACTIVEYEDIT" y="NB_BUTTONYEDIT" width="NB_BUTTONWEDIT" height="NB_BUTTONSMALL" title="NB_BUTTONEDIT" />
+		<button filename="button_locktopic.png" function="buttonLockTopic" x="NB_BUTTONX" hover="NB_BUTTONHOVERYLOCKTOPIC" active="NB_BUTTONACTIVEYLOCKTOPIC" y="NB_BUTTONYLOCKTOPIC" width="NB_BUTTONWLOCKTOPIC" height="NB_BUTTONSMALL" title="NB_BUTTONLOCKTOPIC" />
+		<button filename="button_login.png" function="buttonLogin" x="NB_BUTTONX" hover="NB_BUTTONHOVERYLOGIN" active="NB_BUTTONACTIVEYLOGIN" y="NB_BUTTONYLOGIN" width="NB_BUTTONWLOGIN" height="NB_BUTTONSMALL" title="NB_BUTTONLOGIN" />
+		<button filename="button_movetopic.png" function="buttonMoveTopic" x="NB_BUTTONX" hover="NB_BUTTONHOVERYMOVETOPIC" active="NB_BUTTONACTIVEYMOVETOPIC" y="NB_BUTTONYMOVETOPIC" width="NB_BUTTONWMOVETOPIC" height="NB_BUTTONSMALL" title="NB_BUTTONMOVETOPIC" />
+		<button filename="button_newtopic.png" function="buttonNewTopic" x="NB_BUTTONX" hover="NB_BUTTONHOVERYNEWTOPIC" active="NB_BUTTONACTIVEYNEWTOPIC" y="NB_BUTTONYNEWTOPIC" width="NB_BUTTONWNEWTOPIC" height="NB_BUTTONLARGE" title="NB_BUTTONNEWTOPIC" />
+		<button filename="button_postreply.png" function="buttonPostReply" x="NB_BUTTONX" hover="NB_BUTTONHOVERYPOSTREPLY" active="NB_BUTTONACTIVEYPOSTREPLY" y="NB_BUTTONYPOSTREPLY" width="NB_BUTTONWPOSTREPLY" height="NB_BUTTONLARGE" title="NB_BUTTONPOSTREPLY" />
+		<button filename="button_preview.png" function="buttonPreview" x="NB_BUTTONX" hover="NB_BUTTONHOVERYPREVIEW" active="NB_BUTTONACTIVEYPREVIEW" y="NB_BUTTONYPREVIEW" width="NB_BUTTONWPREVIEW" height="NB_BUTTONSMALL" title="NB_BUTTONPREVIEW" />
+		<button filename="button_quote.png" function="buttonQuote" x="NB_BUTTONX" hover="NB_BUTTONHOVERYQUOTE" active="NB_BUTTONACTIVEYQUOTE" y="NB_BUTTONYQUOTE" width="NB_BUTTONWQUOTE" height="NB_BUTTONSMALL" title="NB_BUTTONQUOTE" />
+		<button filename="button_register.png" function="buttonRegister" x="NB_BUTTONX" hover="NB_BUTTONHOVERYREGISTER" active="NB_BUTTONACTIVEYREGISTER" y="NB_BUTTONYREGISTER" width="NB_BUTTONWREGISTER" height="NB_BUTTONSMALL" title="NB_BUTTONREGISTER" />
+		<button filename="button_removefile.png" function="buttonRemoveFile" x="NB_BUTTONX" hover="NB_BUTTONHOVERYREMOVEFILE" active="NB_BUTTONACTIVEYREMOVEFILE" y="NB_BUTTONYREMOVEFILE" width="NB_BUTTONWREMOVEFILE" height="NB_BUTTONSMALL" title="NB_BUTTONREMOVEFILE" />
+		<button filename="button_report.png" function="buttonReportPost" x="NB_BUTTONX" hover="NB_BUTTONHOVERYREPORT" active="NB_BUTTONACTIVEYREPORT" y="NB_BUTTONYREPORT" width="NB_BUTTONWREPORT" height="NB_BUTTONSMALL" title="NB_BUTTONREPORT" />
+		<button filename="button_reset.png" function="buttonReset" x="NB_BUTTONX" hover="NB_BUTTONHOVERYRESET" active="NB_BUTTONACTIVEYRESET" y="NB_BUTTONYRESET" width="NB_BUTTONWRESET" height="NB_BUTTONSMALL" title="NB_BUTTONRESET" />
+		<button filename="button_search.png" function="buttonSearch" x="NB_BUTTONX" hover="NB_BUTTONHOVERYSEARCH" active="NB_BUTTONACTIVEYSEARCH" y="NB_BUTTONYSEARCH" width="NB_BUTTONWSEARCH" height="NB_BUTTONSMALL" title="NB_BUTTONSEARCH" />
+		<button filename="button_submit.png" function="buttonSubmit" x="NB_BUTTONX" hover="NB_BUTTONHOVERYSUBMIT" active="NB_BUTTONACTIVEYSUBMIT" y="NB_BUTTONYSUBMIT" width="NB_BUTTONWSUBMIT" height="NB_BUTTONSMALL" title="NB_BUTTONSUBMIT" />
+		<button filename="button_unlocktopic.png" function="buttonUnlockTopic" x="NB_BUTTONX" hover="NB_BUTTONHOVERYUNLOCKTOPIC" active="NB_BUTTONACTIVEYUNLOCKTOPIC" y="NB_BUTTONYUNLOCKTOPIC" width="NB_BUTTONWUNLOCKTOPIC" height="NB_BUTTONSMALL" title="NB_BUTTONUNLOCKTOPIC" />
+	</buttonset>
+</install>

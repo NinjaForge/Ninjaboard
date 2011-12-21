@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="component">
+	<name>View Configuration</name>
+	<author>Sonxisoft</author>
+	<copyright>(C) 2007-2008 Ninja Media Group. All rights reserved.</copyright>
+	<license></license>
+	<authorEmail></authorEmail>
+	<authorUrl>ninjaforge.com</authorUrl>
+	<version>1.0.0</version>
+	<description>Parameters for individual View Configuration</description>
+	<params>
+		<param name="show_myprofile" type="radio" default="1" label="NB_SHOWMYPROFILE" description="NB_SHOWMYPROFILEDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="show_logout" type="radio" default="1" label="NB_SHOWLOGOUT" description="NB_SHOWLOGOUTDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="show_login" type="radio" default="1" label="NB_SHOWLOGIN" description="NB_SHOWLOGINDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="show_register" type="radio" default="1" label="NB_SHOWREGISTER" description="NB_SHOWREGISTERDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="show_search" type="radio" default="1" label="NB_SHOWSEARCH" description="NB_SHOWSEARCHDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="show_latestposts" type="radio" default="1" label="NB_SHOWLATESTPOSTS" description="NB_SHOWLATESTPOSTSDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="show_userlist" type="radio" default="1" label="NB_SHOWUSERLIST" description="NB_SHOWUSERLISTDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="show_terms" type="radio" default="1" label="NB_SHOWTERMS" description="NB_SHOWTERMSDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+	</params>
+</install>

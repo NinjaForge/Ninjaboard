@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="NB_MOVETOPICLAYOUT">
+		<message>
+			<![CDATA[NB_MOVETOPICLAYOUTDESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>NB_MOVETOPICLAYOUT</name>
+		<description>NB_MOVETOPICLAYOUTDESC</description>
+	</state>
+</metadata>

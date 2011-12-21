@@ -1,0 +1,27 @@
+/** menu icons */
+.icon-16-archive 		{ background-image: url(../images/menu/icon-16-archive.png); }
+
+/** toolbar icons */
+.icon-32-send 			{ background-image: url(../images/toolbar/icon-32-send.png); }
+
+/** header icons */
+.icon-48-ninjaboard				{ background-image: url(../images/header/icon-48-ninjaboard.png); }
+.icon-48-forum				{ background-image: url(../images/header/icon-48-forum.png); }
+.icon-48-category 			{ background-image: url(../images/header/icon-48-category.png); }
+.icon-48-timezone 			{ background-image: url(../images/header/icon-48-timezone.png); }
+.icon-48-timeformat			{ background-image: url(../images/header/icon-48-timeformat.png); }
+.icon-48-design 			{ background-image: url(../images/header/icon-48-design.png); }
+.icon-48-template 			{ background-image: url(../images/header/icon-48-template.png); }
+.icon-48-style	 			{ background-image: url(../images/header/icon-48-style.png); }
+.icon-48-emoticonset 		{ background-image: url(../images/header/icon-48-emoticonset.png); }
+.icon-48-buttonset 			{ background-image: url(../images/header/icon-48-buttonset.png); }
+.icon-48-iconset 			{ background-image: url(../images/header/icon-48-iconset.png); }
+.icon-48-ninjaboarduser 			{ background-image: url(../images/header/icon-48-ninjaboarduser.png); }
+.icon-48-group				{ background-image: url(../images/header/icon-48-group.png); }
+.icon-48-rank				{ background-image: url(../images/header/icon-48-rank.png); }
+.icon-48-profilefieldset	{ background-image: url(../images/header/icon-48-profilefieldset.png); }
+.icon-48-profilefield		{ background-image: url(../images/header/icon-48-profilefield.png); }
+.icon-48-ninjaboardtools			{ background-image: url(../images/header/icon-48-ninjaboardtools.png); }
+.icon-48-usersync 			{ background-image: url(../images/header/icon-48-usersync.png); }
+.icon-48-terms	 			{ background-image: url(../images/header/icon-48-terms.png); }
+.icon-48-credits 			{ background-image: url(../images/header/icon-48-credits.png); }

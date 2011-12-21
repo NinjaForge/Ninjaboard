@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="NB_INFORMATIONLAYOUT">
+		<message>
+			<![CDATA[NB_INFORMATIONLAYOUTDESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>NB_INFORMATIONLAYOUT</name>
+		<description>NB_INFORMATIONLAYOUTDESC</description>
+	</state>
+</metadata>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="component">
+	<name>Board Configuration</name>
+	<author>Ninja Media Group</author>
+	<copyright>(C) 2007-2008 Ninja Media Group. All rights reserved.</copyright>
+	<license></license>
+	<authorEmail>n/a</authorEmail>
+	<authorUrl>ninjaforge.com</authorUrl>
+	<version>1.0.0</version>
+	<description>Parameters for default user settings on registration</description>
+	<params addpath="/administrator/components/com_ninjaboard/elements">
+		<param name="role" type="list" size="20" default="1" label="NB_ROLE" description="NB_ROLEDESC">
+			<option value="1">NB_REGISTERED</option>
+			<option value="2">NB_PRIVATE</option>
+			<option value="3">NB_MODERATOR</option>
+			<option value="4">NB_ADMIN</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="show_email" type="radio" default="1" label="NB_SHOWEMAIL" description="NB_SHOWEMAILDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="show_online_state" type="radio" default="0" label="NB_SHOWONLINESTATE" description="NB_SHOWONLINESTATEDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="show_gender" type="radio" default="1" label="NB_SHOWGENDER" description="NB_SHOWGENDERDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="show_birthdate" type="radio" default="1" label="NB_SHOWBIRTHDATE" description="NB_SHOWBIRTHDATEDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="notify_on_reply" type="radio" default="0" label="NB_NOTIFYONREPLY" description="NB_NOTIFYONREPLYDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="time_zone" type="ninjaboardtimezones" default="" label="NB_TIMEZONE" description="NB_TIMEZONEDESC" />
+		<param name="time_format" type="ninjaboardtimeformats" default="" label="NB_TIMEFORMAT" description="NB_TIMEFORMATDESC" />						
+	</params>
+</install>

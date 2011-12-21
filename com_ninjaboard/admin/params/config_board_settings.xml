@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="component">
+	<name>Board Configuration</name>
+	<author>Sonxisoft</author>
+	<copyright>(C) 2007-2008 Ninja Media Group. All rights reserved.</copyright>
+	<license></license>
+	<authorEmail></authorEmail>
+	<authorUrl>www.sonixsoft.de</authorUrl>
+	<version>1.0.0</version>
+	<description>Parameters for individual Board Configuration</description>
+	<params>
+		<param name="board_name" type="text" size="50" default="" label="NB_BOARDNAME" description="NB_BOARDNAMEDESC" />
+		<param name="breadcrumb_index" type="text" size="50" default="" label="NB_BREADCRUMBINDEX" description="NB_BREADCRUMBINDEXDESC" />
+		<param name="description" type="textarea" cols="30" rows="5" default="" label="NB_DESCRIPTION" description="NB_DESCRIPTIONDESC" />
+		<param name="keywords" type="textarea" cols="30" rows="5" default="" label="NB_KEYWORDS" description="NB_KEYWORDSDESC" />
+		<param name="debug" type="radio" default="0" label="NB_DEBUG" description="NB_DEBUGDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="published" type="radio" default="1" label="NB_PUBLISHED" description="NB_PUBLISHEDDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="enable_terms" type="radio" default="1" label="NB_ENABLETERMS" description="NB_ENABLETERMSDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="account_activation" type="radio" default="1" label="NB_ACCOUNTACTIVATION" description="NB_ACCOUNTACTIVATIONDESC">
+			<option value="0">NB_NONE</option>
+			<option value="1">NB_USER</option>
+			<option value="2">NB_ADMIN</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="flood_interval" type="text" size="5" default="10" label="NB_FLOODINTERVAL" description="NB_FLOODINTERVALDESC" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="topics_per_page" type="text" size="5" default="10" label="NB_TOPICSPERPAGE" description="NB_TOPICSPERPAGEDESC" />
+		<param name="posts_per_page" type="text" size="5" default="10" label="NB_POSTSPERPAGE" description="NB_POSTSPERPAGEDESC" />
+		<param name="search_results_per_page" type="text" size="5" default="10" label="NB_SEARCHRESULTSPERPAGE" description="NB_SEARCHRESULTSPERPAGEDESC" />
+		<param name="items_per_page" type="text" size="5" default="10" label="NB_ITEMSPERPAGE" description="NB_ITEMSPERPAGEDESC" />
+		<param name="breadcrumb_max_length" type="text" size="5" default="50" label="NB_BREADCRUMBMAXLENGTH" description="NB_BREADCRUMBMAXLENGTHDESC" />
+		<param name="session_time" type="text" size="5" default="5" label="NB_SESSIONTIME" description="NB_SESSIONTIMEDESC" />
+		<param name="guest_time" type="text" size="5" default="30" label="NB_GUESTTIME" description="NB_GUESTTIMEDESC" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="latest_items_count" type="text" size="50" default="5" label="NB_LATESTITEMSCOUNT" description="NB_LATESTITEMSCOUNTDESC" />
+		<param name="latest_items_type" type="list" size="50" default="0" label="NB_LATESTITEMSTYPE" description="NB_LATESTITEMSTYPEDESC">
+			<option value="0">NB_TOPICS</option>
+			<option value="1">NB_POSTS</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="enable_bbcode" type="radio" default="1" label="NB_ENABLEBBCODE" description="NB_ENABLEBBCODEDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="enable_emoticons" type="radio" default="1" label="NB_ENABLEEMOTICONS" description="NB_ENABLEEMOTICONSDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="enable_guest_name" type="radio" default="1" label="NB_ENABLEGUESTNAME" description="NB_ENABLEGUESTNAMEDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="guest_name_required" type="radio" default="1" label="NB_GUESTNAMEREQUIRED" description="NB_GUESTNAMEREQUIREDDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="enable_reply_subject" type="radio" default="1" label="NB_ENABLEREPLYSUBJECT" description="NB_ENABLEREPLYSUBJECTDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		
+	</params>
+</install>

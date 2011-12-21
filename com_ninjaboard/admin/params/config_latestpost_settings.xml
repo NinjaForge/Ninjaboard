@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="component">
+	<name>Latest Posts Configuration</name>
+	<author>Sonxisoft</author>
+	<copyright>(C) 2007-2008 Ninja Media Group. All rights reserved.</copyright>
+	<license></license>
+	<authorEmail></authorEmail>
+	<authorUrl>ninjaforge.com</authorUrl>
+	<version>1.0.0</version>
+	<description>Parameters for individual Latest Posts Configuration</description>
+	<params>
+		<param name="enable_filter" type="radio" default="1" label="NB_ENABLELATESTPOSTSFILTER" description="NB_ENABLELATESTPOSTSFILTERDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="latest_post_hours" type="text" size="50" default="8,12" label="NB_LATESTPOSTHOURS" description="NB_LATESTPOSTHOURSDESC" />
+		<param name="latest_post_days" type="text" size="50" default="1,2,3" label="NB_LATESTPOSTDAYS" description="NB_LATESTPOSTDAYSDESC" />
+		<param name="latest_post_weeks" type="text" size="50" default="1" label="NB_LATESTPOSTWEEKS" description="NB_LATESTPOSTWEEKSDESC" />
+		<param name="latest_post_months" type="text" size="50" default="1,6" label="NB_LATESTPOSTMONTHS" description="NB_LATESTPOSTMONTHSDESC" />
+		<param name="latest_post_years" type="text" size="50" default="1" label="NB_LATESTPOSTYEARS" description="NB_LATESTPOSTYEARSDESC" />
+	</params>
+</install>

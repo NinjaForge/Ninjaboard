@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="component">
+	<name>View Configuration</name>
+	<author>Sonxisoft</author>
+	<copyright>(C) 2007-2008 Ninja Media Group. All rights reserved.</copyright>
+	<license>GNU/GPL</license>
+	<authoremail>n/a</authoremail>
+	<authorUrl>ninjaforge.com</authorUrl>
+	<version>1.0.0</version>
+	<description>Parameters for individual View Configuration</description>
+	<params>
+		<param name="show_latestitems" type="radio" default="1" label="NB_SHOWLATESTITEMS" description="NB_SHOWLATESTITEMSDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="show_statistic" type="radio" default="1" label="NB_SHOWSTATISTIC" description="NB_SHOWSTATISTICDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="show_whosonline" type="radio" default="1" label="NB_SHOWWHOSONLINE" description="NB_SHOWWHOSONLINEDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="show_legend" type="radio" default="1" label="NB_SHOWLEGEND" description="NB_SHOWLEGENDDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="show_footer" type="radio" default="1" label="NB_SHOWFOOTER" description="NB_SHOWFOOTERDESC">
+			<option value="1">NB_YES</option>
+			<option value="0">NB_NO</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="show_user_as" type="radio" default="0" label="NB_SHOWUSERAS" description="NB_SHOWUSERASDESC">
+			<option value="0">NB_USER</option>
+			<option value="1">NB_USERNAME</option>
+		</param>
+	</params>
+</install>

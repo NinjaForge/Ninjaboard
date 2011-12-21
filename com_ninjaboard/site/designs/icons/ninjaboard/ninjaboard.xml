@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="iconset">
+	<name>Ninjaboard - Icon Set</name>
+	<author>Ninjaboard - Ninja Media Group</author>
+	<creationDate>03/09/2008</creationDate>
+	<copyright>(C) 2007-2008 Ninja Media Group. All rights reserved.</copyright>
+	<license>GNU/GPL</license>
+	<authoremail>n/a</authoremail>
+	<authorurl>http://www.sonixsoft.de</authorurl>
+	<version>0.5.9</version>
+	<description>Ninjaboard - Icon Set.</description>
+	<iconset translateable="1">
+		<icon filename="icon-32-forum.png" group="iconBoard" function="forumNormal" title="NB_ICONFORUM" />
+		<icon filename="icon-32-forum_new.png" group="iconBoard" function="forumNewPosts" title="NB_ICONFORUMNEWPOSTS" />
+		<icon filename="icon-32-forum_locked.png" group="iconBoard" function="forumLocked" title="NB_ICONFORUMLOCKED" />
+		<icon filename="icon-32-post_post.png" group="iconPost" function="postPost" title="NB_ICONPOSTPOST" />
+		<icon filename="icon-32-post_exclamation.png" group="iconPost" function="postExclamation" title="NB_ICONPOSTEXCLAMATION" />
+		<icon filename="icon-32-post_question.png" group="iconPost" function="postQuestion" title="NB_ICONPOSTQUESTION" />
+		<icon filename="icon-32-post_idea.png" group="iconPost" function="postIdea" title="NB_ICONPOSTIDEA" />
+		<icon filename="icon-32-post_thumb_up.png" group="iconPost" function="postThumbUp" title="NB_ICONPOSTTHUMBUP" />
+		<icon filename="icon-32-post_thumb_down.png" group="iconPost" function="postThumbDown" title="NB_ICONPOSTTHUMBDOWN" />
+		<icon filename="icon-32-post_cool.png" group="iconPost" function="postCool" title="NB_ICONPOSTCOOL" />
+		<icon filename="icon-32-post_sad.png" group="iconPost" function="postSad" title="NB_ICONPOSTSAD" />
+		<icon filename="icon-32-post_help.png" group="iconPost" function="postHelp" title="NB_ICONPOSTHELP" />
+		<icon filename="icon-32-post_joomla.png" group="iconPost" function="postJoomla" title="NB_ICONPOSTJOOMLA" />
+		<icon filename="icon-12-topic_new.png" group="iconTopic" function="topicNew" title="NB_ICONTOPICNEW" />
+		<icon filename="icon-12-topic_solved.png" group="iconTopic" function="topicSolved" title="NB_ICONTOPICSOLVED" />
+		<icon filename="icon-12-topic_trash.png" group="iconTopic" function="topicTrash" title="NB_ICONTOPICTRASH" />
+		<icon filename="icon-12-topic_sticky.png" group="iconTopic" function="topicSticky" title="NB_ICONTOPICSTICKY" />
+		<icon filename="icon-12-topic_locked.png" group="iconTopic" function="topicLocked" title="NB_ICONTOPICLOCKED" />
+		<icon filename="icon-12-topic_announcement.png" group="iconTopic" function="topicAnnouncement" title="NB_ICONTOPICANNOUNCEMENT" />
+	</iconset>
+</install>
