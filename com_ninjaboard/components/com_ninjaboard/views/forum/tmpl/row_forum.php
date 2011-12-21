@@ -1,11 +1,12 @@
-<? /** $Id: row_forum.php 1663 2011-03-22 00:57:27Z stian $ */ ?>
+<? /** $Id: row_forum.php 1907 2011-05-22 23:12:43Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach (@$forums as $forum) : ?>
-	<li class="row forum">
+	<li class="row forum <?= $forum->new && $forum->unread ? 'unread' : '' ?> <?= !$forum->unread ? 'read' : '' ?>">
 		<? $icon = isset($forum->params['customization']['icon']) ? $forum->params['customization']['icon'] : 'default.png' ?>
 		<? $iconclass = 'forum-icon-'.KInflector::underscore(str_replace('.png', '', $icon)) ?>
 		<style type="text/css">.row .<?= $iconclass ?> {background-image: url(<?= @$img('/forums/'.$icon) ?>);}</style>
+		<style type="text/css">li.unread dl.icon dt {background-image: url(<?= @$img('/32/unread_badge.png') ?>);}</style>
 		
 		<dl class="icon <?= $iconclass ?>">
 			<dt>

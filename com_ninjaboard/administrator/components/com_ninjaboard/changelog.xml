@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 1856 2011-05-19 19:56:49Z stian $ -->
+<!-- $Id: changelog.xml 1924 2011-05-23 12:29:09Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+    <version>1.0.11</version>
+    <date>May 23th 2011</date>
+    <state>Maintenance Release
+        <new>Unread/read topics and forums now got indicators to show states, that can be customized by css.</new>
+        <bugfix>Fixed bug where multiple tags would occur when line breaks were used in [code] and [quote] calls. Patched by Hook.</bugfix>
+        <bugfix>Built in updates failed to recognize 1.0.10 to be a more recent version than &lt;= 1.0.9.</bugfix>
+    </state>
+
     <version>1.0.10</version>
     <date>May 19th 2011</date>
     <state>Maintenance Release

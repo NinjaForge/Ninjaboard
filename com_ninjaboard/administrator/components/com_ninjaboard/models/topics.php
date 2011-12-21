@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: topics.php 1765 2011-04-11 19:49:57Z stian $
+ * @version		$Id: topics.php 1920 2011-05-23 12:14:11Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -44,6 +44,17 @@ class ComNinjaboardModelTopics extends ComDefaultModelDefault
 				->join('LEFT', 'ninjaboard_people AS last_post_person', 'last_post_person.ninjaboard_person_id = last_post.created_user_id')
 				->join('LEFT', 'ninjaboard_forums AS forum', 'forum.ninjaboard_forum_id = tbl.forum_id')
 				->join('LEFT', 'ninjaboard_topic_symlinks AS symlink', '(symlink.ninjaboard_topic_id = tbl.ninjaboard_topic_id AND symlink.ninjaboard_forum_id != tbl.forum_id)');
+
+        if(!KFactory::get('lib.joomla.user')->guest)
+        {
+            $me = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+
+    		$query->join('left', 'ninjaboard_log_topic_reads AS log', 
+    		    'log.created_by = '.$me->id.' AND '.
+    		    'log.ninjaboard_forum_id = tbl.forum_id AND '.
+    		    'log.ninjaboard_topic_id = tbl.ninjaboard_topic_id'
+    		);
+    	}
 	}
 	
 	protected function _buildQueryWhere(KDatabaseQuery $query)
@@ -103,6 +114,25 @@ class ComNinjaboardModelTopics extends ComDefaultModelDefault
 		if($this->_state->forum)
 		{
 			$query->select('IF((symlink.ninjaboard_forum_id = '.$this->_state->forum.'), forum.title, NULL) AS moved_to_forum_title');
+		}
+		
+		if(KFactory::get('lib.joomla.user')->guest) {
+		    $query->select(array('0 AS new', '1 AS unread'));
+		} else {
+		    $me     = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		    $table  = KFactory::get('admin::com.ninjaboard.database.table.logtopicreads');
+		    $select = KFactory::tmp('lib.koowa.database.query')
+		                  ->select('UNIX_TIMESTAMP(IFNULL(MIN(created_on), NOW()))')
+		                  ->where('created_by', '=', $me->id)
+		                  ;
+		    if($this->_state->forum) $select->where('ninjaboard_forum_id', '=', $this->_state->forum);
+		    $start = $table->select($select, KDatabase::FETCH_FIELD);
+
+		    $query->select(array(
+		        //The conversion to unix timestamp and back is because koowa will quote raw datetime strings in select queries
+		        'IF(UNIX_TIMESTAMP(last_post.created_time) > '.(int)$start.', 1, 0) AS new',
+		        'IF(log.created_on > last_post.created_time || last_post.created_user_id = '.(int)$me->id.', 0, 1) AS unread'
+		    ));
 		}
 	}
 

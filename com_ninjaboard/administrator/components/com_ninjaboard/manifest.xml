@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: manifest.xml 1858 2011-05-19 20:14:42Z stian $ -->
+<!-- $Id: manifest.xml 1924 2011-05-23 12:29:09Z stian $ -->
 <!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/component-install.dtd">
 <install type="component" version="1.5.0" method="upgrade" mootools="1.2">
 	<name>Ninjaboard</name>
 	<author>NinjaForge</author>
-    <creationDate>2011-04-27</creationDate>
+    <creationDate>2011-05-23</creationDate>
 	<copyright>(C) 2007-2010 Ninja Media Group. All rights reserved.</copyright>
 	<license>GNU GPLv3</license>
 	<csslicense>CC-BY</csslicense>
@@ -21,8 +21,8 @@
     		- RC		blue
     		- Stable	#009199
     -->
-	<version status="Stable" color="#009199">1.0.10</version>
-	<revision>1857</revision>
+	<version status="Stable" color="#009199">1.0.11</version>
+	<revision>1923</revision>
 	<description>The sharpest user forum</description>
 
 	<!-- Credits -->
@@ -355,7 +355,6 @@
 		<site>
 		    <folder revision="1754">views/help</folder>
 		    <folder revision="1753">views/rules</folder>
-			<file revision="1408">controllers/default.php</file>
 			<file revision="1246">views/json.php</file>
 			<folder revision="1220">themes/legacy</folder>
 			<file revision="1188">views/forum/tmpl/default_topics.php</file>

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1827 2011-04-26 22:24:31Z stian $
+ * @version		$Id: html.php 1900 2011-05-22 21:03:40Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -63,7 +63,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 			
 			    //Model needs to run with the acl flag off for performance reasons
 			    ->setModel(KFactory::get('site::com.ninjaboard.model.posts')->setAcl(false))
-			
+
 				->sort('created_on')
 				->limit($limit)
 				->offset($offset)

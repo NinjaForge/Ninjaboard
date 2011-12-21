@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: topic.php 1761 2011-04-11 18:05:15Z stian $
+ * @version		$Id: topic.php 1904 2011-05-22 22:55:15Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -29,6 +29,8 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 		
 		$this->registerCallback('before.edit', array($this, 'canEdit'));
 		$this->registerCallback('after.edit', array($this, 'updateForums'));
+		
+		if(!KFactory::get('lib.joomla.user')->guest) $this->registerCallback('after.read', array($this, 'setLog'));
 	}
 
 	/**
@@ -198,5 +200,33 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 		$this->_redirect = 'index.php?option=com_ninjaboard&view=topic&id='.$topic->id;
 		
 		return $topic;
+	}
+	
+	/**
+	 * Logs topics the user have read
+	 *
+	 * @param  KCommandContext $context
+	 * @return void
+	 */
+	public function setLog($context)
+	{
+        $me    = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+        $table = KFactory::get('admin::com.ninjaboard.database.table.logtopicreads');
+        $topic = $context->result;
+
+        $data = array(
+            'created_by' => $me->id,
+            'ninjaboard_forum_id' => $topic->forum_id,
+            'ninjaboard_topic_id' => $topic->id
+        );
+        
+        if($table->count($data))
+        {
+            $table->select($data, KDatabase::FETCH_ROW)->setData(array('created_on' => gmdate('Y-m-d H:i:s')))->save();
+            return $context;
+        }
+
+        $table->getRow()->setData($data)->save();
+	    return $context;
 	}
 }

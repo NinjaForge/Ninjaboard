@@ -200,6 +200,16 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_joomla_user_group_maps` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE IF NOT EXISTS `#__ninjaboard_log_topic_reads` (
+  `created_by` int(11) unsigned NOT NULL,
+  `created_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `ninjaboard_forum_id` bigint(20) unsigned NOT NULL,
+  `ninjaboard_topic_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`created_by`,`ninjaboard_forum_id`,`ninjaboard_topic_id`),
+  KEY `created_on` (`created_on`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE IF NOT EXISTS `#__ninjaboard_iconsets` (
   `ninjaboard_iconset_id` SERIAL,
   `iconset` varchar(255) NOT NULL,

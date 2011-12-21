@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: people.php 1610 2011-02-27 01:02:15Z stian $
+ * @version		$Id: people.php 1919 2011-05-23 11:48:00Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -184,7 +184,7 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 	 * @author Stian Didriksen <stian@ninjaforge.com>
 	 * @return array with integers
 	 */
-	public function buildForumsPermissionsWhere(KDatabaseQuery $query, $key = 'ninjaboard_forum_id')
+	public function buildForumsPermissionsWhere(KDatabaseQuery $query, $key = 'tbl.ninjaboard_forum_id')
 	{
 		$me			= KFactory::get('admin::com.ninjaboard.model.people')->getMe();
 		$no_access	= $me->forum_permissions < 1;
