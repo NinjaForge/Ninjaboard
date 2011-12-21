@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0" method="upgrade">
+	<name>Ninjaboard Quick Jump</name>
+	<author>Richie Mortimer</author>
+	<creationDate>March 2011</creationDate>
+	<copyright>Copyright NinjaForge. All rights reserved.</copyright>
+	<license>GNU/GPL</license>
+	<authoremail>support@ninjaforge.com</authoremail>
+	<authorurl>ninjaforge.com</authorurl>
+	<version>1.0.0</version>
+	<description>Ninjaboard Jump To Drop Down Selection</description>
+
+  <files>
+    <filename module="mod_ninjaboard_jump">mod_ninjaboard_jump.php</filename>
+    <filename>html.php</filename>
+    <folder>tmpl</folder>
+  </files>
+  
+  <params>
+  	<param name="deleteme" type="napi" ninja="void" />
+  	<param name="cache" type="genericlist" default="1" label="Caching" description="Select whether to cache the content of this module">
+  		<option value="1">Use global</option>
+  		<option value="0">No caching</option>
+	</param>
+  </params>
+  
+</install>
