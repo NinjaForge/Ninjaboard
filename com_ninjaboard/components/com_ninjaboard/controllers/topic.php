@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: topic.php 2407 2011-08-25 09:00:39Z stian $
+ * @version		$Id: topic.php 2461 2011-10-11 22:32:21Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -24,13 +24,11 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 		parent::__construct($config);
 
 		//Delete related event handlers
-		$this->registerCallback('before.delete', array($this, 'canDelete'));
 		$this->registerCallback('after.delete', array($this, 'cleanupDelete'));
 		
-		$this->registerCallback('before.edit', array($this, 'canEdit'));
 		$this->registerCallback('after.edit', array($this, 'updateForums'));
 		
-		if(!KFactory::get('lib.joomla.user')->guest) $this->registerCallback('after.read', array($this, 'setLog'));
+		if(!JFactory::getUser()->guest) $this->registerCallback('after.read', array($this, 'setLog'));
 		
 		if($this->isDispatched()) $this->registerCallback('after.read', array($this, 'setCanonicalAfterRead'));
 	}
@@ -49,8 +47,8 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 	 */
 	public function setCanonical(KCommandContext $context)
 	{
-	    $document  = KFactory::get('lib.joomla.document');
-	    $root      = KRequest::url()->get(KHttpUri::PART_BASE ^ KHttpUri::PART_PATH);
+	    $document  = JFactory::getDocument();
+	    $root      = KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH);
 	    $base      = 'index.php?option=com_ninjaboard&view=topic';
 	    $append    = $this->getRequest()->layout != 'default' ? '&layout='.$this->getRequest()->layout : '';
 	    $state     = $this->getModel()->getState();
@@ -94,20 +92,19 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 	 */
 	public function canDelete()
 	{
-		$user = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$user = $this->getService('com://admin/ninjaboard.model.people')->getMe();
 		$topics = $this->getModel()->getList();
 		foreach($topics as $topic)
 		{
-			$forum = KFactory::tmp('site::com.ninjaboard.model.forums')
+			$forum = $this->getService('com://site/ninjaboard.model.forums')
 																		->id($topic->forum_id)
 																		->getItem();
-			$post = KFactory::tmp('site::com.ninjaboard.model.posts')
+			$post = $this->getService('com://site/ninjaboard.model.posts')
 																		->id($topic->first_post_id)
 																		->getItem();
 
 			// @TODO we migth want to add an option later, wether or not to allow users to delete their own post.
 			if($forum->post_permissions < 3 && $post->created_by != $user->id) {
-				JError::raiseError(403, JText::_("You don't have the permissions to delete others topics."));
 				return false;
 			}
 		}
@@ -121,8 +118,8 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 	public function cleanupDelete(KCommandContext $context)
 	{
 		$topics		= $context->result;
-		$table		= KFactory::get('site::com.ninjaboard.database.table.posts');
-		$symlinks	= KFactory::get('site::com.ninjaboard.database.table.topic_symlinks');
+		$table		= $this->getService('com://site/ninjaboard.database.table.posts');
+		$symlinks	= $this->getService('com://site/ninjaboard.database.table.topic_symlinks');
 		
 		foreach($topics as $topic)
 		{
@@ -130,34 +127,31 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 			$this->_redirect   		 = 'index.php?option=com_ninjaboard&view=forum&id='.$topic->forum_id;
 			$this->_redirect_message = sprintf(JText::_('Topic «%s» deleted.'), $topic->subject);
 		
-			$query = KFactory::tmp('lib.koowa.database.query')->where('ninjaboard_topic_id', '=', $topic->id);
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('ninjaboard_topic_id', '=', $topic->id);
 			$table->select($query, KDatabase::FETCH_ROWSET)->delete();
 
-			$query = KFactory::tmp('lib.koowa.database.query')->where('ninjaboard_topic_id', '=', $topic->id);
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('ninjaboard_topic_id', '=', $topic->id);
 			$symlinks->select($query, KDatabase::FETCH_ROWSET)->delete();
 			
 			//Update the forums' topics and posts count, and correct the last_post_id column
-			$forums	= KFactory::tmp('site::com.ninjaboard.model.forums')->limit(0)->id($topic->forum_id)->getListWithParents();
+			$forums	= $this->getService('com://site/ninjaboard.model.forums')->limit(0)->id($topic->forum_id)->getListWithParents();
 			$forums->recount();
 		}
 	}
 	
 	/**
 	 * Only people with level 3 permissions can edit topics
-	 *
-	 * @param KCommandContext $context
 	 */
-	public function canEdit(KCommandContext $context)
+	public function canEdit()
 	{
 		foreach($this->getModel()->getList() as $topic)
 		{
-			$forum = KFactory::tmp('site::com.ninjaboard.model.forums')
+			$forum = $this->getService('com://site/ninjaboard.model.forums')
 																		->id($topic->forum_id)
 																		->getItem();
 
 			// @TODO we migth want to add an option later, wether or not to allow users to delete their own post.
 			if($forum->topic_permissions < 3) {
-				JError::raiseError(403, JText::_("You don't have the permissions to manage topics."));
 				return false;
 			}
 		}
@@ -175,25 +169,25 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 		foreach($topics as $topic)
 		{
 			//Update the forums' topics and posts count, and correct the last_post_id column
-			$forums	= KFactory::tmp('site::com.ninjaboard.model.forums')->limit(0)->id($topic->forum_id)->getListWithParents();
+			$forums	= $this->getService('com://site/ninjaboard.model.forums')->limit(0)->id($topic->forum_id)->getListWithParents();
 			$forums->recount();
 			
 			//@TODO this needs to run on the departure forum wether a ghost is left behind or not
 			if($topic->moved_from_forum_id)
 			{
 			    //Fix topic read log tables
-			    $table = KFactory::get('admin::com.ninjaboard.database.table.logtopicreads');			    
+			    $table = $this->getService('com://admin/ninjaboard.database.table.logtopicreads');			    
 			    // Run as raw query, as some sites have huge amounts of data so we need it fast
 			    $query = 'UPDATE IGNORE `#__ninjaboard_log_topic_reads` SET `ninjaboard_forum_id` = \''.(int)$topic->forum_id.'\' WHERE `ninjaboard_forum_id` = \''.(int)$topic->moved_from_forum_id.'\' AND `ninjaboard_topic_id` = \''.$topic->id.'\';';
 			    $table->getDatabase()->execute($query);
 
 			
 				//Update the forums' topics and posts count, and correct the last_post_id column
-				$forums	= KFactory::tmp('site::com.ninjaboard.model.forums')->limit(0)->id($topic->moved_from_forum_id)->getListWithParents();
+				$forums	= $this->getService('com://site/ninjaboard.model.forums')->limit(0)->id($topic->moved_from_forum_id)->getListWithParents();
 				$forums->recount();
 				
 				try {
-					$table	 = KFactory::tmp('site::com.ninjaboard.database.table.topic_symlinks');
+					$table	 = $this->getService('com://site/ninjaboard.database.table.topic_symlinks');
 					$symlink = $table
 									->select(null, KDatabase::FETCH_ROW)
 									->setData(array(
@@ -244,8 +238,8 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 	 */
 	public function setLog($context)
 	{
-        $me    = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
-        $table = KFactory::get('admin::com.ninjaboard.database.table.logtopicreads');
+        $me    = $this->getService('com://admin/ninjaboard.model.people')->getMe();
+        $table = $this->getService('com://admin/ninjaboard.database.table.logtopicreads');
         $topic = $context->result;
 
         //Don't log if there is no topic id

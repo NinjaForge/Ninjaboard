@@ -1,20 +1,22 @@
-<? /** $Id: default.php 1072 2010-11-16 12:49:19Z stian $ */ ?>
+<? /** $Id: default.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
+<?= @template('ninja:view.grid.head') ?>
+
 <? if(@$length > 0) : ?>
-	<?= @template('admin::com.ninja.view.search.filter_thead') ?>
+	<?= @template('ninja:view.search.filter_thead') ?>
 <? endif ?>
 
 <? @ninja('grid.sortables') ?>
-<form action="<?= @route() ?>" method="post" id="<?= @id() ?>">
+<form action="<?= @route() ?>" method="post" id="<?= @id() ?>" class="-koowa-grid">
 	<?= @$placeholder() ?>
 	<table class="adminlist ninja-list">
 		<thead>
 			<tr>
 				<th width="32px" class="hasHint" title="<?= @text('Drag here to reorder&hellip;') ?>"></th>
 				<?= @ninja('grid.count', array('total' => @$total, 'title' => true)) ?>
-				<th class="grid-check"><?= @ninja('grid.checkall') ?></th>
-				<th colspan="2"><?= @ninja('grid.sort', array('title' => 'Title')) ?></th>
+				<th class="grid-check"><?= @helper('grid.checkall') ?></th>
+				<th colspan="2"><?= @helper('grid.sort', array('column' => 'title')) ?></th>
 			</tr>
 		</thead>
 		<?= @ninja('paginator.tfoot', array('total' => @$total, 'display' => 4, 'colspan' => 5, 'ajax' => true)) ?>

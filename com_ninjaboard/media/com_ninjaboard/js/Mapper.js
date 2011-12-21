@@ -41,7 +41,7 @@ var Mapper = new Class({
 
 		this.setOptions(options);
 
-		var s = $(this.options.holder).getSize().size,
+		var s = $(this.options.holder).getSize(),
 			r = Raphael(this.options.holder, s.x, s.y);
 
 		this.size = s;

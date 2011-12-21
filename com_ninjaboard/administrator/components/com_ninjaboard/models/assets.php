@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: assets.php 1653 2011-03-17 18:40:38Z stian $
+ * @version		$Id: assets.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -14,7 +14,7 @@
  * 
  * @author Stian Didriksen <stian@ninjaforge.com>
  */
-class ComNinjaboardModelAssets extends ComNinjaModelTable
+class ComNinjaboardModelAssets extends NinjaModelTable
 {
 
 	/**

@@ -20,9 +20,10 @@
 	height:40px;
 }
 .map h1 {
-	font-size: 20px;
+	font-size: 16px;
 	line-height: 40px;
-	
+	padding: 0;
+	margin: 0;
 	//background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 100%, .1)), to(hsla(0, 0%, 0%, .1)));
 	background-repeat: repeat-y;
 	background-size: 100% 40px;
@@ -73,11 +74,16 @@
 	right: 0;
 	left: 50%;
 }
+.map-points-to ul, .map-points-from ul {
+	padding: 0;
+    margin: 0;
+}
 .map-points-from li {
 	padding-right: 10px;
 }
 .map-points-to li {
 	padding-left: 10px;
+	overflow: hidden;
 }
 
 #submenu li ul {

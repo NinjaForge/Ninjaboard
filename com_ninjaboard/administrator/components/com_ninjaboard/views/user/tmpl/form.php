@@ -1,8 +1,10 @@
-<? /** $Id: form.php 1787 2011-04-12 23:38:17Z stian $ */ ?>
+<? /** $Id: form.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
+<?= @template('ninja:view.form.head') ?>
+
 <? @ninja('behavior.tooltip') ?>
-<? $params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams() ?>
+<? $params = $this->getService('com://admin/ninjaboard.model.settings')->getParams() ?>
 
 <style type="text/css">
 .ninja-form .element.avatar {
@@ -67,7 +69,7 @@
 	});
 </script>
 
-<form action="<?= @route('id=' . @$user->id) ?>" method="post" id="<?= @id() ?>" enctype="multipart/form-data">
+<form action="<?= @route('id=' . @$user->id) ?>" method="post" id="<?= @id() ?>" class="-koowa-form" enctype="multipart/form-data">
 	<div class="col width-50">	
 		<fieldset class="adminform ninja-form">
 			<legend><?= @text('Ninjaboard User Details') ?></legend>
@@ -75,7 +77,7 @@
 				<label class="key">
 					<?= @text("Avatar") ?>
 				</label>
-				<?= @helper('site::com.ninjaboard.template.helper.avatar.image', array(
+				<?= @helper('com://site/ninjaboard.template.helper.avatar.image', array(
 					'id'		=> $user->id,
 					'class'		=> 'avatar value'
 				)) ?>
@@ -86,11 +88,11 @@
 				</span>
 				
 				<span class="avatar upload">
-					<?= @helper('site::com.ninjaboard.template.helper.avatar.input') ?>
+					<?= @helper('com://site/ninjaboard.template.helper.avatar.input') ?>
 					<small>
-						<?= @helper('site::com.ninjaboard.template.helper.avatar.upload_size_limit', array('params' => $params)) ?>
+						<?= @helper('com://site/ninjaboard.template.helper.avatar.upload_size_limit', array('params' => $params)) ?>
 						<span class="avatar-image-extensions">
-							<?= @helper('site::com.ninjaboard.template.helper.avatar.extensions') ?>
+							<?= @helper('com://site/ninjaboard.template.helper.avatar.extensions') ?>
 						</span>
 					</small>
 					<a href="#" class="cancel-upload"><?= @text('Cancel upload') ?></a>
@@ -141,8 +143,8 @@
 			<? endif ?>
 			<div class="element">
 				<label for="usergroup_id" class="key hasHint" title="<?= @text('You can select multiple usergroups.') ?>"><?= @text('Assign to usergroups') ?></label>
-				<?= KFactory::get('admin::com.ninja.form.element.select.genericlist')->importXml(simplexml_load_string('
-					<element name="usergroup" type="admin::com.ninja.form.select.genericlist" get="admin::com.ninjaboard.model.usergroups" class="value" multiple="true">
+				<?= $this->getService('ninja:form.element.select.genericlist')->importXml(simplexml_load_string('
+					<element name="usergroup" type="ninja:form.select.genericlist" get="com://admin/ninjaboard.model.usergroups" class="value" multiple="true">
 						<option value="0">- Inherit -</option>
 					</element>
 				'))->setValue($usergroups)->renderHtmlElement() ?>
@@ -151,7 +153,7 @@
 	</div>
 	<!--<div class="col width-50">
 		<fieldset class="adminform ninja-form">	
-			<? $placeholder = false/*KFactory::get('admin::com.ninjaboard.view.profile_fields.html')->placeholder()*/ ?>
+			<? $placeholder = false/*$this->getService('com://admin/ninjaboard.view.profile_fields.html')->placeholder()*/ ?>
 			<? if(!$placeholder) : ?>
 				<legend><?= @text('Custom Profile Fields') ?></legend>
 				<a href="<?= @route('view=profile_field') ?>"></a>
@@ -178,7 +180,7 @@
 				</style>
 				<?= $placeholder ?>
 			<? endif ?>
-			<?//= KFactory::get('admin::com.ninjaboard.controller.profile_field')->layout('form')->user($user->id)->display() ?>
+			<?//= $this->getService('com://admin/ninjaboard.controller.profile_field')->layout('form')->user($user->id)->display() ?>
 		</fieldset>
 	</div>-->
 	<input type="hidden" name="params" value=" " />

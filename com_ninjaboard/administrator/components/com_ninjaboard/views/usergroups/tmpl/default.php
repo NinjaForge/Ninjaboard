@@ -1,19 +1,21 @@
-<? /** $Id: default.php 1242 2010-12-19 15:29:36Z stian $ */ ?>
+<? /** $Id: default.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
+<?= @template('ninja:view.grid.head') ?>
+
 <? if(@$length > 0) : ?>
-	<?= @template('admin::com.ninja.view.search.filter_thead') ?>
+	<?= @template('ninja:view.search.filter_thead') ?>
 <? endif ?>
 
-<? @ninja('behavior.sortable') ?>
-<form action="<?= @route() ?>" method="post" id="<?= @id() ?>">
+<?= @ninja('behavior.sortable') ?>
+<form action="<?= @route() ?>" method="post" id="<?= @id() ?>" class="-koowa-grid">
 	<?= @$placeholder() ?>
 	<table class="adminlist ninja-list">
 		<thead>
 			<tr>
 				<th class="hasHint" title="<?= @text('Drag here to reorder&hellip;') ?>"></th>
 				<?= @ninja('grid.count', array('total' => @$total, 'title' => true)) ?>
-				<th class="grid-check"><?= @ninja('grid.checkall') ?></th>
+				<th class="grid-check"><?= @helper('grid.checkall') ?></th>
 				<th width="100%"><?= @text('Title') ?></th>
 				<? foreach ($columns as $column) : ?>
 					<th><?= @text($column) ?></th>

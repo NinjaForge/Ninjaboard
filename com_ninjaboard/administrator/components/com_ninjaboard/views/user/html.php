@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: html.php 2460 2011-10-11 21:21:19Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -26,11 +26,11 @@ class ComNinjaboardViewUserHtml extends ComNinjaboardViewHtml
 		
 		
 		//Get user
-		$usertype = KFactory::get('lib.joomla.user')->get('usertype');
+		$usertype = JFactory::getUser()->get('usertype');
 		
 		$this->assign('avatar', null);
 		
-		$user = KFactory::get($this->getModel())->getItem();
+		$user = $this->getService($this->getModel())->getItem();
 		$usergroups = array();
 
 		foreach($user->usergroups as $group)

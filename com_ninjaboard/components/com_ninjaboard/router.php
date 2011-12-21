@@ -2,7 +2,7 @@
  /**
  * NinjaForge Ninjaboard
  *
- * @version		$Id: router.php 2223 2011-07-15 22:37:50Z stian $
+ * @version		$Id: router.php 2513 2011-11-22 12:48:32Z stian $
  * @package		Ninjaboard
  * @copyright	Copyright (C) 2007-2010 Ninja Media Group. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -115,7 +115,7 @@ class ComNinjaboardRouter
     		if(array_key_exists('id', $query))
     		{
     			$name  = KInflector::pluralize($segments[0]);
-    			$model = KFactory::tmp('admin::com.ninjaboard.model.'.$name, array(
+    			$model = KService::get('com://admin/ninjaboard.model.'.$name, array(
     				'acl' => false
     			));
     			$item  = KInflector::pluralize($segments[0]) != 'avatars' ? $model->id($query['id'])->getItem() : new stdClass;
@@ -126,7 +126,7 @@ class ComNinjaboardRouter
                 }
                 elseif($query['view'] == 'topic' && $item->id && $item->alias)
                 {
-                    $forum_model = KFactory::tmp('admin::com.ninjaboard.model.forums', array(
+                    $forum_model = KService::get('com://admin/ninjaboard.model.forums', array(
                     	'acl' => false
                     ));
                     $forum = $forum_model->id($item->forum_id)->getItem();
@@ -137,12 +137,12 @@ class ComNinjaboardRouter
                         $segments[1] = $slug;
                     }
                     else {
-                        $segments[1] = $query['id'].':'.KFactory::tmp('admin::com.ninjaboard.filter.slug')->sanitize($item->alias);
+                        $segments[1] = $query['id'].':'.KService::get('com://admin/ninjaboard.filter.slug')->sanitize($item->alias);
                     }
                 }
     			elseif(isset($item->alias) && $query['view'] != 'person' && $query['view'] != 'avatar')
     			{
-    				$segments[1] = $query['id'].':'.KFactory::tmp('admin::com.ninjaboard.filter.slug')->sanitize($item->alias);
+    				$segments[1] = $query['id'].':'.KService::get('com://admin/ninjaboard.filter.slug')->sanitize($item->alias);
     			}
     			else
     			{
@@ -223,7 +223,7 @@ class ComNinjaboardRouter
     		$first = array_shift($segments);
     		$id    = current(explode(':', $first));
     		//If the first two parts are strings, then it's a topic
-    		$second = isset($segments[0]) && !KFactory::tmp('lib.koowa.filter.alnum')->validate($segments[0]) ? $segments[0] : false;
+    		$second = isset($segments[0]) && !KService::get('koowa:filter.alnum')->validate($segments[0]) ? $segments[0] : false;
 
             if($second && !in_array($first, self::getViews()))
             {
@@ -231,15 +231,15 @@ class ComNinjaboardRouter
                 $parts        = explode(':', array_shift($segments));
                 $part         = array_shift($parts);
                 $slug         = $parts ? $part.'-'.implode(':', $parts): $part;
-                $table        = KFactory::get('admin::com.ninjaboard.database.table.topic_slugs');
+                $table        = KService::get('com://admin/ninjaboard.database.table.topic_slugs');
                 $item         = $table->select(array('ninjaboard_topic_slug' => $slug), KDatabase::FETCH_ROW); 
                 $vars['id']   = $item->ninjaboard_topic_id;
                 
                 //For SEO purposes, redirect to the right url if the forum slug is incorrect
                 if(!is_numeric($id))
                 {
-                    $topic = KFactory::tmp('admin::com.ninjaboard.model.topics')->id($item->ninjaboard_topic_id)->getItem();
-                    $forum = KFactory::tmp('admin::com.ninjaboard.model.forums')->id($topic->forum_id)->getItem();
+                    $topic = KService::get('com://admin/ninjaboard.model.topics')->id($item->ninjaboard_topic_id)->getItem();
+                    $forum = KService::get('com://admin/ninjaboard.model.forums')->id($topic->forum_id)->getItem();
 
                     $parts        = explode(':', $first);
                     array_shift($parts);
@@ -252,7 +252,7 @@ class ComNinjaboardRouter
                         $redirect = str_replace($search, $replace, KRequest::url());
                         
                         //Perform 301 permament redirect so that the search engine listings are corrected
-                        KFactory::get('lib.joomla.application')->redirect($redirect, '', '', true);
+                        JFactory::getApplication()->redirect($redirect, '', '', true);
                     }
                 }
             }
@@ -267,10 +267,10 @@ class ComNinjaboardRouter
     		    $parts        = explode(':', $first);
     		    array_shift($parts);
                 $alias        = $parts ? $id.'-'.implode(':', $parts): $id;
-    		    $query = KFactory::tmp('lib.koowa.database.query')
+    		    $query = KService::get('koowa:database.adapter.mysqli')->getQuery()
     		                 ->select('ninjaboard_forum_id')
     		                 ->where('alias', '=', $alias);
-    		    $vars['id']	  = KFactory::tmp('admin::com.ninjaboard.database.table.forums')->select($query, KDatabase::FETCH_FIELD);
+    		    $vars['id']	  = KService::get('com://admin/ninjaboard.database.table.forums')->select($query, KDatabase::FETCH_FIELD);
     		}
     		else
     		{
@@ -311,13 +311,13 @@ class ComNinjaboardRouter
      */
     private static function getTopicSlug($subject, $id)
     {
-        $slug  = KFactory::tmp('admin::com.ninjaboard.filter.slug')->sanitize($subject);
-        $table = KFactory::get('admin::com.ninjaboard.database.table.topic_slugs');
+        $slug  = KService::get('com://admin/ninjaboard.filter.slug')->sanitize($subject);
+        $table = KService::get('com://admin/ninjaboard.database.table.topic_slugs');
         $item  = $table->select(array('ninjaboard_topic_id' => $id), KDatabase::FETCH_ROW);
 
         if($item->ninjaboard_topic_slug) return $item->ninjaboard_topic_slug;
 
-        $is_alnum = KFactory::tmp('lib.koowa.filter.alnum')->validate($slug);
+        $is_alnum = KService::get('koowa:filter.alnum')->validate($slug);
         if($is_alnum || $table->count(array('ninjaboard_topic_slug' => $slug))) return self::getTopicSlugRecurse($slug, $id);
         
         $table->getRow()
@@ -337,7 +337,7 @@ class ComNinjaboardRouter
      */
     private static function getTopicSlugRecurse($slug, $id, $increment = 1)
     {
-        $table = KFactory::get('admin::com.ninjaboard.database.table.topic_slugs');
+        $table = KService::get('com://admin/ninjaboard.database.table.topic_slugs');
         $new   = $slug.'-'.$increment;
         //Critical to make sure the new slug isn't longer than 100 characters
         $count = strlen($new);
@@ -380,7 +380,7 @@ class ComNinjaboardRouter
      */
     public static function getCache()
     {
-        if(!isset(self::$_cache)) self::$_cache = KFactory::tmp('lib.joomla.cache', array('com.ninjaboard.router', 'output'));
+        if(!isset(self::$_cache)) self::$_cache = JFactory::getCache('com.ninjaboard.router', 'output');
         
         return self::$_cache;
     }

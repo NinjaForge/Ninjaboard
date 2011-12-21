@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: usergroups.php 1611 2011-02-27 01:07:31Z stian $
+ * @version		$Id: usergroups.php 2460 2011-10-11 21:21:19Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -27,7 +27,7 @@ class ComNinjaboardModelUsergroups extends ComDefaultModelDefault
 		
 		// Set the state
 		$this->_state
-			->insert('visible', 'int', KFactory::get('lib.joomla.application')->isSite());
+			->insert('visible', 'int', JFactory::getApplication()->isSite());
 	}
 
 	/**
@@ -38,7 +38,7 @@ class ComNinjaboardModelUsergroups extends ComDefaultModelDefault
      */
     public function getPermissions($id)
     {
-    	$table = KFactory::get('admin::com.ninjaboard.database.table.assets');
+    	$table = $this->getService('com://admin/ninjaboard.database.table.assets');
     	$query = $table->getDatabase()->getQuery();
     	$prefx = $table->getDatabase()->getTablePrefix();
 

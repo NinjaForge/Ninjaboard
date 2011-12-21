@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: configurable.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: configurable.php 2460 2011-10-11 21:21:19Z stian $
  * @package		Ninjaboard
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -27,10 +27,10 @@ class ComNinjaboardDatabaseBehaviorConfigurable extends KDatabaseBehaviorAbstrac
 		if($context->mode == KDatabase::FETCH_FIELD) return;
 
 		$rows		= $context['data'];
-		$identifier	= clone $rows->getTable();
+		$identifier	= clone $rows->getTable()->getIdentifier();
 		$identifier->path = array('model');
 		$identifier->name = 'settings';
-		$defaults	= KFactory::get($identifier)->getParams()->toArray();
+		$defaults	= $this->getService($identifier)->getParams()->toArray();
 
 
 		if(is_a($rows, 'KDatabaseRowInterface')) $rows = array($rows);
@@ -49,7 +49,7 @@ class ComNinjaboardDatabaseBehaviorConfigurable extends KDatabaseBehaviorAbstrac
 			//if($true) die('<pre>'.__CLASS__.' '.var_export($params, true).'</pre>');
 			$params = new KConfig($params);
 			//@TODO Make this configurable, instead of hardcoding the defaults to only apply when JSite
-			if(KFactory::get('lib.joomla.application')->isSite()) $params->append($defaults);
+			if(JFactory::getApplication()->isSite()) $params->append($defaults);
 			$row->params = $params;
 		}
 	}

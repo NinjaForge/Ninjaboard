@@ -1,7 +1,9 @@
-<? /** $Id: form.php 2248 2011-07-21 22:05:58Z stian $ */ ?>
+<? /** $Id: form.php 2460 2011-10-11 21:21:19Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<link rel="stylesheet" href="/site.css" />
+
+<?= @template('com://site/ninjaboard.view.default.head') ?>
+
 <link rel="stylesheet" href="/form.css" />
 <link rel="stylesheet" href="/site.form.css" />
 <link rel="stylesheet" href="/bbcode.css" />
@@ -62,10 +64,7 @@
 	}
 </style>
 
-<script type="text/javascript" src="/jquery.min.js"></script>
-<script type="text/javascript" src="/jquery.markitup.pack.js"></script>
-
-<? $bbcode = dirname(KFactory::tmp('site::com.ninjaboard.view.post.form')->getIdentifier()->filepath).'/bbcode.js' ?>
+<? $bbcode = dirname($this->getService('com://site/ninjaboard.view.post.form')->getIdentifier()->filepath).'/bbcode.js' ?>
 <? if(file_exists($bbcode)) : ?>
 <script type="text/javascript">
 	<?= str_replace(
@@ -91,7 +90,7 @@
 <script type="text/javascript">
 	//jQuery version of keepalive
 	setInterval(function(){
-		jQuery.get(<?= json_encode(KRequest::url()->get(KHttpUri::PART_BASE ^ KHttpUri::PART_PATH).@route()) ?>);
+		jQuery.get(<?= json_encode(KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH).@route()) ?>);
 	}, <?= 60000 * max(1, (int)JFactory::getApplication()->getCfg('lifetime')) ?>);
 
 	jQuery(function($){

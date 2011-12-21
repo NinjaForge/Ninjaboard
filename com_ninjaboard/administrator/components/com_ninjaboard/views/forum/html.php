@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1653 2011-03-17 18:40:38Z stian $
+ * @version		$Id: html.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -9,20 +9,13 @@
 
 class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 {
-	/**
-	 * The current forums array being recursively iterated
-	 *
-	 * @var array
-	 */
-	public $forums;
-
 	public function display()
 	{					
 		jimport( 'joomla.filesystem.folder' );
 		jimport( 'joomla.filesystem.file' );
 
 		// path to images directory
-		$identifier = KFactory::get($this->getModel())->getIdentifier();
+		$identifier = $this->getService($this->getModel())->getIdentifier();
 		$path		= JPATH_ROOT.DS.'media'.DS.$identifier->type.'_'.$identifier->package.DS.'images'.DS.'forums';
 		$filter		= '\.png$|\.gif$|\.jpg$|\.bmp$|\.ico$';
 		$files		= JFolder::files($path, $filter, true, true);
@@ -40,7 +33,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 			}
 		}
 		
-		$document = Kfactory::get('lib.joomla.document');
+		$document = JFactory::getDocument();
 		$script   = 'var ' . $identifier->name . 'Images = new Asset.images(' . json_encode((array)$img) . ', {
 		    onComplete: function(){
 		    	$(\'icon_preview\').empty(); ' . $identifier->name . 'Images[$(\'icon\').selectedIndex].clone().injectInside(\'icon_preview\');
@@ -59,7 +52,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		$this->sort		 = $state->sort ? $state->sort : 'title';
 		$this->direction = $state->direction;
 
-		$list	= KFactory::tmp($this->getModel()->getIdentifier())->limit(0)->sort('path_sort_ordering')->enabled('')->getList();
+		$list	= $this->getService($this->getModel()->getIdentifier())->limit(0)->sort('path_sort_ordering')->enabled('')->getList();
 		$id		= $this->getModel()->getItem()->id;
 		foreach($list as $forum)
 		{
@@ -72,9 +65,9 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		}
 		$this->assign('forums', $forums);
 		$filepath = dirname($this->getIdentifier()->filepath).'/tmpl/params.xml';
-		$model 	  = KFactory::get($this->getModel());
+		$model 	  = $this->getService($this->getModel());
 		$forum	  = $model->getItem();
-		$this->form = KFactory::tmp('admin::com.ninja.form.parameter', array(
+		$this->form = $this->getService('ninja:form.parameter', array(
 					  		'data' => $forum->params,
 					  		'xml'  => $filepath
 					  ));
@@ -82,19 +75,19 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		$this->assign('total', $model->getTotal());
 		
 		$permissions = array();
-		foreach(KFactory::get('admin::com.ninjaboard.model.user_groups')->limit(0)->getList() as $usergroup)
+		foreach($this->getService('com://admin/ninjaboard.model.user_groups')->limit(0)->getList() as $usergroup)
 		{
 			$names		= array();
-			$objects	= KFactory::get('admin::com.ninjaboard.permissions')->getObjects();
+			$objects	= $this->getService('com://admin/ninjaboard.permissions')->getObjects();
 			foreach ($objects as $object) 
 			{
 				$names[] = 'com_ninjaboard.forum.'.$forum->id.'.'.$usergroup->id.'.'.$object;
 			}
 		
 			$permissions[] = array(
-				'form' =>	KFactory::tmp('admin::com.ninja.helper.access', array(
+				'form' =>	$this->getService('ninja:template.helper.access', array(
 								'name'		=> $names,
-								'id'		=> KFactory::get('admin::com.ninja.helper.default')->formid($forum->id.'-permissions-'.$usergroup->id),
+								'id'		=> $this->getService('ninja:template.helper.document')->formid($forum->id.'-permissions-'.$usergroup->id),
 								'inputName'	=> 'permissions['.$usergroup->id.']',
 								'inputId'	=> 'permissions-'.$usergroup->id,
 								'render'	=> 'usergroups',
@@ -102,7 +95,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 							)),
 				'title' => $usergroup->title,
 				'group'	=> $usergroup->id,
-				'id'	=> KFactory::get('admin::com.ninja.helper.default')->formid($forum->id.'-permissions-'.$usergroup->id)
+				'id'	=> $this->getService('ninja:template.helper.document')->formid($forum->id.'-permissions-'.$usergroup->id)
 			);
 		}
 		$this->assign('permissions', $permissions);

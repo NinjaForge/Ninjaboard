@@ -1,19 +1,17 @@
-<? /** $Id: default_items.php 1696 2011-03-25 01:24:34Z stian $ */ ?>
+<? /** $Id: default_items.php 2390 2011-08-13 15:45:34Z richie $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach($users as $i => $user) : ?>
-<tr class="<?= @ninja('grid.zebra') ?>">
+<tr>
 	<?= @ninja('grid.count', array('total' => @$total)) ?>
 	<td class="grid-check">
-		<?= @ninja('grid.id', array('value' => $user->id)) ?>
+		<?= @helper('grid.checkbox', array('row' => $user)) ?>
 	</td>
 	<td width="1" style="text-align: right">
 		<?= $user->id ?>
 	</td>
 	<td>
-		<a href="<?= @route('view=user&id='.$user->id) ?>" class="hasHint"<? /* title="&lt;img src=&quot;<?= KRequest::root().$user->avatar ?>&quot; /&gt;" */ ?>>
-			<?= $user->name ?>
-		</a>
+		<?= @ninja('grid.edit', array('row' => $user, 'column' => 'name')) ?>
 	</td>
 	<td>
 		<?= $user->username ?>

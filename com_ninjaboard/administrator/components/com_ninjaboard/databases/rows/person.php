@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
  /**
- * @version		$Id: person.php 1666 2011-03-22 02:06:32Z stian $
+ * @version		$Id: person.php 2461 2011-10-11 22:32:21Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -41,7 +41,7 @@ class ComNinjaboardDatabaseRowPerson extends KDatabaseRowDefault
 			if(!$this->_usergroups)
 			{
 				$ids = explode('|', $this->ninjaboard_usergroup_id);
-				$this->_usergroups = KFactory::tmp('admin::com.ninjaboard.model.usergroups')->limit(0)->id($ids)->getList();
+				$this->_usergroups = $this->getService('com://admin/ninjaboard.model.usergroups')->limit(0)->id($ids)->getList();
 			}
 
 			return $this->_usergroups;
@@ -88,8 +88,8 @@ class ComNinjaboardDatabaseRowPerson extends KDatabaseRowDefault
 			$object = str_replace('_permissions', '', $column);
 	    	if(!isset($this->_permissions[$object]))
 			{
-				$table	= KFactory::get('admin::com.ninjaboard.database.table.assets');
-				$query	= KFactory::tmp('lib.koowa.database.query');
+				$table	= $this->getService('com://admin/ninjaboard.database.table.assets');
+				$query	= $this->getService('koowa:database.adapter.mysqli')->getQuery();
 				$gids	= explode('|', $this->ninjaboard_usergroup_id);
 
 				//If super admin, then the permission level is always 3

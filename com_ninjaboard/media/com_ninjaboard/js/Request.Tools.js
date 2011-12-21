@@ -76,9 +76,10 @@ Request.Tools = new Class({
 			if(Notifications.checkPermission()) Notifications.requestPermission();
 		});
 
-		links.store('request', this).each(function(link){
+		links.store('request', this);
+		links.each(function(link){
 			var name = link.get('data-name'),
-				form = $(link.get('data-name')+'-form'),
+				form = $(name+'-form'),
 				request = this.createRequest.pass([link, name], this);
 			
 			//Converter has a form	
@@ -123,7 +124,7 @@ Request.Tools = new Class({
 			//link.addClass('active');
 			//return;
 			
-		}.bind(this));
+		}, this);
 	
 	},
 	
@@ -134,25 +135,22 @@ Request.Tools = new Class({
 		if(!importing) importing = 'Importing from %s';
 		// @TODO make translatable
 		this.options.msg.importing = importing.replace('%s', link.get('text'));
-		var request = this, total = new Date;
+
+		var request = this, total = new Date, spinner = new Spinner(this.options.placeholder, $merge(this.options.title.get('spinner:options'), {message: this.options.msg.importing}));
+
+		this.options.placeholder.store('spinner', spinner);
 		
 		//@TODO icons are too blurry
 		//icon = link.getElement('span').getStyle('background-image').replace(/^url\(/, '').replace(/\)$/, '');
 
-		new Request.JSON({
+		var instance = new Request.JSON({
 		    url: new URI(window.location).setData({action: 'import', format: 'json', 'import': name}, true).toString(),
-		    data: new Hash({
-		    	action: 'import',
-		    	format: 'json',
-		    	'import': name,
-		    	'_token': token,
-		    	limit: limit
-		    }).extend(this.options.data),
 		    placeholder: this.options.placeholder,
 		    title: this.options.title,
-		    useSpinner: true,
-		    spinnerTarget: this.options.placeholder,
-		    spinnerOptions: $merge(this.options.title.get('spinner:options'), {message: this.options.msg.importing}),
+		    
+		    onRequest: function(){
+		    	spinner.show();
+		    },
 		    onSuccess: function(response){
 				if(response.splittable) {
 		    		var data = new Hash(this.options.data),
@@ -264,8 +262,13 @@ Request.Tools = new Class({
 		    	this.options.placeholder.get('spinner').element.addClass('failed');
 		    	Notifications.createNotification(icon, document.title,  msg.failure);
 		    }
-		}).post();
-
+		}).post(new Hash({
+			action: 'import',
+			format: 'json',
+			'import': name,
+			'_token': token,
+			limit: limit
+		}).extend(this.options.data).getClean());
 	},
 	
 	onRequestFailure: function(){

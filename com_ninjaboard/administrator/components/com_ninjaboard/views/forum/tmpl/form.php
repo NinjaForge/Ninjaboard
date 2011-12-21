@@ -1,5 +1,7 @@
-<? /** $Id: form.php 2340 2011-08-01 21:01:42Z stian $ */ ?>
+<? /** $Id: form.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
+
+<?= @template('ninja:view.form.head') ?>
 
 <? @ninja('behavior.tooltip', array('selector' => '[title].hasTip')) ?>
 <? @ninja('behavior.livetitle', array('title' => @$forum->title)) ?>
@@ -18,7 +20,7 @@
 	});
 </script>
 
-<form action="<?= @route('id='.@$forum->id) ?>" method="post" id="<?= @id() ?>" class="validator-inline">
+<form action="<?= @route('id='.@$forum->id) ?>" method="post" id="<?= @id() ?>" class="validator-inline -koowa-form">
 	<div class="col width-50">
 		<fieldset class="adminform ninja-form">
 			<legend><?= @text('Details') ?></legend>
@@ -49,8 +51,8 @@
 			<legend><?= @text('Forum Hierarchy') ?></legend>
 			<div class="element">
 				<label class="key" for="path"><?= @text('Parent Forum') ?></label>
-					<? $size = max(max(@total+1, 17)-2, 1) ?>
-					<?= JHTML::_('select.genericlist', KFactory::get($this->getView())->forums, 'path', array('class' => 'value required', 'size' => $size), 'path', 'title', @$forum->path ? @$forum->path : ' ') ?>
+					<? $size = max(max($total+1, 17)-2, 1) ?>
+					<?= JHTML::_('select.genericlist', $forums, 'path', array('class' => 'value required', 'size' => $size), 'path', 'title', @$forum->path ? @$forum->path : ' ') ?>
 			</div>
 		</fieldset>
 
@@ -169,13 +171,13 @@
 
 		<fieldset class="adminform ninja-form">
 			<legend><?= @text('Permissions') ?></legend>
-			<?= @ninja('accordions.startpane', array('id' => @id('permissions'), 'options' => array('opacity' => true, 'scroll' => true))) ?>
+			<?= @helper('accordion.startpane', array('id' => @id('permissions'), 'options' => array('opacity' => true, 'scroll' => true))) ?>
 			<? foreach (@$permissions as $permission) : ?>
-				<? @js("\n\twindow.addEvent('domready', function(){ $('" . $permission['id'] . "').switcher(".json_encode(array('text' => array('on' => @text('on'), 'off' => @text('off'))))."); });\n") ?>
+				<script><?= "\n\twindow.addEvent('domready', function(){ $('" . $permission['id'] . "').switcher(".json_encode(array('text' => array('on' => @text('on'), 'off' => @text('off'))))."); });\n" ?></script>
 
-				<?= @ninja('accordions.startpanel', array('title' => $permission['title'], 'translate' => false)) ?>
+				<?= @helper('accordion.startpanel', array('title' => $permission['title'], 'translate' => false)) ?>
 
-					<? $permissions = \@@$forum->params['permissions'][$permission['group']]['enabled'] == 1 ? 1 : 0 ?>
+					<? $permissions = \@$forum->params['permissions'][$permission['group']]['enabled'] == 1 ? 1 : 0 ?>
 					<? $checked = $permissions ? ' checked="checked"' : null ?>
 					<div class="wrapper switch" id="<?= $permission['id'] ?>-wrap">
 						<input name="params[permissions][<?= $permission['group'] ?>][enabled]" value="<?= $permissions ?>" type="hidden" />
@@ -183,9 +185,9 @@
 					</div>
 
 					<?= $permission['form']->render() ?>
-				<?= @ninja('accordions.endpanel') ?>
+				<?= @helper('accordion.endpanel') ?>
 			<? endforeach ?>
-			<?= @ninja('accordions.endpane') ?>
+			<?= @helper('accordion.endpane') ?>
 			<input type="hidden" name="editpermissions" value="true" />
 		</fieldset>
 	</div>

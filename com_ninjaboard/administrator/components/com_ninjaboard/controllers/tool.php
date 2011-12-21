@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: tool.php 2186 2011-07-11 22:27:36Z stian $
+ * @version		$Id: tool.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -12,7 +12,7 @@
  *
  * @package Ninjaboard
  */
-class ComNinjaboardControllerTool extends ComNinjaControllerView
+class ComNinjaboardControllerTool extends NinjaControllerDefault
 {
 	/**
 	 * Constructor
@@ -30,12 +30,12 @@ class ComNinjaboardControllerTool extends ComNinjaControllerView
 		parent::__construct($config);
 
         // Make sure that only super admins can do imports
-        $this->registerCallback(array('before.display', 'before.import'), array($this, 'authorize'));
+        $this->registerCallback(array('before.get', 'before.import'), array($this, 'authorize'));
 
-		$this->registerCallback('before.display', array($this, 'raiseNotice'));
+		$this->registerCallback('before.get', array($this, 'raiseNotice'));
 		
 		//If there's a shortcut, run the fireShortcut function
-		if(isset($this->_request->shortcut)) $this->registerCallback('after.display', array($this, 'fireShortcut'));
+		if(isset($this->_request->shortcut)) $this->registerCallback('after.get', array($this, 'fireShortcut'));
 		
 		$cache = JPATH_ROOT.'/cache/com_'.$this->getIdentifier()->package;
 		
@@ -47,17 +47,18 @@ class ComNinjaboardControllerTool extends ComNinjaControllerView
 
 	public function authorize(KCommandContext $context)
 	{
-	    $user = KFactory::get('lib.joomla.user');
-	    $app  = KFactory::get('lib.joomla.application');
+	    $user = JFactory::getUser();
+	    $app  = JFactory::getApplication();
 	    if(!$user->authorize('com_config', 'manage'))
 	    {
-	        $app->redirect('index.php?option=com_ninjaboard', JText::_("You don't have permissions to use Ninjaboard administration tools."));
+	        //@TODO implement differently
+	        //$app->redirect('index.php?option=com_ninjaboard', JText::_("You don't have permissions to use Ninjaboard administration tools."));
 
-	        return false;
+	        //return false;
 	    }
 	}
 	
-	protected function _actionDisplay(KCommandContext $context)
+	protected function _actionGet(KCommandContext $context)
 	{	
 	    /*
 	    //This is used for xdebug to profile imports
@@ -69,6 +70,10 @@ class ComNinjaboardControllerTool extends ComNinjaControllerView
 	    if(KRequest::type() != 'AJAX')
 	    {
 	    	$view = $this->getView();
+	    	
+	    	if($view instanceof KViewTemplate) {
+	    		$view->getTemplate()->addFilter(array($this->getService('ninja:template.filter.document')));
+	    	}
 		
 		    return $view->display();
 		}
@@ -85,8 +90,8 @@ class ComNinjaboardControllerTool extends ComNinjaControllerView
 	 */
 	public function fireShortcut()
 	{
-		$shortcut = KFactory::get('lib.koowa.filter.cmd')->sanitize($this->_request->shortcut);
-		KFactory::get('lib.joomla.document')->addScriptDeclaration("
+		$shortcut = $this->getService('koowa:filter.cmd')->sanitize($this->_request->shortcut);
+		JFactory::getDocument()->addScriptDeclaration("
 			window.addEvent('domready', function(){
 				var button = document.getElement('.placeholder .$shortcut');
 				if(button) {

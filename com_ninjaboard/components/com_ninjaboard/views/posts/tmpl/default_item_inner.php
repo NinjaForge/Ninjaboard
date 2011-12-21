@@ -1,4 +1,4 @@
-<? /** $Id: default_item_inner.php 2325 2011-07-30 22:49:53Z stian $ */ ?>
+<? /** $Id: default_item_inner.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <div class="wrap">
@@ -7,9 +7,9 @@
 			<img src="<?= @$img('/16/page.png') ?>" width="16" height="16" alt="<?= @text('Link to this post') ?>" />
 			<?= @ninja('date.html', array('date' => $post->created_on)) ?>
 		</a>
-		<div class="text"><?= @ninja('bbcode.parse', array('text' => $post->text)) ?></div>
-		<? $images = KFactory::tmp('admin::com.ninjaboard.model.attachments')->post($post->id)->getImages() ?>
-		<? $files  = KFactory::tmp('admin::com.ninjaboard.model.attachments')->post($post->id)->getFiles() ?>
+		<div class="text"><?= @helper('ninja:helper.bbcode.parse', array('text' => $post->text)) ?></div>
+		<? $images = $this->getService('com://admin/ninjaboard.model.attachments')->post($post->id)->getImages() ?>
+		<? $files  = $this->getService('com://admin/ninjaboard.model.attachments')->post($post->id)->getFiles() ?>
 		<? if($topic->attachment_permissions > 0) : ?>
 			<ol class="images">
 				<? foreach ($images as $attachment) : ?>
@@ -36,14 +36,16 @@
 		<!-- .signature.footer still present because of browser cache. Browser cache is solved permanently in Ninjaboard 1.2 -->
 		<div class="ninjaboard-post-footer signature footer">
 		    <div class="ninjaboard-signature">
-			    <?= @ninja('bbcode.parse', array('text' => @$post->signature)) ?>
+			    <?= @helper('ninja:helper.bbcode.parse', array('text' => @$post->signature)) ?>
 			</div>
-			<? if( ( @$forum->post_permissions == 3 ) or ( @$forum->post_permissions == 2 && @$post->created_by == @$user->id ) ) : ?>
+			
 			<div class="ninjaboard-buttons actions toolbar">
-				<?= @edit_post_button($post->id) ?>
-				<? if($topic->first_post_id != $post->id) echo $delete_post_button ?>
+			    <?= @quote_post_button($post->id) ?>
+			    <? if( ( @$forum->post_permissions == 3 ) or ( @$forum->post_permissions == 2 && @$post->created_by == @$user->id ) ) : ?>
+				    <?= @edit_post_button($post->id) ?>
+				    <? if($topic->first_post_id != $post->id) echo $delete_post_button ?>
+				<? endif ?>
 			</div>
-			<? endif ?>
 		</div>		
 	</div>
 	<div class="user sidebar">
@@ -54,7 +56,7 @@
 		<? endif ?>
 
 		<? if($params['avatar_settings']['enable_avatar']) : ?>
-		<?= @helper('site::com.ninjaboard.template.helper.avatar.image', array(
+		<?= @helper('com://site/ninjaboard.template.helper.avatar.image', array(
 			'id'		=> $post->created_by
 		)) ?>
 		<? else : ?>
@@ -65,8 +67,8 @@
 		</style>
 		<? endif ?>
 		
-		<? if($params['view_settings']['show_usergroups']) : ?>
-		<?= @template('site::com.ninjaboard.view.person.usergroups', array('usergroups' => $post->usergroups)) ?>
+		<? if($post->usergroups) : ?>
+		<?= @template('com://site/ninjaboard.view.person.usergroups', array('usergroups' => $post->usergroups)) ?>
 		<? endif ?>
 		
 		<? if($post->rank_title && $post->rank_icon && @$img('/rank/'.$post->rank_icon)) : ?>

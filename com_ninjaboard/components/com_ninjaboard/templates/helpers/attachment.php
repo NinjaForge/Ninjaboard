@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: attachment.php 1563 2011-02-16 14:50:47Z stian $
+ * @version		$Id: attachment.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -30,14 +30,14 @@ class ComNinjaboardTemplateHelperAttachment extends KTemplateHelperAbstract
 		
 		$show = json_encode(JText::_('Show allowed file types'));
 		$hide = json_encode(JText::_('Hide allowed file types'));
-		KFactory::get('admin::com.ninja.helper.default')->js("
-			jQuery(function($){
-				$('.allowed-file-extensions-toggle').click(function(event){
+		$this->getService('ninja:template.helper.document')->load('js', "
+			window.addEvent('domready', function(){
+				$$('.allowed-file-extensions-toggle').addEvent('click', function(event){
 					event.preventDefault();
 
-					var prev = $(this).prev();
-					$(this).text(prev.is(':visible') ? $show : $hide);
-					prev.slideToggle();
+					var prev = this.getPrevious();
+					this.set('text', prev.isVisible() ? $show : $hide);
+					prev.slide('toggle');
 				});
 			});
 		");
@@ -61,7 +61,7 @@ class ComNinjaboardTemplateHelperAttachment extends KTemplateHelperAbstract
 
 		return sprintf(
 			JText::_('Maximum size of %s per file.'),
-			KFactory::get('admin::com.ninja.helper.convert')->bytes(array('bytes' => $upload_size_limit))
+			$this->getService('ninja:template.helper.convert')->bytes(array('bytes' => $upload_size_limit))
 		);
 	}
 

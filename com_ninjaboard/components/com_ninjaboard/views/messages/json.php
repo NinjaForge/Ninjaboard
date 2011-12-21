@@ -1,15 +1,15 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: json.php 1832 2011-04-28 22:55:50Z stian $
+ * @version		$Id: json.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
 
-KLoader::load('admin::com.ninja.view.json');
+KLoader::loadIdentifier('ninja:view.json');
 
-class ComNinjaboardViewMessagesJson extends ComNinjaViewJson
+class ComNinjaboardViewMessagesJson extends NinjaViewJson
 {
 	/**
 	 * Return the views output
@@ -19,15 +19,15 @@ class ComNinjaboardViewMessagesJson extends ComNinjaViewJson
 	public function display()
 	{
 		$model		= $this->getModel();
-		$template	= KFactory::get('site::com.ninjaboard.view.message.html')->getTemplate();
-		$params 	= KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
-		$me			= KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$template	= $this->getService('com://site/ninjaboard.view.message.html')->getTemplate();
+		$params 	= $this->getService('com://admin/ninjaboard.model.settings')->getParams();
+		$me			= $this->getService('com://admin/ninjaboard.model.people')->getMe();
 		$data		= array();
 
 		foreach($model->getList() as $message)
 		{
 			$result			= $message->getData();
-			$result['html']	= $template->loadIdentifier('site::com.ninjaboard.view.message.list', array(
+			$result['html']	= $template->loadIdentifier('com://site/ninjaboard.view.message.list', array(
 				'message'	=> $message,
 				'params'	=> $params,
 				'me'		=> $me

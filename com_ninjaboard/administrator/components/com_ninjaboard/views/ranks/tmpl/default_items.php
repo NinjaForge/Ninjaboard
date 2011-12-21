@@ -1,11 +1,11 @@
-<? /** $Id: default_items.php 1270 2010-12-22 13:14:06Z stian $ */ ?>
+<? /** $Id: default_items.php 2390 2011-08-13 15:45:34Z richie $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach($ranks as $i => $rank) : ?>
-<tr class="<?= @ninja('grid.zebra') ?> state-<?= @toggle($rank->enabled, 'enable', 'disable') ?>">
+<tr class="state-<?= @toggle($rank->enabled, 'enable', 'disable') ?>">
 	<?= @ninja('grid.count', array('total' => @$total)) ?>
-	<td class="grid-check"><?= @ninja('grid.checkedout', array('row' => $rank)) ?></td>
-	<td><?= @$edit($rank, $i, 'title', 'id') ?></td>
+	<td class="grid-check"><?= @helper('grid.checkbox', array('row' => $rank)) ?></td>
+	<td><?= @ninja('grid.edit', array('row' => $rank)) ?></td>
 	<td width="160px"><img src="<?= @img('/rank/'.$rank->rank_file) ?>" alt="<?= $rank->title ?>" /></td>
 	<td><?= $rank->min ?></td>
 	<td align="center" width="32px"><?= @ninja('grid.toggle', array('enabled' => $rank->enabled)) ?></td>

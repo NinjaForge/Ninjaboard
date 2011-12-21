@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: rss.php 1679 2011-03-24 01:24:49Z stian $
+ * @version		$Id: rss.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -19,7 +19,7 @@ class ComNinjaboardViewPostsRss extends KViewAbstract
 	public function display()
     {	
 		$items = $this->getModel()->getList();
-		$root  = KRequest::url()->get(KHttpUri::PART_BASE ^ KHttpUri::PART_PATH);
+		$root  = KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH);
 		
 		$xml   = '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>';
 		$xml  .= '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom">';
@@ -33,7 +33,7 @@ class ComNinjaboardViewPostsRss extends KViewAbstract
 			$xml .= '<item>';	
 			$xml .= '<title>'.htmlspecialchars($item->title).'</title>';
 			$xml .= '<link>'.$root.JRoute::_('index.php?option=com_ninjaboard&view=topic&id='.$item->ninjaboard_topic_id.'&post='.$item->id.'#p'.$item->id).'</link>';
-			$xml .= '<description>'.htmlspecialchars(KFactory::get('admin::com.ninja.helper.bbcode')->parse(array('text' => $item->text))).'</description>';
+			$xml .= '<description>'.htmlspecialchars($this->getService('ninja:helper.bbcode')->parse(array('text' => $item->text))).'</description>';
 			$xml .= '<guid isPermaLink="false">'.$item->uuid.'</guid>';
 			$xml .= '<media:title>'.htmlspecialchars($item->title).'</media:title> ';
 			$xml .= '<media:content url="'.$root.JRoute::_('index.php?option=com_ninjaboard&view=avatar&id='.$item->created_by.'&format=file').'"/>';

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: themes.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: themes.php 2506 2011-11-22 11:30:30Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -15,7 +15,7 @@
  * 
  * @author Stian Didriksen <stian@ninjaforge.com>
  */
-class ComNinjaboardModelThemes extends ComNinjaModelFilesystem
+class ComNinjaboardModelThemes extends NinjaModelFilesystem
 {
 	protected function _parseTemplate($xml)
 	{
@@ -34,8 +34,8 @@ class ComNinjaboardModelThemes extends ComNinjaModelFilesystem
 	public function getItem()
 	{
 		return (object) array(
-			'xml'		=> simplexml_load_file(JPATH_ROOT.'/components/com_ninjaboard/themes/'.$this->_state->name.'/'.$this->_state->name.'.xml'),
-			'params'	=> KFactory::tmp('admin::com.ninjaboard.model.settings')->id(KRequest::get('get.setting', 'int'))->getParams()
+			'xml'    => simplexml_load_file(JPATH_ROOT.'/components/com_ninjaboard/themes/'.$this->_state->name.'/'.$this->_state->name.'.xml'),
+			'params' => $this->getService('com://admin/ninjaboard.model.settings')->id(KRequest::get('get.setting', 'int'))->getParams()
 		);
 	}
 }

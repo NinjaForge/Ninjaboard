@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: agora.php 2301 2011-07-27 19:06:46Z stian $
+ * @version		$Id: agora.php 2489 2011-11-10 22:03:18Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -36,7 +36,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 				'options' => array(
 					'name' => 'agora_categories'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'(id + (SELECT MAX(id) FROM #__agora_forums)) AS id',
 								'cat_name AS title',
@@ -50,7 +50,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 				'options' => array(
 					'name' => 'agora_forums'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'id',
 								'enable AS enabled',
@@ -69,7 +69,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 				'options' => array(
 					'name' => 'agora_posts'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'tbl.*',
 								'topic.subject AS subject',
@@ -91,7 +91,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 				'options' => array(
 					'name' => 'agora_topics'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'tbl.*',
 								'num_views AS hits',
@@ -108,7 +108,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 				'options' => array(
 					'name' => 'agora_users'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'jos_id AS id',
 								'id AS agora_user_id',
@@ -121,7 +121,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 				'options' => array(
 					'name' => 'agora_subscriptions'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'CONCAT(user_id, topic_id, forum_id, category_id) AS id',
 								'jos_id AS created_by',
@@ -137,7 +137,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 				'options' => array(
 					'name' => 'agora_subscriptions'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'CONCAT(user_id, topic_id, forum_id, category_id) AS id',
 								'jos_id AS created_by',
@@ -153,7 +153,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 				'options' => array(
 					'name' => 'agora_subscriptions'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'CONCAT(user_id, topic_id, forum_id, category_id) AS id',
 								'jos_id AS created_by',
@@ -174,11 +174,11 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 		if(isset($this->data['people']))
 		{
 			//Get the avatar path
-			$query = KFactory::tmp('lib.koowa.database.query')
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 																->select('conf_value')
 																->from('agora_config')
 																->where('conf_name', '=', 'o_avatars_dir');
-			$path  = KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
+			$path  = $this->getService('koowa:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 			
 			foreach($this->data['people'] as $id => $person)
 			{
@@ -228,6 +228,7 @@ class ComNinjaboardDatabaseConvertersAgora extends ComNinjaboardDatabaseConverte
 	 */
 	public function canConvert()
 	{
-		return JComponentHelper::getComponent( 'com_agora', true )->enabled;
+		$query  = "SHOW TABLES LIKE '#__agora_forums'";
+		return (bool)KService::get('koowa:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 	}
 }

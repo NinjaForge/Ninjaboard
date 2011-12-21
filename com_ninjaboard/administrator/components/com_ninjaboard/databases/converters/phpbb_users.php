@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: phpbb_users.php 1787 2011-04-12 23:38:17Z stian $
+ * @version		$Id: phpbb_users.php 2462 2011-10-11 22:55:40Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -44,7 +44,7 @@ class ComNinjaboardDatabaseConvertersPhpbb_users extends ComNinjaboardDatabaseCo
 			    'name' => 'people',
 				'options' => array(),
 				'columns' => array('ninjaboard_person_id'),
-				'query' => KFactory::tmp('lib.koowa.database.query')->select(array(
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()->select(array(
 				    '*',
 				    'ninjaboard_person_id AS id'
 				))
@@ -55,7 +55,7 @@ class ComNinjaboardDatabaseConvertersPhpbb_users extends ComNinjaboardDatabaseCo
 				    'name' => 'ninjaboard_attachments'
 				),
 				'columns' => array('joomla_user_id'),
-				'query' => KFactory::tmp('lib.koowa.database.query')->select(array(
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()->select(array(
 				    '*',
 				    'ninjaboard_attachment_id AS id'
 				))
@@ -66,7 +66,7 @@ class ComNinjaboardDatabaseConvertersPhpbb_users extends ComNinjaboardDatabaseCo
 				    'name' => 'ninjaboard_posts'
 				),
 				'columns' => array('created_by', 'modified_by'),
-				'query' => KFactory::tmp('lib.koowa.database.query')->select(array(
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()->select(array(
 				    '*',
 				    'ninjaboard_post_id AS id',
 				    'created_user_id AS created_by',
@@ -92,44 +92,44 @@ class ComNinjaboardDatabaseConvertersPhpbb_users extends ComNinjaboardDatabaseCo
 			}
 		}
 
-		//Connect the lib.koowa.database to the phpBB3 database
+		//Connect the koowa:database to the phpBB3 database
 		$this->setDatabaseConnection();
 		
-		$users = KFactory::get('admin::com.phpbb.database.table.users', array(
+		$users = $this->getService('com://admin/phpbb.database.table.users', array(
 			'name' => 'users',
 			'identity_column' => 'user_id'
 		))->select(array($ids));
 
 		//Get the avatars gallery path
-		$query = KFactory::tmp('lib.koowa.database.query')
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 															->select('config_value')
 															->from('config')
 															->where('config_name', '=', 'avatar_gallery_path');
-		$gallery  = KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
+		$gallery  = $this->getService('koowa:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 		
 		//Get the avatars uploads salt
-		$query = KFactory::tmp('lib.koowa.database.query')
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 															->select('config_value')
 															->from('config')
 															->where('config_name', '=', 'avatar_salt');
-		$prefix  = KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
+		$prefix  = $this->getService('koowa:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 		
 		//Get the avatars uploads path
-		$query = KFactory::tmp('lib.koowa.database.query')
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 															->select('config_value')
 															->from('config')
 															->where('config_name', '=', 'avatar_path');
-		$upload  = KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
+		$upload  = $this->getService('koowa:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 		$upload .= '/'.$prefix.'_';
 		
-		//Reconnect the lib.koowa.database to the Joomla! database
+		//Reconnect the koowa:database to the Joomla! database
 		$this->resetDatabaseConnection();
 		
-		$db = KFactory::get('lib.koowa.database.adapter.mysqli');
+		$db = $this->getService('koowa:database.adapter.mysqli');
 		
 		foreach($users as $user)
 		{
-			$query = KFactory::tmp('lib.koowa.database.query')->select('id')->from('users');
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->select('id')->from('users');
 			$ids[$user->id] = $db->select($query->where('username', '=', $user->username_clean)->where('email', '=', $user->user_email), KDatabase::FETCH_FIELD);
 
 			//We only know how to deal with 3 avatar types
@@ -167,7 +167,7 @@ class ComNinjaboardDatabaseConvertersPhpbb_users extends ComNinjaboardDatabaseCo
 			$user->avatar = $avatar;
 		}
 		
-		$identifier = new KIdentifier('admin::com.ninjaboard.database.table.default');
+		$identifier = new KServiceIdentifier('com://admin/ninjaboard.database.table.default');
 		foreach($this->data as $table => $rows)
 		{
 			if(!isset($tables[$table])) continue;
@@ -179,12 +179,12 @@ class ComNinjaboardDatabaseConvertersPhpbb_users extends ComNinjaboardDatabaseCo
 				}
 			}
 			$identifier->name = $table;
-			$table = KFactory::get($identifier);
+			$table = $this->getService($identifier);
 
 			$this->update($rows, $table);
 		}
 		
-		$table = KFactory::get('admin::com.ninjaboard.database.table.people', array('column_map' => array(
+		$table = $this->getService('com://admin/ninjaboard.database.table.people', array('column_map' => array(
 			'user_posts' => 'posts',
 			'user_sig' => 'signature'
 		)));
@@ -194,7 +194,7 @@ class ComNinjaboardDatabaseConvertersPhpbb_users extends ComNinjaboardDatabaseCo
 		foreach($users as $user)
 		{	
 			/*	
-			$this->row = KFactory::tmp($identifier)
+			$this->row = $this->getService($identifier)
 						->getItem()
 						->setData($this->row)
 						->save(); 

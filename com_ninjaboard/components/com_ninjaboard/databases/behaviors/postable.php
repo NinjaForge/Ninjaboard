@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: postable.php 2189 2011-07-11 22:30:27Z stian $
+ * @version		$Id: postable.php 2460 2011-10-11 21:21:19Z stian $
  * @package		Ninjaboard
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -19,9 +19,10 @@ class ComNinjaboardDatabaseBehaviorPostable extends KDatabaseBehaviorAbstract
 	protected function _beforeTableInsert(KCommandContext $context)
 	{
 		$row	= $context['data']; //get the row data being inserted
-		$user	= KFactory::get('lib.joomla.user');
-		$topic	= KFactory::tmp('site::com.ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
-		$forum	= KFactory::tmp('admin::com.ninjaboard.model.forums')->id($row->forum_id)->getItem();
+		$user	= JFactory::getUser();
+		$topic	= $this->getService('com://site/ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
+		$forum	= $this->getService('com://admin/ninjaboard.model.forums')->id($row->forum_id)->getItem();
+		if(!$forum->isNestable()) return;
 		$forums	= $forum->getParents();
 		if(!$forum->id) {
 			JError::raiseWarning(404, JText::_('No forum id!'));
@@ -76,10 +77,11 @@ class ComNinjaboardDatabaseBehaviorPostable extends KDatabaseBehaviorAbstract
 		$row 	= $context['data']; //get the row that was inserted
 		$userid = $row->created_by ? $row->created_by : '00';
 
-		$topic	= KFactory::tmp('site::com.ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
-		$forum	= KFactory::tmp('site::com.ninjaboard.model.forums')->id($topic->forum_id)->getItem();
+		$topic	= $this->getService('com://site/ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
+		$forum	= $this->getService('com://site/ninjaboard.model.forums')->id($topic->forum_id)->getItem();
+		if(!$forum->isNestable()) return;
 		$forums	= $forum->getParents();
-		$user	= KFactory::tmp('admin::com.ninjaboard.model.people')->id($userid)->getItem();
+		$user	= $this->getService('com://admin/ninjaboard.model.people')->id($userid)->getItem();
 
 		if(!$topic->id)
 		{
@@ -105,7 +107,7 @@ class ComNinjaboardDatabaseBehaviorPostable extends KDatabaseBehaviorAbstract
 			$forum->save();	
 		}
 		
-		if(!KFactory::get('lib.joomla.user')->guest)
+		if(!JFactory::getUser()->guest)
 		{
 			if($user->id != $userid) $user->id = $userid;
 			$user->posts++;
@@ -116,9 +118,9 @@ class ComNinjaboardDatabaseBehaviorPostable extends KDatabaseBehaviorAbstract
 	protected function _beforeTableUpdate(KCommandContext $context)
 	{
 		$row	= $context['data']; //get the row data being inserted
-		$topic	= KFactory::tmp('admin::com.ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
-		$forum	= KFactory::tmp('admin::com.ninjaboard.model.forums')->id($topic->forum_id)->getItem();
-		$user	= KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$topic	= $this->getService('com://admin/ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
+		$forum	= $this->getService('com://admin/ninjaboard.model.forums')->id($topic->forum_id)->getItem();
+		$user	= $this->getService('com://admin/ninjaboard.model.people')->getMe();
 
 		if($forum->post_permissions < 2) return false;
 		if($forum->post_permissions < 3 && $row->created_by != $user->id) return false;
@@ -128,7 +130,7 @@ class ComNinjaboardDatabaseBehaviorPostable extends KDatabaseBehaviorAbstract
 	{
 		$row 	= $context['data']; //get the row that was inserted
 
-		$topic	= KFactory::tmp('site::com.ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
+		$topic	= $this->getService('com://site/ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
 		if($topic->first_post_id === $row->id) {
 			//To avoid getting inherited params saved to the table, we call getData(), which wont attach such data.
 			$data			= $row->getData();

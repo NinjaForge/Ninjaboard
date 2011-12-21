@@ -1,6 +1,6 @@
 <?php
  /**
- * @version		$Id: ninjaboard.php 1666 2011-03-22 02:06:32Z stian $
+ * @version		$Id: ninjaboard.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -31,15 +31,15 @@ if(KRequest::get('get.layout', 'cmd') == 'ninjaboard')	unset($_GET['layout']);
 
 
 
-$document = KFactory::get('lib.joomla.document');
-$config   = KFactory::get('lib.joomla.config');
+$document = JFactory::getDocument();
+$config   = JFactory::getConfig();
 $debug    = $config->getValue('config.debug');
 
 if($debug && false)
 {
 	try {
 		//Init plug
-		KFactory::get('plg.koowa.debug');
+		$this->getService('plg:koowa.debug');
 	} catch(KFactoryAdapterException $e) {}
 		
 	$profile = microtime(true);
@@ -52,13 +52,13 @@ if(KRequest::has('get.limitstart'))
 }
 
 // Create the component dispatcher
-echo KFactory::get('site::com.ninjaboard.dispatcher')->dispatch(KRequest::get('get.view', 'cmd', 'forums'));
+echo KService::get('com://site/ninjaboard.dispatcher')->dispatch();
 
 if($debug && false)
 {
 	try {
 		//Init plug
-		$queries = KFactory::get('plg.koowa.debug')->queries;
+		$queries = $this->getService('plg:koowa.debug')->queries;
 		$document->addScriptDeclaration('if(console) { console.group("Ninjaboard SQL queries ('.count($queries).')");'.PHP_EOL);
 		foreach($queries AS $query)
 		{
@@ -72,4 +72,4 @@ if($debug && false)
 }
 
 // Add untranslated words to the current NB language file
-KFactory::get('admin::com.ninja.helper.language');
+KService::get('ninja:helper.language');

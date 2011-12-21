@@ -1,13 +1,14 @@
-<? /** $Id: form_custom_display_name.php 1696 2011-03-25 01:24:34Z stian $ */ ?>
+<? /** $Id: form_custom_display_name.php 2446 2011-09-08 13:27:54Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <script type="text/javascript">
-jQuery(function($){
-	$('#use_alias').click(function(){
-		$('#alias').select();
+window.addEvent('domready', function(){
+	document.id('use_alias').addEvent('click', function(){
+	    //@TODO .select() might not work as it does in jQuery
+		document.id('alias').select();
 	});
-	$('#alias').focus(function(){
-		if(!$('#use_alias').is(':checked')) $('#use_alias').attr('checked', true);
+	document.id('alias').addEvent('focus', function(){
+		if(!document.id('use_alias').checked) document.id('use_alias').set('checked', true);
 	});
 });
 </script>

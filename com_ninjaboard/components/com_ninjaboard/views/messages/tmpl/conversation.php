@@ -1,7 +1,7 @@
-<? /** $Id: conversation.php 1846 2011-04-29 22:22:23Z stian $ */ ?>
+<? /** $Id: conversation.php 2460 2011-10-11 21:21:19Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<? $me = KFactory::get('admin::com.ninjaboard.model.people')->getMe() ?>
+<? $me = $this->getService('com://admin/ninjaboard.model.people')->getMe() ?>
 
 <? foreach($messages as $message) : ?>
 <? $class = $message->created_by == $me->id ? 'me' : 'other' ?>

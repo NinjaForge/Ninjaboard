@@ -1,15 +1,15 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: json.php 2005 2011-06-29 17:09:28Z stian $
+ * @version		$Id: json.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
 
-KLoader::load('admin::com.ninja.view.json');
+KLoader::loadIdentifier('ninja:view.json');
 
-class ComNinjaboardViewUsersJson extends ComNinjaViewJson
+class ComNinjaboardViewUsersJson extends NinjaViewJson
 {
 	/**
 	 * Return the views output

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forum.php 1696 2011-03-25 01:24:34Z stian $
+ * @version		$Id: forum.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -33,7 +33,7 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerDefault
 		$this->registerCallback('after.add', array($this, 'setPermissions'))
 			 ->registerCallback('after.edit', array($this, 'setPermissions'));
 
-		KFactory::get('admin::com.ninjaboard.controller.maintenance')->forums();
+		$this->getService('com://admin/ninjaboard.controller.maintenance')->forums();
 	}
 
 	/**
@@ -46,8 +46,8 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerDefault
 		//Temp fix
 		if(KInflector::isPlural(KRequest::get('get.view', 'cmd')) || KRequest::type() == 'AJAX') return;
 		
-		$model 		= KFactory::get($this->getModel());
-		$table		= KFactory::tmp(KFactory::get(KFactory::get('admin::com.ninja.helper.access')->models->assets)->getTable());
+		$model 		= $this->getService($this->getModel());
+		$table		= $this->getService($this->getService($this->getService('ninja:template.helper.access')->models->assets)->getTable());
 		$query		= $table->getDatabase()->getQuery();
 		$item  		= $model->getItem();
 	
@@ -76,7 +76,7 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerDefault
 		{	
 			foreach($rules as $name => $permission)
 			{
-				KFactory::tmp(KFactory::get('admin::com.ninja.helper.access')->models->assets)
+				$this->getService($this->getService('ninja:template.helper.access')->models->assets)
 					->name($id.$usergroup.'.'.$name)
 					->getItem()
 					->setData(array('name' => $id.$usergroup.'.'.$name, 'level' => $permission))

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: default.php 2187 2011-07-11 22:28:29Z stian $
+ * @version		$Id: default.php 2515 2011-11-22 15:54:12Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -12,7 +12,7 @@
  *
  * @package Ninjaboard
  */
-class ComNinjaboardControllerDefault extends ComNinjaControllerView
+class ComNinjaboardControllerDefault extends NinjaControllerDefault
 {
 	/**
 	 * Constructor
@@ -29,7 +29,7 @@ class ComNinjaboardControllerDefault extends ComNinjaControllerView
 
 		if(!JFile::exists($cache))
 		{
-			if(KFactory::get('admin::com.ninjaboard.controller.maintenance')->topics() && KFactory::get('admin::com.ninjaboard.controller.maintenance')->forums())
+			if($this->getService('com://admin/ninjaboard.controller.maintenance')->topics() && $this->getService('com://admin/ninjaboard.controller.maintenance')->forums())
 			{
 			    JFile::write($cache, date('r'));
 			}
@@ -45,13 +45,13 @@ class ComNinjaboardControllerDefault extends ComNinjaControllerView
     public function checkInstall()
     {
     	//Do nothing if there's already data in Ninjaboard
-    	$existing = KFactory::get('admin::com.ninjaboard.model.forums')->getTotal();
+    	$existing = $this->getService('com://admin/ninjaboard.model.forums')->getTotal();
     	if($existing) return $this;
     
     	// Check if migration table exists, and if it contain data
     	$migrated = 0;
     	try {
-    		$migrated = KFactory::get('admin::com.ninjaboard.model.forums_backups')->getTotal();
+    		$migrated = $this->getService('com://admin/ninjaboard.model.forums_backups')->getTotal();
     	} catch(KDatabaseTableException $e) {
     		//Do nothing
     	}
@@ -59,7 +59,7 @@ class ComNinjaboardControllerDefault extends ComNinjaControllerView
     	//We can't auto import sample data
     	if($migrated) return;
     	
-    	//KFactory::get('admin::com.ninjaboard.controller.tool')->execute('import');
+    	//$this->getService('com://admin/ninjaboard.controller.tool')->execute('import');
     	//JError::raiseNotice(0, JText::_('In order to get you started with using Ninjaboard, Sample Content was just imported.'));
     	JError::raiseNotice(0, sprintf(
     		JText::_('In order to get you started with using Ninjaboard, %s'),
@@ -75,7 +75,7 @@ class ComNinjaboardControllerDefault extends ComNinjaControllerView
 		$title = KRequest::get('post.title', 'string', 'Untitled');
 		$id	   = KRequest::get('get.id', 'int', 0);
 		
-		$table		= KFactory::get(KFactory::get($this->getModel())->getTable());
+		$table		= $this->getService($this->getService($this->getModel())->getTable());
 		$primaryKey	= current($table->getPrimaryKey())->name;
 		$query		= $table->getDatabase()->getQuery()->where('title', '=', $title)->where($primaryKey, '!=', $id);
 
@@ -95,12 +95,12 @@ class ComNinjaboardControllerDefault extends ComNinjaControllerView
 	 */
 	public function setPermissions()
 	{
-		$model 		= KFactory::get($this->getModel());
-		$table		= KFactory::tmp(KFactory::get(KFactory::get('admin::com.ninja.helper.access')->models->assets)->getTable());
+		$model 		= $this->getService($this->getModel());
+		$table		= $this->getService($this->getService($this->getService('ninja:template.helper.access')->models->assets)->getTable());
 		$query		= $table->getDatabase()->getQuery();
 		$item  		= $model->getItem();
 		$identifier = $this->getIdentifier();
-		$id			= $identifier->type.'_'.$identifier->package.'.'.$identifier->name.'.'.$item->id.'.';
+		$id			= $identifier->type.'_'.$identifier->package.'.'.$identifier->name.'.'.(int)$item->id.'.';
 		 
 		$permissions = (array) KRequest::get('post.permissions', 'int');
 		$editable	 = KRequest::get('post.editpermissions', 'boolean', false);
@@ -114,7 +114,7 @@ class ComNinjaboardControllerDefault extends ComNinjaControllerView
 		
 		foreach($permissions as $name => $permission)
 		{
-			KFactory::tmp(KFactory::get('admin::com.ninja.helper.access')->models->assets)
+			$this->getService($this->getService('ninja:template.helper.access')->models->assets)
 				->name($id.$name)
 				->getItem()
 				->setData(array('name' => $id.$name, 'level' => $permission))
@@ -131,18 +131,18 @@ class ComNinjaboardControllerDefault extends ComNinjaControllerView
 	protected function _raiseClosableMessage($text)
 	{
 		$id		= md5($text);
-		$close	= KFactory::get('admin::com.ninja.helper.default')->formid('close-'.$id);
-		$cookie	= KFactory::get('admin::com.ninja.helper.default')->formid('show-'.$id);
+		$close	= $this->getService('ninja:template.helper.document')->formid('close-'.$id);
+		$cookie	= $this->getService('ninja:template.helper.document')->formid('show-'.$id);
 
 		if(!KRequest::has('cookie.'.$cookie))
 		{
-			KFactory::get('lib.koowa.application')->enqueueMessage( 
+			JFactory::getApplication()->enqueueMessage( 
 				JText::_($text).
 				' <a href="#" id="' . $close . '">[' .
 					JText::_('close') .
 				']</a>'
 			);
-			KFactory::get('admin::com.ninja.helper.default')->js(
+			$this->getService('ninja:template.helper.document')->load('js', 
 				"window.addEvent('domready', function(){
 					$('$close').addEvent('click', function(event){
 						(new Event(event)).stop();
@@ -158,7 +158,7 @@ class ComNinjaboardControllerDefault extends ComNinjaControllerView
 				});"
 			);
 			
-			KFactory::get('admin::com.ninja.helper.default')->css("
+			$this->getService('ninja:template.helper.document')->load('css', "
 			#$close {
 				display: block;
 				color: inherit;

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1563 2011-02-16 14:50:47Z stian $
+ * @version		$Id: html.php 2460 2011-10-11 21:21:19Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -13,19 +13,8 @@ class ComNinjaboardViewUsergroupsHtml extends ComNinjaboardViewHtml
 	{
 		if(!$this->getModel()->getTotal()) return parent::display();
 
-		$this->_createToolbar()
-			->prepend('spacer')
-			->prepend(KFactory::get('admin::com.ninja.toolbar.button.modal', array(
-				'text' => 'Map',
-				'icon' => 'icon-32-map',
-				'link' => $this->createRoute('view=joomlausergroupmaps&tmpl=component'),
-				'y'	   => 470,
-				'handler' => 'iframe',
-				'ajaxOptions' => '{evalScripts:true}'
-			)));
-
 		$permissions 	= array();
-		$objects 		= KFactory::get('admin::com.ninjaboard.permissions')->getObjects();
+		$objects 		= $this->getService('com://admin/ninjaboard.permissions')->getObjects();
 		foreach($objects as $permission)
 		{
 			$permissions[$permission] = KInflector::humanize($permission);

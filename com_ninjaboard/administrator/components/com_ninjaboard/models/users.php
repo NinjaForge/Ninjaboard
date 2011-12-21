@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: users.php 2297 2011-07-27 15:10:57Z stian $
+ * @version		$Id: users.php 2460 2011-10-11 21:21:19Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -43,7 +43,7 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 			->select("IFNULL((SELECT GROUP_CONCAT(ninjaboard_map.ninjaboard_user_group_id SEPARATOR '|') FROM #__ninjaboard_user_group_maps AS ninjaboard_map WHERE ninjaboard_map.joomla_user_id = tbl.id), joomla_map.ninjaboard_gid) AS ninjaboard_usergroup_id");
 //*/	
 		//Get the default gid for users that's not mapped
-		$gid	= (int)KFactory::get('admin::com.ninjaboard.model.joomlausergroupmaps')->getGuest()->gid;
+		$gid	= (int)$this->getService('com://admin/ninjaboard.model.joomlausergroupmaps')->getGuest()->gid;
 
 		if(JVersion::isCompatible('1.6.0'))
 		{
@@ -82,7 +82,7 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 		parent::_buildQueryColumns($query);
 		
 		//Build query for the screen names
-		KFactory::get('admin::com.ninjaboard.model.people')
+		$this->getService('com://admin/ninjaboard.model.people')
 			->buildScreenNameQuery($query, 'person', 'tbl', 'display_name');
 	}
 
@@ -141,7 +141,7 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 		
 		if(!$this->_state->me)
 		{
-		    $me = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		    $me = $this->getService('com://admin/ninjaboard.model.people')->getMe();
 			$query->where('tbl.id', '!=', $me->id);
 		}
 		

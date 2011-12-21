@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: topics.php 2195 2011-07-11 22:53:21Z stian $
+ * @version		$Id: topics.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -21,8 +21,8 @@ class ComNinjaboardDatabaseTableTopics extends KDatabaseTableDefault
 				'params' => 'json'
 			),
 			'behaviors' => array(
-				'hittable',
-				//KFactory::tmp('admin::com.ninjaboard.behavior.configurable')
+				'ninja:database.behavior.hittable',
+				'com://admin/ninjaboard.database.behavior.configurable'
 			)
 		));
 		

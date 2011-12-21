@@ -1,10 +1,10 @@
-<? /** $Id: default_items.php 959 2010-09-21 14:33:17Z stian $ */ ?>
+<? /** $Id: default_items.php 2390 2011-08-13 15:45:34Z richie $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach (@$iconsets as $i => $iconset) : ?>
-<tr class="<?= @ninja('grid.zebra') ?>">
+<tr>
 	<?= @ninja('grid.count', @$state->offset, @$total) ?>
-	<td><?= @ninja('grid.id', $iconset->id) ?></td>
+	<td><?= @helper('grid.checkbox', array('row' => $iconset)) ?></td>
 	<td><?= $iconset->name ?></td>
 	<td align="center"><?= $iconset->version ?></td>
 	<td><?= @$date->_strftime(@text('DATE_FORMAT_LC'), @$date->toUnix($iconset->creationdate)) ?></td>

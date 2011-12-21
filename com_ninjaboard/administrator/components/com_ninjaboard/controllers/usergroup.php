@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: usergroup.php 1696 2011-03-25 01:24:34Z stian $
+ * @version		$Id: usergroup.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -29,7 +29,7 @@ class ComNinjaboardControllerUsergroup extends ComNinjaboardControllerDefault
 				->registerCallback('after.add', array($this, 'setPermissions'))
 				->registerCallback('after.edit', array($this, 'setPermissions'));
 
-		$showReminder = KFactory::get('admin::com.ninja.helper.default')->formid('show-reminder');
+		$showReminder = $this->getService('ninja:template.helper.document')->formid('show-reminder');
 		if(!KRequest::has('cookie.'.$showReminder) && $this->getModel()->getTotal() > 0)
 		{
 			$this->registerCallback('after.browse', array($this, 'showReminder'));
@@ -43,10 +43,10 @@ class ComNinjaboardControllerUsergroup extends ComNinjaboardControllerDefault
 	 */
 	public function showReminder()
 	{	
-		$button = 'toolbar-usergroups-modal';
-		$id		= KFactory::get('admin::com.ninja.helper.default')->formid('show-maps-button');
-		$close	= KFactory::get('admin::com.ninja.helper.default')->formid('close-show-maps-button');
-		$cookie	= KFactory::get('admin::com.ninja.helper.default')->formid('show-reminder');
+		$button = 'toolbar-modal';
+		$id		= $this->getService('ninja:template.helper.document')->formid('show-maps-button');
+		$close	= $this->getService('ninja:template.helper.document')->formid('close-show-maps-button');
+		$cookie	= $this->getService('ninja:template.helper.document')->formid('show-reminder');
 		JError::raiseNotice(0, 
 			sprintf(
 				JText::_('Remember to map your Joomla! groups to Ninjaboard. Hover %s to see where. %s'),
@@ -58,7 +58,7 @@ class ComNinjaboardControllerUsergroup extends ComNinjaboardControllerDefault
 				']</a>'
 			)
 		);
-		KFactory::get('admin::com.ninja.helper.default')->js(
+		$this->getService('ninja:template.helper.document')->load('js', 
 			"window.addEvent('domready', function(){
 				var button = $('$button'), toggler = $('$id'), mask = new Mask, reveal = button.getElement('span'), 
 					Reminder = new Hash({
@@ -94,7 +94,7 @@ class ComNinjaboardControllerUsergroup extends ComNinjaboardControllerDefault
 			});"
 		);
 		
-		KFactory::get('admin::com.ninja.helper.default')->css(
+		$this->getService('ninja:template.helper.document')->load('css', 
 			".mask {
 				position: absolute;
 				opacity: 0.4;

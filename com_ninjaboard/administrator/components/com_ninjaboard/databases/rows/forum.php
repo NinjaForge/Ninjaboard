@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
  /**
- * @version		$Id: forum.php 1787 2011-04-12 23:38:17Z stian $
+ * @version		$Id: forum.php 2461 2011-10-11 22:32:21Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -25,16 +25,16 @@ class ComNinjaboardDatabaseRowForum extends ComNinjaboardDatabaseRowParam
 	{
 		//Getting all subforum ids, used in following queries
 		//@TODO this needs to be optimized
-		$database = KFactory::get('lib.koowa.database.adapter.mysqli');
+		$database = $this->getService('koowa:database.adapter.mysqli');
 		$table = $this->getTable();
-		$query = KFactory::tmp('lib.koowa.database.query')
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 					->select('ninjaboard_forum_id')
 					->where('path', 'like', '%/'.$this->id.'/')
 					->from('ninjaboard_forums');
 		
 		$ids = array_merge(array($this->id), $database->select($query, KDatabase::FETCH_FIELD_LIST));
 
-		$query = KFactory::tmp('lib.koowa.database.query')
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 					->select('ninjaboard_topic_id')
 					->where('forum_id', 'in', $ids)
 					->from('ninjaboard_topics');
@@ -49,14 +49,14 @@ class ComNinjaboardDatabaseRowForum extends ComNinjaboardDatabaseRowParam
 			return $this->save();
 		}
 		
-		$query = KFactory::tmp('lib.koowa.database.query')
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 					->select('ninjaboard_post_id')
 					->where('ninjaboard_topic_id', 'in', $topics)
 					->from('ninjaboard_posts');
 		$posts = $database->select($query, KDatabase::FETCH_FIELD_LIST);
 		$this->posts = count($posts);
 		
-		$query = KFactory::tmp('lib.koowa.database.query')
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 					->select('ninjaboard_post_id')
 					->where('ninjaboard_topic_id', 'in', $topics)
 					->from('ninjaboard_posts')
@@ -79,9 +79,9 @@ class ComNinjaboardDatabaseRowForum extends ComNinjaboardDatabaseRowParam
     	$object = str_replace('_permissions', '', $column);
     	if(!isset($this->_permissions[$object]))
 		{
-			$table	= KFactory::get('admin::com.ninjaboard.database.table.assets');
-			$query	= KFactory::tmp('lib.koowa.database.query');
-			$me		= KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+			$table	= $this->getService('com://admin/ninjaboard.database.table.assets');
+			$query	= $this->getService('koowa:database.adapter.mysqli')->getQuery();
+			$me		= $this->getService('com://admin/ninjaboard.model.people')->getMe();
 			$gids	= explode('|', $me->ninjaboard_usergroup_id);
 
 			//If super admin, then the permission level is always 3

@@ -1,4 +1,4 @@
-<? /** $Id: list.php 2126 2011-07-07 20:51:36Z stian $ */ ?>
+<? /** $Id: list.php 2439 2011-09-01 11:53:24Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <div class="ninjaboard-block category topics">
@@ -14,7 +14,7 @@
 	</ul>
 	<ul class="topiclist forums">
 	<? foreach (@$topics as $topic) : ?>
-		<?= @template('site::com.ninjaboard.view.topic.row_topic', array('topic' => $topic)) ?>
+		<?= @template('com://site/ninjaboard.view.topic.row_topic', array('topic' => $topic)) ?>
 	<? endforeach ?>
 	</ul>
 </div>

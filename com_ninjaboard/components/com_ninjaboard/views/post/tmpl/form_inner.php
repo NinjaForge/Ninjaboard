@@ -1,7 +1,7 @@
-<? /** $Id: form_inner.php 2306 2011-07-28 13:49:38Z captainhook $ */ ?>
+<? /** $Id: form_inner.php 2459 2011-10-11 19:10:35Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<link rel="stylesheet" href="/site.css" />
+<?= @template('com://site/ninjaboard.view.default.head') ?>
 <link rel="stylesheet" href="/form.css" />
 <link rel="stylesheet" href="/site.form.css" />
 <link rel="stylesheet" href="/bbcode.css" />
@@ -52,13 +52,13 @@
 	}
 </style>
 
-<script type="text/javascript" src="/jquery.min.js"></script>
 <script type="text/javascript" src="/jquery.markitup.pack.js"></script>
 
 <? $bbcode = dirname($this->getView()->getIdentifier()->filepath).'/bbcode.js' ?>
 <? if(file_exists($bbcode)) : ?>
 <script type="text/javascript">
-	<?= str_replace(
+    <? /* @TODO this shouldn't be needed anymore */ ?>
+	<?/*= str_replace(
 			array(
 				'~/sets/bbcode/preview.php', 
 				'magifier_zoom_out.png', 
@@ -71,69 +71,77 @@
 			),
 			file_get_contents($bbcode)
 		)
-	?>
+	*/?>
 </script>
 <? endif ?>
 
-
+<?= @helper('behavior.keepalive') ?>
 
 <script type="text/javascript">
-	//jQuery version of keepalive
-	setInterval(function(){
-		jQuery.get(<?= json_encode(KRequest::url()->get(KHttpUri::PART_BASE ^ KHttpUri::PART_PATH).@route()) ?>);
-	}, <?= 60000 * max(1, (int)JFactory::getApplication()->getCfg('lifetime')) ?>);
-
-	jQuery(function($){
-		var form = $('#<?= @id() ?>');
-		$('#<?= @id('cancel') ?>', '#<?= @id('save') ?>').click(function(event){
+    //@TODO converting jQuery to moo
+	window.addEvent('domready', function(){
+		var form = document.id('<?= @id() ?>');
+		$$('#<?= @id('cancel') ?>', '#<?= @id('save') ?>').addEvent('click', function(event){
 			event.preventDefault();
 			event.stopPropagation();
 		});
-		$('#<?= @id('cancel') ?>').one('click', function(event){
+		var submitting = false;
+		document.id('<?= @id('cancel') ?>').addEvent('click', function(event){
+		    if(submitting) return;
+		    else           submitting = true;
+
 			event.preventDefault();
 			event.stopPropagation();
-			form.append('<input type=\"hidden\" name=\"action\" value=\"cancel\" />')
-				.trigger('submit');
+
+            //@TODO refactor to use koowa.js
+			form.adopt(new Element('input', {type: 'hidden', name: 'action', value: 'cancel'}))
+			    .fireEvent('submit')
+				.submit();
 		});
 		
 		var save = function(event){
+		    if(submitting) return;
+		    else           submitting = true;
+		
 			event.preventDefault();
 			event.stopPropagation();
 			//Do basic forms validation for better usability
-			var subject = document.getElementById('subject'), text = document.getElementById('text');
+			var subject = document.id('subject'), text = document.id('text');
 
 			if(subject && !subject.value && text && !text.value) {
-				$('#<?= @id('save') ?>').one('click', save);
+				submitting = false;
 				alert(<?= json_encode(@text("You need to enter text and a subject.")) ?>);
 				return false; 
 			}
 
 			if(subject && !subject.value) {
-				$('#<?= @id('save') ?>').one('click', save);
+				submitting = false;
 				alert(<?= json_encode(@text("You need to enter a subject.")) ?>);
 				return false; 
 			}
 			
 			if(text && !text.value) {
-				$('#<?= @id('save') ?>').one('click', save);
+				submitting = false;
 				alert(<?= json_encode(@text("You need to enter some text.")) ?>);
 				return false; 
 			}
 			
-			form.append('<input type=\"hidden\" name=\"action\" value=\"save\" />')
-				.trigger('submit');
+			form.adopt(new Element('input', {type: 'hidden', name: 'action', value: 'save'}))
+			    .fireEvent('submit')
+				.submit();
 		};
-		$('#<?= @id('save') ?>').one('click', save);
-		$('#text').markItUp(myBbcodeSettings);
+		document.id('<?= @id('save') ?>').addEvent('click', save);
+		
+		//@TODO jquery port progress, below is what's left
 		
 		var slideDownAttachmentsHelp = function(){
 			$('.attachments-extensions-help').slideDown();
 		};
-		$("#addFile").one('click', slideDownAttachmentsHelp).click(function () {
+		document.id("addFile").addEvent('click', slideDownAttachmentsHelp).addEvent('click', function () {
 			
 			var attachment = $('<li>'+
 					'<a class="remove" href="#" title="<?= @text('Remove') ?>">&#10005;</a>'+
-					<?= json_encode(@helper('site::com.ninjaboard.template.helper.attachment.input')) ?>+
+					<?= json_encode(@helper('com://site/ninjaboard.template.helper.attachment.input')) ?>+
 				'</li>')
 				.hide();
 			
@@ -162,11 +170,11 @@
 			return false;
 		});
 		
-		$('.image-select input')
-		.bind('change', function(){
-			$(this).siblings('label').removeClass('selected');
-			$(this).next().addClass('selected');
-		});
+		$$('.image-select input')
+    		.addEvent('change', function(){
+    			this.getSiblings('label').removeClass('selected');
+    			if(this.getNext()) this.getNext().addClass('selected');
+    		});
 		
 		//This is for IE, which don't respect the for attribute if the input isn't visible
 		$('.image-select label').bind('click', function(){
@@ -193,8 +201,7 @@
 			</div>
 		<? endif ?>
 		<div class="element wider" style="text-align:center;position:relative">
-			<textarea name="text" id="text" placeholder="<?= @text('Enter some text') ?>"><?= @escape($post->text) ?></textarea>
-			<div id="text_preview"></div>
+		    <?= @ninja('behavior.wysiwygbbcode', array('element' => 'text', 'placeholder' => @text('Enter some text'), 'value' => @escape($post->text))) ?>
 		</div>
 
 		<? if($topic->attachment_permissions > 1 && ($topic->attachment_settings || $forum->post_permissions > 2)) : ?>
@@ -218,8 +225,8 @@
 					<? endif ?>
 					<?= sprintf($text, $create_topic_button_title) ?>
 				</div>
-				<?= @helper('site::com.ninjaboard.template.helper.attachment.upload_size_limit') ?>
-				<?= @helper('site::com.ninjaboard.template.helper.attachment.extensions') ?>
+				<?= @helper('com://site/ninjaboard.template.helper.attachment.upload_size_limit') ?>
+				<?= @helper('com://site/ninjaboard.template.helper.attachment.extensions') ?>
 			</div>
 		</div>
 		<? endif ?>

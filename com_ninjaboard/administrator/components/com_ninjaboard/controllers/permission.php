@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: permission.php 1679 2011-03-24 01:24:49Z stian $
+ * @version		$Id: permission.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -12,7 +12,7 @@
  *
  * @package Ninjaboard
  */
-class ComNinjaboardControllerPermission extends ComNinjaControllerView
+class ComNinjaboardControllerPermission extends NinjaControllerDefault
 {
 	/**
 	 * Constructor
@@ -40,8 +40,8 @@ class ComNinjaboardControllerPermission extends ComNinjaControllerView
 		$identifier = $this->getIdentifier();
 		$id			= $identifier->type.'_'.$identifier->package.'.'.$identifier->name.'.';
 		$data		= KRequest::get('post', 'string');
-		$assets		= KFactory::get('admin::com.ninja.helper.access')->models->assets; 
-		$model		= KFactory::get($assets);
+		$assets		= $this->getService('ninja:template.helper.access')->models->assets; 
+		$model		= $this->getService($assets);
 		
 		foreach($data['access'] as $controller => $access)
 		{
@@ -53,9 +53,9 @@ class ComNinjaboardControllerPermission extends ComNinjaControllerView
 			);
 
 			
-			$table  = KFactory::get($model->getTable());
+			$table  = $this->getService($model->getTable());
 			
-			$query = KFactory::tmp('lib.koowa.database.query')->where('name', '=', $name);
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('name', '=', $name);
 			$table
 				->fetchRow($query)
 				->setData($data)

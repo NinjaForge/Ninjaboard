@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: html.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -11,17 +11,17 @@ class ComNinjaboardViewWatchesHtml extends ComNinjaboardViewHtml
 {
 	public function display()
 	{
-		$this->assign('params', KFactory::get('admin::com.ninjaboard.model.settings')->getParams());
-		if(KFactory::get('lib.joomla.user')->guest)
+		$this->assign('params', $this->getService('com://admin/ninjaboard.model.settings')->getParams());
+		if(JFactory::getUser()->guest)
 		{
-			$this->mixin(KFactory::get('admin::com.ninja.view.user.mixin'));
+			$this->mixin($this->getService('ninja:view.user.mixin'));
 
 			$this->setLoginLayout();
 
 			return parent::display();
 		}
 		
-		$this->person = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$this->person = $this->getService('com://admin/ninjaboard.model.people')->getMe();
 		$title = $this->person->display_name;
 
 		$this->_subtitle = $title;
@@ -34,7 +34,7 @@ class ComNinjaboardViewWatchesHtml extends ComNinjaboardViewHtml
 		$this->total	= $this->getModel()->getTotal();
 
 		$this->assign('pagination', 
-			KFactory::get('site::com.ninjaboard.template.helper.paginator', array('name' => 'watches'))
+			$this->getService('com://site/ninjaboard.template.helper.paginator', array('name' => 'watches'))
 				->pagination($this->total, $state->offset, $state->limit, 4)
 		);
 		

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: smf.php 2267 2011-07-22 14:08:49Z stian $
+ * @version		$Id: smf.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -32,7 +32,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 	 *
 	 * @var string|boolean
 	 */
-	protected $_layout = 'admin::com.ninjaboard.database.converters.smf';
+	protected $_layout = 'com://admin/ninjaboard.database.converters.smf';
 	
 	/**
 	 * The description
@@ -48,18 +48,18 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 	 */
 	public function convert()
 	{
-		//Connect the lib.koowa.database to the SMF database
+		//Connect the koowa:database to the SMF database
 		$this->setDatabaseConnection();
 
 		//Get the category offset needed to avoid ID collisions when we merge smf_categories and smf_boards into ninjaboard_forums
-		$database	= KFactory::get('lib.koowa.database');
-		$query		= KFactory::tmp('lib.koowa.database.query')
+		$database	= $this->getService('koowa:database');
+		$query		= $this->getService('koowa:database.adapter.mysqli')->getQuery()
 														->select('ID_CAT AS id')
 														->from('categories')
 														->order('ID_CAT', 'desc');
 		$forum_padding	= $database->select($query, KDatabase::FETCH_FIELD);
 		
-		$query		= KFactory::tmp('lib.koowa.database.query')
+		$query		= $this->getService('koowa:database.adapter.mysqli')->getQuery()
 														->select('ID_MEMBER AS id')
 														->from('members')
 														->order('ID_MEMBER', 'desc');
@@ -71,7 +71,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 				'options' => array(
 					'name' => 'attachments'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'ID_ATTACH AS id',
 								'ID_MSG AS post',
@@ -88,7 +88,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 				'options' => array(
 					'name' => 'categories'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'ID_CAT AS id',
 								'catOrder AS ordering',
@@ -102,7 +102,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 				'options' => array(
 					'name' => 'boards'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'(ID_BOARD + '.$forum_padding.') AS id',
 								'boardOrder AS ordering',
@@ -122,7 +122,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 				'options' => array(
 					'name' => 'topics'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'ID_TOPIC AS id',
 								'isSticky AS sticky',
@@ -141,7 +141,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 				'options' => array(
 					'name' => 'messages'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'ID_MSG AS id',
 								'ID_TOPIC AS ninjaboard_topic_id',
@@ -178,7 +178,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 				'options' => array(
 					'name' => 'personal_messages'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'ID_PM AS id',
 								'ID_MEMBER_FROM AS created_by',
@@ -194,7 +194,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 				'options' => array(
 					'name' => 'pm_recipients'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'ID_PM AS id',
 								'ID_PM AS ninjaboard_message_id',
@@ -210,7 +210,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 				'options' => array(
 					'name' => 'members'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								//We are padding here because primary keys can't have duplicates, and duplicates happens normally on user id fields before and during the user sync stage
 								'(ID_MEMBER + '.$member_padding.' + '.$member_padding.') AS id',
@@ -227,7 +227,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 
         //To prevent errors only add this part if the table exists
         $query = "SHOW TABLES LIKE '#__pretty_topic_urls';";
-        $sef  = KFactory::get('lib.koowa.database')->select($query);
+        $sef  = $this->getService('koowa:database')->select($query);
         if($sef)
         {
             $tables[] = array(
@@ -235,7 +235,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
             	'options' => array(
             		'name' => 'pretty_topic_urls'
             	),
-            	'query' => KFactory::tmp('lib.koowa.database.query')
+            	'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
             				->select(array(
             					'ID_TOPIC AS id',
             					'ID_TOPIC AS ninjaboard_topic_id',
@@ -329,11 +329,11 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 		if(isset($this->data['attachments']))
 		{
 			//Get the attachments path
-			$query = KFactory::tmp('lib.koowa.database.query')
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 																->select('value')
 																->from('settings')
 																->where('variable', '=', 'attachmentUploadDir');
-			$path  = KFactory::get('lib.koowa.database')->select($query, KDatabase::FETCH_FIELD);
+			$path  = $this->getService('koowa:database')->select($query, KDatabase::FETCH_FIELD);
 
 			foreach($this->data['attachments'] as $id => $attachment)
 			{
@@ -375,7 +375,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 			}
 		}
 
-		//Reconnect the lib.koowa.database to the Joomla! database
+		//Reconnect the koowa:database to the Joomla! database
 		$this->resetDatabaseConnection();
 
 		//Clear cache folder so that avatars and attachments cache are cleared
@@ -391,7 +391,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 	}
 	
 	/**
-	 * Set the lib.koowa.database to use SMF prefix, and set the connection
+	 * Set the koowa:database to use SMF prefix, and set the connection
 	 *
 	 * @return $this
 	 */
@@ -400,7 +400,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 		//Save the NB resource so we can reset later
 		if(!$this->_ninjaboard_resource)
 		{
-			$this->_ninjaboard_resource = KFactory::get('lib.joomla.database')->_resource;
+			$this->_ninjaboard_resource = JFactory::getDatabase()->_resource;
 		}
 
 		$path	= $this->getPath();
@@ -428,7 +428,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 		$converter_database = new JDatabaseMySQLi($config);
 		$this->_converter_resource	= $converter_database->_resource;
 
-		KFactory::get('lib.koowa.database')
+		$this->getService('koowa:database')
 			->setConnection($this->_converter_resource)
 			->setTablePrefix($db_prefix);
 		
@@ -436,15 +436,15 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 	}
 	
 	/**
-	 * Change lib.koowa.database prefix and connection to what it was before setting it
+	 * Change koowa:database prefix and connection to what it was before setting it
 	 *
 	 * @return $this
 	 */
 	public function resetDatabaseConnection()
 	{
-		KFactory::get('lib.koowa.database')
+		$this->getService('koowa:database')
 			->setConnection($this->_ninjaboard_resource)
-			->setTablePrefix(KFactory::get('lib.joomla.config')->getValue('dbprefix'));
+			->setTablePrefix(JFactory::getConfig()->getValue('dbprefix'));
 
 		return $this;
 	}
@@ -458,7 +458,7 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 	 */
 	public function getPath()
 	{
-		return KRequest::get('post.path', 'admin::com.ninja.filter.path', JPATH_ROOT);
+		return KRequest::get('post.path', 'ninja:filter.path', JPATH_ROOT);
 	}
 
 	/**

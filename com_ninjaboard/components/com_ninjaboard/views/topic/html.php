@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 2323 2011-07-30 22:47:33Z stian $
+ * @version		$Id: html.php 2518 2011-11-22 16:13:36Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -11,28 +11,29 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 {
 	public function display()
 	{
-		$topic 	  = $this->getModel()->getItem();
-		$this->forum 	  = KFactory::get('site::com.ninjaboard.model.forums')->id($topic->forum_id)->getItem();
-		$this->user = KFactory::get('lib.joomla.user');
+		$this->topic = $this->getModel()->getItem();
+		$this->forum = $this->getService('com://site/ninjaboard.model.forums', array('acl' => true))->id($this->topic->forum_id)->getItem();
+
+		$this->user  = JFactory::getUser();
 		
-		$me  = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$me  = $this->getService('com://admin/ninjaboard.model.people')->getMe();
 		$this->watch_button = $me->id && $this->forum->params['email_notification_settings']['enable_email_notification'];
 		
 		//Assign forum permissions to topic
-		$topic->forum_permissions = $this->forum->forum_permissions;
-		$topic->topic_permissions = $this->forum->topic_permissions;
-		$topic->post_permissions = $this->forum->post_permissions;
-		$topic->attachment_permissions = $this->forum->attachment_permissions;
+		$this->topic->forum_permissions = $this->forum->forum_permissions;
+		$this->topic->topic_permissions = $this->forum->topic_permissions;
+		$this->topic->post_permissions = $this->forum->post_permissions;
+		$this->topic->attachment_permissions = $this->forum->attachment_permissions;
 
-		if((!$this->forum->id || !$topic->id || $topic->topic_permissions < 1) && KFactory::tmp('lib.joomla.user')->guest)
+		if((!$this->forum->id || !$this->topic->id || $this->topic->topic_permissions < 1) && JFactory::getUser()->guest)
 		{
-			$this->mixin(KFactory::get('admin::com.ninja.view.user.mixin'));
+			$this->mixin($this->getService('ninja:view.user.mixin'));
 			
 			$this->setLoginLayout();
 			
 			return parent::display();
 		}
-		elseif(!$topic->id)
+		elseif(!$this->topic->id)
 		{
 			JError::raiseError(404, JText::_("Topic not found."));
 			return;
@@ -43,37 +44,50 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 			return;
 		}
 		
-		$this->_subtitle = $topic->title;
+		$this->_subtitle = $this->topic->title;
 
-		//if($topic->id && !KRequest::get('get.layout', 'cmd', false)) $this->setLayout('default');
+		//if($this->topic->id && !KRequest::get('get.layout', 'cmd', false)) $this->setLayout('default');
 
 		$state	= $this->getModel()->getState();
 		$limit	= $state->limit ? $state->limit : 6;
-		$offset	= KFactory::tmp('site::com.ninjaboard.model.posts')
-						->topic($topic->id)
+		$offset	= $this->getService('com://site/ninjaboard.model.posts')
+						->topic($this->topic->id)
 						->post($state->post)
 						->limit($limit)
 						->getOffset();
 		$offset = KRequest::get('get.offset', 'int', $offset);
 		//This is used to set the canonical link correctly in the topic controller after.read
 		//@TODO move all this logic out of the view in 1.2
+		//@TODO this is causing the getItem returned in the layout to be different than in this view
 		$this->getModel()->set(array('limit' => $limit, 'offset' => $offset));		
 
+        $controller = $this->getService('com://site/ninjaboard.controller.post');
+        $test = $controller->getModel();
+        $test->setAcl(false);
+        
+        //@TODO temporary workaround
+        $this->topic = $this->getModel()->getItem();
+        $this->topic->forum_permissions = $this->forum->forum_permissions;
+        $this->topic->topic_permissions = $this->forum->topic_permissions;
+        $this->topic->post_permissions = $this->forum->post_permissions;
+        $this->topic->attachment_permissions = $this->forum->attachment_permissions;
+
 		$this->assign('posts',
-			KFactory::tmp('site::com.ninjaboard.controller.post')
-			
+			$controller
+
 				//@TODO Figure out why the singular view is used instead of the plural one
-				->setView(KFactory::tmp('site::com.ninjaboard.view.posts.html'))
+				//@TODO this shouldn't be necessary no more
+				//->setView($this->getService('com://site/ninjaboard.view.posts.html'))
 			
 			    //Model needs to run with the acl flag off for performance reasons
-			    //@NOTE using KFactory::get on this model is not a mistake or a typo
-			    ->setModel(KFactory::get('site::com.ninjaboard.model.posts')->setAcl(false))
+			    //@NOTE using $this->getService on this model is not a mistake or a typo
+			    //->setModel($this->getService('com://site/ninjaboard.model.posts')->setAcl(false))
 
 				->sort('created_on')
 				->limit($limit)
 				->offset($offset)
 				->post(false)
-				->topic($topic->id)
+				->topic($this->topic->id)
 				->layout('default')
 				->display()
 		);
@@ -88,11 +102,11 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		}
 		
 		$button = false;
-		if(KFactory::get('lib.joomla.user')->guest || $this->forum->post_permissions > 1)
+		if(JFactory::getUser()->guest || $this->forum->post_permissions > 1)
 		{
     		$button = str_replace(
     			array('$title', '$link'), 
-    			array(JText::_('Reply topic'), $this->createRoute('view=post&topic='.$topic->id)), 
+    			array(JText::_('Reply topic'), $this->createRoute('view=post&topic='.$this->topic->id)), 
     			$this->forum->params['tmpl']['new_topic_button']
     		);
 		}
@@ -102,25 +116,27 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		$this->lock_topic_button = null;
 		$this->move_topic_button = null;
 		$this->delete_topic_button = null;
+
 		if($this->forum->topic_permissions > 2)
 		{
-			$this->lock_topic_button = $this->_createActionButton('lock', 'Lock topic', $topic->id, 'lock');
+			$this->lock_topic_button = $this->_createActionButton('lock', 'Lock topic', $this->topic->id, 'lock');
 			$this->move_topic_button = str_replace(
 				array('$title', '$link'), 
-				array(JText::_('Move topic'), $this->createRoute('view=topic&layout=move&id='.$topic->id)), 
+				array(JText::_('Move topic'), $this->createRoute('view=topic&layout=move&id='.$this->topic->id)), 
 				$this->forum->params['tmpl']['new_topic_button']
 			);
-			$this->delete_topic_button = $this->_createActionButton('delete', 'Delete topic', $topic->id, 'trash');
+			$this->delete_topic_button = $this->_createActionButton('delete', 'Delete topic', $this->topic->id, 'trash');
 		}
 
 		$output = parent::display();
 
 		//@TODO move this to the controller
-		$hit = KRequest::get('session.'.KFactory::get('admin::com.ninja.helper.default')->formid($topic->id), 'boolean');
-		if(!$hit && $topic->created_user_id != $me->id)
+		$hit = KRequest::get('session.'.$this->getService('ninja:template.helper.document')->formid($this->topic->id), 'boolean');
+		if(!$hit && $this->topic->created_user_id != $me->id)
 		{
-			$topic->hit();
-			KRequest::set('session.'.KFactory::get('admin::com.ninja.helper.default')->formid($topic->id), true);
+		    //@TODO fix hit db behavior
+			//$this->topic->hit();
+			KRequest::set('session.'.$this->getService('ninja:template.helper.document')->formid($this->topic->id), true);
 		}
 		
 		return $output;
@@ -133,7 +149,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 	 */
 	public function setBreadcrumbs()
 	{
-		$pathway	= KFactory::get('lib.koowa.application')->getPathWay();
+		$pathway	= JFactory::getApplication()->getPathWay();
 		
 		//Checks the view properties first, in case they're already set
 		if(!isset($this->topic))
@@ -143,11 +159,13 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		}
 		if(!isset($this->forum))
 		{
-			$this->forum = KFactory::get('site::com.ninjaboard.model.forums')
+			$this->forum = $this->getService('com://admin/ninjaboard.model.forums')
 																			->id($this->topic->forum_id)
 																			->getItem();
 		}
-		
+
+        if(!$this->forum->isNestable()) return;
+
 		foreach($this->forum->getParents() as $parent)
 		{
 			$pathway->addItem($parent->title, $this->createRoute('view=forum&id='.$parent->id));
@@ -162,7 +180,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		$html[] = '<form '.KHelperArray::toString(array(
 			'action' => $this->createRoute('view=topic&id='.$id.'&action='.$action),
 			'method' => 'post',
-			'class' => KFactory::get('admin::com.ninja.helper.default')->formid($action)
+			'class' => $this->getService('ninja:template.helper.document')->formid($action)
 		)).'>';
 		$html[] = '<input type="hidden" name="action" value="'.$action.'" />';
 		$html[] = '<input type="hidden" name="_token" value="'.JUtility::getToken().'" />';
@@ -174,15 +192,5 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		$html[] = '</form>';
 		
 		return implode($html);
-	}
-	
-	public function _createToolbar()
-	{
-		return $this;
-	}
-	
-	public function renderTitle()
-	{
-		return;
-	}
+	}	
 }

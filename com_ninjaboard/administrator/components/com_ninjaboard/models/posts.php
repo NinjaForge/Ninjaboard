@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: posts.php 2297 2011-07-27 15:10:57Z stian $
+ * @version		$Id: posts.php 2461 2011-10-11 22:32:21Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -34,7 +34,9 @@ class ComNinjaboardModelPosts extends ComDefaultModelDefault
 		
 		$this->_state
 						->insert('topic', 'int')
-						->insert('post' , 'int');
+						->insert('at'	, 'int', false)
+						->insert('post' , 'int')
+						->insert('quote', 'int');
 	}
 
     /**
@@ -66,6 +68,10 @@ class ComNinjaboardModelPosts extends ComDefaultModelDefault
 	{
 		parent::_buildQueryWhere($query);
 		
+		if($this->_state->at) {
+		    $query->where('tbl.created_user_id', '=', $this->_state->at);
+		}
+		
 		if($post = $this->_state->post) $query->where('tbl.ninjaboard_post_id', '=', $post, 'and');
 		if($topic = $this->_state->topic) $query->where('tbl.ninjaboard_topic_id', '=', $topic, 'and');
 		
@@ -82,7 +88,7 @@ class ComNinjaboardModelPosts extends ComDefaultModelDefault
 				->where('tbl.enabled', '=', 1);
 
 		//Building the permissions query WHERE clause
-		if($this->_acl) KFactory::get('admin::com.ninjaboard.model.people')->buildForumsPermissionsWhere($query, 'forum.ninjaboard_forum_id');
+		if($this->_acl) $this->getService('com://admin/ninjaboard.model.people')->buildForumsPermissionsWhere($query, 'forum.ninjaboard_forum_id');
 	}
 	
 	protected function _buildQueryColumns(KDatabaseQuery $query)
@@ -101,7 +107,7 @@ class ComNinjaboardModelPosts extends ComDefaultModelDefault
 			  ->select('(SELECT title FROM #__ninjaboard_ranks WHERE person.posts >= min AND enabled = 1 ORDER BY min DESC LIMIT 1) AS rank_title');
 		
 		//Build query for the screen names
-		KFactory::get('admin::com.ninjaboard.model.people')->buildScreenNameQuery($query, 'person', 'user', 'display_name', 'IFNULL(tbl.guest_name, \''.JText::_('Anonymous').'\')');
+		$this->getService('com://admin/ninjaboard.model.people')->buildScreenNameQuery($query, 'person', 'user', 'display_name', 'IFNULL(tbl.guest_name, \''.JText::_('Anonymous').'\')');
 		
 		if($search = $this->_state->search)
 		{
@@ -121,7 +127,7 @@ class ComNinjaboardModelPosts extends ComDefaultModelDefault
 		{
 			if(!$this->_state->post || !$this->_state->topic || !$this->_state->limit) return $this->_offset = 0;
 			
-			$query		= KFactory::tmp('lib.koowa.database.query')
+			$query		= $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select('COUNT(*)')
 							->where('ninjaboard_topic_id', 'in', $this->_state->topic)
 							->where('ninjaboard_post_id', '<', $this->_state->post);

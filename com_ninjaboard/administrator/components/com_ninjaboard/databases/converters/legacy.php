@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: legacy.php 1787 2011-04-12 23:38:17Z stian $
+ * @version		$Id: legacy.php 2461 2011-10-11 22:32:21Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -35,7 +35,7 @@ class ComNinjaboardDatabaseConvertersLegacy extends ComNinjaboardDatabaseConvert
 					'name' => 'ninjaboard_attachments_backups',
 					'identity_column' => 'id'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'id',
 								'id_user AS joomla_user_id',
@@ -50,7 +50,7 @@ class ComNinjaboardDatabaseConvertersLegacy extends ComNinjaboardDatabaseConvert
 					'name' => 'ninjaboard_categories_backups',
 					'identity_column' => 'id'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'(id + (SELECT MAX(id) FROM #__ninjaboard_forums_backups)) AS id',
 								'(SELECT SUM(posts) FROM #__ninjaboard_forums_backups) AS posts',
@@ -68,7 +68,7 @@ class ComNinjaboardDatabaseConvertersLegacy extends ComNinjaboardDatabaseConvert
 					'name' => 'ninjaboard_forums_backups',
 					'identity_column' => 'id'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'id',
 								'description',
@@ -89,7 +89,7 @@ class ComNinjaboardDatabaseConvertersLegacy extends ComNinjaboardDatabaseConvert
 					'name' => 'ninjaboard_groups_backups',
 					'identity_column' => 'id'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'id',
 								'name AS title'
@@ -115,7 +115,7 @@ class ComNinjaboardDatabaseConvertersLegacy extends ComNinjaboardDatabaseConvert
 					'name' => 'ninjaboard_posts_backups',
 					'identity_column' => 'id'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'*',
 								'date_post AS created_on',
@@ -134,7 +134,7 @@ class ComNinjaboardDatabaseConvertersLegacy extends ComNinjaboardDatabaseConvert
 					'name' => 'ninjaboard_topics_backups',
 					'identity_column' => 'id'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'*',
 								'id_forum AS forum_id',
@@ -150,7 +150,7 @@ class ComNinjaboardDatabaseConvertersLegacy extends ComNinjaboardDatabaseConvert
 					'name' => 'ninjaboard_users_backups',
 					'identity_column' => 'id'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'*',
 								'avatar_file AS avatar',
@@ -181,11 +181,11 @@ class ComNinjaboardDatabaseConvertersLegacy extends ComNinjaboardDatabaseConvert
 		if(isset($this->data['people']))
 		{
 			$path				= 'media/ninjaboard/avatars';
-			$query				= KFactory::tmp('lib.koowa.database.query')
+			$query				= $this->getService('koowa:database.adapter.mysqli')->getQuery()
 																->select('avatar_settings')
 																->from('ninjaboard_configs_backups')
 																->order('default_config');
-			$avatar_settings	= KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
+			$avatar_settings	= $this->getService('koowa:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 			
 			
 			if($avatar_settings)
@@ -239,7 +239,7 @@ class ComNinjaboardDatabaseConvertersLegacy extends ComNinjaboardDatabaseConvert
 				'name' => 'ninjaboard_groups_backups',
 				'identity_column' => 'id'
 			),
-			'query' => KFactory::tmp('lib.koowa.database.query')
+			'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 						->select(array(
 							"(".rand()." + id) AS id",
 							"CONCAT_WS('.', LOWER('COM_NINJABOARD'), LOWER('USERGROUP'), id, LOWER('$name')) AS name",
@@ -260,7 +260,7 @@ class ComNinjaboardDatabaseConvertersLegacy extends ComNinjaboardDatabaseConvert
 	public function canConvert()
 	{
 		try {
-			return KFactory::get('admin::com.ninjaboard.model.forums_backups')->getTotal();
+			return $this->getService('com://admin/ninjaboard.model.forums_backups')->getTotal();
 		} catch(KDatabaseTableException $e) {
 			return false;
 		}

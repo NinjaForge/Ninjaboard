@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: posts.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: posts.php 2472 2011-11-02 03:19:21Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -19,15 +19,15 @@ class ComNinjaboardDatabaseTablePosts extends KDatabaseTableDefault
 		$config->append(array(
 			'filters' => array(
 				//@TODO turn back on once bbcode parser is stable
-				//'text'	 => 'admin::com.ninjaboard.filter.bbcode',
+				//'text'	 => 'com://admin/ninjaboard.filter.bbcode',
 				'text'	 => 'raw',
 				'params' => 'json'
 			),
 			'behaviors' => array(
 				'creatable',
 				'modifiable',
-				//KFactory::tmp('admin::com.ninjaboard.behavior.configurable'),
-				KFactory::tmp('site::com.ninjaboard.database.behavior.postable')
+				//$this->getService('com://admin/ninjaboard.behavior.configurable'),
+				'com://site/ninjaboard.database.behavior.postable'
 			)
 		));
 	

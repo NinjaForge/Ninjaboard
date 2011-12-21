@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 2306 2011-07-28 13:49:38Z captainhook $
+ * @version		$Id: html.php 2476 2011-11-02 03:26:06Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -11,23 +11,23 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 {
 	public function display()
 	{
-		$this->assign('params', KFactory::get('admin::com.ninjaboard.model.settings')->getParams());
-		$this->assign('me', KFactory::get('admin::com.ninjaboard.model.people')->getMe());
+		$this->assign('params', $this->getService('com://admin/ninjaboard.model.settings')->getParams());
+		$this->assign('me', $this->getService('com://admin/ninjaboard.model.people')->getMe());
 	    $this->topicreview = false;
 	
 		$post					= $this->getModel()->getItem();
 		if(!$post->ninjaboard_topic_id) $post->ninjaboard_topic_id = $this->getModel()->getState()->topic;
-		$this->topic = $topic	= KFactory::get('site::com.ninjaboard.model.topics')
+		$this->topic = $topic	= $this->getService('com://site/ninjaboard.model.topics')
 									->id($post->ninjaboard_topic_id)
 									->getItem();
 		if(!$topic->forum_id) $topic->forum_id = KRequest::get('get.forum', 'int');
-		$this->forum = $forum	= KFactory::get('site::com.ninjaboard.model.forums')->id($topic->forum_id)->getItem();
+		$this->forum = $forum	= $this->getService('com://site/ninjaboard.model.forums')->id($topic->forum_id)->getItem();
 		$this->topic->attachment_permissions = $this->forum->attachment_permissions;
 		$this->topic->attachment_settings = $this->params['attachment_settings']['enable_attachments'];
 
-		if((!$forum->id || $forum->post_permissions < 2) && KFactory::tmp('lib.joomla.user')->guest)
+		if((!$forum->id || $forum->post_permissions < 2) && JFactory::getUser()->guest)
 		{
-			$this->mixin(KFactory::get('admin::com.ninja.view.user.mixin'));
+			$this->mixin($this->getService('ninja:view.user.mixin'));
 			
 			$this->setLoginLayout();
 			
@@ -44,7 +44,7 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 			$this->_subtitle = $title;
 			$this->title = sprintf(JText::_('Editing post «%s»'), $title);
 			if($this->me->id == $post->created_by) {
-				$this->notify = (bool)KFactory::tmp('admin::com.ninjaboard.model.watches')
+				$this->notify = (bool)$this->getService('com://admin/ninjaboard.model.watches')
 																			->by($this->me->id)
 																			->type_name('topic')
 																			->type_id($topic->id)
@@ -57,32 +57,33 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 			$this->title = sprintf(JText::_('Post Reply to %s in %s'), "'".$topic->title."'", $forum->title);
 			$this->notify = $this->me->notify_on_reply_topic;
 			
-			$model	= KFactory::tmp('site::com.ninjaboard.model.posts')
+			$controller	= $this->getService('com://site/ninjaboard.controller.post', array('request' => array('view' => 'posts')))
 						->sort('created_on')
 						->direction('desc')
 						->limit(5)
 						->offset(0)
 						->post(false)
-						->topic($topic->id);
-			$view	= KFactory::tmp('site::com.ninjaboard.view.posts.html', array('model' => $model));
-			$total  = count($model->getList());
-			$this->topicreview = $total > 0 ? $view->assign('total', $total) : false;
+						->topic($topic->id)
+						->layout('default');
+			//$view	= $this->getService('com://site/ninjaboard.view.posts.html', array('model' => $model));
+			$total  = count($controller->getModel()->getList());
+			$this->topicreview = $total > 0 ? $controller->display() : false;
 			/*
 			//@TODO figure out why action.browse is executed before this one, as that's why we have the setView workaround
-			$controller = KFactory::tmp('site::com.ninjaboard.controller.post')
+			$controller = $this->getService('com://site/ninjaboard.controller.post')
 				->sort('created_on')
 				->direction('desc')
 				->limit(5)
 				->offset(0)
 				->post(false)
 				->topic($topic->id)
-				->setModel(KFactory::tmp('site::com.ninjaboard.model.posts'));
+				->setModel($this->getService('com://site/ninjaboard.model.posts'));
 			$this->topicreview = $controller
 			
 				//@TODO Figure out why the singular view is used instead of the plural one
 				//@NOTE A fresh model is passed to the view as com.ninjaboard.controller.post have already 
 				//      executed browse at this point. Remember to investigate why that is
-				->setView(KFactory::tmp('site::com.ninjaboard.view.posts.html', array('model' => $controller->getModel()->set($controller->getRequest()))))
+				->setView($this->getService('com://site/ninjaboard.view.posts.html', array('model' => $controller->getModel()->set($controller->getRequest()))))
 			
 				->layout('default')
 				->display();
@@ -100,8 +101,8 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 
 		//if($topic->id && !KRequest::get('get.layout', 'cmd', false)) $this->setLayout('default');
 		
-		$this->post = KFactory::get('site::com.ninjaboard.model.posts')->id(KRequest::get('get.post', 'int'))->getItem();
-		$this->assign('attachments', $post->id ? KFactory::tmp('site::com.ninjaboard.model.attachments')->post($post->id)->getList() : array());
+		$this->post = $this->getService('com://site/ninjaboard.model.posts')->id(KRequest::get('get.post', 'int'))->getItem();
+		$this->assign('attachments', $post->id ? $this->getService('com://site/ninjaboard.model.attachments')->post($post->id)->getList() : array());
 
 		return parent::display();
 	}
@@ -113,7 +114,7 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 	 */
 	public function setBreadcrumbs()
 	{
-		$pathway	= KFactory::get('lib.koowa.application')->getPathWay();		
+		$pathway	= JFactory::getApplication()->getPathWay();		
 		
 		//Checks the view properties first, in case they're already set
 		if(!isset($this->post))
@@ -128,16 +129,18 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 		}
 		if(!isset($this->topic))
 		{
-			$this->topic = KFactory::get('admin::com.ninjaboard.model.topics')
+			$this->topic = $this->getService('com://admin/ninjaboard.model.topics')
 																			->id($this->post->ninjaboard_topic_id)
 																			->getItem();
 		}
 		if(!isset($this->forum))
 		{
-			$this->forum = KFactory::get('admin::com.ninjaboard.model.forums')
+			$this->forum = $this->getService('com://admin/ninjaboard.model.forums')
 																			->id($this->topic->forum_id)
 																			->getItem();
 		}
+		
+		if(!$this->forum->isNestable()) return;
 		
 		foreach($this->forum->getParents() as $parent)
 		{

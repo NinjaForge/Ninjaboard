@@ -1,63 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: setting.xml 1997 2011-06-29 15:44:18Z stian $ -->	
+<!-- $Id: setting.xml 2439 2011-09-01 11:53:24Z stian $ -->	
 <form>
 	<fieldset group="board_details" class="adminlist" description="Parameters for board configuration">
-		<element name="theme" type="request" key="name" request="name" get="admin::com.ninjaboard.model.themes" default="chameleon" load="&amp;option=com_ninjaboard&amp;view=theme&amp;layout=settings&amp;format=raw" />
-		<!--<element name="iconset" type="genericlist" key="name" get="admin::com.ninjaboard.model.iconsets" />-->
-		<!--<element name="enable_terms" type="radio" default="1" description="NB_ENABLETERMSDESC">
-			<option value="1">Yes</option>
-			<option value="0">No</option>
-		</element>
-		<element name="term_id" type="text" default="not activated yet" disabled="true" />-->
-		<!--<element name="time_format" type="timeformats"  description="NB_TIMEFORMATDESC" />-->
-		<!--<spacer />-->
-		<!--<element name="flood_interval" type="text" size="5" default="10"  description="NB_FLOODINTERVALDESC" />
-		<spacer />-->
-		<!--<element name="enable_bbcode" type="radio" default="1"  description="NB_ENABLEBBCODEDESC">
-			<option value="1">Yes</option>
-			<option value="0">No</option>
-		</element>-->
-		<!--<element name="enable_emoticons" type="radio" default="1"  description="NB_ENABLEEMOTICONSDESC">
-			<option value="1">Yes</option>
-			<option value="0">No</option>
-		</element>
-		<spacer />
-		<element name="guest" type="genericlist" default="0"  description="NB_ENABLEGUESTNAMEDESC">
-			<option value="0">Disabled</option>
-			<option value="1">Enabled, name required</option>
-			<option value="2">Enabled, name optional</option>
-		</element>-->
-		<!--<spacer />
-		<element name="enable_reply_subject" type="radio" default="1"  description="NB_ENABLEREPLYSUBJECTDESC">
-			<option value="1">Yes</option>
-			<option value="0">No</option>
-		</element>	-->
+		<element name="theme" type="request" key="name" request="name" get="com://admin/ninjaboard.model.themes" default="chameleon" load="&amp;option=com_ninjaboard&amp;view=theme&amp;layout=settings&amp;format=raw" />
 	</fieldset>
-	
-	<!--<fieldset group="feed_settings" legend="Feed Settings" description="Parameters for individual Feed Configuration">
-		<element name="enable_feeds" type="radio" default="1"  description="NB_ENABLEFEEDSDESC">
-			<option value="1">Yes</option>
-			<option value="0">No</option>
-		</element>
-		<element name="feed_items_type" type="genericlist">
-			<option value="0">Forum Topics</option>
-			<option value="1">Forum Posts</option>
-		</element>
-	    <spacer />
-	    <element name="description_enabled" type="radio" default="0"  description="NB_FEEDDESCHTMLSYNDICATEDESC">
-	      <option value="1">Yes</option>
-	      <option value="0">No</option>
-	    </element>
-	    <text name="description_length" default="140" />
-	    <spacer />
-	    <element name="feed_image_logo" type="radio" default="1"  description="NB_FEEDIMAGEHTMLSYNDICATEDESC">
-	      <option value="1">Enabled</option>
-	      <option value="0">Disabled</option>
-	    </element>
-	    <element name="image_title" type="text" size="50" default="Ninjaboard Logo"  description="NB_FEEDIMAGETITLEDESC" />
-	    <element name="image_location" type="text" size="50" default="http://www.ninjaboard.org/images/logo.png"/>
-	    <element name="image_links_to" type="text" size="50" default="http://www.ninjaboard.org/"/>
-	</fieldset>-->
 
 	<fieldset group="email_notification_settings" legend="Email Notifications Settings">
 		<element name="enable_email_notification" label="Enable Email Notifications" type="radio" default="1">

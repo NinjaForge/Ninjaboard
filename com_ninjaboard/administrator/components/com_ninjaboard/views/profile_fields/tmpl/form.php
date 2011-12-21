@@ -1,7 +1,7 @@
-<? /** $Id: form.php 1071 2010-11-16 01:35:31Z stian $ */ ?>
+<? /** $Id: form.php 2460 2011-10-11 21:21:19Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<? $user = KFactory::get('admin::com.ninjaboard.model.users')->id($state->user)->getItem() ?>
+<? $user = $this->getService('com://admin/ninjaboard.model.users')->id($state->user)->getItem() ?>
 
 <? foreach($profile_fields as $profile_field) : ?><div class="element">
 	<label for="custom_<?= $profile_field->name ?>" class="key"><?= $profile_field->label ?></label>

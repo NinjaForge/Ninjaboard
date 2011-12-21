@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: avatars.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: avatars.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -31,16 +31,16 @@ class ComNinjaboardModelAvatars extends ComNinjaboardModelPeople
 			$this->_item = parent::getItem();
 			$id			 = $this->_item->id ? $this->_item->id : $this->_state->id;
 			
-			$settings = KFactory::get('site::com.ninjaboard.model.settings')->getParams();
+			$settings = $this->getService('com://site/ninjaboard.model.settings')->getParams();
 			$settings = $settings['avatar_settings'];
 			$this->_item->default = $this->_item->avatar;
 			
 			$size = $this->_state->thumbnail == 'small' ? 'small' : 'large';
 			
 			//Always check if there exist an alternate avatar
-			if(KFactory::get('lib.koowa.filter.url')->validate($this->_item->default)) {
+			if($this->getService('koowa:filter.url')->validate($this->_item->default)) {
 				// Prepare curl
-				$curl = KFactory::get('admin::com.ninja.helper.curl');
+				$curl = $this->getService('ninja:helper.curl');
 				$opt  = array(
 								CURLOPT_RETURNTRANSFER => true
 						);
@@ -64,7 +64,7 @@ class ComNinjaboardModelAvatars extends ComNinjaboardModelPeople
 					$this->_item->default = $this->_item->default->getSrc();
 
 					// Prepare curl
-					$curl = KFactory::get('admin::com.ninja.helper.curl');
+					$curl = $this->getService('ninja:helper.curl');
 					$opt  = array(
 									CURLOPT_RETURNTRANSFER => true
 							);
@@ -83,14 +83,14 @@ class ComNinjaboardModelAvatars extends ComNinjaboardModelPeople
 				}
 			}
 
-			$this->_item->image = KFactory::get('admin::com.ninja.helper.image', array('image' => JPATH_ROOT.$this->_item->default));
+			$this->_item->image = $this->getService('ninja:helper.image', array('image' => JPATH_ROOT.$this->_item->default));
 
 			$from	= $this->_item->image->width / $this->_item->image->height;
 			$to		= $settings[$size.'_thumbnail_width'] / $settings[$size.'_thumbnail_height'];
 			if($from > $to) {
-				$this->_item->image->resize(false, $settings[$size.'_thumbnail_height'], ComNinjaHelperImage::HEIGHT);
+				$this->_item->image->resize(false, $settings[$size.'_thumbnail_height'], NinjaHelperImage::HEIGHT);
 			} else {
-				$this->_item->image->resize($settings[$size.'_thumbnail_width'], false, ComNinjaHelperImage::WIDTH);
+				$this->_item->image->resize($settings[$size.'_thumbnail_width'], false, NinjaHelperImage::WIDTH);
 			}
 			
 			$this->_item->image

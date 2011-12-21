@@ -1,7 +1,7 @@
-<? /** $Id: default.php 2265 2011-07-22 13:15:57Z stian $ */ ?>
+<? /** $Id: default.php 2439 2011-09-01 11:53:24Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<link rel="stylesheet" href="/site.css" />
+<?= @template('com://site/ninjaboard.view.default.head') ?>
 
 <? $img = isset($forum->params['customization']['icon']) ? $forum->params['customization']['icon'] : 'default.png' ?>
 <? $img = @$img('/forums-large/' . $img) ? @$img('/forums-large/' . $img) : @$img('/forums/' . $img) ?>
@@ -30,7 +30,7 @@
 		<? endif ?>
 		<? if($watch_button) : ?>
 			<div class="end">
-				<?= @helper('site::com.ninjaboard.template.helper.behavior.watch') ?>
+				<?= @helper('com://site/ninjaboard.template.helper.behavior.watch') ?>
 			</div>
 		<? endif ?>
 		<div class="clearfix"></div>

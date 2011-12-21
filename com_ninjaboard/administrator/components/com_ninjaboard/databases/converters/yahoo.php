@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: yahoo.php 1515 2011-02-09 22:20:53Z stian $
+ * @version		$Id: yahoo.php 2461 2011-10-11 22:32:21Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -46,7 +46,7 @@ class ComNinjaboardDatabaseConvertersYahoo extends ComNinjaboardDatabaseConverte
 					'name' => 'yahoo_messages',
 					'identity_column' => 'ninjaboard_topic_id'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'tbl.post_id AS ninjaboard_topic_id',
 								'tbl.post_id AS first_post_id',
@@ -62,7 +62,7 @@ class ComNinjaboardDatabaseConvertersYahoo extends ComNinjaboardDatabaseConverte
 					'name' => 'yahoo_messages',
 					'identity_column' => 'ninjaboard_post_id'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'post_id AS ninjaboard_post_id',
 								'post_subject AS subject',

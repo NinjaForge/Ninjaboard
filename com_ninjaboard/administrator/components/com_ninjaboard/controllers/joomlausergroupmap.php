@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: joomlausergroupmap.php 1809 2011-04-15 18:42:23Z stian $
+ * @version		$Id: joomlausergroupmap.php 2461 2011-10-11 22:32:21Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -49,7 +49,7 @@ class ComNinjaboardControllerJoomlausergroupmap extends ComNinjaboardControllerD
 		$data  = $context->data;
 		$model = $this->getModel();
 		$table = $model->getTable();
-		$query = KFactory::tmp('lib.koowa.database.query');
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery();
 
 		$ids = array();
 		foreach($data['group'] as $joomla => $ninjaboard)

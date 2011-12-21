@@ -1,6 +1,9 @@
-<? /** $Id: default.php 1793 2011-04-13 21:29:06Z stian $ */ ?>
+<? /** $Id: default.php 2490 2011-11-10 22:21:16Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
+<?= @helper('behavior.mootools') ?>
+<?= @ninja('behavior.ninja') ?>
+<script type="text/javascript" src="media://lib_koowa/js/koowa.js"></script>
 <script type="text/javascript" src="/ProgressBar.js"></script>
 <script type="text/javascript" src="/Notifications.js"></script>
 <script type="text/javascript" src="/Request.Tools.js"></script>

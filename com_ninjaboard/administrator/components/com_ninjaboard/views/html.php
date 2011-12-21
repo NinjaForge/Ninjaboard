@@ -1,38 +1,21 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: html.php 2493 2011-11-10 22:25:40Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaboardViewHtml extends ComNinjaViewDefault
+class ComNinjaboardViewHtml extends NinjaViewDefault
 {
-	/**
-	 * Constructor
-	 *
-	 * @param 	object 	An optional KConfig object with configuration options
-	 */
-	public function __construct(KConfig $config)
-	{
-	    parent::__construct($config);
-		   
-		$model = KFactory::get($this->getModel());             
-	    if(KInflector::isPlural($this->getName()) && $model->getTotal() < 1) $this->_createToolbar()->reset()->append(KFactory::get('admin::com.ninja.toolbar.button.new'));
-	}
-
 	public function display()
 	{
-		//Load the js message box plugin
-		KFactory::get('admin::com.ninja.helper.default')->js('/Roar.js');
-		KFactory::get('admin::com.ninja.helper.default')->css('/Roar.css');
-
 		// Display the toolbar
-		$toolbar = $this->_createToolbar();
-		$path = KFactory::get($this->getModel())->getIdentifier()->path;
+		/*$toolbar = $this->_createToolbar();
+		$path = $this->getService($this->getModel())->getIdentifier()->path;
 
-		if(KInflector::isPlural(KFactory::get($this->getModel())->getIdentifier()->name) && $this->getName() != 'dashboard')
+		if(KInflector::isPlural($this->getService($this->getModel())->getIdentifier()->name) && $this->getName() != 'dashboard')
 		{
 			$this->_mixinMenubar();
 		}
@@ -47,18 +30,19 @@ class ComNinjaboardViewHtml extends ComNinjaViewDefault
 			$toolbar->append('spacer');
 		}
 
-		$toolbar->append(KFactory::get('admin::com.ninja.toolbar.button.about'));
+		$toolbar->append($this->getService('ninja:toolbar.button.about'));
+		*/
 
 
 		//@TODO finish this
 		//$this->lang();
 
-		return	'<div class="nf template-'.JFactory::getApplication()->getTemplate().'">'.
+		return	'<div class="nf template-'.JFactory::getApplication()->getTemplate().' -koowa-box-flex -koowa-box-scroll">'.
 				parent::display().
 				'</div>';
 
 		//Add tooltips?
-		//if(KInflector::isPlural($this->getName()) && (KFactory::get($this->getModel())->getTotal() > 1)) KTemplate::loadHelper('admin::com.ninja.helper.behavior.tooltip', 'th.hasHint', array('showOnce' => true, 'showOnLoad' => true, 'fixed' => true));
+		//if(KInflector::isPlural($this->getName()) && ($this->getService($this->getModel())->getTotal() > 1)) KTemplate::loadHelper('ninja:helper.behavior.tooltip', 'th.hasHint', array('showOnce' => true, 'showOnLoad' => true, 'fixed' => true));
 	}
 	
 	/**
@@ -71,7 +55,7 @@ class ComNinjaboardViewHtml extends ComNinjaViewDefault
 	 */
 	protected function lang()
 	{
-		$lang = KFactory::get('lib.joomla.language')->getTag();
+		$lang = JFactory::getLanguage()->getTag();
 		
 		$translate = create_function('$text', 'return ucfirst(JText::_($text));');
 		$months    = json_encode(array_map($translate, array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')));

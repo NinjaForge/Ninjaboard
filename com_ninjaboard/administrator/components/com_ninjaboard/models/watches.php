@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: watches.php 2180 2011-07-11 14:01:18Z stian $
+ * @version		$Id: watches.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -25,7 +25,7 @@ class ComNinjaboardModelWatches extends ComDefaultModelDefault
 	{
 		parent::__construct($config);
 		
-		$me			= KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$me			= $this->getService('com://admin/ninjaboard.model.people')->getMe();
 		
 		// Set the state
 		$this->_state
@@ -47,7 +47,7 @@ class ComNinjaboardModelWatches extends ComDefaultModelDefault
 		if($this->_state->type) {
 			$query->where('tbl.subscription_type', '=', $this->_state->type);
 		} elseif($this->_state->type_name) {
-			$table = KFactory::get('admin::com.ninjaboard.database.table.watches');
+			$table = $this->getService('com://admin/ninjaboard.database.table.watches');
 			$query->where('tbl.subscription_type', '=', $table->getTypeIdFromName($this->_state->type_name));
 		}
 		
@@ -68,15 +68,15 @@ class ComNinjaboardModelWatches extends ComDefaultModelDefault
 	 */
 	public function getRecipients()
 	{
-		$me			= KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$me			= $this->getService('com://admin/ninjaboard.model.people')->getMe();
 		$table		= $this->getTable();
-		$params		= KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
-		$topic		= KFactory::tmp('site::com.ninjaboard.model.topics')->id($this->_state->topic)->getItem();
-		$forum		= KFactory::tmp('site::com.ninjaboard.model.forums')->id($topic->forum_id)->getItem();
+		$params		= $this->getService('com://admin/ninjaboard.model.settings')->getParams();
+		$topic		= $this->getService('com://site/ninjaboard.model.topics')->id($this->_state->topic)->getItem();
+		$forum		= $this->getService('com://site/ninjaboard.model.forums')->id($topic->forum_id)->getItem();
 		$ids		= array();
 		
 		if($params->email_notification_settings->auto_notify_admins == 'yes') {
-			$query = KFactory::tmp('lib.koowa.database.query')
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 															->select('id')
 															->from('users')
 															->where('sendEmail', '=', 1)
@@ -91,7 +91,7 @@ class ComNinjaboardModelWatches extends ComDefaultModelDefault
 		//Recipients subscribed to this topic
 		if($this->_state->topic)
 		{
-			$query = KFactory::tmp('lib.koowa.database.query')
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 															->select('created_by')
 															->where('subscription_type', '=', $table->getTypeIdFromName('topic'))
 															->where('subscription_type_id', '=', $this->_state->topic)
@@ -109,7 +109,7 @@ class ComNinjaboardModelWatches extends ComDefaultModelDefault
 		{
 			$forums = array_filter(explode('/', $forum->path));
 			$forums[] = $forum->id;
-			$query = KFactory::tmp('lib.koowa.database.query')
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 															->select('created_by')
 															->where('subscription_type', '=', $table->getTypeIdFromName('forum'))
 															->where('subscription_type_id', 'in', $forums)
@@ -122,7 +122,7 @@ class ComNinjaboardModelWatches extends ComDefaultModelDefault
 		}
 		
 		//Recipients subscribed to me
-		$query = KFactory::tmp('lib.koowa.database.query')
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 														->select('created_by')
 														->where('subscription_type', '=', $table->getTypeIdFromName('person'))
 														->where('subscription_type_id', 'in', $me->id)
@@ -135,7 +135,7 @@ class ComNinjaboardModelWatches extends ComDefaultModelDefault
 		
 		if(!$ids) return array();
 		
-		$query = KFactory::tmp('lib.koowa.database.query')
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 														->select(array('name', 'email'))
 														->from('users')
 														->where('id', 'in', $ids);
@@ -170,7 +170,7 @@ class ComNinjaboardModelWatches extends ComDefaultModelDefault
 				if($item->subscription_type == $types['forum'])
 				{
 					$item->type  = 'forum';
-					$item->title = KFactory::tmp('admin::com.ninjaboard.model.forums')
+					$item->title = $this->getService('com://admin/ninjaboard.model.forums')
 																					->id($item->subscription_type_id)
 																					->getItem()
 																					->title;
@@ -182,7 +182,7 @@ class ComNinjaboardModelWatches extends ComDefaultModelDefault
 				if($item->subscription_type == $types['topic'])
 				{
 					$item->type  = 'topic';
-					$topic = KFactory::tmp('admin::com.ninjaboard.model.topics')
+					$topic = $this->getService('com://admin/ninjaboard.model.topics')
 																					->id($item->subscription_type_id)
 																					->getItem();
 					$item->title = $topic->subject;
@@ -194,7 +194,7 @@ class ComNinjaboardModelWatches extends ComDefaultModelDefault
 				if($item->subscription_type == $types['person'])
 				{
 					$item->type  = 'person';
-					$item->title = KFactory::tmp('admin::com.ninjaboard.model.people')
+					$item->title = $this->getService('com://admin/ninjaboard.model.people')
 																					->id($item->subscription_type_id)
 																					->getItem()
 																					->display_name;
@@ -203,7 +203,7 @@ class ComNinjaboardModelWatches extends ComDefaultModelDefault
 				}
 
 				$item->link = JRoute::_('index.php?option=com_ninjaboard'.$link);
-				$item->icon = KFactory::get('admin::com.ninja.helper.default')->img($icon);
+				$item->icon = $this->getService('ninja:template.helper.document')->img($icon);
 			}			
 		}
 		

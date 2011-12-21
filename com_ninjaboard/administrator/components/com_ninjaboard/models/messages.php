@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: messages.php 2297 2011-07-27 15:10:57Z stian $
+ * @version		$Id: messages.php 2460 2011-10-11 21:21:19Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -54,14 +54,14 @@ class ComNinjaboardModelMessages extends ComDefaultModelDefault
 		
 		
 		//Build query for the screen names
-		//KFactory::get('admin::com.ninjaboard.model.people')->buildScreenNameQuery($query, 'person', 'user', 'recipient');
+		//$this->getService('com://admin/ninjaboard.model.people')->buildScreenNameQuery($query, 'person', 'user', 'recipient');
 	}
 
 	protected function _buildQueryWhere(KDatabaseQuery $query)
 	{
 		parent::_buildQueryWhere($query);
 		//Build query for the screen names
-		$me = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$me = $this->getService('com://admin/ninjaboard.model.people')->getMe();
 		$id = (int) $me->id;
 
 		//Get sent messages by me
@@ -96,7 +96,7 @@ class ComNinjaboardModelMessages extends ComDefaultModelDefault
                 
                 if(!$this->_state->isEmpty())
                 {
-                    $me = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+                    $me = $this->getService('com://admin/ninjaboard.model.people')->getMe();
                     $this->_list = $table->getRowset();
                 
                     // First get the inbox
@@ -119,7 +119,7 @@ class ComNinjaboardModelMessages extends ComDefaultModelDefault
                         $query->where('tbl.created_by', 'LIKE', $this->_state->conversation_id);
                     }
                           
-                    KFactory::get('admin::com.ninjaboard.model.people')->buildScreenNameQuery($query, 'person', 'user', 'conversation_with');
+                    $this->getService('com://admin/ninjaboard.model.people')->buildScreenNameQuery($query, 'person', 'user', 'conversation_with');
                     $inbox = $table->select($query, KDatabase::FETCH_ROWSET);
                     
                     $keep = array();
@@ -169,7 +169,7 @@ class ComNinjaboardModelMessages extends ComDefaultModelDefault
                     }
                     
                     /*
-                    $table = KFactory::tmp($table->getIdentifier(), array('enable_callbacks' => true));
+                    $table = $this->getService($table->getIdentifier(), array('enable_callbacks' => true));
                     $table->registerCallback('after.select', function(KCommandContext $context){
                         die('<pre>'.print_r((string)$context->query, true));
                     });
@@ -177,10 +177,10 @@ class ComNinjaboardModelMessages extends ComDefaultModelDefault
                     
                     $outbox = $table->select($query, KDatabase::FETCH_ROWSET);
 
-                    $users = KFactory::get('admin::com.ninjaboard.database.table.users');
+                    $users = $this->getService('com://admin/ninjaboard.database.table.users');
                     $query = $users->getDatabase()->getQuery();
                     $query->join('left', 'ninjaboard_people AS person', 'person.ninjaboard_person_id = tbl.id');
-                    KFactory::get('admin::com.ninjaboard.model.people')->buildScreenNameQuery($query, 'person', 'tbl', 'conversation_with');
+                    $this->getService('com://admin/ninjaboard.model.people')->buildScreenNameQuery($query, 'person', 'tbl', 'conversation_with');
                     
                     foreach($outbox as $message)
                     {
@@ -256,8 +256,8 @@ class ComNinjaboardModelMessages extends ComDefaultModelDefault
         {
             if($this->_state->unread)
             {
-                $me           = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
-                $table        = KFactory::get('admin::com.ninjaboard.database.table.message_recipients');
+                $me           = $this->getService('com://admin/ninjaboard.model.people')->getMe();
+                $table        = $this->getService('com://admin/ninjaboard.database.table.message_recipients');
                 $this->_total = $table->count(array('user_id' => $me->id, 'is_read' => 0));
             }
             else {

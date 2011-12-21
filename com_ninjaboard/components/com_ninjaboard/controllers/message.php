@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: message.php 2140 2011-07-08 10:31:24Z stian $
+ * @version		$Id: message.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -39,9 +39,9 @@ class ComNinjaboardControllerMessage extends ComNinjaboardControllerAbstract
 
 	    if($state->conversation_id)
 	    {
-	        $me    = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
-	        $query = KFactory::tmp('lib.koowa.database.query');
-	        $table = KFactory::get('admin::com.ninjaboard.database.table.message_recipients');
+	        $me    = $this->getService('com://admin/ninjaboard.model.people')->getMe();
+	        $query = $this->getService('koowa:database.adapter.mysqli')->getQuery();
+	        $table = $this->getService('com://admin/ninjaboard.database.table.message_recipients');
 
 	        $query->join('left', 'ninjaboard_messages AS message', 'message.ninjaboard_message_id = tbl.ninjaboard_message_id')
 	              ->where('message.created_by', 'LIKE', $state->conversation_id)
@@ -91,14 +91,14 @@ class ComNinjaboardControllerMessage extends ComNinjaboardControllerAbstract
 	protected function _actionAdd(KCommandContext $context)
 	{
 	    $result = parent::_actionAdd($context);
-	    $me     = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
-	    $filter = KFactory::tmp('lib.koowa.filter.int');
+	    $me     = $this->getService('com://admin/ninjaboard.model.people')->getMe();
+	    $filter = $this->getService('koowa:filter.int');
 	    
 	    
 	    
-	    $params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
-	    $app	= KFactory::get('lib.joomla.application');
-	    $root	= KRequest::url()->get(KHttpUri::PART_BASE ^ KHttpUri::PART_PATH);
+	    $params = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
+	    $app	= JFactory::getApplication();
+	    $root	= KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH);
 	    //@TODO Should link to the message directly
 	    $link	= $root.JRoute::_('index.php?option=com_ninjaboard&view=messages');
 	    
@@ -113,7 +113,7 @@ class ComNinjaboardControllerMessage extends ComNinjaboardControllerAbstract
 		
 		$subject = sprintf(JText::_('%s sent you a message on %s'), $me->display_name, $sitename);
 		$subject = html_entity_decode($subject, ENT_QUOTES);
-		$text    = KFactory::get('admin::com.ninja.helper.bbcode')->parse(array('text' => $result->text));
+		$text    = $this->getService('ninja:helper.bbcode')->parse(array('text' => $result->text));
 		
 	    $recipients = explode(',', $result->to);
 	    
@@ -125,7 +125,7 @@ class ComNinjaboardControllerMessage extends ComNinjaboardControllerAbstract
 	        //Can't be the current user
 	        if($recipient == $me->id) continue;
 
-	        $model = KFactory::tmp('admin::com.ninjaboard.model.message_recipients');
+	        $model = $this->getService('com://admin/ninjaboard.model.message_recipients');
 	        $model->getItem()
 	              ->setData(array(
 	                  'ninjaboard_message_id' => $result->id,
@@ -135,7 +135,7 @@ class ComNinjaboardControllerMessage extends ComNinjaboardControllerAbstract
 
 	        if($params->messaging_settings->enable_messaging)
 	        {
-	            $person = KFactory::tmp('admin::com.ninjaboard.model.people')->id($recipient)->getItem();
+	            $person = $this->getService('com://admin/ninjaboard.model.people')->id($recipient)->getItem();
 	            if(!$person->notify_on_private_message) continue;
 	            
 	            $notification = str_replace('/n', "\n", JText::_( 'NOTIFY_PM' ));

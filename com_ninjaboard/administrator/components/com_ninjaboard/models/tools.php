@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: tools.php 1499 2011-01-27 21:40:34Z stian $
+ * @version		$Id: tools.php 2460 2011-10-11 21:21:19Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -35,7 +35,7 @@ class ComNinjaboardModelTools extends KModelAbstract
 			//Prevent exceptions caused by files like .DS_Store
 			try
 			{
-				$converter	= KFactory::get('admin::com.ninjaboard.database.converters.'.$name);
+				$converter	= $this->getService('com://admin/ninjaboard.database.converters.'.$name);
 			}
 			catch(KFactoryException $e)
 			{

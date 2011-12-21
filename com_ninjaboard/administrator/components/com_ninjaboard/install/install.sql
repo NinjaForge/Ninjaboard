@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_forums` (
 
 CREATE TABLE IF NOT EXISTS `#__ninjaboard_profile_fields` (
   `ninjaboard_profile_field_id` SERIAL,
-  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '@Filter("lib.koowa.filter.alpha")',
+  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '@Filter("koowa:filter.alpha")',
   `label` text NOT NULL COMMENT 'Label of the column field',
   `description` text NOT NULL,
   `element` varchar(255) NOT NULL,

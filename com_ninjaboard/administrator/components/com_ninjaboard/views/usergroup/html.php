@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: html.php 2509 2011-11-22 11:44:31Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -13,21 +13,21 @@ class ComNinjaboardViewUsergroupHtml extends ComNinjaboardViewHtml
 	{
 		$this->usergroup = $this->getModel()->getItem();
 	
-		$objects = KFactory::get('admin::com.ninjaboard.permissions')->getObjects();
+		$objects = $this->getService('com://admin/ninjaboard.permissions')->getObjects();
 		foreach ($objects as $object) 
 		{
 			$names[] = 'com_ninjaboard.usergroup.'.$this->usergroup->id.'.'.$object;
 		}
 	
-		$this->permissions = KFactory::tmp('admin::com.ninja.helper.access', array(
+		$this->permissions = $this->getService('ninja:template.helper.access', array(
 			'name'		=> $names,
-			'id'		=> KFactory::get('admin::com.ninja.helper.default')->formid('permissions'),
+			'id'		=> $this->getService('ninja:template.helper.document')->formid('permissions'),
 			'inputName'	=> 'permissions',
 			'inputId'	=> 'permissions',
 			'render'	=> 'usergroups',
 			'objects'	=> $objects
 		));
-		
+
 		return parent::display();
 	}
 }

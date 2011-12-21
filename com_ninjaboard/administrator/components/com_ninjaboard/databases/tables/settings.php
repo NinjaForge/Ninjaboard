@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: settings.php 1362 2011-01-10 20:18:58Z stian $
+ * @version		$Id: settings.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -16,7 +16,7 @@ jimport('joomla.filesystem.file');
  * 
  * @author Stian Didriksen <stian@ninjaforge.com>
  */
-class ComNinjaboardDatabaseTableSettings extends ComNinjaDatabaseTableSettings
+class ComNinjaboardDatabaseTableSettings extends NinjaDatabaseTableSettings
 {
 	/**
 	 * Get the default values from the xml document

@@ -1,4 +1,4 @@
-<? /** $Id: block_subforums.php 2126 2011-07-07 20:51:36Z stian $ */ ?>
+<? /** $Id: block_subforums.php 2439 2011-09-01 11:53:24Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <div class="ninjaboard-block category">
@@ -17,6 +17,6 @@
 		</li>
 	</ul>
 	<ul class="topiclist forums">
-		<?= @template('site::com.ninjaboard.view.forum.row_forum') ?>
+		<?= @template('com://site/ninjaboard.view.forum.row_forum') ?>
 	</ul>
 </div>

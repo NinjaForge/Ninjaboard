@@ -1,15 +1,13 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: paginator.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: paginator.php 2481 2011-11-02 03:43:29Z stian $
  * @package		Ninja
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
- 
-KLoader::load('admin::com.ninja.helper.paginator');
 
-class ComNinjaboardTemplateHelperPaginator extends ComNinjaHelperPaginator
+class ComNinjaboardTemplateHelperPaginator extends NinjaTemplateHelperPaginator
 {
 	/**
 	 * Template item override
@@ -26,20 +24,31 @@ class ComNinjaboardTemplateHelperPaginator extends ComNinjaHelperPaginator
 	protected $_list_override = false;
 
 	/**
-	 * Render item pagination
+	 * Method for rendering the item pagination
 	 *
-	 * @param	int	Total number of items
-	 * @param	int	Offset for the current page
-	 * @param	int	Limit of items per page
-	 * @param	int	Number of links to show before and after the current page link
+	 * @param	array	optional array of configuration options
 	 * @return	string	Html
-	 * @see  	http://developer.yahoo.com/ypatterns/navigation/pagination/
+	 * @link  	http://developer.yahoo.com/ypatterns/navigation/pagination/
 	 */
-	public function pagination($total, $offset, $limit, $display = null, $ajax = false, $length = false)
+	public function pagination($config = array())
 	{
-		if($total !== false && $total <= $limit) return false;
+	    $config = new KConfig($config);
+		$config->append(array(
+			'total'		 => 0,
+			'display'	 => 5,
+			'name'       => KRequest::get('get.view', 'cmd', 'items'),
+			'offset'     => 0,
+			'limit'	     => 0,
+			'attribs'    => array('onchange' => 'this.form.submit();'),
+			'show_limit' => true,
+			'show_count' => true
+		));
 
-		$chromePath = JPATH_THEMES.DS.KFactory::get('lib.joomla.application')->getTemplate().DS.'html'.DS.'pagination.php';
+        $this->_initialize($config);
+	
+		if($config->total !== false && $config->total <= $config->limit) return false;
+
+		$chromePath = JPATH_THEMES.DS.JFactory::getApplication()->getTemplate().DS.'html'.DS.'pagination.php';
 		if (file_exists($chromePath))
 		{
 			require_once ($chromePath);
@@ -51,27 +60,16 @@ class ComNinjaboardTemplateHelperPaginator extends ComNinjaHelperPaginator
 			}
 		}
 
-		$params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		$params = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 		$this->override = $this->_list_override && $this->_item_override && $params['view_settings']['pagination'] == 'core';
 
-		$this->_ajax = (bool) $ajax;
-		if(is_string($ajax)) $this->_ajax_layout = $ajax;
-		if(!$this->override) KFactory::get('admin::com.ninja.helper.default')->css('/pagination.css');
-
-		// Paginator object
-		$paginator = KFactory::tmp('lib.koowa.model.paginator')->setData(
-				array('total'  => $total,
-					  'offset' => $offset,
-					  'limit'  => $limit,
-					  'dispay' => $display)
-		);
+		if(!$this->override) $this->getService('ninja:template.helper.document')->load('/pagination.css');
 
 		$view = $this->name;
 		$items = (int) $total === 1 ? KInflector::singularize($view) : $view;
 		//if($total <= 10) return '<div class="pagination"><div class="limit">'.sprintf(JText::_(KInflector::humanize($items)) . ' %s', $total ).'</div></div>';
 
-		// Get the paginator data
-		$list = $paginator->getList();
+		$list = $this->_pages($config);
 		$limitlist = $total > $limit ? $this->limit(array('state' => array('limit' => $limit))) : $total;
 		
 		$html  = '<div class="pagination">';
@@ -91,7 +89,7 @@ class ComNinjaboardTemplateHelperPaginator extends ComNinjaHelperPaginator
 	 */
 	public function pages($pages)
 	{
-		$params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		$params = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 
 		if(!$this->override) return parent::pages($pages);
 		

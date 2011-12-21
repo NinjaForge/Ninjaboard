@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: ccboard.php 1787 2011-04-12 23:38:17Z stian $
+ * @version		$Id: ccboard.php 2489 2011-11-10 22:03:18Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -36,7 +36,7 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 				'options' => array(
 					'name' => 'ccb_attachments'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'tbl.id',
 								'tbl.post_id AS post',
@@ -51,7 +51,7 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 				'options' => array(
 					'name' => 'ccb_category'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'(id + (SELECT MAX(id) FROM #__ccb_forums)) AS id',
 								'cat_name AS title',
@@ -63,7 +63,7 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 				'options' => array(
 					'name' => 'ccb_forums'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'id',
 								'forum_name AS title',
@@ -81,7 +81,7 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 				'options' => array(
 					'name' => 'ccb_posts'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'*',
 								'topic_id AS ninjaboard_topic_id',
@@ -100,7 +100,7 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 				'options' => array(
 					'name' => 'ccb_topics'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'*',
 								'reply_count AS replies',
@@ -113,7 +113,7 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 				'options' => array(
 					'name' => 'ccb_users'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'user_id AS id',
 								'signature',
@@ -191,25 +191,8 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 	 */
 	public function canConvert()
 	{
-		if(JComponentHelper::getComponent( 'com_ccboard', true )->enabled) {
-			return true;
-		} else {
-			//Tests if the component files does exists, but is disabled in jos_components
-			try {
-				$model = KFactory::get('admin::com.ccboard.model.forums');
-			} catch(KFactoryAdapterException $e) {
-				return true;
-			}
-			
-			//Tries to count rows in the ccBoard forums table, which will throw an exception if table don't exist
-			try {
-				$model->getTotal();
-			} catch(KDatabaseTableException $e) {
-				return false;
-			}
-			
-			return true;
-		}
+	    $query  = "SHOW TABLES LIKE '#__ccb_forums'";
+	    return (bool)KService::get('koowa:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 	}
 
 	/**

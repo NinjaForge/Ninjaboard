@@ -1,21 +1,24 @@
-<? /** $Id: default.php 1298 2011-01-03 03:10:31Z stian $ */ ?>
+<? /** $Id: default.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
+
+<?= @template('ninja:view.grid.head') ?>
+
 <?= @template('form_filtering') ?>
-<form action="<?= @route() ?>" method="post" id="<?= @id() ?>">
+<form action="<?= @route() ?>" method="post" id="<?= @id() ?>" class="-koowa-grid">
 	<?= @$placeholder() ?>
 	<table class="adminlist ninja-list">
 		<thead>
 			<tr>
 				<?= @ninja('grid.count', array('total' => @$total, 'title' => true)) ?>
-				<th class="grid-check"><?= @ninja('grid.checkall') ?></th>
-				<th><?= @ninja('grid.sort', array('title' => 'ID', 'order' => 'id')) ?></th>
-				<th><?= @ninja('grid.sort', array('title' => 'Name')) ?></th>
-				<th><?= @ninja('grid.sort', array('title' => 'Username')) ?></th>
-				<th><?= @ninja('grid.sort', array('title' => 'Joomla! Group', 'order' => 'usertype')) ?></th>
-				<th><?= @ninja('grid.sort', array('title' => 'Ninjaboard Group', 'order' => 'ninjaboard_usergroup_id')) ?></th>
-				<!--<th><?= @ninja('grid.sort', array('title' => 'NB Groups', 'order' => 'role')) ?></th>-->
-				<th><?= @ninja('grid.sort', array('title' => 'Email', 'order' => 'email')) ?></th>
-				<th><?= @ninja('grid.sort', array('title' => 'Last Visit Date', 'order' => 'lastvisitdate')) ?></th>
+				<th class="grid-check"><?= @helper('grid.checkall') ?></th>
+				<th><?= @helper('grid.sort', array('title' => 'ID', 'column' => 'id')) ?></th>
+				<th><?= @helper('grid.sort', array('column' => 'name')) ?></th>
+				<th><?= @helper('grid.sort', array('column' => 'username')) ?></th>
+				<th><?= @helper('grid.sort', array('title' => 'Joomla! Group', 'column' => 'usertype')) ?></th>
+				<th><?= @helper('grid.sort', array('title' => 'Ninjaboard Group', 'column' => 'ninjaboard_usergroup_id')) ?></th>
+				<!--<th><?= @helper('grid.sort', array('title' => 'NB Groups', 'column' => 'role')) ?></th>-->
+				<th><?= @helper('grid.sort', array('title' => 'Email', 'column' => 'email')) ?></th>
+				<th><?= @helper('grid.sort', array('title' => 'Last Visit Date', 'column' => 'lastvisitdate')) ?></th>
 				<th><?= @text('Posts') ?></th>
 				<th><?= @text('Rank') ?></th>
 			</tr>

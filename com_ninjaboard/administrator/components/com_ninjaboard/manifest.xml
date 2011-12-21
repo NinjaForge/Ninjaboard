@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: manifest.xml 2407 2011-08-25 09:00:39Z stian $ -->
+<!-- $Id: manifest.xml 2520 2011-11-22 16:23:16Z stian $ -->
 <!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/component-install.dtd">
-<install type="component" version="1.5.0" method="upgrade" mootools="1.2">
+<install type="component" version="1.5.0" method="upgrade">
     <name>Ninjaboard</name>
     <author>NinjaForge</author>
     <creationDate>2011-08-06</creationDate>
@@ -11,7 +11,7 @@
     <jslicense>MIT</jslicense>
     <authoremail>support@ninjaforge.com</authoremail>
     <authorurl>ninjaforge.com</authorurl>
-    <updateurl>http://ninjaforge.com/extensions/ninjaboard?format=file</updateurl>
+    <updateurl>http://ninjaforge.com/extensions/ninjaboard-beta?format=file</updateurl>
     <support href="http://ninjaforge.com/forum/54-ninjaboard">Forums</support>
     <rate href="http://extensions.joomla.org/extensions/communication/forum/11513">Joomla Extensions Directory (JED)</rate>
     <!-- 
@@ -22,8 +22,8 @@
                 - GM            #D6B600
                 - Stable        #009199
     -->
-    <version status="Stable" color="#009199">1.1.6</version>
-    <revision>2352</revision>
+    <version status="Alpha" color="darkorange">1.2</version>
+    <revision>2519</revision>
     <description>The sharpest user forum</description>
     <credits>
         <a href="http://www.joomlaworks.gr/">SMF converter, Vanity URLs, Private Messaging sponsored by JoomlaWorks</a>
@@ -40,14 +40,11 @@
         <a href="https://www.transifex.net/projects/p/ninjaboard/teams/">Translation contributors on Transifex</a>
     </credits>
     <files folder="components/com_ninjaboard">
-        <file>htaccess.txt</file>
         <file>dispatcher.php</file>
         <file>ninjaboard.php</file>
         <file>router.php</file>
-        <folder>commands</folder>
         <folder>controllers</folder>
         <folder>databases</folder>
-        <folder>iconsets</folder>
         <folder>templates</folder>
         <folder>themes</folder>
         <folder>views</folder>
@@ -58,7 +55,7 @@
             <menu view="dashboard" img="../media/com_ninja/images/16/dashboard.png">Dashboard</menu>
             <menu view="forums" img="../media/com_ninjaboard/images/16/forums.png">Forums</menu>
             <menu view="settings" img="../media/com_ninja/images/16/settings.png">Settings</menu>
-            <menu view="themes" img="../media/com_ninjaboard/images/16/themes.png">Themes</menu>
+            <!--<menu view="themes" img="../media/com_ninjaboard/images/16/themes.png">Themes</menu>-->
             <menu view="users" img="../media/com_ninja/images/16/users.png">Users</menu>
             <menu view="usergroups" img="../media/com_ninja/images/16/usergroups.png">Usergroups</menu>
             <menu view="ranks" img="../media/com_ninjaboard/images/16/ranks.png">Ranks</menu>
@@ -66,7 +63,7 @@
         </submenu>
         <files folder="administrator/components/com_ninjaboard">
             <file>changelog.xml</file>
-            <file>htaccess.txt</file>
+            <file>dispatcher.php</file>
             <file>ninjaboard.php</file>
             <file>permissions.php</file>
             <folder>controllers</folder>
@@ -162,6 +159,11 @@
         -->
     <deleted>
         <admin>
+            <file>views/json.php</file>
+            <file>views/users/html.php</file>
+            <file>controllers/toolbars/menubar.php</file>
+            <file revision="2285">htaccess.txt</file>
+            <folder>views/dashboard</folder>
             <file revision="1733">views/tools/json.php</file>
             <folder revision="1201">views/templates</folder>
             <file revision="1201">controllers/template.php</file>
@@ -334,6 +336,9 @@
             <file>views/usersync.php</file>
         </admin>
         <site>
+            <file revision="2285">htaccess.txt</file>
+            <folder revision="2284">iconsets</folder>
+            <folder revision="2283">commands</folder>
             <folder revision="1754">views/help</folder>
             <folder revision="1753">views/rules</folder>
             <file revision="1246">views/json.php</file>

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: avatar.php 1679 2011-03-24 01:24:49Z stian $
+ * @version		$Id: avatar.php 2516 2011-11-22 15:56:25Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -26,7 +26,7 @@ class ComNinjaboardControllerAvatar extends ComNinjaboardControllerAttachment
 		KRequest::set('get.format', 'file');
 
 		//When no id is set in the url, then we should assume the user wants to see his own profile
-		$me		= KFactory::get('site::com.ninjaboard.model.people')->getMe();
+		$me		= KService::get('com://site/ninjaboard.model.people')->getMe();
 		$config->append(array(
 			'request' => array(
 				'id'   => $me->id
@@ -51,7 +51,7 @@ class ComNinjaboardControllerAvatar extends ComNinjaboardControllerAttachment
 		//Only auto create people that exist
 		if(!$row->id && $request->id) {
 			//Check that the person exists, before creating Ninjaboard record
-			$exists = KFactory::get('site::com.ninjaboard.model.users')->id($request->id)->getTotal() > 0;
+			$exists = $this->getService('com://site/ninjaboard.model.users')->id($request->id)->getTotal() > 0;
 			if(!$exists) {
 				JError::raiseWarning(404, JText::_('Person not found.'));
 				return $row;
@@ -61,7 +61,7 @@ class ComNinjaboardControllerAvatar extends ComNinjaboardControllerAttachment
 			$row->save();
 			
 			//In order to get the data from the jos_users table, we need to rerun the query by getting a fresh row and setting the data
-			$new = KFactory::tmp($this->getModel())->id($row->id)->getItem();
+			$new = $this->getService($this->getModel())->id($row->id)->getItem();
 			$row->setData($new->getData());
 		}
 

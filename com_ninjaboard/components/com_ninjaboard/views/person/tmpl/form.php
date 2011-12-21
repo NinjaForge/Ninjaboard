@@ -1,11 +1,10 @@
-<? /** $Id: form.php 2258 2011-07-22 12:04:01Z stian $ */ ?>
+<? /** $Id: form.php 2460 2011-10-11 21:21:19Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<link rel="stylesheet" href="/site.css" />
+<?= @template('com://site/ninjaboard.view.default.head') ?>
 <link rel="stylesheet" href="/form.css" />
 <link rel="stylesheet" href="/site.form.css" />
 
-<script type="text/javascript" src="/jquery.min.js"></script>
 <script type="text/javascript">
 	jQuery(function($){
 		var form = $('#<?= @id() ?>');
@@ -50,7 +49,7 @@
 <style type="text/css">
 	.ninjaboard .element .avatar.options {
 		top: 10px;
-		<? if(KFactory::get('lib.joomla.document')->getDirection() == 'rtl') : ?>
+		<? if(JFactory::getDocument()->getDirection() == 'rtl') : ?>
 		right: <?= max((int)$params['avatar_settings']['large_thumbnail_width'], 0) + 173 ?>px;
 		<? else : ?>
 		left: <?= max((int)$params['avatar_settings']['large_thumbnail_width'], 0) + 173 ?>px;
@@ -71,7 +70,7 @@
 					<label class="key">
 						<?= @text("Avatar") ?>
 					</label>
-					<?= @helper('site::com.ninjaboard.template.helper.avatar.image', array(
+					<?= @helper('com://site/ninjaboard.template.helper.avatar.image', array(
 						'id'		=> $person->id,
 						'class'		=> 'avatar value'
 					)) ?>
@@ -82,11 +81,11 @@
 					</span>
 					
 					<span class="avatar upload">
-						<?= @helper('site::com.ninjaboard.template.helper.avatar.input') ?>
+						<?= @helper('com://site/ninjaboard.template.helper.avatar.input') ?>
 						<small>
-							<?= @helper('site::com.ninjaboard.template.helper.avatar.upload_size_limit', array('params' => $params)) ?>
+							<?= @helper('com://site/ninjaboard.template.helper.avatar.upload_size_limit', array('params' => $params)) ?>
 							<span class="avatar-image-extensions">
-								<?= @helper('site::com.ninjaboard.template.helper.avatar.extensions') ?>
+								<?= @helper('com://site/ninjaboard.template.helper.avatar.extensions') ?>
 							</span>
 						</small>
 						<a href="#" class="cancel-upload"><?= @text('Cancel upload') ?></a>

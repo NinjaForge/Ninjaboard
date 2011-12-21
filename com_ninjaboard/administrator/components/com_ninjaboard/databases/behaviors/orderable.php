@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: orderable.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: orderable.php 2415 2011-08-26 20:34:38Z stian $
  * @package		Ninjaboard
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -30,12 +30,19 @@ class ComNinjaboardDatabaseBehaviorOrderable extends KDatabaseBehaviorOrderable
 		//Build the where query
 		$this->_buildQueryWhere($query);
 
+        if(array_key_exists('path', $table->getColumns())) {
+            $order_by = 'path, ordering';
+        } else {
+            $order_by = 'ordering';
+        }
+		
+
 		$db->execute("SET @order = 0");
 		$db->execute(
 			 'UPDATE #__'.$table->getBase().' '
 			.'SET ordering = (@order := @order + 1) '
 			.(string) $query.' '
-			.'ORDER BY path, ordering ASC'
+			.'ORDER BY '.$order_by.' ASC'
 		);
 
 		return $this;

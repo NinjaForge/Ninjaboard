@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: person.php 2297 2011-07-27 15:10:57Z stian $
+ * @version		$Id: person.php 2484 2011-11-02 03:44:47Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -32,7 +32,7 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 	public function setMe()
 	{
 		//When no id is set in the url, then we should assume the user wants to see his own profile
-		$me		= KFactory::get('site::com.ninjaboard.model.people')->getMe();
+		$me		= $this->getService('com://site/ninjaboard.model.people')->getMe();
 		$this->_request->append(array(
 			'user' => true,
 			'id'   => $me->id
@@ -66,13 +66,13 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		//Don't do anything if alias isn't a value
 		if(!$alias) return $this;
 		
-		$model = KFactory::tmp($this->getModel()->getIdentifier())->not($this->getRequest()->id);
+		$model = $this->getService($this->getModel()->getIdentifier())->not($this->getRequest()->id);
 
 		//Lets find out if this alias is already in use by someone else
 		$count = $model->alias($alias)->getTotal();
 		if($count > 0) return $this->_checkAliasFailed($context);
 		
-		$table = KFactory::tmp('admin::com.ninjaboard.database.table.users');
+		$table = $this->getService('com://admin/ninjaboard.database.table.users');
 		//By making the alias all caps, MySQL will do an case insensitive search since there's no mixed casing.
 		$alias = $table->getDatabase()->quoteValue(strtoupper($alias));
 		$query = $table->getDatabase()->getQuery()
@@ -131,7 +131,7 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 			return $this;
 		}
 		
-		$this->params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		$this->params = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 		$params = $this->params['avatar_settings'];
 		$maxSize = (int) $params['upload_size_limit'];
 		if ($maxSize > 0 && (int) $avatar['size'] > $maxSize)
@@ -161,11 +161,11 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		$request	= $this->getRequest();
 		$row		= parent::_actionRead($context);
 		
-		if(!isset($request->id)) $request->id = KFactory::get('lib.joomla.user')->id;
+		if(!isset($request->id)) $request->id = JFactory::getUser()->id;
 		
 		if(!$row->id && $request->id) {
 			//Check that the person exists, before creating Ninjaboard record
-			$exists = KFactory::get('site::com.ninjaboard.model.users')->id($request->id)->getTotal() > 0;
+			$exists = $this->getService('com://site/ninjaboard.model.users')->id($request->id)->getTotal() > 0;
 			if(!$exists) {
 				JError::raiseError(404, JText::_('Person not found.'));
 			}
@@ -174,12 +174,12 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 			$row->save();
 
 			//In order to get the data from the jos_users table, we need to rerun the query by getting a fresh row and setting the data
-			$new = KFactory::tmp($this->getModel()->getIdentifier())->id($request->id)->getItem();
+			$new = $this->getService($this->getModel()->getIdentifier())->id($request->id)->getItem();
 			$row->setData($new->getData());
 		}
 		
 		//an id is absolutely required
-		if(!$row->id && !KFactory::get('lib.joomla.user')->guest) {
+		if(!$row->id && !JFactory::getUser()->guest) {
 			JError::raiseError(404, JText::_('Person not found.'));
 			
 		}
@@ -190,7 +190,7 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 			if($me->id && $row->id !== $me->id)
 			{
 				$message = "You can't edit other users than yourself.";
-				KFactory::get('lib.koowa.application')
+				JFactory::getApplication()
 					->redirect(JRoute::_('&view=person&id='.$row->id.'&layout='), JText::_($message), 'error');
 				return $row;
 			}

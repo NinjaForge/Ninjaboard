@@ -1,7 +1,7 @@
-<? /** $Id: default.php 1267 2010-12-22 10:50:54Z stian $ */ ?>
+<? /** $Id: default.php 2439 2011-09-01 11:53:24Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<link rel="stylesheet" href="/site.css" />
+<?= @template('com://site/ninjaboard.view.default.head') ?>
 
 <div id="ninjaboard" class="ninjaboard forums <?= $params['pageclass_sfx'] ?> <?= $params['style']['type'] ?> <?= $params['style']['border'] ?> <?= $params['style']['separators'] ?>">
 
@@ -13,13 +13,13 @@
 	<? endforeach ?>
 
 	<? if($flats) : ?>
-		<?= @render(@template('site::com.ninjaboard.view.forum.block_subforums', array(
+		<?= @render(@template('com://site/ninjaboard.view.forum.block_subforums', array(
 			'forums'			=> $flats,
 			'forums_total'		=> count($flats),
 			'params'			=> $params
 		)), false, $params['module']) ?>
 		
-		<?= @helper('site::com.ninjaboard.template.helper.template.space') ?>
+		<?= @helper('com://site/ninjaboard.template.helper.template.space') ?>
 	<? endif ?>
 
 	<? /* Render Forums with children forums */ ?>
@@ -29,7 +29,7 @@
 		<? /*if(@$params['view_settings']['forums_title'] == 'linkable') $prepared = @renderLinkTitle($forum->title, @route('view=forum&id='.$forum->id), $prepared, array('class' => 'inherit-color'))*/ ?>
 		<?= $prepared ?>
 		 
-		<?= @helper('site::com.ninjaboard.template.helper.template.space') ?>
+		<?= @helper('com://site/ninjaboard.template.helper.template.space') ?>
 	<? endforeach ?>
 
 	<? /* Render Latest Topics */ ?>

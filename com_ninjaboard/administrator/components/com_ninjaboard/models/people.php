@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: people.php 1926 2011-05-23 12:40:18Z stian $
+ * @version		$Id: people.php 2461 2011-10-11 22:32:21Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -130,7 +130,7 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 	{
 		if (!isset($this->_me))
         {
-        	$user = KFactory::get('lib.joomla.user');
+        	$user = JFactory::getUser();
         	$id   = $user->id;
 
         	$table  = $this->getTable();
@@ -186,13 +186,13 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 	 */
 	public function buildForumsPermissionsWhere(KDatabaseQuery $query, $key = 'tbl.ninjaboard_forum_id')
 	{
-		$me			= KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$me			= $this->getService('com://admin/ninjaboard.model.people')->getMe();
 		$no_access	= $me->forum_permissions < 1;
 
 		if(!isset($this->_forums))
 		{
-			$table		= KFactory::get('admin::com.ninjaboard.database.table.assets');
-			$query2		= KFactory::tmp('lib.koowa.database.query');
+			$table		= $this->getService('com://admin/ninjaboard.database.table.assets');
+			$query2		= $this->getService('koowa:database.adapter.mysqli')->getQuery();
 			$gids		= explode('|', $me->ninjaboard_usergroup_id);
 			$ids 		= array();
 
@@ -286,7 +286,7 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 		if(!$fallback) $fallback = '\''.JText::_('Anonymous').'\'';
 
 		//Decide wether to display realname or username
-		$params			= KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		$params			= $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 		$display_name	= $params['view_settings']['display_name'];
 		if(!in_array($display_name, array('name', 'username'))) $display_name = 'username';
 		

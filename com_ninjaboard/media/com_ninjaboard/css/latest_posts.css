@@ -1,0 +1,172 @@
+.ninjaboard-latest-posts {
+	
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.0)), to(rgba(0,0,0,0.05)), color-stop(0.2, rgba(255,255,255,0.0)), color-stop(0.8, rgba(255,255,255,0.0)));
+    background-image: -moz-linear-gradient(top, rgba(255,255,255,0.0) 80%, rgba(0,0,0,0.05));
+    -webkit-box-shadow: rgba(0,0,0,0.05) 0 -1px 0px, rgba(0,0,0,0.2) 0 2px 2px;
+    -moz-box-shadow: rgba(0,0,0,0.05) 0 -1px 0px, rgba(0,0,0,0.2) 0 2px 2px;
+    box-shadow: rgba(0,0,0,0.05) 0 -1px 0px, rgba(0,0,0,0.2) 0 2px 2px;
+	
+}
+
+
+
+.ninjaboard-latest-posts .ninjaboard-latest dl {
+	
+	-webkit-box-shadow: rgba(255,255,255,0) 0 -1px 0;
+    -moz-box-shadow: rgba(255,255,255,0) 0 -1px 0;
+    box-shadow: rgba(255,255,255,0) 0 -1px 0;
+    border-left: 1px solid rgba(0,0,0,0.0);
+    border-right: 1px solid rgba(0,0,0,0.0);
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.ninjaboard-latest-posts ul, .ninjaboard-latest-posts .ninjaboard-latest dl {
+	
+	margin:0px;
+	padding:2px 0px 0px 0px;
+}
+
+ul.ninjaboard-latest > li {
+	
+	list-style-type:none;
+	
+}
+
+.ninjaboard-latest-post-text li {
+	
+	list-style-type:disc;
+}
+
+.ninjaboard-latest-post-user {
+	
+	width: 60px;
+	float:left;
+	display:inline;
+	border-right: 2px dashed gray;
+	border-right-color: hsla(0, 0%, 50%, 0.2);
+	
+}
+
+.ninjaboard-latest-post-avatar {
+
+	display: block;
+	
+}
+.ninjaboard-latest-post-text {
+	
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 0px 0px 0px 10px;
+	
+}
+
+.ninjaboard-latest-post {
+	
+	clear:both;
+}
+
+
+.ninjaboard-latest-posts li > div {
+	
+	margin: 0px;
+	padding: 10px 15px 20px 15px;
+}
+
+.ninjaboard-latest-posts dl {
+
+	float: none;
+	height: auto;
+	width: auto;
+	overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+	background-color: rgba(100,100,100,0.01);
+	-webkit-transition: all 0.6s;
+	-moz-transition: all 0.6s;
+	transition: all 0.6s;
+}
+
+.ninjaboard-latest-posts dd {
+	
+	display: block;
+	float: left;
+	padding: 4px 2px;
+	margin: 0px 2px;
+}
+
+.ninjaboard-latest-header dd {
+	
+	font-size:0.9em;
+	padding: 0px 2px;	
+}
+
+.ninjaboard-latest-header dd {
+	
+	text-align:center;
+}
+
+.ninjaboard-latest dl.ninjaboard-latest-post-desc dd, .ninjaboard-latest dl.ninjaboard-latest-post-desc div {
+
+	text-align: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ninjaboard-latest-posts dd.ninjaboard-latest-date {
+	
+	float:right;
+	text-align: right;
+	width: 12%;
+}
+
+.ninjaboard-latest-posts dd.ninjaboard-latest-subject {
+	
+	width: 13%;
+}
+
+dd.ninjaboard-latest-subject-long {
+	
+	width: 50%;
+}
+
+.ninjaboard-latest-posts dd.ninjaboard-latest-poster {
+	
+	width: 10%;
+	
+}
+
+.ninjaboard-latest-posts dd.ninjaboard-latest-preview {
+	
+	width: 60%;
+	height: 1.5em;
+	
+}
+
+.ninjaboard-latest dd.ninjaboard-latest-preview:hover {
+	
+	-webkit-box-shadow: rgba(255,255,255,0.8) 0 -1px 0;
+	-moz-box-shadow: rgba(255,255,255,0.8) 0 -1px 0;
+	box-shadow: rgba(255,255,255,0.8) 0 -1px 0;
+	border: 1px solid rgba(0,0,0,0.1);
+	background-color: rgba(100,100,100,0.1);	
+}
+
+.ninjaboard-latest-header dd.ninjaboard-latest-date {
+	
+	text-align:center;
+}
+
+#ninjaboard-latest-expandall {
+	
+	float:right;
+}
+
+.ninjaboard-latest-post-text ul, .ninjaboard-latest-posts .ninjaboard-latest-post-text ol {
+	
+	padding: 0px 0px 0px 30px;
+}

@@ -1,11 +1,11 @@
-<? /** $Id: settings.php 1214 2010-12-13 02:38:37Z stian $ */ ?>
+<? /** $Id: settings.php 2508 2011-11-22 11:31:30Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach($theme->xml->form->children() as $fieldset) : ?>
 			
 	<? if(count($fieldset->children()) < 1 || isset($fieldset['hide'])) continue ?>
-	
-	<?= KFactory::tmp('admin::com.ninja.form.parameter', array(
+
+	<?= @service('ninja:form.parameter', array(
 			'data'     => $theme->params,
 	  		'xml'  	   => $theme->xml->form,
 	  		'render'   => 'fieldset',

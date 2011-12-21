@@ -1,12 +1,12 @@
-<? /** $Id: default_profile.php 1327 2011-01-05 00:24:07Z stian $ */ ?>
+<? /** $Id: default_profile.php 2439 2011-09-01 11:53:24Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <!--<h2>
 	<?= $person->display_name ?>
 </h2>-->
 
-<? if($params['view_settings']['show_usergroups']) : ?>
-<?= @template('site::com.ninjaboard.view.person.usergroups', array('usergroups' => $person->usergroups)) ?>
+<? if($post->usergroups) : ?>
+<?= @template('com://site/ninjaboard.view.person.usergroups', array('usergroups' => $person->usergroups)) ?>
 <? endif ?>
 
 <ul>

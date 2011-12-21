@@ -1,7 +1,9 @@
-<? /** $Id: default.php 2367 2011-08-09 23:19:43Z captainhook $ */ ?>
+<? /** $Id: default.php 2519 2011-11-22 16:14:00Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<link rel="stylesheet" href="/site.css" />
+<?= @template('com://site/ninjaboard.view.default.head') ?>
+
+<? /* @TODO the following needs to be added as JDocumentHTML->addCustomTag */ ?>
 <!--[if IE 6]>
  <script type="text/javascript" src="/DD_belatedPNG_0.0.8a-min.js"></script>
  <script>DD_belatedPNG.fix('#ninjaboard .title a,.rank_icon img,#ninjaboard li.markItUpButton a');</script>
@@ -37,23 +39,24 @@
 </style>
 
 <script type="text/javascript">
-	jQuery(function($){
-		$('.<?= @id('delete') ?>').click(function(event){
+	window.addEvent('domready', function(){
+		document.getElements('.<?= @id('delete') ?>').addEvent('click', function(event){
 			event.preventDefault();
 
 			if(!confirm(<?= json_encode(@text("Are you sure you want to delete this topic? This action cannot be undone.")) ?>)) return;
 
-			$(this).closest('form').submit();
+			this.getParent('form').submit();
 		});
 	});
 </script>
 
 <div id="ninjaboard" class="ninjaboard topic <?= $topic->params['pageclass_sfx'] ?> <?= $forum->params['style']['type'] ?> <?= $forum->params['style']['border'] ?> <?= $forum->params['style']['separators'] ?>">
 	<h1 class="title"><a href="<?= @route('id=' . $topic->id) ?>" class="topic"><?= @escape($topic->subject) ?></a></h1>
+
 	<? if($topic->post_permissions > 0) : ?>
 	<div class="header">
 		<?/*= @render(@template('default_toolbar'), false, $forum->params['module'])*/ ?>
-		<?= @template('default_toolbar') ?>
+		<?//= @template('default_toolbar') ?>
 		<div class="clearfix"></div>
 	</div>
 	<div class="body">
@@ -68,7 +71,7 @@
 	<? endif ?>
 	<? endif ?>
 
-	<? if(!KFactory::get('lib.joomla.user')->guest && $topic->post_permissions > 1) : ?>
-	<?= KFactory::tmp('site::com.ninjaboard.controller.post')->view('post')->layout('quick')->topic($topic->id)->display() ?>
+	<? if(!JFactory::getUser()->guest && $topic->post_permissions > 1) : ?>
+	<?= @service('com://site/ninjaboard.controller.post')->view('post')->layout('quick')->topic($topic->id)->display() ?>
 	<? endif ?>
 </div>

@@ -1,9 +1,9 @@
-<? /** $Id: default.php 959 2010-09-21 14:33:17Z stian $ */ ?>
+<? /** $Id: default.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? $select = @ninja('default.formid', 'controller') ?>
 
-<? @js("
+<script><?= "
 	window.addEvent('domready', function(){
 		$('$select').addEvent('change', function(){
 			this.form.getElements('.permissions').hide();
@@ -13,7 +13,7 @@
 		.set('value', Cookie.read('$select'))
 		.fireEvent('change');
 	});
-") ?>
+" ?></script>
 
 <form action="<?= @route() ?>" method="post" id="<?= @ninja('default.formid') ?>">
 	<fieldset class="ninja-col adminform ninja-form right">
@@ -27,7 +27,7 @@
 				</select>
 			</legend>
 		<? foreach($this->controllers as $name => $controller) : ?>
-			<? @$actions = KFactory::tmp('admin::com.ninja.helper.access', array(
+			<? @$actions = $this->getService('ninja:template.helper.access', array(
 				'name'		=> 'com_ninjaboard.permission.'.$name,
 				'actions'	=> $controller,
 				'id'		=> @ninja('default.formid', $name),

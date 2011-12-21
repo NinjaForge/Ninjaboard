@@ -1,6 +1,6 @@
 <?php defined( '_JEXEC' ) or die( 'Restricted access' );
 /**
- * @version		$Id: upgrade.php 2203 2011-07-12 00:37:21Z stian $
+ * @version		$Id: upgrade.php 2439 2011-09-01 11:53:24Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -180,7 +180,7 @@ if(isset($tables['subscriptions']['joomla_user_id']))
 //Upgrade the subscriptions table, and change the email notification defaults on the people table
 if(!isset($tables['profile_fields']['label']))
 {
-	$db->setQuery("ALTER TABLE #__ninjaboard_profile_fields CHANGE `name` `name` varchar(255) NOT NULL DEFAULT '' COMMENT '@Filter(".'"lib.koowa.filter.alpha"'.")';");
+	$db->setQuery("ALTER TABLE #__ninjaboard_profile_fields CHANGE `name` `name` varchar(255) NOT NULL DEFAULT '' COMMENT '@Filter(".'"koowa:filter.alpha"'.")';");
 	$db->query();
 
 	$db->setQuery("ALTER TABLE #__ninjaboard_profile_fields ADD `label` TEXT NOT NULL DEFAULT '' COMMENT 'Label of the column field'  AFTER `name`;");

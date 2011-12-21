@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: logtopicreads.php 2198 2011-07-11 23:20:53Z stian $
+ * @version		$Id: logtopicreads.php 2460 2011-10-11 21:21:19Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -39,7 +39,7 @@ class ComNinjaboardDatabaseTableLogtopicreads extends KDatabaseTableDefault
 		$this->getDatabase()->execute($query);
         
         // Run as raw query, as some sites have huge amounts of data so we need it fast
-        $me    = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+        $me    = $this->getService('com://admin/ninjaboard.model.people')->getMe();
         $sub   = 'SELECT `tbl`.`last_post_by` AS `created_by` , `tbl`.`last_post_on` AS `created_on` , `tbl`.`forum_id` AS `ninjaboard_forum_id`, `tbl`.`ninjaboard_topic_id` FROM `#__ninjaboard_topics` AS `tbl` WHERE `tbl`.last_post_by = '.$me->id.'';
         $query = '
         INSERT INTO `#__ninjaboard_log_topic_reads` (`created_by`, `created_on`, `ninjaboard_forum_id`, `ninjaboard_topic_id`)

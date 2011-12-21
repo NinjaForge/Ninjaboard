@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forums.php 2176 2011-07-10 23:57:41Z stian $
+ * @version		$Id: forums.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -30,9 +30,9 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
 	{
 		$config->name    = 'ninjaboard_forums';
 		
-		$nestable			  = KFactory::tmp('admin::com.ninja.database.behavior.nestable');
-		$orderable			  = KFactory::tmp('admin::com.ninjaboard.database.behavior.orderable');
-		//$configurable		  = KFactory::tmp('admin::com.ninjaboard.behavior.configurable');
+		$nestable			  = 'ninja:database.behavior.nestable';
+		$orderable			  = 'com://admin/ninjaboard.database.behavior.orderable';
+		//$configurable		  = $this->getService('com://admin/ninjaboard.behavior.configurable');
 		$config->behaviors = array($orderable, $nestable/*, $configurable*/);
 		$config->filters =  array(
 			'params' => 'json'
@@ -44,6 +44,21 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
 		$fields = $this->getColumns();
 		$fields['path']->default = '/';
 	}
+	
+	public function  _initialize(KConfig $config)
+	{
+        $config->append(array(
+            'behaviors' => array(
+            	'ninja:database.behavior.nestable', 'com://admin/ninjaboard.database.behavior.orderable', 'lockable', 'orderable', 'sluggable'
+            ),
+            'column_map' => array(
+                'locked_on'        => 'checked_out_time',
+                'locked_by'        => 'checked_out'
+            )
+        ));
+
+        parent::_initialize($config);
+    }
 	
 	/**
 	 * Table insert method
@@ -110,7 +125,7 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
 			$forum->save();
 		}
 
-		$query = KFactory::tmp('lib.koowa.database.query')
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 															->select('*')
 															->select("CONCAT(path, ninjaboard_forum_id, '/') AS path_temp")
 															->where('path_sort', '=', '', 'or')
@@ -122,22 +137,22 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
 			$this->_setSort($forum, array('path', 'ordering'));
 		}
 		
-		$total = KFactory::tmp('admin::com.ninjaboard.model.forums')->getTotal();
+		$total = $this->getService('com://admin/ninjaboard.model.forums')->getTotal();
 
 		
-		$query = KFactory::tmp('lib.koowa.database.query')->select('COUNT(DISTINCT ordering)');
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->select('COUNT(DISTINCT ordering)');
 		$count = $this->select($query, KDatabase::FETCH_FIELD);
 		//If the distinct count on ordering is different from the total, then we need to adjust the ordering
 		if($count != $total)
 		{
-			$query = KFactory::tmp('lib.koowa.database.query')
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 																->select('*')
 																->select("CONCAT(path, ninjaboard_forum_id, '/') AS path_temp")
 																->order('path_temp', 'asc');
 			
 			//Reset the ordering column before setting the order paths
 			$forum = $this->select($query, KDatabase::FETCH_ROW);
-			$forum->reorder();
+			if($forum->isOrderable()) $forum->reorder();
 
 			foreach($this->select($query, KDatabase::FETCH_ROWSET) as $forum)
 			{
@@ -147,7 +162,7 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
 		
 		foreach($this->select(array('alias' => '')) as $forum)
 		{
-			$forum->alias = KFactory::tmp('admin::com.ninjaboard.filter.slug')->sanitize($forum->title);
+			$forum->alias = $this->getService('com://admin/ninjaboard.filter.slug')->sanitize($forum->title);
 			$forum->save();
 		}
 		
@@ -155,12 +170,12 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
 		if($total >= 10)
 		{
 			//If there are no subforums, then there's no need to pad paths
-			$query = KFactory::tmp('lib.koowa.database.query')->where('path', '!=', '/');
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('path', '!=', '/');
 			
 			if($this->count($query))
 			{
 				//Get the first parent, so we can check if it needs padding
-				$query	= KFactory::tmp('lib.koowa.database.query')
+				$query	= $this->getService('koowa:database.adapter.mysqli')->getQuery()
 														->select('path_sort')
 														->order('ninjaboard_forum_id', 'asc');
 				$last	= trim($this->select($query, KDatabase::FETCH_FIELD), '/');
@@ -168,7 +183,7 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
 				
 				if($pad < $this->_getPad())
 				{
-					$query = KFactory::tmp('lib.koowa.database.query')
+					$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 																		->select('*')
 																		->select("CONCAT(path, ninjaboard_forum_id, '/') AS path_temp")
 																		->order('path_temp', 'asc');
@@ -260,7 +275,7 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
 			$ids		= array();
 			$orderings	= array();
 
-			$query = KFactory::tmp('lib.koowa.database.query')
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 														->select('*')
 														->select('ordering AS tmp_ordering')
 														->select("CONCAT(path, ninjaboard_forum_id, '/') AS path_temp")
@@ -325,7 +340,7 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
 		if(!isset($this->$cache))
 		{
 			//Get the last row id, so we know how much we need to pad
-			$query	= KFactory::tmp('lib.koowa.database.query')
+			$query	= $this->getService('koowa:database.adapter.mysqli')->getQuery()
 													->select($pad)
 													->order($pad, 'desc');
 			$this->$cache = strlen($this->select($query, KDatabase::FETCH_FIELD));

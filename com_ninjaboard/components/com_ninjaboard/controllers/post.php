@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: post.php 2392 2011-08-16 08:14:28Z captainhook $
+ * @version		$Id: post.php 2461 2011-10-11 22:32:21Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -47,8 +47,11 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		$this->registerCallback('after.add', array($this, 'notify'));
 		
 		//Delete related event handlers
-		$this->registerCallback('before.delete', array($this, 'canDelete'));
+		$this->registerCallback('before.delete', array($this, 'interceptDelete'));
 		$this->registerCallback('after.delete', array($this, 'cleanupDelete'));
+		
+		//Perhaps we need to prefill the text if quote state exists
+		$this->registerCallback('before.read', array($this, 'canQuote'));
 		
 		// Workaround for avoiding 404 status on editor preview ajax
 		// @TODO replace MarkItUp with a wysiwyg editor so that ajax previews are no longer necessary.
@@ -85,7 +88,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		
 		//If there's a topic id, then we're replying or editing
 		if(!empty($data->ninjaboard_topic_id) && empty($data->subject)) {
-			$topic = KFactory::tmp('site::com.ninjaboard.model.topics')
+			$topic = $this->getService('com://site/ninjaboard.model.topics')
 																		->id($data->ninjaboard_topic_id)
 																		->getItem();
 			//If the id is set, then we're editing
@@ -120,19 +123,19 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 
 		if(!isset($data->notify_on_reply_topic) || !$data->ninjaboard_topic_id) return;
 		
-		$table = KFactory::get('admin::com.ninjaboard.database.table.watches');
+		$table = $this->getService('com://admin/ninjaboard.database.table.watches');
 		$type  = $table->getTypeIdFromName('topic');
 		
 		//Always run delete to clean out duplicates
 		//@TODO make this lazier
-		KFactory::get('site::com.ninjaboard.controller.watch')
+		$this->getService('com://site/ninjaboard.controller.watch')
 															->type($type)
 															->type_id($data->ninjaboard_topic_id)
 															->execute('delete');
 		
 		if($data->notify_on_reply_topic)
 		{
-			KFactory::get('site::com.ninjaboard.controller.watch')->execute('add', array(
+			$this->getService('com://site/ninjaboard.controller.watch')->execute('add', array(
 				'subscription_type'		=> $type,
 				'subscription_type_id'	=> $data->ninjaboard_topic_id
 			));
@@ -147,17 +150,17 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		//If no id, do not notify
 		if(!$context->result->id) return;
 		
-		$params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		$params = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 		if($params['email_notification_settings']['enable_email_notification'])
 		{
-			KFactory::get('site::com.ninjaboard.controller.watch')->execute('notify', $context);
+			$this->getService('com://site/ninjaboard.controller.watch')->execute('notify', $context);
 		}
 	}
 
 	public function setAttachments(KCommandContext $context)
 	{
 		$data			= $context['result'];
-		$me				= KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$me				= $this->getService('com://admin/ninjaboard.model.people')->getMe();
 
 		if(is_a($data, 'KDatabaseRowsetInterface')) $data = (object) end($data->getData());
 		$err			= null;
@@ -173,7 +176,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		if($files)
 		{
 			// Check Forum Attachment Settings
-			$params			= KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+			$params			= $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 			if(!$params['attachment_settings']['enable_attachments']){
 				JError::raiseWarning(21, JText::_('Attachments have been disabled on this forum.'));
 				$this->execute('cancel');
@@ -182,10 +185,10 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 			
 			// Check User Attachment Permissions
 			$row = $this->getModel()->getItem();
-			$topic = KFactory::tmp('site::com.ninjaboard.model.topics')
+			$topic = $this->getService('com://site/ninjaboard.model.topics')
 																		->id($row->ninjaboard_topic_id)
 																		->getItem();
-			$forum = KFactory::tmp('site::com.ninjaboard.model.forums')
+			$forum = $this->getService('com://site/ninjaboard.model.forums')
 																		->id($topic->forum_id)
 																		->getItem();
 			
@@ -214,7 +217,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 			$upload = JFile::makeSafe(uniqid(time())).'.'.JFile::getExt($attachment['name']);
 
 			JFile::upload($attachment['tmp_name'], $destination.$upload);
-			KFactory::tmp('site::com.ninjaboard.model.attachments')
+			$this->getService('com://site/ninjaboard.model.attachments')
 				->post($data->id)
 				->getItem()
 				->setData(array(
@@ -236,7 +239,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		
 		foreach (KRequest::get('post.attachments', 'int', array()) as $attachment)
 		{
-			$item = KFactory::tmp('site::com.ninjaboard.model.attachments')
+			$item = $this->getService('com://site/ninjaboard.model.attachments')
 					->id($attachment)
 					->getItem();
 
@@ -303,16 +306,16 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	 *
 	 * @return boolean	returns false if permission check fails
 	 */
-	public function canDelete()
+	public function interceptDelete()
 	{
-		$user = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$user = $this->getService('com://admin/ninjaboard.model.people')->getMe();
 		$rows = $this->getModel()->getList();
 		foreach($rows as $row)
 		{
-			$topic = KFactory::tmp('site::com.ninjaboard.model.topics')
+			$topic = $this->getService('com://site/ninjaboard.model.topics')
 																		->id($row->ninjaboard_topic_id)
 																		->getItem();
-			$forum = KFactory::tmp('site::com.ninjaboard.model.forums')
+			$forum = $this->getService('com://site/ninjaboard.model.forums')
 																		->id($topic->forum_id)
 																		->getItem();
 
@@ -332,12 +335,12 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	public function cleanupDelete(KCommandContext $context)
 	{
 		$rows = $context->result;
-		$table = KFactory::get('site::com.ninjaboard.database.table.posts');
+		$table = $this->getService('com://site/ninjaboard.database.table.posts');
 		
 		foreach($rows as $row)
 		{
-			$topic	= KFactory::tmp('site::com.ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
-			$query = KFactory::tmp('lib.koowa.database.query')->where('ninjaboard_topic_id', '=', $topic->id);
+			$topic	= $this->getService('com://site/ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('ninjaboard_topic_id', '=', $topic->id);
 			$posts = $table->count($query);
 		
 			if($posts)
@@ -346,19 +349,19 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 				$topic->replies = $posts - 1;
 				
 				// @TODO merge into one query
-				$query = KFactory::tmp('lib.koowa.database.query')
+				$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 																->select('ninjaboard_post_id')
 																->where('ninjaboard_topic_id', '=', $topic->id)
 																->order('created_time', 'desc');
 				$topic->last_post_id = $table->select($query, KDatabase::FETCH_FIELD);
 				
-				$query = KFactory::tmp('lib.koowa.database.query')
+				$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 																->select('created_time')
 																->where('ninjaboard_topic_id', '=', $topic->id)
 																->order('created_time', 'desc');
 				$topic->last_post_on = $table->select($query, KDatabase::FETCH_FIELD);
 				
-				$query = KFactory::tmp('lib.koowa.database.query')
+				$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 																->select('created_user_id')
 																->where('ninjaboard_topic_id', '=', $topic->id)
 																->order('created_time', 'desc');
@@ -376,15 +379,15 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 			}
 
 			//Update the forums' topics and posts count, and correct the last_post_id column
-			$forums	= KFactory::tmp('site::com.ninjaboard.model.forums')->limit(0)->id($topic->forum_id)->getListWithParents();
+			$forums	= $this->getService('com://site/ninjaboard.model.forums')->limit(0)->id($topic->forum_id)->getListWithParents();
 			$forums->recount();
 
 			if($row->created_by)
 			{
-				$user	= KFactory::tmp('site::com.ninjaboard.model.people')->id($row->created_by)->getItem();
+				$user	= $this->getService('com://site/ninjaboard.model.people')->id($row->created_by)->getItem();
 				if(!$user->guest)
 				{
-					$query = KFactory::tmp('lib.koowa.database.query')->where('created_user_id', '=', $user->id);
+					$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('created_user_id', '=', $user->id);
 					$user->posts = $table->count($query);
 
 					$user->save();
@@ -402,5 +405,22 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	public function prevent404(KCommandContext $context)
 	{
 	    if($this->_request->layout == 'preview' || $this->_request->topic) $context->status = KHttpResponse::OK;
+	}
+	
+	/*
+	 * CaptainHook's quoting "hack"
+	 * @TODO make into reusable controller behavior, we need this for private messages
+	 */
+	public function canQuote(KCommandContext $context)
+	{
+	    // Cloned so that the item we get doesn't get passed elsewhere
+	    $quoting = $this->getModel()->getState()->quote;
+	    if(!$quoting) return;
+
+        $model = clone $this->getModel();
+	    $quote = $model->id($quoting)->getItem();
+
+	    // Set the text on our item
+	    $this->getModel()->getItem()->set('text', '[quote="'.htmlspecialchars($quote->display_name).'"]'.$quote->text.'[/quote]');
 	}
 }

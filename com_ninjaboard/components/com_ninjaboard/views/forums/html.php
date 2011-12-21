@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 2184 2011-07-11 15:08:37Z stian $
+ * @version		$Id: html.php 2502 2011-11-22 02:45:29Z stian $
  * @forum	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -11,8 +11,8 @@ class ComNinjaboardViewForumsHtml extends ComNinjaboardViewHtml
 {
 	public function display()
 	{
-		$this->assign('params', KFactory::get('admin::com.ninjaboard.model.settings')->getParams());
-		$me = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$this->assign('params', $this->getService('com://admin/ninjaboard.model.settings')->getParams());
+		$me = $this->getService('com://admin/ninjaboard.model.people')->getMe();
 		
 		$this->showtopics = false;
 		if(isset($this->params['view_settings']['displayed_elements']) && $me->topic_permissions > 0)
@@ -21,19 +21,19 @@ class ComNinjaboardViewForumsHtml extends ComNinjaboardViewHtml
 			{
 				$this->showtopics = true;
 				
-				//$state		= KFactory::get($this->getModel())->getState();
+				//$state		= $this->getService($this->getModel())->getState();
 				/*$this->limit	= KRequest::get('get.limit', 'int', 10);
 				$this->offset	= KRequest::get('get.offset', 'int', 0);
-				$topicsmodel	= KFactory::tmp('site::com.ninjaboard.model.topics')
+				$topicsmodel	= $this->getService('com://site/ninjaboard.model.topics')
 									->limit($this->limit)
 									->offset($this->offset)
 									->sort('last_post_date')
 									->direction('desc');
 				$this->total	= $topicsmodel->getTotal();
-				$this->length	= KFactory::tmp('site::com.ninjaboard.model.topics')->getTotal();
+				$this->length	= $this->getService('com://site/ninjaboard.model.topics')->getTotal();
 				
 				$this->assign('pagination', 
-					KFactory::get('site::com.ninjaboard.template.helper.paginator', array('name' => 'topics'))
+					$this->getService('com://site/ninjaboard.template.helper.paginator', array('name' => 'topics'))
 						->pagination($this->total, $this->offset, $this->limit, 4)
 				);*/
 				
@@ -41,13 +41,13 @@ class ComNinjaboardViewForumsHtml extends ComNinjaboardViewHtml
 				
 				$this->limit	= KRequest::get('get.limit', 'int', 10);
 				$this->offset	= KRequest::get('get.offset', 'int', 0);
-				$this->total	= KFactory::get('site::com.ninjaboard.model.topics')->getTotal();
+				$this->total	= $this->getService('com://site/ninjaboard.model.topics')->getTotal();
 
 				$this->assign('topics', 
-					KFactory::get('site::com.ninjaboard.controller.topic')
+					KService::get('com://site/ninjaboard.controller.topic')
 
 						//@TODO Figure out why the singular view is used instead of the plural one
-						->setView(KFactory::get('site::com.ninjaboard.view.topics.html'))
+						//->setView($this->getService('com://site/ninjaboard.view.topics.html'))
 
 						->direction('desc')
 						->sort('last_post_on')
@@ -56,9 +56,9 @@ class ComNinjaboardViewForumsHtml extends ComNinjaboardViewHtml
 						->layout('list')
 						->display()
 				);
-				
+
 				$this->assign('pagination', 
-					KFactory::get('site::com.ninjaboard.template.helper.paginator', array('name' => 'topics'))
+					$this->getService('com://site/ninjaboard.template.helper.paginator', array('name' => 'topics'))
 						->pagination($this->total, $this->offset, $this->limit, 4, false)
 				);
 			}
@@ -71,7 +71,7 @@ class ComNinjaboardViewForumsHtml extends ComNinjaboardViewHtml
 	{
 		$linktitle = $this->params['view_settings']['forums_title'] == 'linkable';
 
-		//$model = KFactory::tmp('site::com.ninjaboard.model.forums')->enabled(true)->path($forum->id);
+		//$model = $this->getService('com://site/ninjaboard.model.forums')->enabled(true)->path($forum->id);
 
 		$this->assign(array(
 			'forum' 			=> $forum,
@@ -85,9 +85,9 @@ class ComNinjaboardViewForumsHtml extends ComNinjaboardViewHtml
 		if(count($forum->subforums) < 1) return false;
 
 		$chromed = $this->render(
-			$this->getTemplate()->loadIdentifier('site::com.ninjaboard.view.forum.block_subforums', $this->_data)->render(true),
+			$this->getTemplate()->loadIdentifier('com://site/ninjaboard.view.forum.block_subforums', $this->_data)->render(true),
 			$forum->title,
-			$forum->params['module']
+			(array)$forum->params['module']
 		);
 
 		//if($forum->params['module']['position']) return;

@@ -31,13 +31,8 @@
   		</element>
   	</fieldset>
   	<fieldset group="module" legend="Module Render Engine">
-  		<element name="style" void="chrome" type="getlist" get="admin::com.ninja.model.module_chrome" set="client:0;incpath:0;limit:0" label="Module Style" description="Select the module chrome to use for wrapping the blocks" default="rounded" />
+  		<element name="style" void="chrome" type="getlist" get="ninja:model.module_chrome" set="client:0;incpath:0;limit:0" label="Module Style" description="Select the module chrome to use for wrapping the blocks" default="rounded" />
   		<element name="moduleclass_sfx" type="text" void="moduleclasssfx" default="" />
-  		<!--<element name="position" label="Module Position" type="text" description="Enter a module position you want to load forum lists in. Leave empty if you want to load in the component area." default="" />
-  		<element name="showtitle" label="Module/Box Title" type="radio" default="1">
-  			<option value="1">Show Title</option>
-  			<option value="0">Hide Title</option>
-  		</element>-->
   	</fieldset>
   	<fieldset group="template" legend="Template">
   		<element name="general_spacing" type="text" description="The spacing between posts, forums etc" default="10px" />
@@ -51,18 +46,7 @@
   	
   	<fieldset group="view_settings" legend="View Settings" description="Parameters for individual View Configuration">
   		<element name="displayed_elements" type="check" class="group vertical">
-  			<!--<option value="statistic">Statistic</option>
-  			<option value="whosonline">Who's online</option>
-  			<option value="legend">Legend</option>
-  			<option value="myprofile">"My Profile" Link</option>
-  			<option value="register">"Register" link</option>
-  			<option value="login">"Login" link</option>
-  			<option value="logout">"Logout" link</option>
-  			<option value="serach">"Search" link</option>
-  			<option value="terms">"Terms and Conditions" link</option>-->
-  			<!--<option value="latestposts">Latest Posts</option>-->
   			<option value="showtopics">Latest Topics</option>
-  			<!--<option value="userlist">Userlist</option>-->
   		</element>
   		<element name="display_name" type="radio" default="username" class="group vertical">
   			<option value="username">Username</option>
@@ -90,17 +74,7 @@
   			<option value="topic">Button visible both on forum pages and from a topic.</option>
   			<option value="forum">Button only visible on forum pages.</option>
   		</element>
-  		<element name="show_usergroups" type="radio" default="1" description="Show usergroups information in posts and people profiles. Useful if you want your users to know who's a moderator and such.">
-  			<option value="1">Yes</option>
-  			<option value="0">No</option>
-  		</element>
   		<element name="lightbox" type="text" description="The lightbox identifier used in post image uploads rel attribute. It's usually lightbox." default="lightbox" />
-  		<!--<spacer />
-  		<element name="color_label_0" type="colorlabel" default="rgb(90,155,90)" />
-  		<element name="color_label_1" type="colorlabel" default="rgb(187, 197, 154)" />
-  		<element name="color_label_2" type="colorlabel" default="rgb(222, 169, 86)" />
-  		<element name="color_label_3" type="colorlabel" default="rgb(209, 111, 101)" />
-  		<element name="color_label_4" type="colorlabel" default="rgb(177, 62, 60)" />-->
   	</fieldset>
   </form>
 </install>

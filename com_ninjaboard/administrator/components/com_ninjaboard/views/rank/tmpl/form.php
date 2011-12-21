@@ -1,9 +1,11 @@
-<? /** $Id: form.php 1679 2011-03-24 01:24:49Z stian $ */ ?>
+<? /** $Id: form.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<? @ninja('behavior.livetitle', array('title' => @$rank->title)) ?>
+<?= @template('ninja:view.form.head') ?>
 
-<form action="<?= @route('id='.@$rank->id) ?>" method="post" id="<?= @id() ?>" class="validator-inline">
+<?= @ninja('behavior.livetitle', array('title' => @$rank->title)) ?>
+
+<form action="<?= @route('id='.@$rank->id) ?>" method="post" id="<?= @id() ?>" class="validator-inline -koowa-form">
 	<div class="col width-50">
 		<fieldset class="adminform ninja-form">
 			<legend><?= @text('Details') ?></legend>
@@ -24,7 +26,7 @@
 				<div class="value"><?= @ninja('select.images', array('path' => JPATH_ROOT.'/media/com_ninjaboard/images/rank', 'name' => 'rank_file', 'atrribs' => array('class' => 'value'), 'selected' => @$rank->rank_file, 'vertical' => true)) ?></div>
 			</div>
 			<div class="element">
-				<?= KFactory::tmp('admin::com.ninja.element.note', array(
+				<?= $this->getService('ninja:element.note', array(
 					'node' => simplexml_load_string('<param name="hint" type="note" class="note" slide="true" description="Go to the Joomla! media manager, and upload icons here: %s. Create the folders if they don\'t already exist." eval="return JPATH_ROOT.DS.\'images\'.DS.\'com_ninjaboard\'.DS.\'rank\';" show="Show how to upload custom icons." hide="Hide how to upload custom icons." />'),
 					'value'	=> '',
 					'field'	=> 'note'

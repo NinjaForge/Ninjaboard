@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 2347 2011-08-06 14:06:09Z stian $
+ * @version		$Id: html.php 2479 2011-11-02 03:42:53Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -18,9 +18,9 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 
 		if(!$forum->id)
 		{
-			if(KFactory::get('lib.joomla.user')->guest)
+			if(JFactory::getUser()->guest)
 			{
-				$this->mixin(KFactory::get('admin::com.ninja.view.user.mixin'));
+				$this->mixin($this->getService('ninja:view.user.mixin'));
 				
 				$this->setLoginLayout();
 				
@@ -35,13 +35,13 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 			}
 		}
 		
-		$model = KFactory::tmp('site::com.ninjaboard.model.forums')->limit(0)->sort('path_sort_ordering')->enabled(true)->recurse(1)->path($forum->id);
+		$model = $this->getService('com://site/ninjaboard.model.forums')->limit(0)->sort('path_sort_ordering')->enabled(true)->recurse(1)->path($forum->id);
 		$forums = $model->getList();
 		
 		//@TODO optimize this in the model instead
 		foreach($forums as $row)
 		{
-			$rows = KFactory::tmp('site::com.ninjaboard.model.forums')
+			$rows = $this->getService('com://site/ninjaboard.model.forums')
 							->sort('path_sort_ordering')
 							->enabled(true)
 							->recurse(1)
@@ -54,7 +54,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		$this->assign('forums', $forums);
 		
 		$this->limit	= KRequest::get('get.limit', 'int', 10);
-		$this->total	= KFactory::tmp('site::com.ninjaboard.model.topics')
+		$this->total	= $this->getService('com://site/ninjaboard.model.topics')
 							->direction('desc')
 							->sort('last_post_on')
 							->forum($forum->id)
@@ -64,10 +64,10 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		
 		if($this->total > 0) {
 			$this->assign('topics', 
-				KFactory::get('site::com.ninjaboard.controller.topic')
+				$this->getService('com://site/ninjaboard.controller.topic')
 				
 					//@TODO Figure out why the singular view is used instead of the plural one
-					->setView(KFactory::get('site::com.ninjaboard.view.topics.html'))
+					//->setView($this->getService('com://site/ninjaboard.view.topics.html'))
 				
 					->direction('desc')
 					->sort('last_post_on')
@@ -82,14 +82,14 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		}
 		
 		$this->assign('pagination', 
-			KFactory::get('site::com.ninjaboard.template.helper.paginator', array('name' => 'topics'))
+			$this->getService('com://site/ninjaboard.template.helper.paginator', array('name' => 'topics'))
 				->pagination($this->total, KRequest::get('get.offset', 'int', 0), $this->limit, 4)
 		);
 		
 		if($model->getTotal())
 		{
 			ob_start();
-			echo $this->getTemplate()->loadIdentifier('site::com.ninjaboard.view.forum.block_subforums', $this->_data)->render(true);
+			echo $this->getTemplate()->loadIdentifier('com://site/ninjaboard.view.forum.block_subforums', $this->_data)->render(true);
 			$this->assign('block_subforums', $this->render(ob_get_clean(), false, $forum->params['module']));
 		}
 		else
@@ -97,12 +97,12 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 			$this->assign('block_subforums', false);
 		}
 
-		$me  = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$me  = $this->getService('com://admin/ninjaboard.model.people')->getMe();
 		$this->watch_button = $me->id && $forum->params['email_notification_settings']['enable_email_notification'];
 		$this->assign('me', $me);
 
         $this->new_topic_button = false;
-        if(KFactory::get('lib.joomla.user')->guest || ($forum->topic_permissions > 1 && $forum->post_permissions > 1))
+        if(JFactory::getUser()->guest || ($forum->topic_permissions > 1 && $forum->post_permissions > 1))
         {
     		$this->new_topic_button = '<div class="new-topic">'.str_replace(
     			array('$title', '$link', '$class'), 
@@ -125,13 +125,15 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 	 */
 	public function setBreadcrumbs()
 	{
-		$pathway = KFactory::get('lib.koowa.application')->getPathWay();
+		$pathway = JFactory::getApplication()->getPathWay();
 		
 		//Checks the view properties first, in case they're already set
 		if(!isset($this->forum))
 		{
 			$this->forum = $this->getModel()->getItem();
 		}
+		
+		if(!$this->forum->isNestable()) return;
 		
 		foreach($this->forum->getParents() as $parent)
 		{

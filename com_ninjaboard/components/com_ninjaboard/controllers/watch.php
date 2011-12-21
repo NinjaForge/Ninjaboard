@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: watch.php 2073 2011-07-06 12:51:27Z stian $
+ * @version		$Id: watch.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -49,7 +49,7 @@ class ComNinjaboardControllerWatch extends ComNinjaboardControllerAbstract
 	 */
 	public function setUser(KCommandContext $context)
 	{
-		$me = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$me = $this->getService('com://admin/ninjaboard.model.people')->getMe();
 		if(!$me->id) return false;
 
 		foreach(array('subscription_type', 'subscription_type_id') as $required)
@@ -65,7 +65,7 @@ class ComNinjaboardControllerWatch extends ComNinjaboardControllerAbstract
 	 */
 	public function beforeDelete(KCommandContext $context)
 	{
-		$me = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+		$me = $this->getService('com://admin/ninjaboard.model.people')->getMe();
 		$id = isset($this->getRequest()->id) ? $this->getRequest()->id : null;
 		
 		if(!$id && isset($this->getRequest()->type_id)) $id = $this->getRequest()->type_id; 
@@ -85,14 +85,14 @@ class ComNinjaboardControllerWatch extends ComNinjaboardControllerAbstract
 	public function _actionNotify(KCommandContext $context)
 	{
 		$post		= $context->result;
-		$recipients	= KFactory::get($this->getModel())->topic($post->ninjaboard_topic_id)->getRecipients();
-		$topic		= KFactory::tmp('admin::com.ninjaboard.model.topics')->id($post->ninjaboard_topic_id)->getItem();
-		$forum		= KFactory::tmp('site::com.ninjaboard.model.forums')->id($topic->forum_id)->getItem();
-		$me			= KFactory::get('admin::com.ninjaboard.model.people')->getMe();
-		$app		= KFactory::get('lib.joomla.application');
-		$params		= KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		$recipients	= $this->getService($this->getModel())->topic($post->ninjaboard_topic_id)->getRecipients();
+		$topic		= $this->getService('com://admin/ninjaboard.model.topics')->id($post->ninjaboard_topic_id)->getItem();
+		$forum		= $this->getService('com://site/ninjaboard.model.forums')->id($topic->forum_id)->getItem();
+		$me			= $this->getService('com://admin/ninjaboard.model.people')->getMe();
+		$app		= JFactory::getApplication();
+		$params		= $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 
-		$root		= KRequest::url()->get(KHttpUri::PART_BASE ^ KHttpUri::PART_PATH);
+		$root		= KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH);
 		$link		= $root.JRoute::_('index.php?option=com_ninjaboard&view=topic&id='.$post->ninjaboard_topic_id.'&post='.$post->id).'#p'.$post->id;
 		$watches	= $root.JRoute::_('index.php?option=com_ninjaboard&view=watches');
 
@@ -110,14 +110,14 @@ class ComNinjaboardControllerWatch extends ComNinjaboardControllerAbstract
 		$subject = $topic->subject.' ['.$forum->title.']';
 		$subject = html_entity_decode($subject, ENT_QUOTES);
 		
-		$text = KFactory::get('admin::com.ninja.helper.bbcode')->parse(array('text' => $post->text));
+		$text = $this->getService('ninja:helper.bbcode')->parse(array('text' => $post->text));
 
 		foreach ($recipients as $row )
 		{
 			if($params->email_notification_settings->include_post == 'yes') {
 				$message = str_replace('/n', "\n", JText::_( 'NOTIFY_USER_INCLUDING_POST' ));
 				if($message == 'NOTIFY_USER_INCLUDING_POST') $message = "Hello %s,\n\nA new message was posted in the thread \"%s\" by %s:\n\n<%s>\n\nMessage:\n%s\n\n\nTo edit your Email Updates, go to %s\n\n- %s";
-				$message = sprintf ($message , $row->name, $topic->subject, $me->display_name, $link, KFactory::get('lib.koowa.filter.string')->sanitize($text), $watches, $fromname);
+				$message = sprintf ($message , $row->name, $topic->subject, $me->display_name, $link, $this->getService('koowa:filter.string')->sanitize($text), $watches, $fromname);
 				$message = html_entity_decode($message, ENT_QUOTES);
 				JUtility::sendMail($mailfrom, $fromname, $row->email, $subject, $message);
 			} else {

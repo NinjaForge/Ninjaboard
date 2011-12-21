@@ -1,24 +1,26 @@
-<? /** $Id: default.php 1270 2010-12-22 13:14:06Z stian $ */ ?>
+<? /** $Id: default.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
+
+<?= @template('ninja:view.grid.head') ?>
 
 <style type="text/css">
 	table.adminlist tbody.ranks tr td {height: 32px;}
 </style>
 
 <? if($length > 0) : ?>
-	<?= @template('admin::com.ninja.view.search.filter_search_enabled') ?>
+	<?= @template('ninja:view.search.filter_search_enabled') ?>
 <? endif ?>
 
-<form action="<?= @route() ?>" method="post" id="<?= @id() ?>">
+<form action="<?= @route() ?>" method="post" id="<?= @id() ?>" class="-koowa-grid">
 	<?= @$placeholder() ?>
 	<table class="adminlist ninja-list">
 		<thead>
 			<tr>
 				<?= @ninja('grid.count', array('total' => @$total, 'title' => true)) ?>
-				<th class="grid-check"><?= @ninja('grid.checkall') ?></th>
-				<th><?= @ninja('grid.sort', array('title' => 'Title')) ?></th>				
-				<th><?= @ninja('grid.sort', array('title' => 'Enabled')) ?></th>
-				<th width="1px"><?= @ninja('grid.sort', array('title' => 'Min posts')) ?></th>
+				<th class="grid-check"><?= @helper('grid.checkall') ?></th>
+				<th><?= @helper('grid.sort', array('column' => 'title')) ?></th>				
+				<th><?= @helper('grid.sort', array('column' => 'enabled')) ?></th>
+				<th width="1px"><?= @helper('grid.sort', array('title' => 'Min Posts', 'column' => 'min')) ?></th>
 				<th>&#160;</th>
 			</tr>
 		</thead>

@@ -1,10 +1,12 @@
-<? /** $Id: form.php 1379 2011-01-11 12:24:37Z stian $ */ ?>
+<? /** $Id: form.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
+
+<?= @template('ninja:view.form.head') ?>
 
 <? @ninja('behavior.tooltip', array('selector' => '[title].hasTip')) ?>
 <? @ninja('behavior.livetitle', array('title' => $usergroup->title)) ?>
 
-<form action="<?= @route('id='.$usergroup->id) ?>" method="post" id="<?= @id() ?>">
+<form action="<?= @route('id='.$usergroup->id) ?>" method="post" id="<?= @id() ?>" class="-koowa-form">
 	<div class="col width-50">
 		<fieldset class="adminform ninja-form">
 			<legend><?= @text('Details') ?></legend>

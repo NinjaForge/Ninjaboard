@@ -1,5 +1,9 @@
-<? /** $Id: default.php 1809 2011-04-15 18:42:23Z stian $ */ ?>
+<? /** $Id: default.php 2500 2011-11-22 02:39:08Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
+
+<?= @template('ninja:view.grid.head') ?>
+<script type="text/javascript" src="/raphael.js"></script>
+<script type="text/javascript" src="/Mapper.js"></script>
 
 <style type="text/css">
 	.header.icon-48-joomlausergroupmaps {
@@ -51,13 +55,18 @@
 		<div class="map-wrapper" onselectstart="return false;" style="-moz-user-select: none;">
 			<div class="map-points-from">
 				<ul style="margin-right:25%;text-align:right;" id="<?= @id('points-from') ?>">
-					<? $i = 0; $fallback = current($usergroups->getData()) ?>
+				    <? $i = 0; $fallback = current($usergroups->getData()) ?>
+				    <li class="map" id="<?= @id('points-from-0') ?>">
+				    	<h1><?= @text('Unregistered') ?></h1>
+				    	<? $value = (int)\@$maps[0] ?>
+				    	<input type="hidden" name="group[0]" id="group<?= (int) $i++ ?>" value="<?= $value ? $value : $fallback['id'] ?>" />
+				    </li>
 					<? foreach(@$acltree as $acl) : ?>
-						<? if(in_array($acl->value, array(29, 30))) continue ?>
+						<? if(in_array($acl->id, array(29, 30))) continue ?>
 						<li class="map" id="<?= @id('points-from-' . $acl->value) ?>">
-							<h1><?= str_replace(array('.', '-&nbsp;', '&nbsp;'), '', $acl->text) ?></h1>
-							<? $value = (int)\@$maps[$acl->value] ?>
-							<input type="hidden" name="group[<?= $acl->value ?>]" id="group<?= (int) $i++ ?>" value="<?= $value ? $value : $fallback['id'] ?>" />
+							<h1><?= $acl->title ?></h1>
+							<? $value = (int)\@$maps[$acl->id] ?>
+							<input type="hidden" name="group[<?= $acl->id ?>]" id="group<?= (int) $i++ ?>" value="<?= $value ? $value : $fallback['id'] ?>" />
 						</li>
 					<? endforeach ?>
 				</ul>

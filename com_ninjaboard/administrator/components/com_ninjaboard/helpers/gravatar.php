@@ -72,7 +72,7 @@ class ComNinjaboardHelperGravatar extends KObject
      *    
      */
     public function setEmail($email) {
-        if (KFactory::tmp('lib.koowa.filter.email')->validate($email)) {
+        if ($this->getService('koowa:filter.email')->validate($email)) {
             $this->email = $email;
             $this->properties['gravatar_id'] = md5(strtolower($this->email));
             return true;

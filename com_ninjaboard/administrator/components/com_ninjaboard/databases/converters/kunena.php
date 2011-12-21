@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: kunena.php 1787 2011-04-12 23:38:17Z stian $
+ * @version		$Id: kunena.php 2489 2011-11-10 22:03:18Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -36,7 +36,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 				'options' => array(
 					'name' => 'kunena_attachments'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'id',
 								'mesid AS post',
@@ -52,7 +52,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 				'options' => array(
 					'name' => 'kunena_categories'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'tbl.*',
 								"'/' AS path",
@@ -70,7 +70,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 				'options' => array(
 					'name' => 'kunena_messages'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'id',
 								'id AS ninjaboard_topic_id',
@@ -85,7 +85,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 				'options' => array(
 					'name' => 'kunena_messages'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'tbl.*',
 								'catid AS forum_id',
@@ -102,7 +102,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 				'options' => array(
 					'name' => 'kunena_messages'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							//->set('columns', array('!`hold` AS `enabled`'))
 							->select(array(
 								'tbl.*',
@@ -129,7 +129,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 				'options' => array(
 					'name' => 'kunena_users'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'*',
 								'userid AS id'
@@ -141,7 +141,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 					'name' => 'kunena_subscriptions_categories',
 					'identity_column' => 'id'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'CONCAT(catid, userid) AS id',
 								'userid AS created_by',
@@ -157,7 +157,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 					'name' => 'kunena_subscriptions',
 					'identity_column' => 'id'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'(CONCAT(thread, userid) + (SELECT MAX(ninjaboard_subscription_id) FROM #__ninjaboard_subscriptions)) AS id',
 								'userid AS created_by',
@@ -245,7 +245,10 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 	 */
 	public function canConvert()
 	{
-		if(!JComponentHelper::getComponent( 'com_kunena', true )->enabled) return false;
+		$query  = "SHOW TABLES LIKE '#__agora_forums'";
+		if(!KService::get('koowa:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD)) {
+		    return false;
+		}
 
 		$kunena = JPATH_BASE.'/components/com_kunena/kunena.xml';
 		if(!file_exists($kunena)) {

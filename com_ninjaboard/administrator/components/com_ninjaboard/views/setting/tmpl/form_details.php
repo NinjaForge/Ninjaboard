@@ -1,4 +1,4 @@
-<? /** $Id: form_details.php 2130 2011-07-07 22:02:20Z stian $ */ ?>
+<? /** $Id: form_details.php 2136 2011-07-07 23:21:59Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? @ninja('behavior.livetitle', array('title' => @$setting->title)) ?>

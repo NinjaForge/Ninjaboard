@@ -1,0 +1,1208 @@
+@import "../../com_ninja/less/lib/default";
+
+/* To avoid scrollbars because of stuff like long links or code blocks */
+.ninjaboard pre,
+.ninjaboard .text,
+#text_preview {
+	word-wrap: break-word;
+}
+
+.ninjaboard .ninja-form .element:nth-child(odd), .ninjaboard .ninja-form .spacer:nth-child(odd), .ninja-form tbody tr:nth-child(odd) {
+	background-color: transparent;
+}
+
+.ninjaboard .ninja-form .value:focus {
+	outline: none;
+	border-color: currentcolor;
+	
+	.box-shadow(hsla(0, 0%, 100%, 0.1) 0 0 4px);
+}
+
+.ninjaboard .wrap {
+	position: relative;
+	min-height: 200px;
+	float: left;
+	width:100%;
+	overflow: hidden;
+}
+.ninjaboard .ninjaboard-post .wrap {
+    float: none;
+}
+
+.ninjaboard .section {
+	width: 76%;
+	float: left;
+	clear: both;
+	padding-bottom: 60px;
+	position: relative;
+}
+.ninjaboard .section .text {
+	overflow: auto;
+	/* Fixing vertical scrollbars in some browsers on specific site tempates */
+	overflow-x: auto; overflow-y: hidden;
+}
+
+.ninjaboard .ninjaboard-post-footer {
+	bottom: 0px;
+	position: absolute;
+	left: 0;
+	right: 10px;
+	border-top: 1px dashed gray;
+	border-top-color: hsla(0, 0%, 50%, 0.2);
+	min-height: 40px;
+	
+}
+.ninjaboard .ninjaboard-post-footer .ninjaboard-signature {
+    float: left;
+}
+.ninjaboard .ninjaboard-post-footer .ninjaboard-buttons {
+	float: right;
+    margin-top: 10px;
+}
+.ninjaboard .ninjaboard-post-footer .ninjaboard-signature p {
+    margin-top: 10px;
+}
+div.mod-monitor div.box-t1 {
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+div.mod-monitor div.box-t2 {
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-right-radius: 5px;
+	
+}
+.ninjaboard .readmore {
+	display: inline-block;
+}
+
+.ninjaboard .user {
+	width: 21%;
+	float: right;
+	display: inline;
+	border-left: 2px dashed gray;
+	border-left-color: hsla(0, 0%, 50%, 0.2);
+	text-align: left;
+	padding-left: 10px;
+}
+.ninjaboard .user .person-usergroups li {
+	background-image: none;
+	list-style-type: none;
+}
+.ninjaboard .user .person-usergroups,
+.ninjaboard .user .rank {
+	display: block;
+	margin-top: 5px;
+	padding: 0;
+}
+.ninjaboard .username {
+	margin: 0 0 10px 0;
+}
+
+.ninjaboard img.avatar, .ninjaboard a.avatar {
+	background-position: center;
+	background-repeat: no-repeat;
+	
+	.box-shadow(~"0 0 1px hsla(0, 0%, 100%, 0.3), 0 1px 0 hsla(0, 0%, 0%, 0.2) inset, 0 -1px 0 hsla(0, 0%, 0%, 0.2) inset, -1px 0 0 hsla(0, 0%, 0%, 0.2) inset, 1px 0 0 hsla(0, 0%, 0%, 0.2) inset, 0 1px 0 hsla(0, 0%, 0%, 0.2) inset, 0 2px 2px hsla(0, 0%, 0%, 0.2) inset");
+	.border-radius(4px);
+}
+.ninjaboard .user .avatar {
+	max-width: 100%;
+	display: block;
+}
+
+
+.ninjaboard {
+	position: relative;
+	/*overflow: hidden;*/
+	display: inline-block;
+	width: 100%!important;
+}
+
+.ninjaboard-spacer {
+	height: 10px;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	background: transparent;
+	clear: both;
+	display: block;
+	width: 100%;
+	
+	.opacity(0);
+}
+
+.ninjaboard .header, .ninjaboard .footer {
+	position: relative;
+	clear: both;
+	display: block;
+}
+
+.ninjaboard .header .button, .ninjaboard .footer .button {
+	display: inline-block;
+}
+.ninjaboard .header.relative, .ninjaboard .footer.relative {
+	/*float: none;*/
+	padding-bottom: 10px;
+}
+.ninjaboard .header.relative {
+	padding-bottom: 10px;
+}
+.ninjaboard .footer.relative {
+	padding-top: 10px;
+}
+
+.ninjaboard .pagination {
+	/*font-size: 9px !important;*/
+	display: block;
+	margin-left: auto;
+	margin-right: 0px;
+	/*for the shadow parts*/
+	margin-bottom: 2px;
+	height: 25px;
+	/*position: absolute;
+	right: 0px;
+	top: 50%;
+	margin-top: -9px;*/
+}
+.ninjaboard .relative .pagination {
+	float: right;
+}
+
+.ninjaboard .pagination .pages li * {
+	/*padding-bottom: 0px;
+	padding-top: 0px;
+	font-size: 1.1em;
+	height: 16px;*/
+}
+
+.ninjaboard-block {
+	overflow: hidden;
+	margin-bottom: 0px;
+	padding: 0;
+	clear: both;
+	margin: 2px;
+	margin-bottom: 4px;
+	padding-top: 1px;
+
+    .box-shadow(~"rgba(0,0,0,0.1) 0 0 3px, rgba(255,255,255,0.4) 1px 1px 0, rgba(255,255,255,0.4) -1px -1px 0, rgba(255,255,255,0.4) 1px -1px 0, rgba(255,255,255,0.4) -1px 1px 0");
+}
+.ninjaboard-block.ninjaboard-post {
+    padding: 10px;
+}
+
+
+/*Color styling: light*/
+.ninjaboard-block .topiclist dl {
+	border-left: 1px solid rgba(0,0,0,0.0);
+	border-right: 1px solid rgba(0,0,0,0.0);
+	border-top: 1px solid rgba(255,255,255,0.4);
+	border-bottom: 1px solid rgba(0,0,0,0.05);
+
+	.box-shadow(rgba(255,255,255,0) 0 -1px 0);
+}
+
+.ninjaboard-block .topiclist.forums li:hover dl {
+	border: 1px solid rgba(0,0,0,0.1);
+	background-color: rgba(100,100,100,0.1);
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+	
+	.box-shadow(rgba(255,255,255,0.8) 0 -1px 0);
+}
+
+.ninjaboard-block .topiclist.forums li + li dl {
+	border-top: 1px solid rgba(255,255,255,0.4);
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.ninjaboard-block .topiclist.forums li:hover + li dl {
+	border-top: 1px solid rgba(255,255,255,0.8);
+}
+
+.ninjaboard-block .topiclist dl .description > * {
+	margin: 0;
+}
+
+.ninjaboard-block .topiclist dl {
+	background-color: rgba(100,100,100,0.01);
+	-webkit-transition: all 0.6s;
+	-moz-transition: all 0.6s;
+	transition: all 0.6s;
+}
+
+.ninjaboard-block .topiclist :hover dl .separator {
+	border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.ninjaboard-block .topiclist .header dl {
+	border-top-color: transparent;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.ninjaboard-block .topiclist.forums + .topiclist .header dl {
+	border-top-color: rgba(255,255,255,0.4);
+}
+
+.ninjaboard-block .topiclist dl .separator {
+	border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.ninjaboard-block .topiclist.forums :last-child dl  {
+	border-bottom: 1px solid rgba(255,255,255,0.0);
+}
+
+
+/* @group Color styling: dark*/
+.dark .ninjaboard-block, .dark.rounded .ninjaboard-block {
+	.box-shadow(~"rgba(0,0,0,0.4) 0 -1px 0, rgba(255,255,255,0.2) 0 1px 0");
+	.linear-gradient(rgba(0,0,0,0.1), rgba(255,255,255,0.1));
+	
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.05)), to(rgba(255,255,255,0.05)), color-stop(0.5, transparent));
+}
+
+.dark .ninjaboard-block .topiclist dl {
+	background-color: rgba(0,0,0,0.05);
+}
+.dark .ninjaboard-block .topiclist.forums dl, .dark.rounded .ninjaboard-block .topiclist.forums dl {
+	border-top: 1px solid rgba(255,255,255,0.1);
+	border-bottom: 1px solid rgba(0,0,0,0.3);
+
+	.box-shadow(hsla(0, 0%, 0%, 0) 0 0 0px inset);
+}
+
+.dark .ninjaboard-block .topiclist.forums li:last-child {
+	/*border-bottom: 0px solid rgba(255,255,255,0.2);*/
+}
+
+/*.dark .ninjaboard-block .topiclist.forums li:last-child:hover {
+	border-bottom: 1px solid rgba(255,255,255,0.0);
+}*/
+
+.dark .ninjaboard-block .topiclist.forums dl:hover, .rounded.dark .ninjaboard-block .topiclist.forums dl:hover {
+	border-top-color: rgba(255,255,255,0.1);
+	border-top-color: rgba(0,0,0,0.2);
+	border-left-color: 0;
+	border-right-color: 0;
+	border-bottom-color: rgba(0,0,0,0.2);
+	background-color: hsla(0, 0%, 0%, .2);
+
+	.box-shadow(hsla(0, 0%, 0%, .5) 0 0 20px inset);
+}
+
+.dark .ninjaboard-block .topiclist .header.hover-next dl,
+.dark.rounded .ninjaboard-block .topiclist .header.hover-next dl {
+	border-bottom-color: rgba(255,255,255,0.15);
+}
+
+.dark .ninjaboard-block .topiclist .hover-next dl,
+.dark.rounded .ninjaboard-block .topiclist .hover-next dl {
+	border-top-color: rgba(255,255,255,0.15);
+	border-bottom-color: rgba(255,255,255,0.15);
+}
+
+
+.ninjaboard.dark .ninjaboard-block .topiclist li, .ninjaboard.rounded.dark .ninjaboard-block .topiclist li {
+	.linear-gradient(rgba(0,0,0,0.0), rgba(255,255,255,0.0));
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0)), to(rgba(255,255,255,0)), color-stop(0.2, rgba(0,0,0,0)), color-stop(0.8, rgba(0,0,0,0)));
+	
+	-webkit-transition: background 0.6s;
+	-moz-transition: background 0.6s;
+	transition: background 0.6s;
+}
+
+.ninjaboard.dark .ninjaboard-block .topiclist.forums li:hover, .ninjaboard.rounded.dark .ninjaboard-block .topiclist.forums li:hover {
+	-webkit-transition: background 0.3s;
+	-moz-transition: background 0.3s;
+	transition: background 0.3s;
+}
+
+
+.ninjaboard-block .topiclist.forums dl.icon dt .subject,
+.ninjaboard dd.lastpost a {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ninjaboard .row.forum dd.lastpost .lastpost a:not(.username-coloured) {
+    display: inline-block;
+    width: 100%;
+}
+
+
+.ninjaboard-block .topiclist.forums dl.icon dt .subject,
+.ninjaboard-block .topiclist.forums dl.icon dt .forumtitle.no-description {
+	display: block;
+	padding-left: 50px!important;
+	min-height: 42px;
+	line-height: 3.8em!important;
+}
+.ninjaboard-block .topiclist.forums dl.icon dt .forumtitle.no-description {
+	padding-left: 0!important;
+}
+
+.dark .ninjaboard-block .topiclist.forums dl:hover + dl {
+	border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.dark .ninjaboard-block .topiclist.forums li + li dl {
+	border-top: 1px solid rgba(255,255,255,0.1);
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.dark .ninjaboard-block .topiclist.forums li:hover + li dl {
+	border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.dark .ninjaboard-block .topiclist dl:hover .separator {
+	border-left: 1px solid rgba(255, 255, 255, 0.2);
+	-webkit-transition: border 0.3s;
+	-moz-transition: border 0.3s;
+	transition: border 0.3s;
+
+	.box-shadow(black 0 0 10px);
+}
+
+.dark .ninjaboard-block .topiclist .header dl {
+	border-top: 1px solid rgba(0,0,0,0.3);
+	border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+
+.dark .ninjaboard-block .topiclist .header dl {
+	border-top-width: 0px;
+}
+
+
+.dark .ninjaboard-block .topiclist dl .separator {
+	border-left: 1px solid rgba(255, 255, 255, 0.05);
+	-webkit-transition: border 0.6s;
+	-moz-transition: border 0.6s;
+	transition: border 0.6s;
+	width: 0px;
+}
+/* @end */
+
+/*Roundies*/
+.rounded .ninjaboard-block {
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	background-image: -moz-linear-gradient(top, rgba(255,255,255,0.0) 80%, rgba(0,0,0,0.05));
+	background-image: -ms-linear-gradient(top, rgba(255,255,255,0.0) 80%, rgba(0,0,0,0.05));
+	background-image: -o-linear-gradient(top, rgba(255,255,255,0.0) 80%, rgba(0,0,0,0.05));
+	background-image: linear-gradient(top, rgba(255,255,255,0.0) 80%, rgba(0,0,0,0.05));
+
+    //.linear-gradient(rgba(0,0,0,0.1), rgba(255,255,255,0.1));
+	.box-shadow(~"rgba(0,0,0,0.05) 0 -1px 0px, rgba(0,0,0,0.2) 0 2px 2px");
+	
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.0)), to(rgba(0,0,0,0.05)), color-stop(0.2, rgba(255,255,255,0.0)), color-stop(0.8, rgba(255,255,255,0.0)));
+}
+.rounded.small-radius .ninjaboard-block {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.rounded .ninjaboard-block .topiclist .header dl {
+	border-top-width: 0px;
+
+	.box-shadow(transparent 0 0 0);
+}
+.rounded .ninjaboard-block .topiclist .header dl {
+	-webkit-border-top-left-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	border-top-right-radius: 10px;
+}
+.rounded.small-radius .ninjaboard-block .topiclist .header dl {
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-right-radius: 5px;
+}
+
+.rounded .ninjaboard-block .topiclist.forums dl {
+	border-left-width: 0;
+	border-right-width: 0;
+
+	.box-shadow(rgba(255,255,255,0) 0 -1px 0);
+}
+
+.rounded .ninjaboard-block .topiclist.forums li:hover dl {
+	border-color: rgba(0,0,0,0.1);
+	background-color: rgba(100,100,100,0.1);
+	border-left-width: 0;
+	border-right-width: 0;
+/*	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;*/
+	
+	.box-shadow(~"rgba(255,255,255,1) 0 -1px 0");
+}
+
+
+.rounded .ninjaboard-block .topiclist.forums :last-child dl, .rounded .ninjaboard-block .topiclist.forums li:last-child {
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-left-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom: 0px;
+}
+.rounded.small-radius .ninjaboard-block .topiclist.forums :last-child dl, .rounded.small-radius .ninjaboard-block .topiclist.forums li:last-child {
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.separator-currentcolor .ninjaboard-block .topiclist dl dt span {
+	display: block;
+}
+
+.separator-currentcolor .ninjaboard-block .topiclist dl .separator {
+	-webkit-transition-property: color, border, opacity;
+	-webkit-transition-duration: 0.6s, 0.6s, 0.6s;
+	-moz-transition-property: color, border, opacity;
+	-moz-transition-duration: 0.6s, 0.6s, 0.6s;
+	transition-property: color, border, opacity;
+	transition-duration: 0.6s, 0.6s, 0.6s;
+
+	.opacity(1);
+}
+
+.separator-currentcolor .ninjaboard-block .topiclist:hover .separator {
+	border-left-color: currentcolor;
+	-webkit-transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+
+	.opacity(0.4);
+}
+
+.separator-currentcolor .ninjaboard-block .topiclist:hover dl:hover .separator {
+	border-left-color: currentcolor;
+	
+	.opacity(1);
+}
+
+
+
+.ninjaboard-block .topiclist li.icon {
+	/*background-position: 10px 50%;
+	width: 50%;
+	overflow: hidden;*/
+}
+
+.ninjaboard-block .topiclist li.icon > * {
+	/*white-space:  nowrap;*/
+	
+	/*line-height: 1.8em;*/
+	/*text-overflow: ellipsis;*/
+	/*display: block;
+	margin-left: 50px;*/
+}
+
+.ninjaboard-block .topiclist li .separator, .ninjaboard-block .topiclist li .separator:hover {
+	display: block!important;
+	top: 10%;
+	bottom: 10%;
+	position: absolute;
+	width: 0px;
+	cursor: default;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	cursor: default;
+	border: 0;
+	margin-left: 55px;
+}
+.ninjaboard-block .topiclist li .topics .separator {
+	left: 45%;
+}
+.ninjaboard-block .topiclist li .posts .separator {
+	left: 53%;
+}
+.ninjaboard-block .topiclist li .lastpost .separator {
+	left: 61%;
+}
+
+.ninjaboard-block .topiclist li.topic .topics .separator {
+	left: 52%;
+}
+.ninjaboard-block .topiclist li.topic .posts .separator {
+	left: 60%;
+}
+.ninjaboard-block .topiclist li.topic .lastpost .separator {
+	/*left: 68%;*/
+	left: 66%;
+}
+
+.ninjaboard-block .topiclist li.lastpost .separator {
+	/*margin-top: 0.1em;*/
+}
+
+
+#ninjaboard .title a, .ninjaboard .title a {
+	display: inline-block;
+	background-repeat: no-repeat;
+	padding-left: 37px;
+	min-height: 32px;
+	line-height: 1.3em;
+}
+
+[title].title::after {
+	content: attr(title);
+	margin-left: 10px;
+	font-size: small;
+}
+
+
+.ninjaboard-block .topiclist li .separator.right {
+	/*right: 30%;
+	margin-right: 3px;*/
+}
+
+.ninjaboard-block .topiclist .lastpost > * {
+	/*width: 25%;*/
+}
+
+.ninjaboard-block .topiclist li > *:first-child {
+	/*padding-top: 4px;*/
+}
+
+
+.ninjaboard-block .topiclist li.icon > *:last-child:first-child {
+	/*height: 3.6em;
+	line-height: 3.4em;*/
+}
+
+.ninjaboard-block .topiclist li.topics, .ninjaboard-block .topiclist li.posts {
+	/*width: 8%;
+	text-align: center;*/
+}
+
+
+.ninjaboard ul.topiclist, .ninjaboard ul.topiclist li {
+	list-style-type: none !important;
+	background-image: none;
+	margin: 0;
+	line-height: normal;
+	padding: 0;
+}
+
+.ninjaboard ul li.row,
+.ninjaboard ul li.header {
+	/* IE fix for weird spacing issues */
+	vertical-align: bottom;
+}
+
+
+
+.ninjaboard li.row,
+#ninjaboard li.row,
+.ninjaboard li.header,
+#ninjaboard li.header {
+	padding: 0;
+	margin: 0;
+	background-image: none;
+}
+
+.ninjaboard ul.topiclist,
+#ninjaboard ul.topiclist {
+	display: block;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+
+ul.topiclist li {
+	display: block;
+	list-style-type: none;
+	margin: 0;
+	background: none;
+}
+
+ul.topiclist dl {
+	position: relative;
+}
+
+/* Reset some RocketTheme css */
+ul.topiclist li.header dl {
+	background-image: none;
+}
+ul.topiclist li.row dl,
+ul.topiclist li.header dl {
+	float: none!important;
+	height: auto;
+	width: auto;
+}
+ul.topiclist li.row dl {
+	padding: 2px 0;
+	margin: 0;
+}
+ul.topiclist li.header dl {
+	margin: 0;
+}
+
+ul.topiclist dt {
+	display: block;
+	float: left;
+	width: 45%;
+	padding-left: 5px;
+	margin-right: 5px;
+}
+.ninjaboard-block.topics ul.topiclist dt {
+	width: 58%;
+}
+
+ul.topiclist dd {
+	display: block;
+	float: left;
+	/*border-left: 1px solid #FFFFFF;*/
+	padding: 4px 0;
+	margin-left: 0;
+}
+
+ul.topiclist dfn {
+	/* Labels for post/view counts */
+	display: none;
+}
+
+ul.topiclist li.row dt a.subforum, ul.topiclist li.row dt strong.label {
+	background-image: none;
+	background-position: 0 50%;
+	background-repeat: no-repeat;
+	position: relative;
+	float: left;
+	white-space: nowrap;
+	padding: 0 0 0 0;
+}
+
+.ninjaboard .ninjaboard-block ul.topiclist li.row dt a:not(:only-of-type) ~ span {
+	
+}
+
+ul.topiclist li.row dt strong.label {
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	cursor: default;
+}
+
+ul.topiclist li.row dt a.subforum {
+	background-color: transparent;
+	background-color: hsla(0, 0%, 100%, 0);
+	margin: 0px 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: 1px 4px;
+	padding-left: 16px;
+	position: relative;
+	-webkit-transition: background-color 600ms;
+	-moz-transition: background-color 600ms;
+	transition: background-color 600ms;
+	bottom: 0px;
+	margin-bottom: 1px;
+}
+ul.topiclist li.row dt a.subforum:hover {
+	background-color: lightgray;
+	background-color: hsla(0, 0%, 100%, 0.1);
+	-webkit-transition-duration: 200ms;
+	-moz-transition-duration: 200ms;
+	transition-duration: 200ms;
+}
+ul.topiclist li.row dt a.subforum:active {
+	background-color: darkgray;
+	background-color: hsla(0, 0%, 0%, 0.1);
+	bottom: -1px;
+	-webkit-transition-duration: 0s;
+	-moz-transition-duration: 0s;
+	transition-duration: 0s;
+}
+ul.topiclist li.row dt a.subforum .icon {
+	width:16px;
+	height:16px;
+	position:absolute;
+	left:0;
+	margin-top:-8px;
+	top:50%;
+}
+
+
+.forum-image {
+	float: left;
+	padding-top: 5px;
+	margin-right: 5px;
+}
+
+li.row {
+	padding: 0;
+}
+
+li.row strong.label {
+	font-weight: normal;
+}
+
+li.row:hover {
+	/*background-color: #f6f6f6;*/
+}
+
+li.row:hover dd {
+	/*border-left-color: #CCCCCC;*/
+}
+
+li.header dt, li.header dd {
+	line-height: 1em;
+	border-left-width: 0;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+li.header dt {
+	font-weight: bold;
+}
+
+li.header dd {
+	margin-left: 0px;
+}
+
+li.header dl.icon dt {
+	/* Tweak for headers alignment when folder icon used */	
+	padding-left: 50px;
+	padding-right: 0;
+	line-height: 1em;
+}
+#ninjaboard .topics .topiclist li.header dl.icon dt {
+	padding-left: 5px;
+}
+.topiclist li.header dl.icon dt span {
+	padding-left: 50px;
+}
+
+
+li.header dl.icon dt a {
+	line-height: inherit;
+}
+
+li.header dl.icon dt * {
+	padding-left: 8px;
+}
+
+/* Forum list column styles */
+dl.icon {
+	padding: 1px 0 0 0;
+	overflow: hidden;
+	margin: 0 0 0 0;
+	background-position: 10px 50%;		/* Position of folder icon */
+	background-repeat: no-repeat;
+	margin: 0!important;
+}
+
+dl.icon dt {
+	background-repeat: no-repeat;
+	background-position: 10px 50%;
+	overflow: hidden;
+	line-height: 1.8em;
+}
+
+
+li.moved dl.icon dt {
+	background-image: url(../../com_ninja/images/32/alias_badge.png);
+}
+li.moved dl.icon dt a em {
+	position: absolute;
+	bottom: 0.1em;
+	font-size: 0.7em;
+	left: 55px;
+	border: none;
+	background: none;
+	
+	.opacity(0.6);
+}
+.ninjaboard-block .topiclist.forums li.moved dl.icon dt .subject {
+	line-height: 2.7em;
+	padding-bottom: 1.1em;
+}
+
+li.read {
+    .opacity(0.65);
+}
+li.read:hover {
+    .opacity(1);
+}
+
+.topic dl.icon dt {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+li.forum dl.icon dt {
+	padding-left: 50px;
+}
+
+
+.ninjaboard dd.posts, .ninjaboard dd.topics, .ninjaboard dd.views {
+	width: 8%;
+	text-align: center;
+	line-height: 2.2em;
+	font-size: 1.2em;
+	margin: 0 0 0 0;
+}
+
+.ninjaboard dd.lastpost {
+	width: 23%;
+	margin: 0 0 0 0;
+}
+.ninjaboard .row.forum dd.lastpost {
+    width: 30%;
+}
+.ninjaboard .header dd.lastpost {
+	padding-left: 10px;
+}
+.ninjaboard dd.lastpost, .ninjaboard dd.lastpost a {
+	font-size: 13px;
+}
+
+.ninjaboard .header dd.posts, .ninjaboard .header dd.topics, .ninjaboard .header dd.lastpost {
+	font-size: 1em;
+	line-height: 1em;
+	margin-bottom: 0;
+}
+
+dd.redirect {
+	font-size: 1.1em;
+	line-height: 2.5em;
+}
+
+dd.moderation {
+	font-size: 1.1em;
+}
+
+dd.lastpost span.lastpost {
+	display: block;
+	padding-left: 10px;
+}
+
+dd.time {
+	width: auto;
+	line-height: 200%;
+}
+
+dd.extra {
+	width: 12%;
+	line-height: 200%;
+	text-align: center;
+	font-size: 1.1em;
+}
+
+
+dd.info {
+	width: 30%;
+}
+
+dd.option {
+	width: 15%;
+	line-height: 200%;
+	text-align: center;
+	font-size: 1.1em;
+}
+
+.headerbar {
+	background: #ebebeb none repeat-x 0 0;
+	margin-bottom: 4px;
+	padding: 0 5px;
+}
+
+.firstlight #ninjaboard > div, .firstlight #ninjaboard .body div {
+	margin: 0;
+}
+
+.firstlight #ninjaboard .ninjaboard-block, .firstlight #ninjaboard .wrap, .firstlight #ninjaboard .wrap div {
+	padding: 0;
+	background: none;
+}
+#ninjaboard .toolbar {
+	padding: 1px;
+	/*margin: 10px 0;*/
+}
+#ninjaboard .toolbar a,
+.ninjaboard .attachment .button {
+	float: none!important;
+	font-weight: normal;
+	border: 1px solid gray;
+	background-color: whitesmoke;
+	background-color: hsla(0, 0%, 0%, .05);
+	border-color: hsla(0, 0%, 0%, .5);
+	padding: 2px 6px 2px 2px;
+	position: relative;
+	border-radius: 4px;
+	margin-bottom: 1px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	text-transform: capitalize;
+	text-decoration: none;
+	width: auto;
+	
+	.linear-gradient(hsla(0, 0%, 100%, .05), hsla(0, 0%, 0%, .1));
+	.box-shadow(~"hsla(0, 0%, 100%, 0.2) 0 1px 0");
+}
+#ninjaboard .toolbar a:hover,
+.ninjaboard .attachment .button:hover {
+	background-color: white;
+	background-color: hsla(0, 0%, 100%, .05);
+	text-decoration: none;
+}
+#ninjaboard .toolbar a:active,
+.ninjaboard .attachment .button:active {
+	top: 1px;
+	background-color: lightgray;
+	background-color: hsla(0, 0%, 0%, .25);
+	text-decoration: none;
+	color: white;
+	text-shadow: hsla(0, 0%, 0%, 0.8) 0 0 10px;
+	
+	.box-shadow(~"hsla(0, 0%, 100%, 0.2) 0 1px 0, black 0 1px 5px inset");
+}
+#ninjaboard .toolbar a .symbol {
+	margin-right: 1px;
+	padding: 1px;
+	font-size: inherit;
+}
+#text_preview {
+	text-align: left;
+}
+#ninjaboard a:focus, #ninjaboard a:active {
+	outline: none!important;
+}
+a.inherit-color, a.inherit-color:link, a.inherit-color:visited, a.inherit-color:hover, #ninjaboard h2 a, #ninjaboard h3 a {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+#ninjaboard h2 a:hover, #ninjaboard h3 a:hover {
+	text-decoration: underline;
+}
+
+#ninjaboard h2 a:active, #ninjaboard h3 a:active {
+	position: relative;
+	top: 1px;
+}
+
+#ninjaboard.person .avatar {
+	float: left;
+	margin-right: 10px;
+}
+#ninjaboard.person .avatar.element {
+    float: none;
+}
+
+#ninjaboard.person h2 {
+	clear: left;
+}
+
+#ninjaboard.person .profile {
+	display: block;
+}
+
+#ninjaboard .forumtitle,
+#ninjaboard .row.forum dt span {
+	display: block;
+}
+
+.ninjaboard .clearfix {
+	clear: both;
+}
+
+.ninjaboard .header .start, .ninjaboard .footer .start {
+	float: left;
+}
+.ninjaboard .header.end, .ninjaboard .header .end, .ninjaboard .footer .end ,.ninjaboard .header.end div, .ninjaboard .header .end div, .ninjaboard .footer .end  div{
+	float: right;
+}
+.ninjaboard .header .start .action, .ninjaboard .footer .start .action {
+	display: inline-block;
+}
+
+
+.ninjaboard.watches .ninja-list {
+	width: 100%;
+}
+
+
+/*@TODO temp email updates button styling*/
+.ninjaboard .watch,
+.ninjaboard-button {
+	-webkit-user-select: none;
+	display: inline-block;
+}
+.ninjaboard .watch .icon {
+	background: url(../images/light_off.png) no-repeat bottom center;
+	background-size: 10px;
+	display: inline-block;
+	padding-right: 5px;
+	min-height: 10px;
+	min-width: 10px;
+	height: 0.9em;
+}
+.ninjaboard .watching.watch .icon {
+	background-image: url(../images/light_on.png);
+}
+.ninjaboard .watch a,
+.ninjaboard-button {
+	-webkit-transition-duration: 0.20000000298023224s;
+	-webkit-transition-property: all;
+	-webkit-transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	background-color: white;
+	background-color: hsla(0, 0%, 100%, 0);
+	border-bottom: 1px solid #999;
+	border-bottom-color: hsla(0, 0%, 0%, 0.4);
+	border-left: 1px solid #BBB;
+	border-left-color: hsla(0, 0%, 0%, 0.27);
+	border-right: 1px solid #BBB;
+	border-right-color: hsla(0, 0%, 0%, 0.27);
+	border-top: 1px solid #BBB;
+	border-top-color: hsla(0, 0%, 0%, 0.27);
+	cursor: pointer;
+	color: inherit;
+	display: inline-block;
+	font-size: 12px;
+	line-height: 15px;
+	padding-bottom: 5px;
+	padding-left: 9px;
+	padding-right: 9px;
+	padding-top: 5px;
+	text-shadow: hsla(0, 0%, 100%, 0.1) 0px 1px 0px;
+	text-align: center;
+	float: left;
+	margin-left: 5px;
+	margin-bottom: 5px;
+	
+	.linear-gradient(hsla(0, 0%, 100%, .05), hsla(0, 0%, 0%, .1));
+	.box-shadow(~"rgba(255, 255, 255, 0.296875) 0px -1px 0px 0px inset");
+}
+.ninjaboard .watch a:hover,
+.ninjaboard-button:hover {
+	background-color: #DDD;
+	background-color: hsla(0, 0%, 17%, 0.1);
+	border-color: #999 #999 #666;
+	text-decoration: none;
+}
+.ninjaboard .watch a:active,
+.ninjaboard-button:active {
+	background-image: none;
+	text-shadow: none;
+	outline: none;
+}
+.ninjaboard .watch.watching a {
+	-webkit-transition-duration: 0;
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: #393;
+	background-origin: padding-box;
+	background-position: 0% 0%;
+	background-repeat: repeat;
+	border-bottom-color: #277827;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-color: #393;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #393;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-color: #393;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-top-style: solid;
+	border-top-width: 1px;
+	color: white!important;
+	text-shadow: #272 -1px -1px 0px;
+	
+	.box-shadow(~"rgba(255, 255, 255, 0.296875) 0px -1px 0px 0px inset");
+}
+.ninjaboard .watch.watching.unwatch a {
+	background-color:#C63738;
+	border-color:#a33 #a33 #962C2C;
+	color: white!important;
+	-webkit-transition-duration: 0s;
+	background-attachment: scroll;
+	border-bottom-color: #962C2C;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-color: #A33;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #A33;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-color: #A33;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-top-style: solid;
+	border-top-width: 1px;
+	color: white;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 12px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	height: 15px;
+	line-height: 15px;
+	text-shadow: none;
+	
+	.box-shadow(~"rgba(255, 255, 255, 0.296875) 0px -1px 0px 0px inset");
+}
+.ninjaboard .watch.watching.unwatch a:active {
+	.box-shadow(none);
+}
+
+.ninjaboard .unread-indicator {
+    display: none!important;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    left: 5px;
+    top: 5px;
+    height: 9px;
+    width: 9px;
+}
+.ninjaboard .unread .unread-indicator {
+    display: block!important;
+}
+
+.citation {
+    font-weight:bold;
+    margin:0px;
+    padding:0px 10px 10px 0px;
+}
+.blockquote {
+    .border-radius(5px);
+    //Cheap trick for creating transparent background that works for IE
+    .linear-gradient(hsla(0, 0%, 50%, 0.1), hsla(0, 0%, 50%, 0.1));
+    padding:0px 10px 10px 30px;
+    font-size: 1.05em;
+    border: 1px solid #808080;
+    border-color: hsla(0, 0%, 50%, 0.2);
+}

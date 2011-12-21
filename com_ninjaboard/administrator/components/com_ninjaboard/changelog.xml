@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: changelog.xml 2407 2011-08-25 09:00:39Z stian $ -->
+<!-- $Id: changelog.xml 2458 2011-09-09 01:55:28Z stian $ -->
 <!-- @TODO make changelog.dtd -->
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+    <version>1.2</version>
+    <date>TBA</date>
+    <state>Major Release
+    	<!-- Changelog for 1.2 is very incomplete -->
+		<bugfix>Fixed CSS issue in Joomla Usergroup Maps modal where long usergroup names would break onto the second line causing an overlap with the next group's name.</bugfix>
+		<log>"Show Usergroup" option deprecated. If it's desired not to display any usergroup information for a user then you do that by setting each usergroup to Visibility = Hidden.</log>
+		<log>Upgraded codebase to take advantage of Nooku Framework alpha 3.</log>
+    </state>
+
     <version>1.1.6</version>
     <date>TBA</date>
     <state>Maintenance Release

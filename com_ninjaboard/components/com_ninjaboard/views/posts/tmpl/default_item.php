@@ -1,4 +1,4 @@
-<? /** $Id: default_item.php 2208 2011-07-12 10:08:31Z stian $ */ ?>
+<? /** $Id: default_item.php 2439 2011-09-01 11:53:24Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? /* Prepare the batch of css classes we wrap our posts with */ ?>
@@ -19,5 +19,5 @@
 
 <div class="<?= implode(' ', $class) ?>" id="<?= @id('post-' . $post->id) ?>">
 	<a name="p<?= @$post->id ?>"></a>
-	<?= @render(@template('site::com.ninjaboard.views.posts.default_item_inner', array('post' => $post, 'topic' => $topic, 'user' => $user, 'forum' => $forum, 'delete_post_button' => $delete_post_button, 'params' => $forum->params)), false, $forum->params['module']) ?>
+	<?= @render(@template('com://site/ninjaboard.views.posts.default_item_inner', array('post' => $post, 'topic' => $topic, 'user' => $user, 'forum' => $forum, 'delete_post_button' => $delete_post_button, 'params' => $forum->params)), false, $forum->params['module']) ?>
 </div>

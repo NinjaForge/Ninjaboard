@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: dispatcher.php 2178 2011-07-11 00:37:25Z stian $
+ * @version		$Id: dispatcher.php 2483 2011-11-02 03:44:19Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -10,11 +10,11 @@
 /**
  * Ninjaboard Dispatcher, obviously
  *
- * @IMPORTANT Don't ever use KFactory::tmp on the dispatcher, always use KFactory::get
+ * @IMPORTANT Don't ever use $this->getService on the dispatcher, always use $this->getService
  *
  * @package Ninjaboard
  */
-class ComNinjaboardDispatcher extends ComDefaultDispatcher
+class ComNinjaboardDispatcher extends NinjaDispatcher
 {
 	/**
 	 * Constructor.
@@ -23,13 +23,11 @@ class ComNinjaboardDispatcher extends ComDefaultDispatcher
 	 */
 	public function __construct(KConfig $config)
 	{	
-		//Do all the factory mappings and such
-		self::register();
-
 		parent::__construct($config);
 
         ///*
         // Bogus debug post
+        // @TODO will be moved to dummy data plugin
         if(JFactory::getUser()->id == 62 && KRequest::get('get.generate_dummy_posts', 'boolean', false))
         {
             @set_time_limit(300);
@@ -219,10 +217,10 @@ class ComNinjaboardDispatcher extends ComDefaultDispatcher
                 shuffle($posts);
                 reset($posts);
                 $data = array('forum_id' => current($forums), 'subject' => current($posts), 'text' => end($posts));
-                KFactory::tmp('site::com.ninjaboard.controller.post', array(
+                $this->getService('com://site/ninjaboard.controller.post', array(
                     'notify' => false
                 ))
-                    ->setModel(KFactory::tmp('site::com.ninjaboard.model.posts'))
+                    ->setModel($this->getService('com://site/ninjaboard.model.posts'))
                     ->add($data);
             }
         }
@@ -235,7 +233,7 @@ class ComNinjaboardDispatcher extends ComDefaultDispatcher
 		if(!is_a($view, 'ComNinjaboardViewHtml')) return;
 
 		//Add the "Forums" to the pathway if the current view or the last pathway item isn't "Forums"
-		$pathway = KFactory::get('lib.koowa.application')->getPathWay()->getPathway();
+		$pathway = JFactory::getApplication()->getPathWay()->getPathway();
 		$last	 = end($pathway);
 		
 		//If no ItemID, we need to check if there exist a menu item entry for Ninjaboard
@@ -253,7 +251,7 @@ class ComNinjaboardDispatcher extends ComDefaultDispatcher
 		    	    if(isset($item->query['view']) && $item->query['view'] == 'forums')
 		    	    {
 		    	        // Perform a 301 redirect to the right menu item to eliminate duplicate entrypoints
-		    	        return KFactory::get('lib.joomla.application')
+		    	        return JFactory::getApplication()
 		    	                   ->redirect(JRoute::_('&Itemid='.$item->id, false), '', '', true);
 		    	    }
 		    	}
@@ -283,7 +281,7 @@ class ComNinjaboardDispatcher extends ComDefaultDispatcher
 		
 		if($view->getName() != 'forums' && (!$last || KInflector::pluralize($menuquery['view']) != 'forums'))
 		{
-			$forum = KFactory::tmp('site::com.ninjaboard.controller.forum', array('request' => array('view' => 'forums')))->getView();
+			$forum = $this->getService('com://site/ninjaboard.controller.forum', array('request' => array('view' => 'forums')))->getView();
 			$this->registerCallback('after.render', array($forum, 'setBreadcrumbs'));
 		}
 
@@ -297,13 +295,13 @@ class ComNinjaboardDispatcher extends ComDefaultDispatcher
 	/**
 	 * Initialize method
 	 *
-	 * @param $config
-	 * 				->controller_default	The default controller
+	 * Used to customize options for the default controller, and the entities to map
 	 */
 	protected function _initialize(KConfig $config)
 	{
 		$config->append(array(
-			'controller_default' => 'forum'
+			'controller' => 'forum',
+			'maps'               => array('attachments', 'avatars', 'forums', 'messages', 'people', 'posts', 'profiles', 'settings', 'topics', 'usergroups', 'users', 'watches')
 		));
 
 		parent::_initialize($config);
@@ -312,64 +310,12 @@ class ComNinjaboardDispatcher extends ComDefaultDispatcher
 	/**
 	 * Register mapped objects to the factory, and other things necessary for Ninjaboard to operate properly
 	 *
-	 * This function can only be executed once, statically
-	 *
-	 * Example:
-	 * 		<code>
-	 *			 if( !KLoader::path('site::com.ninjaboard.dispatcher') ) return;
-	 *			 
-	 *			 //Initialize the dispatcher just so models are mapped, and everything else Ninjaboard needs to run
-	 *			 KLoader::load('site::com.ninjaboard.dispatcher');
-	 *			 ComNinjaboardDispatcher::register();
-	 * 		</code>
-	 *
 	 * @author Stian Didriksen <stian@ninjaforge.com>
 	 * @return boolean	true means it registered, false means it have already registered
+	 * @deprecated
 	 */
 	public static function register()
 	{
-		static $instance;
-
-		if(isset($instance)) return false;
-
-		// We like code reuse, so we map the frontend models to the backend models
-		foreach(array('avatars', 'forums', 'settings', 'users', 'usergroups', 'people', 'profiles', 'topics', 'posts', 'attachments', 'watches', 'messages') as $model)
-		{
-			KFactory::map('site::com.ninjaboard.model.'.$model, 'admin::com.ninjaboard.model.'.$model);
-		}
-		
-		foreach(array('forum') as $row)
-		{
-			KFactory::map('site::com.ninjaboard.database.row.'.$row, 'admin::com.ninjaboard.database.row.'.$row);
-		}
-		
-		KFactory::map('site::com.ninjaboard.database.table.topics', 	'admin::com.ninjaboard.database.table.topics');
-		KFactory::map('site::com.ninjaboard.database.table.posts', 	'admin::com.ninjaboard.database.table.posts');
-		KFactory::map('site::com.ninjaboard.database.table.attachments', 	'admin::com.ninjaboard.database.table.attachments');
-		KFactory::map('site::com.ninjaboard.database.table.users', 	'admin::com.ninjaboard.database.table.users');
-		KFactory::map('site::com.ninjaboard.database.table.people', 	'admin::com.ninjaboard.database.table.people');
-		KFactory::map('site::com.ninjaboard.database.table.settings', 	'admin::com.ninjaboard.database.table.settings');
-		KFactory::map('site::com.ninjaboard.database.table.watches', 	'admin::com.ninjaboard.database.table.watches');
-		KFactory::map('site::com.ninjaboard.database.table.messages', 	'admin::com.ninjaboard.database.table.messages');
-		
-		//@TODO temporary mappings
-		KFactory::map('site::com.ninjaboard.model.rules', 	'admin::com.ninjaboard.model.profile_fields');
-		KFactory::map('site::com.ninjaboard.model.helps', 	'admin::com.ninjaboard.model.profile_fields');
-		
-		//Set napi to load jquery scripts instead of mootools
-		KFactory::get('admin::com.ninja.helper.default')->framework('jquery');
-		
-		//The following makes sure MooTools always loads first when needed and only loads jQuery if it isn't already
-		if(KFactory::get('lib.joomla.application')->getTemplate() != 'morph' && !JFactory::getApplication()->get('jquery')) {
-			KFactory::get('admin::com.ninja.helper.default')->js('/jquery.min.js');
-			
-			//Set jQuery as loaded, used in template frameworks like Warp5
-			JFactory::getApplication()->set('jquery', true);
-		}
-		
-		//Load the ninjaboard plugins
-		JPluginHelper::importPlugin('ninjaboard', null, true, KFactory::get('lib.koowa.event.dispatcher'));
-		
-		return $instance = true;
+        JError::raiseWarning(500, __CLASS__."::register is a deprecated method, please use $this->getService to initiate the dispatcher singleton instead.");
 	}
 }

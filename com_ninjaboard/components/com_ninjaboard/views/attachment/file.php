@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: file.php 1653 2011-03-17 18:40:38Z stian $
+ * @version		$Id: file.php 2460 2011-10-11 21:21:19Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -20,7 +20,7 @@ class ComNinjaboardViewAttachmentFile extends KViewFile
 	{
 		require_once JPATH_ROOT.'/components/com_media/helpers/media.php';
 
-		$params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		$params = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 		$params = $params['attachment_settings'];
 
 
@@ -28,13 +28,13 @@ class ComNinjaboardViewAttachmentFile extends KViewFile
 		$attachment = $this->getModel()->getItem();
 		if(!$attachment->id) return $this->notFound();
 		
-		$post = KFactory::tmp('admin::com.ninjaboard.model.posts')->id($attachment->post)->getItem();
+		$post = $this->getService('com://admin/ninjaboard.model.posts')->id($attachment->post)->getItem();
 		if(!$post->id) return $this->notFound();
 
-		$topic = KFactory::tmp('admin::com.ninjaboard.model.topics')->id($post->ninjaboard_topic_id)->getItem(); 
+		$topic = $this->getService('com://admin/ninjaboard.model.topics')->id($post->ninjaboard_topic_id)->getItem(); 
 		if(!$topic->id) return $this->notFound();
 
-		$forum = KFactory::tmp('admin::com.ninjaboard.model.forums')->id($topic->forum_id)->getItem();
+		$forum = $this->getService('com://admin/ninjaboard.model.forums')->id($topic->forum_id)->getItem();
 		if(!$forum->id) return $this->notFound();
 
 

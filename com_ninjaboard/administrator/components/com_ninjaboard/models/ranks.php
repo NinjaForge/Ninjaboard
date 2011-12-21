@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: ranks.php 1611 2011-02-27 01:07:31Z stian $
+ * @version		$Id: ranks.php 2460 2011-10-11 21:21:19Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -19,7 +19,7 @@ class ComNinjaboardModelRanks extends ComDefaultModelDefault
 		parent::__construct($options);
 		
 		//lets get our states
-	   	$this->_state->insert('enabled', 'int', KFactory::get('lib.joomla.application')->isSite());
+	   	$this->_state->insert('enabled', 'int', JFactory::getApplication()->isSite());
 	}
 
     /**

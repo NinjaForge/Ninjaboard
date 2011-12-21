@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: smf_users.php 1950 2011-06-08 17:48:03Z stian $
+ * @version		$Id: smf_users.php 2462 2011-10-11 22:55:40Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -44,7 +44,7 @@ class ComNinjaboardDatabaseConvertersSmf_users extends ComNinjaboardDatabaseConv
 				    'name' => 'ninjaboard_attachments'
 				),
 				'columns' => array('joomla_user_id'),
-				'query' => KFactory::tmp('lib.koowa.database.query')->select(array(
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()->select(array(
 				    '*',
 				    'ninjaboard_attachment_id AS id'
 				))
@@ -55,7 +55,7 @@ class ComNinjaboardDatabaseConvertersSmf_users extends ComNinjaboardDatabaseConv
 				    'name' => 'ninjaboard_posts'
 				),
 				'columns' => array('created_by', 'modified_by'),
-				'query' => KFactory::tmp('lib.koowa.database.query')->select(array(
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()->select(array(
 				    '*',
 				    'ninjaboard_post_id AS id',
 				    'created_user_id AS created_by',
@@ -68,7 +68,7 @@ class ComNinjaboardDatabaseConvertersSmf_users extends ComNinjaboardDatabaseConv
 				    'name' => 'ninjaboard_messages'
 				),
 				'columns' => array('created_by'),
-				'query' => KFactory::tmp('lib.koowa.database.query')->select(array(
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()->select(array(
 				    '*',
 				    'ninjaboard_message_id AS id'
 				))
@@ -79,7 +79,7 @@ class ComNinjaboardDatabaseConvertersSmf_users extends ComNinjaboardDatabaseConv
 				    'name' => 'ninjaboard_message_recipients'
 				),
 				'columns' => array('user_id'),
-				'query' => KFactory::tmp('lib.koowa.database.query')->select(array(
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()->select(array(
 				    '*',
 				    "CONCAT(ninjaboard_message_id, '-', user_id) AS id"
 				))
@@ -90,7 +90,7 @@ class ComNinjaboardDatabaseConvertersSmf_users extends ComNinjaboardDatabaseConv
 				    'name' => 'ninjaboard_people'
 				),
 				'columns' => array('temporary_id', 'id', 'ninjaboard_person_id'),
-				'query' => KFactory::tmp('lib.koowa.database.query')->select(array(
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()->select(array(
 				    '*',
 				    'ninjaboard_person_id AS id'
 				))
@@ -118,11 +118,11 @@ class ComNinjaboardDatabaseConvertersSmf_users extends ComNinjaboardDatabaseConv
 			}
 		}
 		
-		//Connect the lib.koowa.database to the SMF database
+		//Connect the koowa:database to the SMF database
 		$this->setDatabaseConnection();
 		
 
-		$query = KFactory::tmp('lib.koowa.database.query')
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 															->select(array(
 																'*',
 																'ID_MEMBER AS id',
@@ -135,24 +135,24 @@ class ComNinjaboardDatabaseConvertersSmf_users extends ComNinjaboardDatabaseConv
 															))
 															->where('ID_MEMBER', 'in', $ids)
 															->from('members');
-		$users = KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_ARRAY_LIST, 'id');
+		$users = $this->getService('koowa:database.adapter.mysqli')->select($query, KDatabase::FETCH_ARRAY_LIST, 'id');
 		/*
-		$users = KFactory::get('admin::com.smf_converter.database.table.members', array(
+		$users = $this->getService('com://admin/smf_converter.database.table.members', array(
 			'name' => 'members',
 			'identity_column' => 'id'
 		))->select($query, KDatabase::FETCH_ROWSET);
 		//*/
 		
-		//Reconnect the lib.koowa.database to the Joomla! database
+		//Reconnect the koowa:database to the Joomla! database
 		$this->resetDatabaseConnection();
 		
-		$table		= KFactory::get('admin::com.smf_converter.database.table.users', array(
+		$table		= $this->getService('com://admin/smf_converter.database.table.users', array(
 			'name' => 'users',
 			'identity_column' => 'id'
 		));
 		$columns    = $table->getColumns(true);
-		$db			= KFactory::get('lib.koowa.database.adapter.mysqli');
-		$user_query	= KFactory::tmp('lib.koowa.database.query')->select('id')->from('users');
+		$db			= $this->getService('koowa:database.adapter.mysqli');
+		$user_query	= $this->getService('koowa:database.adapter.mysqli')->getQuery()->select('id')->from('users');
 		$utc		= new DateTimeZone('UTC');
 		$timezone	= new DateTimeZone(date('e'));
 		
@@ -227,7 +227,7 @@ class ComNinjaboardDatabaseConvertersSmf_users extends ComNinjaboardDatabaseConv
 			
 		}
 		
-		$identifier = new KIdentifier('admin::com.ninjaboard.database.table.default');
+		$identifier = new KServiceIdentifier('com://admin/ninjaboard.database.table.default');
 		foreach($this->data as $table => $rows)
 		{
 		    //People table is a special case because we're changing a primary key, avoid it
@@ -242,7 +242,7 @@ class ComNinjaboardDatabaseConvertersSmf_users extends ComNinjaboardDatabaseConv
 				}
 			}
 			$identifier->name = $table;
-			$table = KFactory::get($identifier);
+			$table = $this->getService($identifier);
 
 			$this->update($rows, $table);
 		}

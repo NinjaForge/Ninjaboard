@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1563 2011-02-16 14:50:47Z stian $
+ * @version		$Id: html.php 2477 2011-11-02 03:41:27Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -25,10 +25,9 @@ class ComNinjaboardViewHtml extends ComNinjaboardViewDefault
 
 	public function display()
 	{	
-		$this->js('/site.js');
 		$this->assign('dateformat', str_replace(array('%A', '%B'), array('%a', '%b'), JText::_('DATE_FORMAT_LC2')));
-		$timezone = KFactory::tmp('lib.joomla.user')->getParam('timezone');
-		if(is_null($timezone)) $timezone = KFactory::get('lib.joomla.config')->getValue('offset');
+		$timezone = JFactory::getUser()->getParam('timezone');
+		if(is_null($timezone)) $timezone = JFactory::getConfig()->getValue('offset');
 		$this->assign('timezone', $timezone);
 		
 		//Autoload breadcrumbs module when needed
@@ -51,7 +50,7 @@ class ComNinjaboardViewHtml extends ComNinjaboardViewDefault
 	 */
 	protected function _loadModBreadcrumbs()
 	{
-		$modules = KFactory::tmp('admin::com.ninja.model.joomla.modules');
+		$modules = $this->getService('ninja:model.modules');
 
 		if(!$modules->module('mod_breadcrumbs')->count())
 		{
@@ -72,7 +71,7 @@ class ComNinjaboardViewHtml extends ComNinjaboardViewDefault
 				return $this;
 			}
 
-			$modules->append(KFactory::get('admin::com.ninja.helper.module')->create(array(
+			$modules->append($this->getService('ninja:helper.module')->create(array(
 				'title'		=> 'Breadcrumbs',
 				'position'	=> $position,
 				'module'	=> 'mod_breadcrumbs',
@@ -91,7 +90,7 @@ class ComNinjaboardViewHtml extends ComNinjaboardViewDefault
 	 */
 	public function setBreadcrumbs()
 	{
-		$pathway = KFactory::get('lib.koowa.application')->getPathWay();
+		$pathway = JFactory::getApplication()->getPathWay();
 		
 		//@TODO Don't add a pathway item that's a duplicate of something else
 		//$menu	 = JSite::getMenu()->getActive()->query;

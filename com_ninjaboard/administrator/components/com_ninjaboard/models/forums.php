@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forums.php 2199 2011-07-11 23:36:12Z stian $
+ * @version		$Id: forums.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -14,7 +14,7 @@
  * 
  * @author Stian Didriksen <stian@ninjaforge.com>
  */
-class ComNinjaboardModelForums extends ComNinjaModelTable
+class ComNinjaboardModelForums extends NinjaModelTable
 {
 	/**
 	 * This is for the frontend router
@@ -58,7 +58,7 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 			->insert('acl'       , 'cmd', 'auth_view')
 			->insert('exclude', 'int', 0)
 			->insert('hierarchy', 'boolean', false)
-			->insert('enabled', 'int', KFactory::get('lib.joomla.application')->isSite())
+			->insert('enabled', 'int', JFactory::getApplication()->isSite())
 			->insert('recurse', 'boolean', false)
 			->insert('flat', 'boolean', false)
 			->insert('path', 'int')
@@ -93,15 +93,15 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 			  ->select('last_post.ninjaboard_topic_id AS last_topic_id');
 		
 		//Build query for the screen names
-		KFactory::get('admin::com.ninjaboard.model.people')
+		$this->getService('com://admin/ninjaboard.model.people')
 			->buildScreenNameQuery($query, 'person', 'usr', 'last_post_username', 'IFNULL(last_post.guest_name, \''.JText::_('Anonymous').'\')');
 		
-		if(KFactory::get('lib.joomla.user')->guest) {
+		if(JFactory::getUser()->guest) {
 		    $query->select(array('0 AS new', '1 AS unread'));
 		} else {
-		    $me     = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
-		    $table  = KFactory::get('admin::com.ninjaboard.database.table.logtopicreads');
-		    $select = KFactory::tmp('lib.koowa.database.query')
+		    $me     = $this->getService('com://admin/ninjaboard.model.people')->getMe();
+		    $table  = $this->getService('com://admin/ninjaboard.database.table.logtopicreads');
+		    $select = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 		                  ->select('UNIX_TIMESTAMP(IFNULL(MIN(created_on), NOW()))')
 		                  ->where('created_by', '=', $me->id)
 		                  ;
@@ -111,7 +111,7 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 		    
 
             //Count all the read topics by this user
-            $reads = KFactory::tmp('lib.koowa.database.query')
+            $reads = $this->getService('koowa:database.adapter.mysqli')->getQuery()
                             ->select('COUNT(*)')
                             ->where('reads.ninjaboard_forum_id = tbl.ninjaboard_forum_id')
                             ->where('reads.created_by = '.$me->id)
@@ -120,7 +120,7 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
                             ->from('ninjaboard_log_topic_reads AS reads');
 
             //Count all the topics directly nesting in this forum, not counting down the tree
-            $topics = KFactory::tmp('lib.koowa.database.query')
+            $topics = $this->getService('koowa:database.adapter.mysqli')->getQuery()
                             ->select('COUNT(*)')
                             ->where('topics.forum_id = tbl.ninjaboard_forum_id')
                             ->from('ninjaboard_topics AS topics');
@@ -151,13 +151,13 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 	{
 		parent::_buildQueryWhere($query);
 
-		if($this->_state->enabled !== false && $this->_state->enabled !== '')
+		if($this->_state->enabled !== false && $this->_state->enabled !== ''  && $this->_state->enabled !== NULL)
 		{
 			$query->where('tbl.enabled', '=', $this->_state->enabled);
 		}
 		
 		//Build the query for fetching the permissions
-		if($this->_acl) KFactory::get('admin::com.ninjaboard.model.people')->buildForumsPermissionsWhere($query);
+		if($this->_acl) $this->getService('com://admin/ninjaboard.model.people')->buildForumsPermissionsWhere($query);
 
 		// If we have an id, we shouldn't add other where statements
 		// @TODO check if it's safe to do this
@@ -263,9 +263,9 @@ class ComNinjaboardModelForums extends ComNinjaModelTable
 	 */
 	public function getListWithParents()
 	{
-		$database = KFactory::get('lib.koowa.database.adapter.mysqli');
+		$database = $this->getService('koowa:database.adapter.mysqli');
 		$table = $this->getTable();
-		$query = KFactory::tmp('lib.koowa.database.query')
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 					->select('path')
 					->where('ninjaboard_forum_id', '=', $this->_state->id);
 		

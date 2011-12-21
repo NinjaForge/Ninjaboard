@@ -1,10 +1,10 @@
-<? /** $Id: default.php 1310 2011-01-03 17:52:07Z stian $ */ ?>
+<? /** $Id: default.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<link rel="stylesheet" href="/pagination.css" />
+<?= @template('ninja:view.grid.head') ?>
 
 <? /*if(@$length > 0) : ?>
-	<?= @template('admin::com.ninja.view.search.filter_thead') ?>
+	<?= @template('ninja:view.search.filter_thead') ?>
 <? endif*/ ?>
 
 <style type="text/css">
@@ -58,17 +58,17 @@ window.addEvent('domready', function(){
 </script>
 
 <? if(@$length > 0) : ?>
-	<?= @template('admin::com.ninja.view.search.filter_search_enabled') ?>
+	<?= @template('ninja:view.search.filter_search_enabled') ?>
 <? endif ?>
 
-<form action="<?= @route() ?>" method="post" id="<?= @id() ?>">
+<form action="<?= @route() ?>" method="post" id="<?= @id() ?>" class="-koowa-grid">
 	<?= @$placeholder() ?>
 	<table class="adminlist ninja-list">
 		<thead>
 			<tr>
 				<?= @ninja('grid.count', array('total' => @$total, 'title' => true)) ?>
 				<th class="grid-check">
-					<?= @ninja('grid.checkall') ?>
+					<?= @helper('grid.checkall') ?>
 				</th>
 				<th class="grid-align">
 					<?= @text('Title') ?>
@@ -84,7 +84,7 @@ window.addEvent('domready', function(){
 		</thead>
 		<?= @ninja('paginator.tfoot', array('total' => @$total, 'colspan' => 7)) ?>
 		<tbody class="sortable">
-			<?= @template('admin::com.ninjaboard.view.default_items') ?>
+			<?= @template('default_items') ?>
 		</tbody>
 	</table>
 </form>

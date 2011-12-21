@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
  /**
- * @version		$Id: post.php 1357 2011-01-10 18:45:58Z stian $
+ * @version		$Id: post.php 2460 2011-10-11 21:21:19Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -29,7 +29,7 @@ class ComNinjaboardDatabaseRowPost extends ComNinjaboardDatabaseRowParam
 		{
 			if(!isset($this->_usergroups))
 			{
-				$user				= KFactory::tmp('admin::com.ninjaboard.model.users')
+				$user				= $this->getService('com://admin/ninjaboard.model.users')
 																						->id($this->created_by)
 																						->getItem();
 				$this->_usergroups	= $user->usergroups;

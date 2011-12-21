@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: avatar.php 1787 2011-04-12 23:38:17Z stian $
+ * @version		$Id: avatar.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -39,7 +39,7 @@ class ComNinjaboardTemplateHelperAvatar extends KTemplateHelperAbstract
 	{
 		$config = new KConfig($config);
 		$config->append(array(
-			'params'	=> KFactory::get('admin::com.ninjaboard.model.settings')->getParams()
+			'params'	=> $this->getService('com://admin/ninjaboard.model.settings')->getParams()
 		));
 
 		$upload_size_limit	= $config->params['avatar_settings']['upload_size_limit'];
@@ -48,7 +48,7 @@ class ComNinjaboardTemplateHelperAvatar extends KTemplateHelperAbstract
 
 		return sprintf(
 			JText::_('Maximum size of %s.'),
-			KFactory::get('admin::com.ninja.helper.convert')->bytes(array('bytes' => $upload_size_limit))
+			$this->getService('ninja:template.helper.convert')->bytes(array('bytes' => $upload_size_limit))
 		);
 	}
 
@@ -92,19 +92,19 @@ class ComNinjaboardTemplateHelperAvatar extends KTemplateHelperAbstract
 	 */
 	public function image($config = array())
 	{
-		$params		= KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
-		$prepend	= KFactory::get('lib.joomla.application')->isAdmin() ? KRequest::root().'/' : '';
+		$params		= $this->getService('com://admin/ninjaboard.model.settings')->getParams();
+		$prepend	= JFactory::getApplication()->isAdmin() ? KRequest::root().'/' : '';
 
 		$config = new KConfig($config);
 		$config->append(array(
-			'id'		=> KFactory::get('admin::com.ninjaboard.model.people')->getMe()->id,
+			'id'		=> $this->getService('com://admin/ninjaboard.model.people')->getMe()->id,
 			'thumbnail'	=> 'large',
 			'class'		=> 'avatar',
 			'link'		=> 'person',
 			'type'		=> 'css'	//optionally tag (<img>)
 		));
 		
-		$person		= KFactory::tmp('admin::com.ninjaboard.model.people')->id($config->id)->getItem();
+		$person		= $this->getService('com://admin/ninjaboard.model.people')->id($config->id)->getItem();
 		$avatar_on	= new DateTime($person->avatar_on);
 		$cache		= (int)$avatar_on->format('U');
 

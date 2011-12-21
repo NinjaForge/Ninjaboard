@@ -1,7 +1,7 @@
-<? /** $Id: default.php 2180 2011-07-11 14:01:18Z stian $ */ ?>
+<? /** $Id: default.php 2439 2011-09-01 11:53:24Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<link rel="stylesheet" href="/site.css" />
+<?= @template('com://site/ninjaboard.view.default.head') ?>
 
 <div id="ninjaboard" class="ninjaboard watches <?= $params['pageclass_sfx'] ?> <?= $params['style']['type'] ?> <?= $params['style']['border'] ?> <?= $params['style']['separators'] ?>">
 

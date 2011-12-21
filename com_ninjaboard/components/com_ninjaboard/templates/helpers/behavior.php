@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: behavior.php 1882 2011-05-20 21:18:16Z stian $
+ * @version		$Id: behavior.php 2511 2011-11-22 11:45:25Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -12,7 +12,7 @@
  *
  * @package Ninjaboard
  */
-class ComNinjaboardTemplateHelperBehavior extends KTemplateHelperAbstract
+class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavior
 {
 	/**
 	 * Email Updates button
@@ -37,7 +37,7 @@ class ComNinjaboardTemplateHelperBehavior extends KTemplateHelperAbstract
 			
 		));
 		
-		$table = KFactory::get('admin::com.ninjaboard.database.table.watches');
+		$table = $this->getService('com://admin/ninjaboard.database.table.watches');
 
 		$config->append(array(
 			'type'		=> $table->getTypeIdFromName($config->view),
@@ -45,7 +45,7 @@ class ComNinjaboardTemplateHelperBehavior extends KTemplateHelperAbstract
 		));
 		
 		$url = '?option=com_ninjaboard&view=watches&format=json';
-		$selector = KFactory::get('admin::com.ninja.helper.default')->formid('watch');
+		$selector = $this->getService('ninja:template.helper.document')->formid('watch');
 		
 		
 		static $loaded;
@@ -54,8 +54,8 @@ class ComNinjaboardTemplateHelperBehavior extends KTemplateHelperAbstract
 		if(!isset($loaded[$selector]))
 		{
 			$loaded[$selector] = true;
-			KFactory::get('admin::com.ninja.helper.default')->js('/watch.js');
-			KFactory::get('admin::com.ninja.helper.default')->js('
+			$this->getService('ninja:template.helper.document')->load('/watch.js');
+			$this->getService('ninja:template.helper.document')->load('js', '
 				jQuery(function($){
 					$(\'.'.$selector.'\').ninjaboardWatch('.json_encode(array(
 						'active'	=> $config->active,
@@ -83,16 +83,16 @@ class ComNinjaboardTemplateHelperBehavior extends KTemplateHelperAbstract
 
 
 
-		$me			= KFactory::get('admin::com.ninjaboard.model.people')->getMe();
-		$params		= KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
-		$watching	= (bool)KFactory::tmp('admin::com.ninjaboard.model.watches')
+		$me			= $this->getService('com://admin/ninjaboard.model.people')->getMe();
+		$params		= $this->getService('com://admin/ninjaboard.model.settings')->getParams();
+		$watching	= (bool)$this->getService('com://admin/ninjaboard.model.watches')
 																		->by($me->id)
 																		->type($config->type)
 																		->type_id($config->type_id)
 																		->getTotal();
 
 		//@TODO make this a model method that fetches just the id
-		$id			= KFactory::tmp('admin::com.ninjaboard.model.watches')
+		$id			= $this->getService('com://admin/ninjaboard.model.watches')
 																		->by($me->id)
 																		->type($config->type)
 																		->type_id($config->type_id)
@@ -130,9 +130,9 @@ class ComNinjaboardTemplateHelperBehavior extends KTemplateHelperAbstract
 			'header' => JText::_('Send %s a message:')
 		));
 		
-		KFactory::get('admin::com.ninja.helper.default')->js('/reveal.js');
-		KFactory::get('admin::com.ninja.helper.default')->css('/reveal.css');
-		KFactory::get('admin::com.ninja.helper.default')->js("
+		$this->getService('ninja:template.helper.document')->load('/reveal.js');
+		$this->getService('ninja:template.helper.document')->load('/reveal.css');
+		$this->getService('ninja:template.helper.document')->load('js', "
 		jQuery(function($){
 		    var messageform = $('#ninjaboard-message-form'), title = messageform.find('.reply-to'), input = messageform.find('input[name=to]');
 
@@ -145,9 +145,9 @@ class ComNinjaboardTemplateHelperBehavior extends KTemplateHelperAbstract
 		
 		$html[] = '<a class="ninjaboard-button ninjaboard-button-secondary ninjaboard-button-message" href="#" data-reveal-id="ninjaboard-message-form">'.JText::_('Message').'</a>';
 		
-		$template = KFactory::get('site::com.ninjaboard.view.message.html')->getTemplate();
-		$params   = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
-		$form     = $template->loadIdentifier('site::com.ninjaboard.view.message.form', array('params' => $params));
+		$template = $this->getService('com://site/ninjaboard.view.message.html')->getTemplate();
+		$params   = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
+		$form     = $template->loadIdentifier('com://site/ninjaboard.view.message.form', array('params' => $params));
 		
 		$html[] = '<div id="ninjaboard-message-form" class="reveal-modal">';
 		$html[] = $form;

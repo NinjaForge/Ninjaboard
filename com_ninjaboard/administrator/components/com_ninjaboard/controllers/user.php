@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: user.php 1696 2011-03-25 01:24:34Z stian $
+ * @version		$Id: user.php 2462 2011-10-11 22:55:40Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -45,7 +45,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 		//Prepare MediaHelper
 		JLoader::register('MediaHelper', JPATH_ROOT.'/components/com_media/helpers/media.php');
 
-		$person			= KFactory::tmp('admin::com.ninjaboard.model.people')->id($context->result->id)->getItem();
+		$person			= $this->getService('com://admin/ninjaboard.model.people')->id($context->result->id)->getItem();
 		$error			= null;
 		$errors			= array();
 		$identifier		= $this->getIdentifier();
@@ -69,7 +69,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 			return $this;
 		}
 		
-		$this->params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		$this->params = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 		$params = $this->params['avatar_settings'];
 		$maxSize = (int) $params['upload_size_limit'];
 		if ($maxSize > 0 && (int) $avatar['size'] > $maxSize)
@@ -95,7 +95,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 	{
 		$identifier = $this->getIdentifier();
 		$option		= $identifier->type.'_'.$identifier->package;
-		$user		= KFactory::get($this->getModel())->getItem();
+		$user		= $this->getService($this->getModel())->getItem();
 		$path		= '/media/'.$option.'/images/avatars/'.KRequest::get('get.id', 'int', $user->id).'/';
 		return $path;
 	}
@@ -126,7 +126,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 	{
 		$result = $this->execute('edit', $context);
 
-		$this->_redirect = 'index.php?option=com_ninjaboard&view='.$this->_identifier->name.'&id='.$this->getRequest()->id;
+		$this->_redirect = 'index.php?option=com_ninjaboard&view='.$this->getIdentifier()->name.'&id='.$this->getRequest()->id;
 		return $result;
 	}
 
@@ -141,7 +141,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 	{
 		$context->data->id = $this->getRequest()->id;
 	
-		$person = KFactory::tmp('admin::com.ninjaboard.model.people')
+		$person = $this->getService('com://admin/ninjaboard.model.people')
 				->id($context->data->id)
 				->getItem()
 				->setData(KConfig::toData($context->data));
@@ -160,7 +160,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 		if(isset($data->usergroup))
 		{
 			$data  = array('ninjaboard_user_group_id' => $data['usergroup']);
-			$table = KFactory::get('admin::com.ninjaboard.model.usergroupmaps')->getTable();
+			$table = $this->getService('com://admin/ninjaboard.model.usergroupmaps')->getTable();
 			
 			$table->select(array('joomla_user_id' => $id), KDatabase::FETCH_ROWSET)->delete();
 
@@ -169,7 +169,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 			foreach($data['ninjaboard_user_group_id'] as $group)
 			{
 				
-				$usergroup = KFactory::tmp('admin::com.ninjaboard.model.usergroupmaps')
+				$usergroup = $this->getService('com://admin/ninjaboard.model.usergroupmaps')
 					->getItem()
 					->setData(array(
 						'joomla_user_id' => $id,

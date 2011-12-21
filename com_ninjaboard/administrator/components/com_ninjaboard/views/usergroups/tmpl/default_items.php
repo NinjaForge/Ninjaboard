@@ -1,4 +1,4 @@
-<? /** $Id: default_items.php 1611 2011-02-27 01:07:31Z stian $ */ ?>
+<? /** $Id: default_items.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <style type="text/css">
@@ -77,13 +77,13 @@
 </style>
 
 <? foreach ($usergroups as $i => $usergroup) : ?>
-<tr class="<?= @ninja('grid.zebra') ?> sortable">
+<tr class="sortable">
 	<td class="handle"></td>
 	<?= @ninja('grid.count', array('total' => @$total)) ?>
-	<td class="grid-check"><?= @ninja('grid.id', array('value' => $usergroup->id)) ?></td>
-	<td><?= @edit($usergroup, $i, 'title', 'id') ?></td>
+	<td class="grid-check"><?= @helper('grid.checkbox', array('row' => $usergroup)) ?></td>
+	<td><?= @ninja('grid.edit', array('row' => $usergroup)) ?></td>
 	
-		<? $permissions = KFactory::tmp(KFactory::get($this->getView())->getModel())->getPermissions((int)$usergroup->id) ?>
+		<? $permissions = $this->getService($this->getService($this->getView())->getModel())->getPermissions((int)$usergroup->id) ?>
 		<? if (count($permissions) < 1) : ?>
 			<td colspan="4">
 				<?= @text('This usergroup doesn\'t have any permissions defined.') ?>
@@ -95,7 +95,7 @@
 					<? $permission = $permissions[$column] ?>
 					<span class="permission level-<?= $permission->level ?>">
 						<?/*= @text($permission->title) */?>
-						<span class="level"><?= @text(KFactory::get('admin::com.ninja.helper.access')->getlevel($permission->level)) ?></span>
+						<span class="level"><?= @text($this->getService('ninja:template.helper.access')->getlevel($permission->level)) ?></span>
 					</span>
 				<? else : ?>
 					<?= sprintf(@text('%s is undefined.'), $title) ?>

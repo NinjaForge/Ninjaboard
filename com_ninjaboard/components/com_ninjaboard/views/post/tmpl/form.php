@@ -1,4 +1,4 @@
-<? /** $Id: form.php 1666 2011-03-22 02:06:32Z stian $ */ ?>
+<? /** $Id: form.php 2447 2011-09-08 13:28:12Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <div id="ninjaboard" class="ninjaboard post-form<? if(!$topic->id || $topic->first_post_id == $post->id) : ?> new-topic-form<? endif ?>">
@@ -8,8 +8,8 @@
 	<? if($topicreview) : ?>
 		<div class="ninjaboard topicreview">
 			<script type="text/javascript">
-				jQuery(function($){
-					$('.ninjaboard.topicreview a[href]').removeAttr('href');
+				window.addEvent('domready', function(){
+					$$('.ninjaboard.topicreview a[href]').removeProperty('href');
 				});
 			</script>
 			<h3><?= sprintf(@text('Topic review %s'), '('.@text('newest first').')') ?></h3>

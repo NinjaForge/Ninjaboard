@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
  /**
- * @version		$Id: user.php 1666 2011-03-22 02:06:32Z stian $
+ * @version		$Id: user.php 2460 2011-10-11 21:21:19Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -83,9 +83,9 @@ class ComNinjaboardDatabaseRowUser extends KDatabaseRowDefault
 			if(!$this->_usergroups)
 			{
 				$ids = explode('|', $this->ninjaboard_usergroup_id);
-				$this->_usergroups = KFactory::tmp('admin::com.ninjaboard.model.usergroups')
+				$this->_usergroups = $this->getService('com://admin/ninjaboard.model.usergroups')
 											->id($ids)
-											->visible(KFactory::get('lib.joomla.application')->isSite())
+											->visible(JFactory::getApplication()->isSite())
 											->limit(0)
 											->getList();
 			}
@@ -98,7 +98,7 @@ class ComNinjaboardDatabaseRowUser extends KDatabaseRowDefault
 			if(!isset($this->_inherits))
 			{
 				//@TODO this should be optimized
-				$this->_inherits = KFactory::tmp('admin::com.ninjaboard.model.usergroupmaps')
+				$this->_inherits = $this->getService('com://admin/ninjaboard.model.usergroupmaps')
 					->id($this->id)
 					->getTotal() < 1;
 			}

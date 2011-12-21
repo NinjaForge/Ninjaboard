@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: topics.php 2191 2011-07-11 22:33:35Z stian $
+ * @version		$Id: topics.php 2461 2011-10-11 22:32:21Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -39,9 +39,9 @@ class ComNinjaboardModelTopics extends ComDefaultModelDefault
 		$query->join('LEFT', 'ninjaboard_forums AS forum', 'forum.ninjaboard_forum_id = tbl.forum_id')
 				->join('LEFT', 'ninjaboard_topic_symlinks AS symlink', '(symlink.ninjaboard_topic_id = tbl.ninjaboard_topic_id AND symlink.ninjaboard_forum_id != tbl.forum_id)');
 
-        if(!KFactory::get('lib.joomla.user')->guest)
+        if(!JFactory::getUser()->guest)
         {
-            $me = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
+            $me = $this->getService('com://admin/ninjaboard.model.people')->getMe();
 
     		$query->join('left', 'ninjaboard_log_topic_reads AS log', 
     		    'log.created_by = '.$me->id.' AND '.
@@ -70,7 +70,7 @@ class ComNinjaboardModelTopics extends ComDefaultModelDefault
 			  ->where('tbl.enabled', '=', 1);
 		
 		//Building the permissions query WHERE clause
-		KFactory::get('admin::com.ninjaboard.model.people')->buildForumsPermissionsWhere($query, 'forum.ninjaboard_forum_id');
+		$this->getService('com://admin/ninjaboard.model.people')->buildForumsPermissionsWhere($query, 'forum.ninjaboard_forum_id');
 	}
 	
 	protected function _buildQueryColumns(KDatabaseQuery $query)
@@ -95,7 +95,7 @@ class ComNinjaboardModelTopics extends ComDefaultModelDefault
         		->join('LEFT', 'ninjaboard_people AS last_post_person', 'last_post_person.ninjaboard_person_id = tbl.last_post_by');
 		
 		//Build query for the screen names
-		KFactory::get('admin::com.ninjaboard.model.people')
+		$this->getService('com://admin/ninjaboard.model.people')
 				->buildScreenNameQuery($query, 'last_post_person', 'last_post_user', 'last_post_username', 'IFNULL(last_post.guest_name, \''.JText::_('Anonymous').'\')');
 		
 		if($this->_state->forum)
@@ -103,12 +103,12 @@ class ComNinjaboardModelTopics extends ComDefaultModelDefault
 			$query->select('IF((symlink.ninjaboard_forum_id = '.$this->_state->forum.'), forum.title, NULL) AS moved_to_forum_title');
 		}
 		
-		if(KFactory::get('lib.joomla.user')->guest) {
+		if(JFactory::getUser()->guest) {
 		    $query->select(array('0 AS new', '1 AS unread'));
 		} else {
-		    $me     = KFactory::get('admin::com.ninjaboard.model.people')->getMe();
-		    $table  = KFactory::get('admin::com.ninjaboard.database.table.logtopicreads');
-		    $select = KFactory::tmp('lib.koowa.database.query')
+		    $me     = $this->getService('com://admin/ninjaboard.model.people')->getMe();
+		    $table  = $this->getService('com://admin/ninjaboard.database.table.logtopicreads');
+		    $select = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 		                  ->select('UNIX_TIMESTAMP(IFNULL(MIN(created_on), NOW()))')
 		                  ->where('created_by', '=', $me->id)
 		                  ;

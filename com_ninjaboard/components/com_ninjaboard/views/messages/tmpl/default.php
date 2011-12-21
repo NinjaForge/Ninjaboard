@@ -1,7 +1,9 @@
-<? /** $Id: default.php 2224 2011-07-15 23:24:09Z stian $ */ ?>
+<? /** $Id: default.php 2439 2011-09-01 11:53:24Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<link rel="stylesheet" href="/site.css" />
+
+<?= @template('com://site/ninjaboard.view.default.head') ?>
+
 <link rel="stylesheet" href="/reveal.css" />
 <link rel="stylesheet" href="/messages.css" />
 
@@ -64,10 +66,10 @@ jQuery(function($){
     </a>
     <?= @helper('template.space') ?>
     <div id="ninjaboard-message-form" class="reveal-modal">
-        <?= @template('site::com.ninjaboard.view.message.form') ?>
+        <?= @template('com://site/ninjaboard.view.message.form') ?>
         <a class="close-reveal-modal">&#215;</a>
     </div>
-    <?= @helper('site::com.ninjaboard.template.helper.splitview.messages', array(
+    <?= @helper('com://site/ninjaboard.template.helper.splitview.messages', array(
         'id' => @id('messages'),
         'options' => array(
             'primary_key' => 'conversation_id',

@@ -1,25 +1,27 @@
-<? /** $Id: default.php 1272 2010-12-22 13:48:58Z stian $ */ ?>
+<? /** $Id: default.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
+<?= @template('ninja:view.grid.head') ?>
+
 <? if($length > 0) : ?>
-	<?= @template('admin::com.ninja.view.search.filter_search_enabled') ?>
+	<?= @template('ninja:view.search.filter_search_enabled') ?>
 <? endif ?>
 
-<? @ninja('behavior.sortable') ?>
-<form action="<?= @route() ?>" method="post" id="<?= @id() ?>" class="placeholder-up-two-lines">
+<?= @ninja('behavior.sortable') ?>
+<form action="<?= @route() ?>" method="post" id="<?= @id() ?>" class="placeholder-up-two-lines -koowa-grid">
 	<?= @$placeholder('settings', null, 'Add %s', 'You haven\'t added any settings yet.<br> But don\'t worry about stuff breaking.<br> We\'ll just use the default settings until you do.') ?>
 	<table class="adminlist ninja-list">
 		<thead>
 			<tr>
 				<th class="hasHint" title="<?= @text('Drag here to reorder&hellip;') ?>"></th>
 				<?= @ninja('grid.count', array('total' => @$total, 'title' => true)) ?>
-				<th class="grid-check"><?= @ninja('grid.checkall') ?></th>
-				<th><?= @ninja('grid.sort', array('title' => 'Title')) ?></th>
+				<th class="grid-check"><?= @helper('grid.checkall') ?></th>
+				<th><?= @helper('grid.sort', array('column' => 'title')) ?></th>
 				<th><?= @text('Theme') ?></th>
 				<th width="1px" class="grid-center">
-					<?= @ninja('grid.sort', array('title' => 'Default')) ?>
+					<?= @helper('grid.sort', array('column' => 'default')) ?>
 				</th>																
-				<th width="1px" class="grid-center"><?= @ninja('grid.sort', array('title' => 'Enabled', 'order' => 'published')) ?></th>					
+				<th width="1px" class="grid-center"><?= @helper('grid.sort', array('title' => 'Enabled', 'column' => 'published')) ?></th>					
 			</tr>
 		</thead>
 		<?= @ninja('paginator.tfoot', array('total' => $total, 'colspan' => 8)) ?>

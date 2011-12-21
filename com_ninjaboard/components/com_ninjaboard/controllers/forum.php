@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forum.php 2407 2011-08-25 09:00:39Z stian $
+ * @version		$Id: forum.php 2460 2011-10-11 21:21:19Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -46,13 +46,13 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerAbstract
 		
 		if(!JFile::exists($cache))
 		{
-			if(KFactory::get('admin::com.ninjaboard.controller.maintenance')->topics() && KFactory::get('admin::com.ninjaboard.controller.maintenance')->forums())
+			if($this->getService('com://admin/ninjaboard.controller.maintenance')->topics() && $this->getService('com://admin/ninjaboard.controller.maintenance')->forums())
 			{
 			    JFile::write($cache, date('r'));
 			}
 		}
 		
-		$user = KFactory::get('lib.joomla.user');
+		$user = JFactory::getUser();
 		// User specific maintenance
 		if(!$user->guest)
 		{
@@ -60,7 +60,7 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerAbstract
     		
     		if(!JFile::exists($cache))
     		{
-    			if(KFactory::get('admin::com.ninjaboard.controller.maintenance')->logtopicreads())
+    			if($this->getService('com://admin/ninjaboard.controller.maintenance')->logtopicreads())
     			{
     			    JFile::write($cache, date('r'));
     			}
@@ -73,8 +73,8 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerAbstract
 	 */
 	public function setCanonical(KCommandContext $context)
 	{
-	    $document  = KFactory::get('lib.joomla.document');
-	    $root      = KRequest::url()->get(KHttpUri::PART_BASE ^ KHttpUri::PART_PATH);
+	    $document  = JFactory::getDocument();
+	    $root      = KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH);
 	    $base      = 'index.php?option=com_ninjaboard&view=forum';
 	    //@TODO figure out a way to get the states from the posts model
 	    $canonical = $root.JRoute::_($base.'&id='.$context->result->id/*.'&limit='.$state->limit.'&offset='.$state->offset*/);
@@ -89,12 +89,12 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerAbstract
 	 */
 	public function setOrdering()
 	{
-		$params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		$params = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 
 		if(isset($params->sort)) $this->_request->sort = $params->sort;
 		else return true;
 		
-		KFactory::get($this->getModel())->set($this->getRequest());
+		$this->getService($this->getModel())->set($this->getRequest());
 	}
 
 	/**

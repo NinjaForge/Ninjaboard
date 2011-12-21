@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 2184 2011-07-11 15:08:37Z stian $
+ * @version		$Id: html.php 2474 2011-11-02 03:21:49Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -11,7 +11,7 @@ class ComNinjaboardViewTopicsHtml extends ComNinjaboardViewHtml
 {
 	public function display()
 	{
-		$this->assign('params', KFactory::get('admin::com.ninjaboard.model.settings')->getParams());
+		$this->assign('params', $this->getService('com://admin/ninjaboard.model.settings')->getParams());
 	
 		$this->limit	= KRequest::get('get.limit', 'int', 10);
 		$model	= $this->getModel()
@@ -25,7 +25,7 @@ class ComNinjaboardViewTopicsHtml extends ComNinjaboardViewHtml
 		$this->total	= $model->getTotal();
 
 		$this->assign('pagination', 
-			KFactory::get('site::com.ninjaboard.template.helper.paginator', array('name' => 'topics'))
+			$this->getService('com://site/ninjaboard.template.helper.paginator', array('name' => 'topics'))
 				->pagination($this->total, KRequest::get('get.offset', 'int', 0), $this->limit, 4)
 		);
 		
@@ -42,12 +42,12 @@ class ComNinjaboardViewTopicsHtml extends ComNinjaboardViewHtml
 		parent::setBreadcrumbs();
 
 		$model	 = $this->getModel();
-		$pathway = KFactory::get('lib.koowa.application')->getPathWay();
+		$pathway = JFactory::getApplication()->getPathWay();
 		$id		 = $model->getState()->at;
 		
 		if(!$id) return;
 
-		$person = KFactory::tmp('admin::com.ninjaboard.model.people')->id($id)->getItem();
+		$person = $this->getService('com://admin/ninjaboard.model.people')->id($id)->getItem();
 		//@TODO consider using the username instead of display_name in this part
 		$name	= $person->display_name;
 

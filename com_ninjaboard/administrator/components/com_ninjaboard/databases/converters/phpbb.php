@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: phpbb.php 1787 2011-04-12 23:38:17Z stian $
+ * @version		$Id: phpbb.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -31,7 +31,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 	 *
 	 * @var string|boolean
 	 */
-	protected $_layout = 'admin::com.ninjaboard.database.converters.phpbb';
+	protected $_layout = 'com://admin/ninjaboard.database.converters.phpbb';
 	
 	/**
 	 * The description
@@ -47,13 +47,13 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 	 */
 	public function convert()
 	{
-		//Connect the lib.koowa.database to the phpBB3 database
+		//Connect the koowa:database to the phpBB3 database
 		$this->setDatabaseConnection();
 
 		$tables = array(
 			array(
 				'name' => 'attachments',
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'attach_id AS id',
 								'post_msg_id AS post',
@@ -65,7 +65,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 			),
 			array(
 				'name' => 'forums',
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'*',
 								'forum_id AS id',
@@ -83,7 +83,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 				'options' => array(
 					'name' => 'topics'
 				),
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'topic_id AS id',
 								'topic_moved_id AS ninjaboard_topic_id',
@@ -93,7 +93,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 			),
 			array(
 				'name' => 'topics',
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'*',
 								'topic_id AS id',
@@ -108,7 +108,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 			),
 			array(
 				'name' => 'posts',
-				'query' => KFactory::tmp('lib.koowa.database.query')
+				'query' => $this->getService('koowa:database.adapter.mysqli')->getQuery()
 							->select(array(
 								'*',
 								'post_id AS id',
@@ -135,11 +135,11 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 		if(isset($this->data['attachments']))
 		{
 			//Get the attachments path
-			$query = KFactory::tmp('lib.koowa.database.query')
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
 																->select('config_value')
 																->from('config')
 																->where('config_name', '=', 'upload_path');
-			$path  = KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
+			$path  = $this->getService('koowa:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 
 			foreach($this->data['attachments'] as $id => $attachment)
 			{
@@ -155,7 +155,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 			}
 		}
 
-		//Reconnect the lib.koowa.database to the Joomla! database
+		//Reconnect the koowa:database to the Joomla! database
 		$this->resetDatabaseConnection();
 
 		//Clear cache folder so that avatars and attachments cache are cleared
@@ -171,7 +171,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 	}
 	
 	/**
-	 * Set the lib.koowa.database to use phpBB3 prefix, and set the connection
+	 * Set the koowa:database to use phpBB3 prefix, and set the connection
 	 *
 	 * @return $this
 	 */
@@ -180,7 +180,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 		//Save the NB resource so we can reset later
 		if(!$this->_ninjaboard_resource)
 		{
-			$this->_ninjaboard_resource = KFactory::get('lib.joomla.database')->_resource;
+			$this->_ninjaboard_resource = JFactory::getDatabase()->_resource;
 		}
 
 		$path	= $this->getPath();
@@ -215,7 +215,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 		$converter_database = new JDatabaseMySQLi($config);
 		$this->_converter_resource	= $converter_database->_resource;
 
-		KFactory::get('lib.koowa.database.adapter.mysqli')
+		$this->getService('koowa:database.adapter.mysqli')
 			->setConnection($this->_converter_resource)
 			->setTablePrefix($table_prefix);
 		
@@ -223,15 +223,15 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 	}
 	
 	/**
-	 * Change lib.koowa.database prefix and connection to what it was before setting it
+	 * Change koowa:database prefix and connection to what it was before setting it
 	 *
 	 * @return $this
 	 */
 	public function resetDatabaseConnection()
 	{
-		KFactory::get('lib.koowa.database.adapter.mysqli')
+		$this->getService('koowa:database.adapter.mysqli')
 			->setConnection($this->_ninjaboard_resource)
-			->setTablePrefix(KFactory::get('lib.joomla.config')->getValue('dbprefix'));
+			->setTablePrefix(JFactory::getConfig()->getValue('dbprefix'));
 
 		return $this;
 	}
@@ -246,7 +246,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 	public function getPath()
 	{
 		//Get the path from the request if it exists
-		if(KRequest::has('post.path')) return KRequest::get('post.path', 'admin::com.ninja.filter.path');
+		if(KRequest::has('post.path')) return KRequest::get('post.path', 'ninja:filter.path');
 		
 		//Get the path from RokBridge, if RokBridge is present
 		$helper = JPATH_ADMINISTRATOR.'/components/com_rokbridge/helper.php';

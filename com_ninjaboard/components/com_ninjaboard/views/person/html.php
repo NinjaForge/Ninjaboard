@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 2184 2011-07-11 15:08:37Z stian $
+ * @version		$Id: html.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -11,13 +11,13 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 {
 	public function display()
 	{
-		$params = KFactory::get('admin::com.ninjaboard.model.settings')->getParams();
+		$params = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 		$this->assign('params', $params);
-		$person = KFactory::get($this->getModel())->getItem();
+		$person = $this->getService($this->getModel())->getItem();
 
-        if(KFactory::get('lib.joomla.user')->guest && (!$person->id || $this->getlayout() == 'form'))
+        if(JFactory::getUser()->guest && (!$person->id || $this->getlayout() == 'form'))
         {
-        	$this->mixin(KFactory::get('admin::com.ninja.view.user.mixin'));
+        	$this->mixin($this->getService('ninja:view.user.mixin'));
         	
         	$this->setLoginLayout();
         	
@@ -25,32 +25,41 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
         }
 
 		if($this->getLayout() != 'form') {
-		    $controller = KFactory::get('site::com.ninjaboard.controller.topic')
-		    	
+		    $controller = $this->getService('com://site/ninjaboard.controller.post');
+			$controller->getModel()->reset(); // @TODO - alpha 2 workaround - update/remove for alpha 3
 		    	//@TODO Figure out why the singular view is used instead of the plural one
-		    	->setView(KFactory::get('site::com.ninjaboard.view.topics.html'))
+		    	$controller->setView($this->getService('com://site/ninjaboard.view.posts.html'))
+				->layout('list');
 		    	
-		    	->direction('desc')
-		    	->sort('last_post_on')
-		    	->limit(KRequest::get('get.limit', 'int', 10))
-		    	->offset(KRequest::get('get.offset', 'int', 0))
-		    	->at($this->getModel()->getItem()->id);
-		    $model = $controller->getModel();
-		    $state = $model->getState();
-			$this->assign('topics', $this->render(
+		    	
+
+			$controller->getView()->assign('collapse_content', 1);
+			$controller->getView()->assign('module_id', "");
+			$controller->getView()->assign('display_avatar', 0);
+			$controller->getView()->assign('latest_style', 1);
+			$this->assign('posts', $this->render(
+				'<div id="mod-ninjaboard-latest-posts" class="mod-ninjaboard-latest-posts '.$params['style']['type'].' '.$params['style']['border'].' '.$params['style']['separators'].'">'.
 			    $controller
-					->layout('list')
-					->display(), 
-				JText::_('Latest Topics'), 
+					->direction('desc')
+			    	->sort('created_time')
+			    	->limit(KRequest::get('get.limit', 'int', 10))
+			    	->offset(KRequest::get('get.offset', 'int', 0))
+			    	->at($this->getModel()->getItem()->id)
+					->display().
+					'</div>', 
+				JText::_('Latest Posts'), 
 				$params['module'])
 			);
+			
+			$model = $controller->getModel();
+		    $state = $model->getState();
 
 			$this->assign('pagination', 
-				KFactory::get('site::com.ninjaboard.template.helper.paginator', array('name' => 'topics'))
+				$this->getService('com://site/ninjaboard.template.helper.paginator', array('name' => 'posts'))
 					->pagination($model->getTotal(), $state->offset, $state->limit, 4, false)
 			);
 			
-			$me		= KFactory::get($this->getModel())->getMe();
+			$me		= $this->getService($this->getModel())->getMe();
 			$this->me = $me;
 			if($me->id === $person->id) {
 				$this->edit_button = str_replace(

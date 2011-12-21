@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: dashboard.php 1821 2011-04-25 21:26:07Z stian $
+ * @version		$Id: dashboard.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -12,7 +12,7 @@
  *
  * @package Ninjaboard
  */
-class ComNinjaboardControllerDashboard extends ComNinjaControllerDashboard
+class ComNinjaboardControllerDashboard extends NinjaControllerDashboard
 {
 	/**
 	 * Constructor
@@ -26,7 +26,7 @@ class ComNinjaboardControllerDashboard extends ComNinjaControllerDashboard
 		if( !isset($this->_request->tmpl) || ( isset($this->_request->tmpl) && $this->_request->tmpl != 'component' ) )
 		{
 			$this->registerCallback('before.display', array($this, 'checkMigration'));
-			$this->registerCallback('before.display', array(KFactory::get('admin::com.ninjaboard.controller.forum'), 'checkInstall'));
+			$this->registerCallback('before.display', array($this->getService('com://admin/ninjaboard.controller.forum'), 'checkInstall'));
 		}
 	}
 	
@@ -39,7 +39,7 @@ class ComNinjaboardControllerDashboard extends ComNinjaControllerDashboard
 	public function checkMigration()
 	{
 		try {
-			$migrated = KFactory::get('admin::com.ninjaboard.model.forums_backups')->getTotal();
+			$migrated = $this->getService('com://admin/ninjaboard.model.forums_backups')->getTotal();
 		} catch(KDatabaseTableException $e) {
 			// Do nothing if the table don't exist
 			return $this;
@@ -49,7 +49,7 @@ class ComNinjaboardControllerDashboard extends ComNinjaControllerDashboard
 		if(!$migrated) return $this;
 
 		//Do nothing if there's already data in Ninjaboard
-		$existing = KFactory::get('admin::com.ninjaboard.model.forums')->getTotal();
+		$existing = $this->getService('com://admin/ninjaboard.model.forums')->getTotal();
 		if($existing) return $this;
 		
 		JError::raiseNotice(0, sprintf(

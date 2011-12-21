@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: abstract.php 1948 2011-06-08 17:34:10Z stian $
+ * @version		$Id: abstract.php 2462 2011-10-11 22:55:40Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -16,7 +16,7 @@
  * 
  * @author Stian Didriksen <stian@ninjaforge.com>
  */
-abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implements ComNinjaboardDatabaseConvertersInterface, KObjectIdentifiable
+abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implements ComNinjaboardDatabaseConvertersInterface
 {
 	/**
 	 * The current data
@@ -79,17 +79,6 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
 	protected $_converter_resource = false;
 
 	/**
-	 * Get the object identifier
-	 * 
-	 * @return	KIdentifier	
-	 * @see 	KObjectIdentifiable
-	 */
-	public function getIdentifier()
-	{
-		return $this->_identifier;
-	}
-
-	/**
 	 * Execute the convertion
 	 *
 	 * @param  $dbprefix string	Used by converters like phpBB3 to allow importing from multiple tables,
@@ -98,13 +87,13 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
 	 */
 	public function convert($dbprefix = false)
 	{
-		if(!$dbprefix) $dbprefix = KFactory::get('lib.joomla.config')->getValue('dbprefix');
-		$identifier = new KIdentifier('admin::com.ninjaboard.database.table.default');
+		if(!$dbprefix) $dbprefix = JFactory::getConfig()->getValue('dbprefix');
+		$identifier = new KServiceIdentifier('com://admin/ninjaboard.database.table.default');
 
 		foreach($this->data as $this->name => $rows)
 		{
 			$identifier->name = $this->name;
-			$table = KFactory::get($identifier);
+			$table = $this->getService($identifier);
 			
 			if(KRequest::get('post.offset', 'int', 0) < 1) $this->_truncateTable($table);
 
@@ -126,8 +115,8 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
 	 */
 	public function insert($rows, KDatabaseTableAbstract $table, $dbprefix = false)
 	{
-	    if(!$dbprefix) $dbprefix = KFactory::get('lib.joomla.config')->getValue('dbprefix');
-	    $mysqli    = KFactory::get('lib.koowa.database.adapter.mysqli')->getConnection();
+	    if(!$dbprefix) $dbprefix = JFactory::getConfig()->getValue('dbprefix');
+	    $mysqli    = $this->getService('koowa:database.adapter.mysqli')->getConnection();
 	    $statement = false;
 	    $base      = $table->getDatabase()->quoteName($dbprefix.$table->getBase());
 	    $columns   = $table->getColumns(true);
@@ -214,8 +203,8 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
 	 */
 	public function update($rows, KDatabaseTableAbstract $table, $dbprefix = false)
 	{
-	    if(!$dbprefix) $dbprefix = KFactory::get('lib.joomla.config')->getValue('dbprefix');
-	    $mysqli    = KFactory::get('lib.koowa.database.adapter.mysqli')->getConnection();
+	    if(!$dbprefix) $dbprefix = JFactory::getConfig()->getValue('dbprefix');
+	    $mysqli    = $this->getService('koowa:database.adapter.mysqli')->getConnection();
 	    $statement = false;
 	    $base      = $table->getDatabase()->quoteName($dbprefix.$table->getBase());
 	    $columns   = $table->getColumns(true);
@@ -454,11 +443,11 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
 			if($offset === false)
 			{
 				if(!isset($this->data[$name]) || $this->data[$name] == array()) {
-					//$this->data[$name] = (int)KFactory::tmp('admin::com.'.$package.'.table.'.$name, $table['options'])->count(clone $query);
-					$this->data[$name] = (int)KFactory::get('admin::com.default.database.table.'.$name.$table['options']['name'], $table['options'])->count(clone $query);
+					//$this->data[$name] = (int)$this->getService('com://admin/'.$package.'.table.'.$name, $table['options'])->count(clone $query);
+					$this->data[$name] = (int)$this->getService('com://admin/default.database.table.'.$name.$table['options']['name'], $table['options'])->count(clone $query);
 				} else {
-					//$this->data[$name] += (int)KFactory::tmp('admin::com.'.$package.'.table.'.$name, $table['options'])->count(clone $query);
-					$this->data[$name] += (int)KFactory::get('admin::com.default.database.table.'.$name.$table['options']['name'], $table['options'])->count(clone $query);
+					//$this->data[$name] += (int)$this->getService('com://admin/'.$package.'.table.'.$name, $table['options'])->count(clone $query);
+					$this->data[$name] += (int)$this->getService('com://admin/default.database.table.'.$name.$table['options']['name'], $table['options'])->count(clone $query);
 				}
 
 				continue;
@@ -476,9 +465,9 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
 	            }
 			}
 			
-			$rows = KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_ARRAY_LIST, $table['options']['identity_column']);
+			$rows = $this->getService('koowa:database.adapter.mysqli')->select($query, KDatabase::FETCH_ARRAY_LIST, $table['options']['identity_column']);
 
-			//$rows = KFactory::get('admin::com.default.database.table.'.$name.$table['options']['name'], $table['options'])
+			//$rows = $this->getService('com://admin/default.database.table.'.$name.$table['options']['name'], $table['options'])
 			//			->select($query, KDatabase::FETCH_OBJECT_LIST);
 
             $this->data[$name] = isset($this->data[$name]) && is_array($this->data[$name]) ? array_merge($this->data[$name], $rows) : $rows;
@@ -512,7 +501,7 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
 		                $query->from($table['options']['name'].' AS tbl');
 		            }
 
-					$rows = KFactory::get('lib.koowa.database.adapter.mysqli')->select($query, KDatabase::FETCH_ARRAY_LIST, $table['options']['identity_column']);
+					$rows = $this->getService('koowa:database.adapter.mysqli')->select($query, KDatabase::FETCH_ARRAY_LIST, $table['options']['identity_column']);
 	
 					$this->data[$name] = isset($this->data[$name]) && is_array($this->data[$name]) ? array_merge($this->data[$name], $rows) : $rows;
 				}
@@ -522,8 +511,8 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
 
 	protected function updateForumPaths()
 	{
-		$query  = KFactory::tmp('lib.koowa.database.query')->where('parent_id', '=', 0);
-		$table  = KFactory::tmp('admin::com.ninjaboard.database.table.forums');
+		$query  = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('parent_id', '=', 0);
+		$table  = $this->getService('com://admin/ninjaboard.database.table.forums');
 		$forums = $table->select($query, KDatabase::FETCH_ROWSET);
 		
 		foreach($forums as $forum)
@@ -534,8 +523,8 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
 	
 	protected function updateForumPathsRecurse($forum)
 	{
-		$query    = KFactory::tmp('lib.koowa.database.query')->where('parent_id', '!=', 0)->where('parent_id', '=', $forum->id)->where('path', '=', '/');
-		$table    = KFactory::tmp('admin::com.ninjaboard.database.table.forums');
+		$query    = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('parent_id', '!=', 0)->where('parent_id', '=', $forum->id)->where('path', '=', '/');
+		$table    = $this->getService('com://admin/ninjaboard.database.table.forums');
 		$path     = $forum->path;
 		$forums   = $table->select($query, KDatabase::FETCH_ROWSET);
 		
@@ -560,7 +549,7 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
  * Detailed copyright and licensing information can be found
  * in the gpl-3.0.txt file which should be included in the distribution.
  * 
- * @version		$Id: abstract.php 1948 2011-06-08 17:34:10Z stian $
+ * @version		$Id: abstract.php 2462 2011-10-11 22:55:40Z stian $
  * @copyright  2007 - 2010 jVitals
  * @license   GPLv3 Open Source
  * @link       http://jvitals.com

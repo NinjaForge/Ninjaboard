@@ -1,13 +1,13 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1653 2011-03-17 18:40:38Z stian $
+ * @version		$Id: html.php 2470 2011-11-01 14:22:28Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaboardViewThemesHtml extends ComNinjaViewTemplatesHtml
+class ComNinjaboardViewThemesHtml extends NinjaViewTemplatesHtml
 {
 	public function display()
 	{
@@ -16,9 +16,9 @@ class ComNinjaboardViewThemesHtml extends ComNinjaViewTemplatesHtml
 		if ($this->getName() == 'dashboard') $toolbar->reset();
 		else $toolbar->append('spacer');
 
-		$toolbar->append(KFactory::get('admin::com.ninja.toolbar.button.about'));
+		$toolbar->append($this->getService('ninja:toolbar.button.about'));
 		
-		if(KInflector::isPlural(KFactory::get($this->getModel())->getIdentifier()->name))
+		if(KInflector::isPlural($this->getService($this->getModel())->getIdentifier()->name))
 		{
             $this->_mixinMenubar();
 		}
