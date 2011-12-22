@@ -1,4 +1,3 @@
-<? /** $Id: default_items.php 2382 2011-08-12 23:05:33Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach($forums as $i => $forum) : ?>

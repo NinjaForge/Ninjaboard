@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: params.xml 1679 2011-03-24 01:24:49Z stian $ -->	
 <form>
 	<params group="customization">
 		<param name="pageclass_sfx" type="text" default="forum" label="Page Class Sfx" description="Sfx used for specific styling on the forum page." />

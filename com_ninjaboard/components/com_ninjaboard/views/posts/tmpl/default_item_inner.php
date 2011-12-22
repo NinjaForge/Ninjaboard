@@ -1,4 +1,3 @@
-<? /** $Id: default_item_inner.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <div class="wrap">

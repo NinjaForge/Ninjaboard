@@ -1,4 +1,3 @@
-<? /** $Id: default.php 2500 2011-11-22 02:39:08Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <?= @template('ninja:view.grid.head') ?>

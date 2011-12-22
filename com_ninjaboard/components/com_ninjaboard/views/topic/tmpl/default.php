@@ -1,4 +1,3 @@
-<? /** $Id: default.php 2519 2011-11-22 16:14:00Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <?= @template('com://site/ninjaboard.view.default.head') ?>

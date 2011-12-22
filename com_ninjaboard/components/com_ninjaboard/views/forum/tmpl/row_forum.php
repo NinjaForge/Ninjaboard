@@ -1,4 +1,3 @@
-<? /** $Id: row_forum.php 2303 2011-07-27 22:25:56Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <style type="text/css">.ninjaboard .unread-indicator {background-image: url(<?= @$img('/unread.png') ?>)}</style>

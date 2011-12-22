@@ -1,4 +1,3 @@
-<? /** $Id: conversation.php 2460 2011-10-11 21:21:19Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? $me = $this->getService('com://admin/ninjaboard.model.people')->getMe() ?>

@@ -1,4 +1,3 @@
-<? /** $Id: form.php 1188 2010-12-08 22:56:12Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <form action="<?= @route('id='.$profile_field->id) ?>" method="post" id="<?= @id() ?>">

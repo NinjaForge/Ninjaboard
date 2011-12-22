@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE metadata>
-<!-- $Id: default.xml 2439 2011-09-01 11:53:24Z stian $ -->
 <metadata>
 	<layout title="View Profile">
 		<message>View your own profile, or a login form if not logged in yet.</message>

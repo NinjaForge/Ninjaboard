@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE metadata>
-<!-- $Id: metadata.xml 1087 2010-11-18 19:45:45Z stian $ -->
 <metadata>
 	<view title="Watches">
 		<message>Manage your email subscriptions.</message>

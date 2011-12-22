@@ -1,4 +1,3 @@
-<? /** $Id: form_inner.php 2459 2011-10-11 19:10:35Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <?= @template('com://site/ninjaboard.view.default.head') ?>

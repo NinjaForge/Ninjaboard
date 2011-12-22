@@ -1,4 +1,3 @@
-<? /** $Id: list.php 1864 2011-05-19 22:20:23Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <div class="message-left <? if(!$message->is_read) echo 'message-unread' ?>"></div>

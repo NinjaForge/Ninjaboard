@@ -1,4 +1,3 @@
-<? /** $Id: form_filtering.php 1270 2010-12-22 13:14:06Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <table class="adminlist ninja-list">

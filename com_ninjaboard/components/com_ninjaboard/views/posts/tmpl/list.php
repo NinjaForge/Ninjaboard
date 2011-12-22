@@ -1,4 +1,3 @@
-<? /** $Id: list.php 1399 2011-01-12 23:36:25Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? if(!$latest_style) : ?>

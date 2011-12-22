@@ -1,6 +1,5 @@
 <?php
 /**
- * @version		$Id: ninjaboard_posts.php 1668 2011-03-22 18:50:26Z Richie $
  * @package		JXtended.Finder
  * @subpackage	plgFinderKunena_Posts
  * @copyright	Copyright (C) 2007 - 2010 JXtended, LLC. All rights reserved.

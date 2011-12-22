@@ -1,4 +1,3 @@
-<? /** $Id: row_topic.php 1943 2011-05-24 23:26:49Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? $img = isset(@$topic->params['customization']['icon']) ? @$topic->params['customization']['icon'] : '32__default.png' ?>

@@ -1,4 +1,3 @@
-<? /** $Id: phpbb.php 1517 2011-02-09 22:21:34Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <script type="text/javascript">

@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: configurable.php 2460 2011-10-11 21:21:19Z stian $
  * @package		Ninjaboard
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>

@@ -1,6 +1,5 @@
 <?php
 /**
- * @version		$Id: orderable.php 2415 2011-08-26 20:34:38Z stian $
  * @package		Ninjaboard
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>

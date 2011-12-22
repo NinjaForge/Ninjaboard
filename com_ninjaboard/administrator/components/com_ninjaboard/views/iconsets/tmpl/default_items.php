@@ -1,4 +1,3 @@
-<? /** $Id: default_items.php 2390 2011-08-13 15:45:34Z richie $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach (@$iconsets as $i => $iconset) : ?>

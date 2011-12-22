@@ -1,4 +1,3 @@
-<? /** $Id: popular_topics.php 2460 2011-10-11 21:21:19Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach(

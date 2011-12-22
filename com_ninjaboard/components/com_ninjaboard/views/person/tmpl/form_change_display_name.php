@@ -1,4 +1,3 @@
-<? /** $Id: form_change_display_name.php 1195 2010-12-09 03:39:46Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <input type="hidden" name="which_name" value="" />

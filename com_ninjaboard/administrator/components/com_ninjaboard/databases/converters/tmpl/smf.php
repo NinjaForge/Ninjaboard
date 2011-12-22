@@ -1,4 +1,3 @@
-<? /** $Id: smf.php 1518 2011-02-09 22:21:46Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <style type="text/css">

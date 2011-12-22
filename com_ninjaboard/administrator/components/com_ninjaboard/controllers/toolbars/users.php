@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: forums.php 2330 2011-07-31 00:17:49Z stian $
  * @category	Ninjaboard
  * @package		Ninjaboard_Controller
  * @subpackage	Toolbar

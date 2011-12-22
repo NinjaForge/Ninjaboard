@@ -1,4 +1,3 @@
-<? /** $Id: default.php 1626 2011-03-02 02:18:55Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <h3 class="message-subject"><?= $message->subject ?></h3>

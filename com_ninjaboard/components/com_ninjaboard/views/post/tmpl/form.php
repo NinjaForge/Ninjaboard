@@ -1,4 +1,3 @@
-<? /** $Id: form.php 2447 2011-09-08 13:28:12Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <div id="ninjaboard" class="ninjaboard post-form<? if(!$topic->id || $topic->first_post_id == $post->id) : ?> new-topic-form<? endif ?>">

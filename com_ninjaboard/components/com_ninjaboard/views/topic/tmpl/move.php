@@ -1,4 +1,3 @@
-<? /** $Id: move.php 2460 2011-10-11 21:21:19Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <?= @template('com://site/ninjaboard.view.default.head') ?>

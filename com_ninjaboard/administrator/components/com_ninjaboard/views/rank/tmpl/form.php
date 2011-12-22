@@ -1,4 +1,3 @@
-<? /** $Id: form.php 2470 2011-11-01 14:22:28Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <?= @template('ninja:view.form.head') ?>

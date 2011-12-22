@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: mod_ninjaboard_stats.php 2469 2011-11-01 14:09:17Z stian $
  * @package		Ninjaboard
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>

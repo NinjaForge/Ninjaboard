@@ -1,4 +1,3 @@
-<? /** $Id: default.php 2490 2011-11-10 22:21:16Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <?= @helper('behavior.mootools') ?>

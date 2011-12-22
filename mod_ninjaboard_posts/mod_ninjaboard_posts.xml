@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: mod_ninjaboard_posts.xml 2278 2011-07-24 23:11:56Z captainhook $ -->
 <!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/module-install.dtd">
 <install type="module" version="1.5.0" method="upgrade">
 	<name>Ninjaboard Posts</name>

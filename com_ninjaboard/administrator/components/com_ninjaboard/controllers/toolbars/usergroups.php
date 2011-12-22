@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: usergroups.php 2504 2011-11-22 10:27:30Z stian $
  * @category	Ninjaboard
  * @package		Ninjaboard_Controller
  * @subpackage	Toolbar

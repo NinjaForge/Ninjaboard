@@ -1,4 +1,3 @@
-<? /** $Id: row_post.php 1939 2011-05-24 14:35:13Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 <li class="ninjaboard-latest-post">
 	

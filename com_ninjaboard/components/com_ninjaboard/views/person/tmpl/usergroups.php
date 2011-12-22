@@ -1,4 +1,3 @@
-<? /** $Id: usergroups.php 1329 2011-01-05 01:36:01Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? if($usergroups) : ?>
