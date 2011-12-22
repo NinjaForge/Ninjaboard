@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: abstract.php 1948 2011-06-08 17:34:10Z stian $
  * @category	Ninjaboard
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -560,7 +559,6 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
  * Detailed copyright and licensing information can be found
  * in the gpl-3.0.txt file which should be included in the distribution.
  * 
- * @version		$Id: abstract.php 1948 2011-06-08 17:34:10Z stian $
  * @copyright  2007 - 2010 jVitals
  * @license   GPLv3 Open Source
  * @link       http://jvitals.com
