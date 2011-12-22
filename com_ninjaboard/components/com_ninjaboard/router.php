@@ -2,7 +2,6 @@
  /**
  * NinjaForge Ninjaboard
  *
- * @version		$Id: router.php 2223 2011-07-15 22:37:50Z stian $
  * @package		Ninjaboard
  * @copyright	Copyright (C) 2007-2010 Ninja Media Group. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
