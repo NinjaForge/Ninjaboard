@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id: setting.xml 1997 2011-06-29 15:44:18Z stian $ -->	
 <form>
 	<fieldset group="board_details" class="adminlist" description="Parameters for board configuration">
 		<element name="theme" type="request" key="name" request="name" get="admin::com.ninjaboard.model.themes" default="chameleon" load="&amp;option=com_ninjaboard&amp;view=theme&amp;layout=settings&amp;format=raw" />

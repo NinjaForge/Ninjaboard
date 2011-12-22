@@ -1,4 +1,3 @@
-<? /** $Id: default_items.php 1270 2010-12-22 13:14:06Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach($ranks as $i => $rank) : ?>

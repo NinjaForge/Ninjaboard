@@ -1,4 +1,3 @@
-<? /** $Id: default.php 1272 2010-12-22 13:48:58Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? if($length > 0) : ?>

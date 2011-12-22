@@ -1,4 +1,3 @@
-<? /** $Id: default.php 1809 2011-04-15 18:42:23Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <style type="text/css">

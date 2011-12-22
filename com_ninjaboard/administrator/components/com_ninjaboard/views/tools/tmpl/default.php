@@ -1,4 +1,3 @@
-<? /** $Id: default.php 1793 2011-04-13 21:29:06Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <script type="text/javascript" src="/ProgressBar.js"></script>

@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: select.php 1045 2010-11-09 11:13:19Z stian $
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage	Helper

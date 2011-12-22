@@ -1,4 +1,3 @@
-<? /** $Id: form.php 1071 2010-11-16 01:35:31Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? $user = KFactory::get('admin::com.ninjaboard.model.users')->id($state->user)->getItem() ?>

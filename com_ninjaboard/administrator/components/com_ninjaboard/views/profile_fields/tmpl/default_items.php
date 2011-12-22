@@ -1,4 +1,3 @@
-<? /** $Id: default_items.php 1072 2010-11-16 12:49:19Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach (@$profile_fields as $i => $profile_field) : ?>

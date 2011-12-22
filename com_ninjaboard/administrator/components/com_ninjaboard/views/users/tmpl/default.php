@@ -1,4 +1,3 @@
-<? /** $Id: default.php 1298 2011-01-03 03:10:31Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 <?= @template('form_filtering') ?>
 <form action="<?= @route() ?>" method="post" id="<?= @id() ?>">

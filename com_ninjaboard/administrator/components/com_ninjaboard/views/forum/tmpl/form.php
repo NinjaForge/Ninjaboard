@@ -1,4 +1,3 @@
-<? /** $Id: form.php 2340 2011-08-01 21:01:42Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? @ninja('behavior.tooltip', array('selector' => '[title].hasTip')) ?>

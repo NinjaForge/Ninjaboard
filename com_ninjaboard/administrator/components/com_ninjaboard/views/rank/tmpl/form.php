@@ -1,4 +1,3 @@
-<? /** $Id: form.php 1679 2011-03-24 01:24:49Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? @ninja('behavior.livetitle', array('title' => @$rank->title)) ?>

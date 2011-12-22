@@ -1,4 +1,3 @@
-<? /** $Id: settings.php 1214 2010-12-13 02:38:37Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach($theme->xml->form->children() as $fieldset) : ?>
