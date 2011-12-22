@@ -1,4 +1,3 @@
-<? /** $Id: quick.php 1355 2011-01-10 18:33:32Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <style type="text/css">

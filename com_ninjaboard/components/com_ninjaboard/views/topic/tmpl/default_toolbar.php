@@ -1,4 +1,3 @@
-<? /** $Id: default_toolbar.php 1579 2011-02-18 00:32:38Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? if ($reply_topic_button or $move_topic_button or $delete_topic_button) : ?>

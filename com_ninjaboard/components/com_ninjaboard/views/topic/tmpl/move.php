@@ -1,4 +1,3 @@
-<? /** $Id: move.php 1653 2011-03-17 18:40:38Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />

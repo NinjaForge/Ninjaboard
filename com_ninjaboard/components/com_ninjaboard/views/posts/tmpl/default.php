@@ -1,4 +1,3 @@
-<? /** $Id: default.php 2208 2011-07-12 10:08:31Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <script type="text/javascript">
