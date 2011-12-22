@@ -1,4 +1,3 @@
-<? /** $Id: default.php 2265 2011-07-22 13:15:57Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />

@@ -1,4 +1,3 @@
-<? /** $Id: conversation.php 1846 2011-04-29 22:22:23Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? $me = KFactory::get('admin::com.ninjaboard.model.people')->getMe() ?>

@@ -1,4 +1,3 @@
-<? /** $Id: form_inner.php 2306 2011-07-28 13:49:38Z captainhook $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="/site.css" />

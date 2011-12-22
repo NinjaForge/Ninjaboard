@@ -1,4 +1,3 @@
-<? /** $Id: default_profile.php 1327 2011-01-05 00:24:07Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <!--<h2>

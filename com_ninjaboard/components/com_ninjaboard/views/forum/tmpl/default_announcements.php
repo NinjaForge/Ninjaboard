@@ -1,4 +1,3 @@
-<? /** $Id: default_announcements.php 2126 2011-07-07 20:51:36Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 <!-- replace "announcement" with class suffix -->
 <? /*

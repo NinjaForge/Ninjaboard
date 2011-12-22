@@ -1,4 +1,3 @@
-<? /** $Id: form_custom_display_name.php 1696 2011-03-25 01:24:34Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <script type="text/javascript">

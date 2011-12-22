@@ -1,4 +1,3 @@
-<? /** $Id: block_subforums.php 2126 2011-07-07 20:51:36Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <div class="ninjaboard-block category">
