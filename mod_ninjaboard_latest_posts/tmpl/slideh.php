@@ -21,7 +21,6 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );?>
 
 <?php if (file_exists(JPATH_SITE.'/components/com_ninjaboard/ninjaboard.php')){?>
-
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <?php if(count($items)){?>
