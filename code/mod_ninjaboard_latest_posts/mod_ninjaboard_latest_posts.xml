@@ -23,6 +23,7 @@
     <language tag="en-GB">language/en-GB.mod_ninjaboard_latest_posts.ini</language>
     <language tag="de-DE">language/de-DE.mod_ninjaboard_latest_posts.ini</language>
     <language tag="el-GR">language/el-GR.mod_ninjaboard_latest_posts.ini</language>
+    <language tag="fr-FR">language/fr-FR.mod_ninjaboard_latest_posts.ini</language>
     <language tag="sv-SE">language/sv-SE.mod_ninjaboard_latest_posts.ini</language>
   </languages>
   <params addpath="/modules/mod_ninjaboard_latest_posts/elements">
