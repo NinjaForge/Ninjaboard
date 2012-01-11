@@ -13,7 +13,7 @@
 	
 	
 	<svnlastrevision workingcopy="${build.workingcopy}" propertyname="svn.lastrevision" />
-	<setrevision file="${build.manifestdir}" property="${svn.lastrevision}" />
+	<!--<setrevision file="${build.manifestdir}" property="${svn.lastrevision}" />-->
 	<getversion file="${build.code}/administrator/components/${phing.project.name}/${build.manifest}" property="ext.version" />
 
 	
@@ -34,7 +34,7 @@
 		<move file=".tmp/koowa.xml" tofile=".tmp/plugins/system/koowa.xml" />-->
 
 		<!-- NAPI -->
-		<svnexport username="phing" password="IR6KcX" repositoryurl="${build.napi}" todir="${build.tmpdir}/napi" nocache="true" force="true" />
+		<!--<svnexport username="phing" password="IR6KcX" repositoryurl="${build.napi}" todir="${build.tmpdir}/napi" nocache="true" force="true" />-->
 		
 		<!-- Move component files around -->
 		<move file="${build.tmpdir}/administrator/components/${phing.project.name}/${build.manifest}" tofile="${build.tmpdir}/${build.manifest}" />
