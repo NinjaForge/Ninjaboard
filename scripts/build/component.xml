@@ -34,6 +34,9 @@
 
 		<!-- NAPI -->
 		<!--<svnexport username="phing" password="IR6KcX" repositoryurl="${build.napi}" todir="${build.tmpdir}/napi" nocache="true" force="true" />-->
+		<copy todir="${build.tmpdir}/napi">
+			<fileset dir="${build.napi}" />
+		</copy>
 		
 		<!-- Move component files around -->
 		<move file="${build.tmpdir}/administrator/components/${phing.project.name}/${build.manifest}" tofile="${build.tmpdir}/${build.manifest}" />
@@ -88,7 +91,8 @@
 			
 		<phingcall target="prepare" />
 		
-		<property name="build.package" value="${phing.project.name}_v${ext.version}_rev${svn.lastrevision}.zip" />
+		<!--<property name="build.package" value="${phing.project.name}_v${ext.version}_rev${svn.lastrevision}.zip" />-->
+		<property name="build.package" value="${phing.project.name}_v${ext.version}.zip" />
 
 		<delete file="${build.packages}/${build.package}" includeemptydirs="true" />
 		<zip destfile="${build.packages}/${build.package}">
