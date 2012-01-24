@@ -56,11 +56,6 @@ class ComNinjaboardHelperGravatar extends KObject
     protected $email = "";
 
     /**
-     *    Extra attributes to the IMG tag like ALT, CLASS, STYLE...
-     */
-    protected $extra = "";
-
-    /**
      *    
      */
     public function __construct($email=NULL, $default=NULL) {
@@ -68,7 +63,22 @@ class ComNinjaboardHelperGravatar extends KObject
         $this->setDefault($default);
     }
 
-    
+    /**
+     * Initializes the config for the object
+     *
+     * Called from {@link __construct()} as a first step of object instantiation.
+     *
+     * @param   object  An optional KConfig object with configuration options
+     * @return  void
+     */
+    protected function _initialize(KConfig $config)
+    {
+        $config->append(array(
+            'table' => 'ninja:database.table.'.$this->getIdentifier()->name,
+        ));
+
+        parent::_initialize($config);
+    }
 
     /**
      *    
@@ -108,13 +118,6 @@ class ComNinjaboardHelperGravatar extends KObject
         if ($size <= 0)
             $size = NULL;        // Use the default size
         $this->properties['size'] = $size;
-    }
-
-    /**
-     *    
-     */
-    public function setExtra($extra) {
-        $this->extra = $extra;
     }
 
     /**
