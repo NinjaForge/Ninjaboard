@@ -44,7 +44,7 @@ class ComNinjaboardHelperGravatar extends KObject
      */
     protected $properties = array(
         "gravatar_id"	=> NULL,
-        "default"		=> NULL,
+        "default"		=> 404,
         "size"			=> 80,        // The default value
         "rating"		=> NULL,
         "border"		=> NULL,
