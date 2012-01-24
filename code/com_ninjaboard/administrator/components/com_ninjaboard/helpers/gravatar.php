@@ -68,6 +68,8 @@ class ComNinjaboardHelperGravatar extends KObject
         $this->setDefault($default);
     }
 
+    
+
     /**
      *    
      */
@@ -146,9 +148,9 @@ class ComNinjaboardHelperGravatar extends KObject
     public function __unset($var) { return @$this->properties[$var] == NULL; }
 
     /**
-     *    Get source
+     *    The toString
      */
-    public function getSrc() {
+    public function __toString() {
         $url = self::GRAVATAR_URL ."?";
         $first = true;
         foreach($this->properties as $key => $value) {
@@ -159,21 +161,7 @@ class ComNinjaboardHelperGravatar extends KObject
                 $first = false;
             }
         }
+        die($url);
         return $url;    
     }
-
-    /**
-     *    toHTML
-     */
-    public function toHTML() {
-        return     '<img src="'. $this->getSrc() .'"'
-                .(!isset($this->size) ? "" : ' width="'.$this->size.'" height="'.$this->size.'"')
-                .$this->extra
-                .' />';    
-    }
-
-    /**
-     *    toString
-     */
-    public function __toString() { return $this->toHTML(); }
 }
