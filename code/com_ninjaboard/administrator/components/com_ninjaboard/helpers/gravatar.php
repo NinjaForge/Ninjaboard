@@ -32,7 +32,7 @@ class ComNinjaboardHelperGravatar extends KObject
     /**
      *    Gravatar's url
      */
-    const GRAVATAR_URL = "http://www.gravatar.com/avatar.php";
+    const GRAVATAR_URL = "http://www.gravatar.com/avatar/";
 
     /**
      *    Ratings available
@@ -79,11 +79,10 @@ class ComNinjaboardHelperGravatar extends KObject
      *    The toString
      */
     public function __toString() {
-        $url = self::GRAVATAR_URL .'?'.http_build_query(array(
-            'gravatar_id' => md5(strtolower($this->email)),
+        $url = self::GRAVATAR_URL.md5(strtolower($this->email)).'?'.http_build_query(array(
             'size' => max(0, (int)$this->size)
         ));
-die($url);
+
         return $url;    
     }
 }
