@@ -56,7 +56,7 @@ class ComNinjaboardModelAvatars extends ComNinjaboardModelPeople
 			} elseif(!JFile::exists(JPATH_ROOT.$this->_item->default) || $this->_item->default == '/media/com_ninjaboard/images/avatar.png') {
 				if($settings['enable_gravatar']) {
 					$this->_item->default = (string)$this->getService('com://admin/ninjaboard.helper.gravatar', array(
-						'emaile' => $this->_item->email,
+						'email' => $this->_item->email,
 						'size'   => max($settings[$size.'_thumbnail_width'], $settings[$size.'_thumbnail_height'])
 					));
 

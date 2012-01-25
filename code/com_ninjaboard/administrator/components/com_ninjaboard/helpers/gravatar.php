@@ -38,29 +38,23 @@ class ComNinjaboardHelperGravatar extends KObject
      *    Ratings available
      */
     private $GRAVATAR_RATING = array("G", "PG", "R", "X");
-    
-    /**
-     *    Query string. key/value
-     */
-    protected $properties = array(
-        "gravatar_id"	=> NULL,
-        "default"		=> 404,
-        "size"			=> 80,        // The default value
-        "rating"		=> NULL,
-        "border"		=> NULL,
-    );
 
     /**
      *    E-mail. This will be converted to md5($email)
      */
-    protected $email = "";
+    public $email, $size;
 
     /**
-     *    
+     * Constructor
+     *
+     * @param   object  An optional KConfig object with configuration options
      */
-    public function __construct($email=NULL, $default=NULL) {
-        $this->setEmail($email);
-        $this->setDefault($default);
+    public function __construct(KConfig $config) 
+    {
+        parent::__construct($config);
+
+        $this->email   = $config->email;
+        $this->size    = $config->size;
     }
 
     /**
@@ -74,97 +68,22 @@ class ComNinjaboardHelperGravatar extends KObject
     protected function _initialize(KConfig $config)
     {
         $config->append(array(
-            'table' => 'ninja:database.table.'.$this->getIdentifier()->name,
+            'email'   => '',
+            'size'    => 80
         ));
 
         parent::_initialize($config);
     }
 
     /**
-     *    
-     */
-    public function setEmail($email) {
-        if (KService::get('koowa:filter.email')->validate($email)) {
-            $this->email = $email;
-            $this->properties['gravatar_id'] = md5(strtolower($this->email));
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     *    
-     */
-    public function setDefault($default) {
-        $this->properties['default'] = $default;
-    }
-
-    /**
-     *    
-     */
-    public function setRating($rating) {
-        if (in_array($rating, $this->GRAVATAR_RATING)) {
-            $this->properties['rating'] = $rating;
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     *    
-     */
-    public function setSize($size) {
-        $size = (int) $size;
-        if ($size <= 0)
-            $size = NULL;        // Use the default size
-        $this->properties['size'] = $size;
-    }
-
-    /**
-     *    Object property overloading
-     */
-    public function __get($var) { return @$this->properties[$var]; }
-
-    /**
-     *    Object property overloading
-     */
-    public function __set($var, $value) {
-        switch($var) {
-            case "email":    return $this->setEmail($value);
-            case "rating":    return $this->setRating($value);
-            case "default":    return $this->setDefault($value);
-            case "size":    return $this->setSize($value);
-            // Cannot set gravatar_id
-            case "gravatar_id": return;
-        }
-        return @$this->properties[$var] = $value;
-    }
-
-    /**
-     *    Object property overloading
-     */
-    public function __isset($var) { return isset($this->properties[$var]); }
-
-    /**
-     *    Object property overloading
-     */
-    public function __unset($var) { return @$this->properties[$var] == NULL; }
-
-    /**
      *    The toString
      */
     public function __toString() {
-        $url = self::GRAVATAR_URL ."?";
-        $first = true;
-        foreach($this->properties as $key => $value) {
-            if (isset($value)) {
-                if (!$first)
-                    $url .= "&";
-                $url .= $key."=".urlencode($value);
-                $first = false;
-            }
-        }
-        die($url);
+        $url = self::GRAVATAR_URL .'?'.http_build_query(array(
+            'gravatar_id' => md5(strtolower($this->email)),
+            'size' => max(0, (int)$this->size)
+        ));
+die($url);
         return $url;    
     }
 }
