@@ -53,9 +53,10 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		if(!isset($loaded[$selector]))
 		{
 			$loaded[$selector] = true;
+			$this->getService('ninja:template.helper.document')->load('/jquery/jquery.js');
 			$this->getService('ninja:template.helper.document')->load('/watch.js');
 			$this->getService('ninja:template.helper.document')->load('js', '
-				jQuery(function($){
+				ninja(function($){
 					$(\'.'.$selector.'\').ninjaboardWatch('.json_encode(array(
 						'active'	=> $config->active,
 						'hover'		=> $config->hover,
