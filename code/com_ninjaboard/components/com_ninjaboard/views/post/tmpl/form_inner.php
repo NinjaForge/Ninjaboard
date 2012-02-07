@@ -56,8 +56,7 @@
 <? $bbcode = dirname($this->getView()->getIdentifier()->filepath).'/bbcode.js' ?>
 <? if(file_exists($bbcode)) : ?>
 <script type="text/javascript">
-    <? /* @TODO this shouldn't be needed anymore */ ?>
-	<?/*= str_replace(
+	<?= str_replace(
 			array(
 				'~/sets/bbcode/preview.php', 
 				'magifier_zoom_out.png', 
@@ -70,14 +69,13 @@
 			),
 			file_get_contents($bbcode)
 		)
-	*/?>
+	?>
 </script>
 <? endif ?>
 
 <?= @helper('behavior.keepalive') ?>
 
 <script type="text/javascript">
-    //@TODO converting jQuery to moo
 	window.addEvent('domready', function(){
 		var form = document.id('<?= @id() ?>');
 		$$('#<?= @id('cancel') ?>', '#<?= @id('save') ?>').addEvent('click', function(event){
@@ -200,7 +198,8 @@
 			</div>
 		<? endif ?>
 		<div class="element wider" style="text-align:center;position:relative">
-		    <?= @ninja('behavior.wysiwygbbcode', array('element' => 'text', 'placeholder' => @text('Enter some text'), 'value' => @escape($post->text))) ?>
+		    <textarea name="text" id="text" placeholder="<?= @text('Enter some text') ?>"><?= @escape($post->text) ?></textarea>
+			<div id="text_preview"></div>
 		</div>
 
 		<? if($topic->attachment_permissions > 1 && ($topic->attachment_settings || $forum->post_permissions > 2)) : ?>
