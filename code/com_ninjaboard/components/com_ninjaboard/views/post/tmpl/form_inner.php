@@ -82,7 +82,7 @@
 	}, <?= 60000 * max(1, (int)JFactory::getApplication()->getCfg('lifetime')) ?>);
 
 	ninja(function($){
-		var form = document.id('<?= @id() ?>');
+		var form = $('#<?= @id() ?>');
 		$('#<?= @id('cancel') ?>, #<?= @id('save') ?>').click(function(event){
 			event.preventDefault();
 			event.stopPropagation();
@@ -169,11 +169,10 @@
 			return false;
 		});
 		
-		$$('.image-select input')
-    		.addEvent('change', function(){
-    			this.getSiblings('label').removeClass('selected');
-    			if(this.getNext()) this.getNext().addClass('selected');
-    		});
+		$('.image-select input').change(function(){
+    		$(this).siblings('label').removeClass('selected');
+    		$(this).next().addClass('selected');
+    	});
 		
 		//This is for IE, which don't respect the for attribute if the input isn't visible
 		$('.image-select label').bind('click', function(){
