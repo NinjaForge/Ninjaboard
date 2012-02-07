@@ -167,11 +167,11 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		$config = new KConfig($config);
 		
 		$config->append(array(
-			'name' => false,
-			'value' => false,
-			'placeholder' => 'Write something…'
+			'name'            => false,
+			'value'           => false,
+			'placeholder'     => 'Write something…'
 		))->append(array(
-			'element' => $config->name
+			'element'         => $config->name
 		))->append(array(
 			'element_preview' => $config->id.'_preview'
 		));
