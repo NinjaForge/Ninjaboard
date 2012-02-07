@@ -199,6 +199,7 @@
 			</div>
 		<? endif ?>
 		<div class="element wider" style="text-align:center;position:relative">
+			<?= @helper('behavior.editor', array('name' => 'text', 'placeholder' => 'Enter some text', 'value' => $post->text)) ?>
 		    <textarea name="text" id="text" placeholder="<?= @text('Enter some text') ?>"><?= @escape($post->text) ?></textarea>
 			<div id="text_preview"></div>
 		</div>

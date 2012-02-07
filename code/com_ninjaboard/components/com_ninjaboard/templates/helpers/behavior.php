@@ -156,4 +156,32 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		
 		return implode($html);
 	}
+
+	/**
+	 * Renders the editor
+	 *
+	 * @author Stian Didriksen
+	 */
+	public function editor($config = array())
+	{
+		$config = new KConfig($config);
+		
+		$config->append(array(
+			'name' => false,
+			'value' => false,
+			'placeholder' => 'Write something…'
+		))->append(array(
+			'element' => $config->name
+		))->append(array(
+			'element_preview' => $config->id.'_preview'
+		));
+
+		$html[] = '<textarea name="'.$config->name.'" id="'.$config->element.'" placeholder="'.JText::_($config->placeholder).'">';
+		$html[] = htmlspecialchars($config->value);
+		$html[] = '</textarea>';
+
+		$html[] = '<div id="'.$config->element_preview.'"></div>';
+
+		return implode($html);
+	}
 }
