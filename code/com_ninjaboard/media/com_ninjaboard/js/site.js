@@ -1,4 +1,4 @@
-jQuery(function($){
+ninja(function($){
 	$('li.row', '#ninjaboard').hover(function(){
 		if($(this).is(':first-child')) {
 			$(this).closest('.ninjaboard-block').find('li.header').addClass('hover-next');
@@ -47,4 +47,4 @@ jQuery(function($){
 	};
 	$(setBottomPadding);
 	$(window).load(setBottomPadding);
-})(jQuery);
+})(ninja);

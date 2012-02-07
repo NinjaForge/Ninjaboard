@@ -92,4 +92,4 @@ myBbcodeSettings = {
       {name:'Preview', className:"button_preview", beforeInsert:function(markItUp) { return NB.customPreview(markItUp) } }
    ]
 }
-})(jQuery);
+})(ninja);
