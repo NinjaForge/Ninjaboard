@@ -14,7 +14,7 @@ var NB = {
 	    // Swap the preview pane and the edit pane
 	    if(!preview_pane.is(":visible")) {
 	      var formatted_text;
-	      jQuery.ajaxSetup( { async:false } );
+	      ninja.ajaxSetup( { async:false } );
 	      var value = encodeURIComponent(markItUp.textarea.value)
 											      				.replace(/!/g, '%21')
 											      				.replace(/'/g, '%27')
