@@ -73,14 +73,9 @@
 </script>
 <? endif ?>
 
-<?//@TODO = @helper('behavior.keepalive') ?>
+<?= @helper('behavior.keepalive') ?>
 
 <script type="text/javascript">
-	//jQuery version of keepalive
-	setInterval(function(){
-		jQuery.get(<?= json_encode(KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH).@route()) ?>);
-	}, <?= 60000 * max(1, (int)JFactory::getApplication()->getCfg('lifetime')) ?>);
-
 	ninja(function($){
 		var form = $('#<?= @id() ?>');
 		$('#<?= @id('cancel') ?>, #<?= @id('save') ?>').click(function(event){

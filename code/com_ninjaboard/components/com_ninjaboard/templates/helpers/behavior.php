@@ -173,7 +173,7 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		))->append(array(
 			'element'         => $config->name
 		))->append(array(
-			'element_preview' => $config->id.'_preview'
+			'element_preview' => $config->element.'_preview'
 		));
 
 		$html[] = '<textarea name="'.$config->name.'" id="'.$config->element.'" placeholder="'.JText::_($config->placeholder).'">';
@@ -181,6 +181,25 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		$html[] = '</textarea>';
 
 		$html[] = '<div id="'.$config->element_preview.'"></div>';
+
+		return implode($html);
+	}
+
+	/**
+	 * jQuery version of keepalive
+	 *
+	 * @author Stian Didriksen
+	 */
+	public function keepalive()
+	{
+		$html[] = '<script type="text/javascript">';
+		$html[] = "\n";
+		$html[] = 'if(window.ninja){';
+		$html[] =	 'setInterval(function(){';
+		$html[] = 		'ninja.get(' . json_encode(KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH)) . ');';
+		$html[] = 	'}, ' . (60000 * max(1, (int)JFactory::getApplication()->getCfg('lifetime'))) . ');';
+		$html[] = "}";
+		$html[] = '</script>';
 
 		return implode($html);
 	}
