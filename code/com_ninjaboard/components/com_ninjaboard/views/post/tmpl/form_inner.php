@@ -51,7 +51,7 @@
 	}
 </style>
 
-<script type="text/javascript" src="/jquery.markitup.pack.js"></script>
+<script type="text/javascript" src="/jquery/jquery.markitup.pack.js"></script>
 
 <? $bbcode = dirname($this->getView()->getIdentifier()->filepath).'/bbcode.js' ?>
 <? if(file_exists($bbcode)) : ?>
@@ -73,12 +73,17 @@
 </script>
 <? endif ?>
 
-<?= @helper('behavior.keepalive') ?>
+<?//@TODO = @helper('behavior.keepalive') ?>
 
 <script type="text/javascript">
-	window.addEvent('domready', function(){
+	//jQuery version of keepalive
+	setInterval(function(){
+		jQuery.get(<?= json_encode(KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH).@route()) ?>);
+	}, <?= 60000 * max(1, (int)JFactory::getApplication()->getCfg('lifetime')) ?>);
+
+	ninja(function($){
 		var form = document.id('<?= @id() ?>');
-		$$('#<?= @id('cancel') ?>', '#<?= @id('save') ?>').addEvent('click', function(event){
+		$('#<?= @id('cancel') ?>, #<?= @id('save') ?>').click(function(event){
 			event.preventDefault();
 			event.stopPropagation();
 		});
@@ -97,37 +102,34 @@
 		});
 		
 		var save = function(event){
-		    if(submitting) return;
-		    else           submitting = true;
-		
 			event.preventDefault();
 			event.stopPropagation();
 			//Do basic forms validation for better usability
-			var subject = document.id('subject'), text = document.id('text');
+			var subject = document.getElementById('subject'), text = document.getElementById('text');
 
 			if(subject && !subject.value && text && !text.value) {
-				submitting = false;
+				$('#<?= @id('save') ?>').one('click', save);
 				alert(<?= json_encode(@text("You need to enter text and a subject.")) ?>);
 				return false; 
 			}
 
 			if(subject && !subject.value) {
-				submitting = false;
+				$('#<?= @id('save') ?>').one('click', save);
 				alert(<?= json_encode(@text("You need to enter a subject.")) ?>);
 				return false; 
 			}
 			
 			if(text && !text.value) {
-				submitting = false;
+				$('#<?= @id('save') ?>').one('click', save);
 				alert(<?= json_encode(@text("You need to enter some text.")) ?>);
 				return false; 
 			}
 			
-			form.adopt(new Element('input', {type: 'hidden', name: 'action', value: 'save'}))
-			    .fireEvent('submit')
-				.submit();
+			form.append('<input type=\"hidden\" name=\"action\" value=\"save\" />')
+				.trigger('submit');
 		};
-		document.id('<?= @id('save') ?>').addEvent('click', save);
+		$('#<?= @id('save') ?>').one('click', save);
+		$('#text').markItUp(myBbcodeSettings);
 		
 		//@TODO jquery port progress, below is what's left
 		
