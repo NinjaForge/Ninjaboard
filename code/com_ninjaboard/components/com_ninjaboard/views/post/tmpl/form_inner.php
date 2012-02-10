@@ -82,18 +82,13 @@
 			event.preventDefault();
 			event.stopPropagation();
 		});
-		var submitting = false;
-		document.id('<?= @id('cancel') ?>').addEvent('click', function(event){
-		    if(submitting) return;
-		    else           submitting = true;
-
+		$('#<?= @id('cancel') ?>').one('click', function(event){
 			event.preventDefault();
 			event.stopPropagation();
 
             //@TODO refactor to use koowa.js
-			form.adopt(new Element('input', {type: 'hidden', name: 'action', value: 'cancel'}))
-			    .fireEvent('submit')
-				.submit();
+			form.append('<input type=\"hidden\" name=\"action\" value=\"cancel\" />')
+			    .trigger('submit');
 		});
 		
 		var save = function(event){
@@ -131,7 +126,7 @@
 		var slideDownAttachmentsHelp = function(){
 			$('.attachments-extensions-help').slideDown();
 		};
-		document.id("addFile").addEvent('click', slideDownAttachmentsHelp).addEvent('click', function () {
+		$("#addFile").click(slideDownAttachmentsHelp).click(function() {
 			
 			var attachment = $('<li>'+
 					'<a class="remove" href="#" title="<?= @text('Remove') ?>">&#10005;</a>'+
