@@ -218,8 +218,7 @@
 			</div>
 		</div>
 		<? endif ?>
-		
-		<? /* @TODO sticky is WIP */ ?><!--
+
 		<? if($forum->topic_permissions > 2 && (!$topic->id || $topic->first_post_id == $post->id)) : ?>
 			<div class="element">
 				<label for="sticky">
@@ -228,7 +227,7 @@
 					<?= @text('Sticky topic') ?>
 				</label>
 			</div>
-		<? endif ?>-->
+		<? endif ?>
 
 		<div class="element"></div>
 
