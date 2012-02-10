@@ -37,6 +37,8 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	
 		parent::__construct($config);
 
+		$this->addBehavior('editable');
+
 		//Register validation event
 		//@TODO we shouldn't have to attach to the save and apply events. But KControllerView expects 'edit' to succeed.
 		$this->registerCallback(array('before.add', 'before.edit', 'before.save', 'before.apply'), array($this, 'validate'));
@@ -55,6 +57,9 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		// Workaround for avoiding 404 status on editor preview ajax
 		// @TODO replace MarkItUp with a wysiwyg editor so that ajax previews are no longer necessary.
 		$this->registerCallback('after.read', array($this, 'prevent404'));
+
+		// @TODO cleanup
+		$this->registerCallback('after.save', array($this, 'afterSave'));
 	}
 
 	/**
@@ -127,10 +132,15 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		
 		//Always run delete to clean out duplicates
 		//@TODO make this lazier
-		$this->getService('com://site/ninjaboard.controller.watch')
+		try {
+			$this->getService('com://site/ninjaboard.controller.watch')
 															->type($type)
 															->type_id($data->ninjaboard_topic_id)
 															->execute('delete');
+		} catch (KControllerException $e) {
+			
+		}
+		
 		
 		if($data->notify_on_reply_topic)
 		{
@@ -152,7 +162,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		$params = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 		if($params['email_notification_settings']['enable_email_notification'])
 		{
-			$this->getService('com://site/ninjaboard.controller.watch')->execute('notify', $context);
+			$this->getService('com://site/ninjaboard.controller.watch')->execute('notify', clone $context);
 		}
 	}
 
@@ -247,11 +257,9 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		}		
 	}
 
-	protected function _actionSave(KCommandContext $context)
+	public function afterSave(KCommandContext $context)
 	{
-		$result = parent::_actionSave($context);
-
-		$row = $this->getModel()->getItem();
+		$row = $context->result;
 
 		if($row->ninjaboard_topic_id && $row->id)
 		{
@@ -262,8 +270,6 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		{
 			$this->setRedirect('index.php?option=com_ninjaboard&view=topic&id='.$row->ninjaboard_topic_id);
 		}
-
-		return $result;
 	}
 	
 	/*
