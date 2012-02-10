@@ -11,6 +11,11 @@
 			</dl>
 		</li>
 	</ul>
+	<ul class="topiclist forums stickies">
+	<? foreach (@$stickies as $sticky) : ?>
+		<?= @template('com://site/ninjaboard.view.topic.row_topic', array('topic' => $sticky)) ?>
+	<? endforeach ?>
+	</ul>
 	<ul class="topiclist forums">
 	<? foreach (@$topics as $topic) : ?>
 		<?= @template('com://site/ninjaboard.view.topic.row_topic', array('topic' => $topic)) ?>
