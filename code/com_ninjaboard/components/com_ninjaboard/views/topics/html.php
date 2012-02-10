@@ -18,8 +18,11 @@ class ComNinjaboardViewTopicsHtml extends ComNinjaboardViewHtml
 							->sort('last_post_on')
 							->at(KRequest::get('get.at', 'int', false))
 							->direction('desc')
-							->offset(KRequest::get('get.offset', 'int', 0));
-
+							->offset(KRequest::get('get.offset', 'int', 0))
+							->sticky(0);
+		
+		$state = clone $model->getState();
+		
 		$this->topics	= $model->getList();
 		$this->total	= $model->getTotal();
 
@@ -28,6 +31,16 @@ class ComNinjaboardViewTopicsHtml extends ComNinjaboardViewHtml
 				->pagination($this->total, KRequest::get('get.offset', 'int', 0), $this->limit, 4)
 		);
 		
+		$stickymodel = KService::get('com://admin/ninjaboard.model.topics')
+							->offset(0)
+							->limit(0)
+							->direction('desc')
+							->sort('last_post_on')
+							->forum($state->forum)
+							->sticky(1);
+
+		$this->stickies	= $stickymodel->getList();
+
 		return parent::display();
 	}
 
