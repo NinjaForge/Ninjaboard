@@ -254,7 +254,7 @@ if(!isset($tables['user_groups']['visible']))
 	$db->query();
 }
 
-if(isset($tables['message_recipients']['deleted_on']))
+if(!isset($tables['message_recipients']['is_deleted']))
 {
 	$db->setQuery("ALTER TABLE `#__ninjaboard_message_recipients` DROP `deleted_on`;");
 	$db->query();
@@ -305,10 +305,10 @@ if(!isset($tables['people']['avatar_on']))
 //Adjust subject length, and remove deprecated column
 if(isset($tables['posts']['access']))
 {
-	$db->setQuery("ALTER TABLE `#__ninjaboard_posts` DROP `access`;");
-	$db->query();
-	
 	$db->setQuery("ALTER TABLE `#__ninjaboard_posts` CHANGE `subject` `subject` varchar(100) NOT NULL DEFAULT '';");
+	$db->query();
+
+	$db->setQuery("ALTER TABLE `#__ninjaboard_posts` DROP `access`;");
 	$db->query();
 }
 
