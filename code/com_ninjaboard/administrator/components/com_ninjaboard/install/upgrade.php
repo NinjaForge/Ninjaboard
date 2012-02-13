@@ -380,3 +380,9 @@ if(!isset($indexes['topic_symlinks']['ninjaboard_forum_id']))
     $db->query();
 }
 
+/* Adding columns for locking and sticky topics, and some fixing of incorrect default values in columns */
+if(!isset($tables['topics']['sticky_on']))
+{
+    $db->setQuery("ALTER TABLE `#__ninjaboard_topics` CHANGE `sticky` `sticky` TINYINT(1)  NOT NULL  DEFAULT '0';");
+    $db->query();
+}
