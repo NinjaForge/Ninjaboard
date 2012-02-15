@@ -20,7 +20,7 @@
 	
 	<? if($params['avatar_settings']['enable_avatar']) : ?>
 	<div id="<?= @id('avatar') ?>" class="avatar">
-		<?= @helper('com://site/ninjaboard.template.helper.avatar.image', array('id'	=> $person->id)) ?>
+		<?= @helper('com://site/ninjaboard.template.helper.avatar.image', array('id' => $person->id)) ?>
 	</div>
 	<? endif ?>
 	<h1>

@@ -133,7 +133,7 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		$this->getService('ninja:template.helper.document')->load('/reveal.js');
 		$this->getService('ninja:template.helper.document')->load('/reveal.css');
 		$this->getService('ninja:template.helper.document')->load('js', "
-		jQuery(function($){
+		ninja(function($){
 		    var messageform = $('#ninjaboard-message-form'), title = messageform.find('.reply-to'), input = messageform.find('input[name=to]');
 
 		    messageform.appendTo(document.body).addClass('replying');

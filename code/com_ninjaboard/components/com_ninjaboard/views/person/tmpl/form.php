@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/site.form.css" />
 
 <script type="text/javascript">
-	jQuery(function($){
+	ninja(function($){
 		var form = $('#<?= @id() ?>');
 		$('#<?= @id('cancel') ?>').click(function(event){
 			event.preventDefault();
