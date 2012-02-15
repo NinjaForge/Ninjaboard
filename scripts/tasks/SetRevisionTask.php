@@ -92,7 +92,7 @@ class SetRevisionTask extends Task
      */
     private function setRevision($xml)
     {
-    	$xml->revision = $this->property;
+    	$xml->revision = (int)$xml->revision++;
 
         return $xml;
     }
