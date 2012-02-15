@@ -1,12 +1,10 @@
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<? if(!$latest_style) : ?>
-<style src="media://com_ninjaboard/css/latest_posts.css" /></style>
-<? endif; ?>
+<style src="media://com_ninjaboard/css/latest_posts.css" />
 
 <? if($collapse_content) : ?>
 <script type="text/javascript">
-	jQuery(function($){
+	ninja(function($){
 		
 		$('.ninjaboard-latest-preview-text<?= $module_id ?>').each(function(){ // remove BBCode tags for preview text
 		
