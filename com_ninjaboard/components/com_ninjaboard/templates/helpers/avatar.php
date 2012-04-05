@@ -25,6 +25,10 @@ class ComNinjaboardTemplateHelperAvatar extends KTemplateHelperAbstract
 		$extensions = preg_split('/[\s,]+/', $extensions);
 		$extensions = array_unique($extensions);
 		sort($extensions);
+
+		if(($key = array_search('bmp', $extensions)) !== false)
+		    unset($extensions[$key]);
+
 		return implode(', ', $extensions).'.';
 	}
 	
