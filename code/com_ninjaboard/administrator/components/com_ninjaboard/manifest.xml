@@ -76,6 +76,8 @@
             <folder>views</folder>
         </files>
         <languages folder="administrator/language">
+            <language tag="ar-SA">ar-SA/ar-SA.com_ninjaboard.ini</language>
+            <language tag="ar-SA">ar-SA/ar-SA.com_ninjaboard.menu.ini</language>
             <language tag="bg-BG">bg-BG/bg-BG.com_ninjaboard.ini</language>
             <language tag="bg-BG">bg-BG/bg-BG.com_ninjaboard.menu.ini</language>
             <language tag="da-DK">da-DK/da-DK.com_ninjaboard.ini</language>
@@ -491,6 +493,7 @@
         </tables>
     </migrate>
     <languages folder="language">
+        <language tag="ar-SA">ar-SA/ar-SA.com_ninjaboard.ini</language>
         <language tag="bg-BG">bg-BG/bg-BG.com_ninjaboard.ini</language>
         <language tag="da-DK">da-DK/da-DK.com_ninjaboard.ini</language>
         <language tag="de-DE">de-DE/de-DE.com_ninjaboard.ini</language>
