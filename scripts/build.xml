@@ -4,27 +4,13 @@
 	<import file="${project.basedir}/scripts/build/component.xml" />
 	
 	<!-- @TODO this is for Ninjabaord 1.2 that needs NAPI 2.0 -->
-	<property name="build.napi" value="https://ninjagroup.unfuddle.com/svn/ninjagroup_napi/com_ninja/trunk/code/" />
+	<property name="build.code" value="code/${phing.project.name}" />
 
 	<target name="beforebuild">
 
 		<!-- @TODO in progress -->
 		<delete dir="${build.additionals}" includeemptydirs="true" />
 		<mkdir dir="${build.additionals}" />
-		
-		<!-- Grab the search plugin -->
-		<svnexport username="phing" password="IR6KcX" repositoryurl="https://ninjagroup.unfuddle.com/svn/ninjagroup_ninjaboard/plg_search_ninjaboard/trunk/code/" todir="${build.additionals}/plg_search_ninjaboard" nocache="true" force="true" />
-		<zip destfile="${build.additionals}/plg_search_ninjaboard_v${ext.version}_rev${svn.lastrevision}.zip">
-			<fileset dir="${build.additionals}/plg_search_ninjaboard" />
-		</zip>
-		<delete dir="${build.additionals}/plg_search_ninjaboard" includeemptydirs="true" />
-		
-		<!-- Grab the cpanel module -->
-		<svnexport username="phing" password="" repositoryurl="https://ninjagroup.unfuddle.com/svn/ninjagroup_ninjaboard/mod_ninjaboard_quickpanel/trunk/code/" todir="${build.additionals}/mod_ninjaboard_quickpanel" nocache="true" force="true" />
-		<zip destfile="${build.additionals}/mod_ninjaboard_quickpanel_v${ext.version}_rev${svn.lastrevision}.zip">
-			<fileset dir="${build.additionals}/mod_ninjaboard_quickpanel" />
-		</zip>
-		<delete dir="${build.additionals}/mod_ninjaboard_quickpanel" includeemptydirs="true" />
 		
 		<phingcall target="build" />
 		
