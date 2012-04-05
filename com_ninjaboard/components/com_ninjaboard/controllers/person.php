@@ -117,6 +117,13 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		
 		
 		$avatar = KRequest::get('files.avatar', 'raw');
+
+		//if we are a bmp we cant upload it
+		if (strtolower(JFile::getExt($avatar['name'])) == 'bmp') {
+			JError::raiseWarning(21, sprintf(JText::_('%s failed to upload because this file type is not supported'), $avatar['name']));
+			return $this;
+		}
+
 		if(!MediaHelper::canUpload($avatar, $error)) {
 			$message = JText::_("%s failed to upload because %s");
 			JError::raiseWarning(21, sprintf($message, $avatar['name'], lcfirst($error)));
@@ -221,7 +228,7 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 	
 		$row = parent::_actionRead($context);
 		$this->_redirect = 'index.php?option=com_ninjaboard&view=person&id='.$row->id.'&layout=default';
-		
+
 		return $result;
 	}
 
