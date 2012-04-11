@@ -29,7 +29,7 @@
 			</div>
 			<div class="element">
 				<label for="alias" class="key"><?= @text('Alias') ?></label>
-				<input type="text" name="alias" id="alias" class="inputbox required validate-no-space value" size="50" value="<?= @$forum->alias ?>" maxlength="150" />
+				<input type="text" name="alias" id="alias" class="inputbox required validate-no-space value" size="50" value="<?= @$forum->slug ?>" maxlength="150" />
 			</div>
 			<div class="element">
 				<label for="description" class="key"><?= @text('Description') ?></label>
@@ -37,7 +37,7 @@
 			</div>
 			<div class="element">
 				<label for="header" class="key hasTip" title="<?= @text("Forum header is used on the forum detail page. If left empty, the forum description is used instead.") ?>"><?= @text('Forum header') ?></label>
-				<textarea name="params[forum][header]" id="params-forum-header" rows="5" cols="50" class="inputbox value" placeholder="<?= @text('Leave empty for using the description as the header.') ?>"><?= \@@$forum->params['forum']['header'] ?></textarea>
+				<textarea name="params[forum][header]" id="params-forum-header" rows="5" cols="50" class="inputbox value" placeholder="<?= @text('Leave empty for using the description as the header.') ?>"><?= isset($forum->params['forum']['header']) ? $forum->params['forum']['header'] : '' ?></textarea>
 			</div>
 			<div class="element">
 				<label class="key"><?= @text('State') ?></label>
@@ -176,7 +176,10 @@
 
 				<?= @helper('accordion.startpanel', array('title' => $permission['title'], 'translate' => false)) ?>
 
-					<? $permissions = \@$forum->params['permissions'][$permission['group']]['enabled'] == 1 ? 1 : 0 ?>
+					<? $permissions = 0 ?>
+					<? if (isset($forum->params['permissions'][$permission['group']]['enabled'])) : ?>
+						<? $permissions = \@$forum->params['permissions'][$permission['group']]['enabled'] == 1 ? 1 : 0 ?>
+					<? endif ?>
 					<? $checked = $permissions ? ' checked="checked"' : null ?>
 					<div class="wrapper switch" id="<?= $permission['id'] ?>-wrap">
 						<input name="params[permissions][<?= $permission['group'] ?>][enabled]" value="<?= $permissions ?>" type="hidden" />
