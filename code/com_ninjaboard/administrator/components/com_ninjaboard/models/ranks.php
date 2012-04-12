@@ -33,7 +33,7 @@ class ComNinjaboardModelRanks extends ComDefaultModelDefault
     		$query->where('tbl.title', 'LIKE', '%'.$search.'%');
     	}
     	
-    	if($this->_state->enabled !== false && $this->_state->enabled !== '')
+    	if(is_numeric($this->_state->enabled))
     	{
     		$query->where('tbl.enabled', '=', $this->_state->enabled);
     	}

@@ -57,7 +57,7 @@
 				    <? $i = 0; $fallback = current($usergroups->getData()) ?>
 				    <li class="map" id="<?= @id('points-from-0') ?>">
 				    	<h1><?= @text('Unregistered') ?></h1>
-				    	<? $value = (int)\@$maps[0] ?>
+				    	<? $value = isset($maps[0]) ? $maps[0] : null ?>
 				    	<input type="hidden" name="group[0]" id="group<?= (int) $i++ ?>" value="<?= $value ? $value : $fallback['id'] ?>" />
 				    </li>
 					<? foreach(@$acltree as $acl) : ?>

@@ -106,20 +106,18 @@ div.toolbar.inactive	{
 
 
 .icon-32-send 			{ background-image: url(../images/toolbar/icon-32-send.png); }
-.icon-32-preferences 			{ background-image: url(../images/32/preferences.png); }
-
-.icon-32-settings 			{ background-image: url(../images/32/settings.png); }
+.icon-32-preferences 	{ background-image: url(../images/32/preferences.png); }
+.icon-32-settings 		{ background-image: url(../images/32/settings.png); }
 .icon-32-users 			{ background-image: url(../images/32/users.png); }
-.icon-32-usergroups 			{ background-image: url(../images/32/usergroups.png); }
+.icon-32-usergroups 	{ background-image: url(../images/32/usergroups.png); }
 .icon-32-ranks 			{ background-image: url(../images/32/ranks.png); }
-.icon-32-remove 			{ background-image: url(../images/32/remove.png); }
-
+.icon-32-remove 		{ background-image: url(../images/32/remove.png); }
 
 /*APLite styling*/
-.icon-32-themes, .icon-32-theme 			{ background-image: url(../images/32/themes.png); }
-.icon-32-iconsets, .icon-32-icon 			{ background-image: url(../images/32/iconsets.png); }
+.icon-32-themes, .icon-32-theme 	{ background-image: url(../images/32/themes.png); }
+.icon-32-iconsets, .icon-32-icon 	{ background-image: url(../images/32/iconsets.png); }
 .icon-32-profile_fields,
-.icon-32-profile_field						{ background-image: url(../images/32/profile_fields.png); }
+.icon-32-profile_field				{ background-image: url(../images/32/profile_fields.png); }
 .icon-32-lists,
 .icon-32-list						{ background-image: url(../images/32/lists.png); }
 .icon-32-listvalues,
@@ -127,6 +125,7 @@ div.toolbar.inactive	{
 .icon-32-sets,
 .icon-32-set						{ background-image: url(../images/32/sets.png); }
 .icon-32-import 					{ background-image: url(../images/32/import.png); }
+#toolbar-usergroups .icon-32-modal 	{ background-image: url(../images/32/map.png); }
 
 /*Admin Form CSS*/
 .admintable .key, .adminlist th {
