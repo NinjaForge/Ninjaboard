@@ -303,6 +303,10 @@ class ComNinjaboardDispatcher extends NinjaDispatcher
 			'maps'               => array('attachments', 'avatars', 'forums', 'messages', 'people', 'posts', 'profiles', 'settings', 'topics', 'usergroups', 'users', 'watches')
 		));
 
+            if(!JFactory::getApplication()->get('jquery')) {
+                  $this->getService('ninja:template.helper.document')->load('/jquery/jquery.js');
+            }
+
 		parent::_initialize($config);
 	}
 

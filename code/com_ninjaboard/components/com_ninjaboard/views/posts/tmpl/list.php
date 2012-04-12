@@ -6,7 +6,7 @@
 
 <? if($collapse_content) : ?>
 <script type="text/javascript">
-	jQuery(function($){
+	ninja(function($){
 		
 		$('.ninjaboard-latest-preview-text<?= $module_id ?>').each(function(){ // remove BBCode tags for preview text
 		

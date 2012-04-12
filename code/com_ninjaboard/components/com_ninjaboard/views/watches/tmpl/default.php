@@ -6,7 +6,7 @@
 
 	<div class="header relative">
 		<script type="text/javascript">
-			jQuery(function($){
+			ninja(function($){
 				$('[name=type_name]').change(function(){
 					var url = '<?= @route('type_name=%24type_name%24', true) ?>'.replace('$type_name$', $(this).val());
 

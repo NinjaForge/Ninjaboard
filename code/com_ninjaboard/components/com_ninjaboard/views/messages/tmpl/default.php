@@ -9,7 +9,7 @@
 <script type="text/javascript" src="/reveal.js"></script>
 <script type="text/javascript" src="/messages.js"></script>
 <script type="text/javascript">
-jQuery(function($){
+ninja(function($){
     $('#ninjaboard-message-form').appendTo(document.body);
     var messages = $('#<?= @id('messages') ?>'), children = messages.children(), setHeight = function(){
         messages.children().height($(window).height() - 100);

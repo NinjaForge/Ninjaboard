@@ -7,8 +7,8 @@
 	<? if($topicreview) : ?>
 		<div class="ninjaboard topicreview">
 			<script type="text/javascript">
-				window.addEvent('domready', function(){
-					$$('.ninjaboard.topicreview a[href]').removeProperty('href');
+				ninja(function($){
+					$('.ninjaboard.topicreview a[href]').removeAttr('href');
 				});
 			</script>
 			<h3><?= sprintf(@text('Topic review %s'), '('.@text('newest first').')') ?></h3>

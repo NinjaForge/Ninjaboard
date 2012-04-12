@@ -74,69 +74,61 @@
 </script>
 <? endif ?>
 
-<?= @helper('behavior.keepalive') ?>
-
 <script type="text/javascript">
-    //@TODO converting jQuery to moo
-	window.addEvent('domready', function(){
-		var form = document.id('<?= @id() ?>');
-		$$('#<?= @id('cancel') ?>', '#<?= @id('save') ?>').addEvent('click', function(event){
+	//jQuery version of keepalive
+	setInterval(function(){
+		ninja.get(<?= json_encode(KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH).@route()) ?>);
+	}, <?= 60000 * max(1, (int)JFactory::getApplication()->getCfg('lifetime')) ?>);
+
+	ninja(function($){
+		var form = $('#<?= @id() ?>');
+		$('#<?= @id('cancel') ?>', '#<?= @id('save') ?>').click(function(event){
 			event.preventDefault();
 			event.stopPropagation();
 		});
-		var submitting = false;
-		document.id('<?= @id('cancel') ?>').addEvent('click', function(event){
-		    if(submitting) return;
-		    else           submitting = true;
-
+		$('#<?= @id('cancel') ?>').one('click', function(event){
 			event.preventDefault();
 			event.stopPropagation();
-
-            //@TODO refactor to use koowa.js
-			form.adopt(new Element('input', {type: 'hidden', name: 'action', value: 'cancel'}))
-			    .fireEvent('submit')
-				.submit();
+			form.append('<input type=\"hidden\" name=\"action\" value=\"cancel\" />')
+				.trigger('submit');
 		});
 		
 		var save = function(event){
-		    if(submitting) return;
-		    else           submitting = true;
-		
 			event.preventDefault();
 			event.stopPropagation();
 			//Do basic forms validation for better usability
-			var subject = document.id('subject'), text = document.id('text');
+			var subject = document.getElementById('subject'), text = document.getElementById('text');
 
 			if(subject && !subject.value && text && !text.value) {
-				submitting = false;
+				$('#<?= @id('save') ?>').one('click', save);
 				alert(<?= json_encode(@text("You need to enter text and a subject.")) ?>);
 				return false; 
 			}
 
 			if(subject && !subject.value) {
-				submitting = false;
+				$('#<?= @id('save') ?>').one('click', save);
 				alert(<?= json_encode(@text("You need to enter a subject.")) ?>);
 				return false; 
 			}
 			
 			if(text && !text.value) {
-				submitting = false;
+				$('#<?= @id('save') ?>').one('click', save);
 				alert(<?= json_encode(@text("You need to enter some text.")) ?>);
 				return false; 
 			}
 			
-			form.adopt(new Element('input', {type: 'hidden', name: 'action', value: 'save'}))
-			    .fireEvent('submit')
-				.submit();
+			form.append('<input type=\"hidden\" name=\"action\" value=\"save\" />')
+				.trigger('submit');
 		};
-		document.id('<?= @id('save') ?>').addEvent('click', save);
+		$('#<?= @id('save') ?>').one('click', save);
+		//$('#text').markItUp(myBbcodeSettings);
 		
 		//@TODO jquery port progress, below is what's left
 		
 		var slideDownAttachmentsHelp = function(){
 			$('.attachments-extensions-help').slideDown();
 		};
-		document.id("addFile").addEvent('click', slideDownAttachmentsHelp).addEvent('click', function () {
+		$("#addFile").one('click', slideDownAttachmentsHelp).click(function () {
 			
 			var attachment = $('<li>'+
 					'<a class="remove" href="#" title="<?= @text('Remove') ?>">&#10005;</a>'+
@@ -169,21 +161,21 @@
 			return false;
 		});
 		
-		$$('.image-select input')
-    		.addEvent('change', function(){
-    			this.getSiblings('label').removeClass('selected');
-    			if(this.getNext()) this.getNext().addClass('selected');
-    		});
+		$('.image-select input')
+		.bind('change', function(){
+			$(this).siblings('label').removeClass('selected');
+			$(this).next().addClass('selected');
+		});
 		
 		//This is for IE, which don't respect the for attribute if the input isn't visible
 		$('.image-select label').bind('click', function(){
 			$(this).prev().attr('checked', true).trigger('change');
 		});
 		
-		$('#<?= @id('preview') ?>').click(function(event){
+		/*$('#<?= @id('preview') ?>').click(function(event){
 			event.preventDefault();
 			$('#markItUpText .button_preview').triggerHandler('mousedown');
-		});
+		});*/
 	});
 </script>
 <form action="<?= @route('topic='.$topic->id.'&forum='.$topic->forum_id.'&id='.$post->id.'&layout=') ?>" method="post" id="<?= @id() ?>" class="ninjaboard" enctype="multipart/form-data">

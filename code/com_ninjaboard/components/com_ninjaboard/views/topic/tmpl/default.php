@@ -32,13 +32,13 @@
 </style>
 
 <script type="text/javascript">
-	window.addEvent('domready', function(){
-		document.getElements('.<?= @id('delete') ?>').addEvent('click', function(event){
+	ninja(function($){
+		$('.<?= @id('delete') ?>').click(function(event){
 			event.preventDefault();
 
 			if(!confirm(<?= json_encode(@text("Are you sure you want to delete this topic? This action cannot be undone.")) ?>)) return;
 
-			this.getParent('form').submit();
+			$(this).closest('form').submit();
 		});
 	});
 </script>

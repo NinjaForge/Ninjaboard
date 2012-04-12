@@ -57,4 +57,4 @@
 		
 		return this;
 	};
-})(jQuery);
+})(ninja);

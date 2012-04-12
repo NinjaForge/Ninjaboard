@@ -3,28 +3,27 @@
 <?= @template('com://site/ninjaboard.view.default.head') ?>
 
 <script type="text/javascript">
-	window.addEvent('domready', function(){
+	ninja(function($){
 		<? /* @route('view=post&tmpl=&format=json') fails on sites with SEF + URL suffixes turned on */ ?>
-		var posts = document.getElements('.<?= @id() ?>'), url = '<?= KRequest::root() ?>/?option=com_ninjaboard&view=post&tmpl=&format=json', parts = [];
-		posts.addEvent('click', function(event){
-			if(event.target.hasClass('delete') && confirm(<?= json_encode(@text("Are you sure you want to delete this post? This action cannot be undone.")) ?>)){
+		var posts = $('.<?= @id() ?>'), url = '<?= KRequest::root() ?>/?option=com_ninjaboard&view=post&tmpl=&format=json', parts = [];
+		posts.click(function(event){
+			if($(event.target).hasClass('delete') && confirm(<?= json_encode(@text("Are you sure you want to delete this post? This action cannot be undone.")) ?>)){
 				parts = event.currentTarget.id.split('-');
-				event.target.addClass('spinning');
+				$(event.target).addClass('spinning');
 				
 				event.preventDefault();
 				
-				new Request.JSON({
-					url: url+'&id='+parts.pop(), 
-					//@TODO add error handler
-					//onFailure
-				onSuccess: function(){
-					event.target.removeClass('spinning');
-					event.currentTarget.hide('slow')
-					event.currentTarget.remove.delay(600, event.currentTarget);
-				}}).post({
-					action: "delete",
-					_token: <?= json_encode(JUtility::getToken()) ?>
-				});
+				$.post(
+					url+'&id='+parts.pop(), 
+					{
+						action: "delete",
+						_token: <?= json_encode(JUtility::getToken()) ?>
+					},
+					function(){
+						$(event.target).removeClass('spinning');
+						$(event.currentTarget).animate({height: 0, opacity: 0, margin: 0, padding: 0}, 'slow', function(){ $(this).remove(); });
+					},
+					'json');
 			}
 		});
 	});
