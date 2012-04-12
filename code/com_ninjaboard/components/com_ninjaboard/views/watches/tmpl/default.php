@@ -43,7 +43,7 @@
 				<tr>
 					<td colspan="4" style="text-align: right;">
 						<script type="text/javascript">
-							jQuery(function($){
+							ninja(function($){
 								$('.<?= @id('remove-selected') ?>').click(function(event){
 									event.preventDefault();
 									if(event.target == this) return;

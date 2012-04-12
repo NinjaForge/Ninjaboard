@@ -3,76 +3,6 @@
 <?= @template('com://site/ninjaboard.view.default.head') ?>
 <link rel="stylesheet" href="/form.css" />
 <link rel="stylesheet" href="/site.form.css" />
-<link rel="stylesheet" href="/bbcode.css" />
-
-<style type="text/css">
-	
-	#text_preview {	
-		display:none;
-		padding: 5px;
-		border: 1px solid transparent;
-		margin: 0;
-		overflow: auto;
-	}
-	/* Hide any dropdown menus */
-	.markItUpHeader.previewing ul li ul {
-		opacity: 0;
-		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-		filter: alpha(opacity=0);
-	}
-	.markItUpHeader .markItUpButton, .markItUpHeader .markItUpSeparator {
-		-webkit-transition: opacity 0s linear;
-		-moz-transition: opacity 0s linear;
-		transition: opacity 0s linear;
-	}
-	.markItUpHeader.previewing .markItUpButton, .markItUpHeader.previewing .markItUpSeparator {
-		-webkit-transition: opacity 300ms linear;
-		-moz-transition: opacity 300ms linear;
-		transition: opacity 300ms linear;
-		opacity: 0.2;
-		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-		filter: alpha(opacity=20);
-	}
-	.markItUpHeader.previewing .markItUpButton.button_preview {
-		opacity: 1;
-		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-		filter: alpha(opacity=100);
-	}
-	#text.previewing {
-		-webkit-user-select: none;
-		color: transparent;
-		opacity: 0.6;
-		
-		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-		filter: alpha(opacity=0);
-	}
-	#text::-webkit-input-placeholder {
-		color: currentcolor;
-	}
-</style>
-
-<script type="text/javascript" src="/jquery.markitup.pack.js"></script>
-
-<? $bbcode = dirname($this->getView()->getIdentifier()->filepath).'/bbcode.js' ?>
-<? if(file_exists($bbcode)) : ?>
-<script type="text/javascript">
-    <? /* @TODO this shouldn't be needed anymore */ ?>
-	<?/*= str_replace(
-			array(
-				'~/sets/bbcode/preview.php', 
-				'magifier_zoom_out.png', 
-				'magnifier.png'
-			),
-			array(
-				'?option=com_ninjaboard&view=post&layout=preview&format=raw&tmpl=', 
-				@$img('/bbcode/magifier_zoom_out.png'), 
-				@$img('/bbcode/magnifier.png')
-			),
-			file_get_contents($bbcode)
-		)
-	*/?>
-</script>
-<? endif ?>
 
 <script type="text/javascript">
 	//jQuery version of keepalive
@@ -121,9 +51,6 @@
 				.trigger('submit');
 		};
 		$('#<?= @id('save') ?>').one('click', save);
-		//$('#text').markItUp(myBbcodeSettings);
-		
-		//@TODO jquery port progress, below is what's left
 		
 		var slideDownAttachmentsHelp = function(){
 			$('.attachments-extensions-help').slideDown();
@@ -171,11 +98,6 @@
 		$('.image-select label').bind('click', function(){
 			$(this).prev().attr('checked', true).trigger('change');
 		});
-		
-		/*$('#<?= @id('preview') ?>').click(function(event){
-			event.preventDefault();
-			$('#markItUpText .button_preview').triggerHandler('mousedown');
-		});*/
 	});
 </script>
 <form action="<?= @route('topic='.$topic->id.'&forum='.$topic->forum_id.'&id='.$post->id.'&layout=') ?>" method="post" id="<?= @id() ?>" class="ninjaboard" enctype="multipart/form-data">
@@ -250,10 +172,6 @@
 				<div id="<?= @id('save') ?>">
 					<?= @$create_topic_button ?>
 				</div>
-				<? /*&#160;
-				<div id="<?= @id('preview') ?>">
-					<?= $preview_button ?>
-				</div>*/ ?>
 				&#160;
 				<div id="<?= @id('cancel') ?>"><?= str_replace('$title', @text('Cancel'), @$topic->params['tmpl']['cancel_button']) ?></div>
 			</div>
