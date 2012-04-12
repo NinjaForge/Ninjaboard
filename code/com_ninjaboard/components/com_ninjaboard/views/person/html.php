@@ -78,6 +78,7 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 			$title = sprintf(JText::_("%s's settings"), $person->display_name);
 		
 			$this->save_button = str_replace('$title', JText::_('Save'), $this->params['tmpl']['create_topic_button']);
+			$this->save_button = str_replace('$link', '#', $this->save_button);
 		}
 
 		$this->_subtitle = $title;

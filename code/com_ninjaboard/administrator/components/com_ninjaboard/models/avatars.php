@@ -55,13 +55,12 @@ class ComNinjaboardModelAvatars extends ComNinjaboardModelPeople
 				}
 			} elseif(!JFile::exists(JPATH_ROOT.$this->_item->default) || $this->_item->default == '/media/com_ninjaboard/images/avatar.png') {
 				if($settings['enable_gravatar']) {
-					//@TODO refactor to use KFactory
-					$this->_item->default = new ComNinjaboardHelperGravatar($this->_item->email, 404);
 					//Gravatars are square, so use the largest value as size
 					$gsize = max($settings[$size.'_thumbnail_width'], $settings[$size.'_thumbnail_height']);
-					$this->_item->default->size = $gsize;
-					$this->_item->default = $this->_item->default->getSrc();
-
+					$this->_item->default  = $this->getService('com://site/ninjaboard.template.helper.avatar')->gravatar(array(
+																													'email' => $this->_item->email,
+																													'size'  => $gsize
+																												));
 					// Prepare curl
 					$curl = $this->getService('ninja:helper.curl');
 					$opt  = array(

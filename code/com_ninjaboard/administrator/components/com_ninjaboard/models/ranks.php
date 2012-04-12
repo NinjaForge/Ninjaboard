@@ -18,7 +18,7 @@ class ComNinjaboardModelRanks extends ComDefaultModelDefault
 		parent::__construct($options);
 		
 		//lets get our states
-	   	$this->_state->insert('enabled', 'int', JFactory::getApplication()->isSite());
+	   	$this->_state->insert('enabled', 'int', JFactory::getApplication()->isSite() ? 1 : null);
 	}
 
     /**

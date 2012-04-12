@@ -32,7 +32,7 @@ class ComNinjaboardHelperGravatar extends KObject
     /**
      *    Gravatar's url
      */
-    const GRAVATAR_URL = "http://www.gravatar.com/avatar.php";
+    const GRAVATAR_URL = "http://www.gravatar.com/avatar/";
 
     /**
      *    Ratings available
@@ -149,14 +149,20 @@ class ComNinjaboardHelperGravatar extends KObject
      *    Get source
      */
     public function getSrc() {
-        $url = self::GRAVATAR_URL ."?";
-        $first = true;
+        $url = self::GRAVATAR_URL;
+
         foreach($this->properties as $key => $value) {
             if (isset($value)) {
-                if (!$first)
-                    $url .= "&";
-                $url .= $key."=".urlencode($value);
-                $first = false;
+                if ($key != 'gravatar_id') {
+                    if ($key == 'default')
+                        $url .= '?';
+                    else 
+                        $url .= '&';
+                    $url .= $key."=".urlencode($value);
+                } else {
+                    $url .= urlencode($value);
+                }
+                
             }
         }
         return $url;    
