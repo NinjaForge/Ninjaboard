@@ -8,9 +8,7 @@
 		<script type="text/javascript">
 			ninja(function($){
 				$('[name=type_name]').change(function(){
-					var url = '<?= @route('type_name=%24type_name%24', true) ?>'.replace('$type_name$', $(this).val());
-
-					window.location.href = url;
+					window.location.href = "<?= @route('type_name=', true) ?>".replace('type_name=', 'type_name='+$(this).val());
 				});
 			});
 		</script>
@@ -30,7 +28,7 @@
 		<div style="clear:both"></div>
 	</div>
 
-	<form action="<?= @route() ?>" method="post" id="<?= @id() ?>">
+	<form action="<?= @route() ?>" method="post" id="<?= @id() ?>" class="-koowa-grid">
 		<table class="ninja-list">
 			<thead>
 				<tr>
@@ -49,7 +47,7 @@
 									if(event.target == this) return;
 
 									var form = $(this).closest('form'), join = form.attr('action').match(/\?/) ? '&' : '?';
-									form.attr('action', form.attr('action')+join+$('input.id:checked', form).serialize()).submit();
+									form.attr('action', form.attr('action')+join+$('.-koowa-grid-checkbox:checked', form).serialize()).submit();
 								});
 							});
 						</script>
@@ -61,8 +59,8 @@
 			</tfoot>
 			<tbody class="watches">
 			<? foreach ($watches as $watch) : ?>
-			<tr class="<?= @ninja('grid.zebra') ?>">
-				<td align="center"><?= @ninja('grid.id', array('value' => $watch->id)) ?></td>
+			<tr>
+				<td align="center"><?= @helper('grid.checkbox', array('row' => $watch)) ?></td>
 				<td style="text-align: center"><img src="<?= $watch->icon ?>" title="<?= $watch->type ?>" alt="icon" width="16px" /></td>
 				<td><a href="<?= $watch->link ?>"><?= $watch->title ?></a></td>
 			</tr>

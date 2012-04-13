@@ -172,22 +172,14 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		if(!$row->id && $request->id) {
 			//Check that the person exists, before creating Ninjaboard record
 			$exists = $this->getService('com://site/ninjaboard.model.users')->id($request->id)->getTotal() > 0;
-			if(!$exists) {
-				JError::raiseError(404, JText::_('Person not found.'));
-			}
-		
-			$row->id = $request->id;
-			$row->save();
+			if($exists) {
+				$row->id = $request->id;
+				$row->save();
 
-			//In order to get the data from the jos_users table, we need to rerun the query by getting a fresh row and setting the data
-			$new = $this->getService($this->getModel()->getIdentifier())->id($request->id)->getItem();
-			$row->setData($new->getData());
-		}
-		
-		//an id is absolutely required
-		if(!$row->id && !JFactory::getUser()->guest) {
-			JError::raiseError(404, JText::_('Person not found.'));
-			
+				//In order to get the data from the jos_users table, we need to rerun the query by getting a fresh row and setting the data
+				$new = $this->getService($this->getModel()->getIdentifier())->id($request->id)->getItem();
+				$row->setData($new->getData());
+			}
 		}
 		
 		if(isset($request->layout) && $request->layout == 'form')
