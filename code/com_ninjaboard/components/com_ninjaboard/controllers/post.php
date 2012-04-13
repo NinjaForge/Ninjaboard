@@ -37,10 +37,9 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	
 		parent::__construct($config);
 
-		//Register validation event
-		//@TODO we shouldn't have to attach to the save and apply events. But KControllerView expects 'edit' to succeed.
-		$this->registerCallback(array('before.add', 'before.edit', 'before.save', 'before.apply'), array($this, 'validate'));
-
+		//Add/Edit related event handlers
+		$this->registerCallback(array('before.add', 'before.edit'), array($this, 'validate'));
+		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'redirect'));
 		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setNotify'));
 		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setAttachments'));
 		$this->registerCallback('after.add', array($this, 'notify'));
@@ -48,13 +47,10 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		//Delete related event handlers
 		$this->registerCallback('before.delete', array($this, 'interceptDelete'));
 		$this->registerCallback('after.delete', array($this, 'cleanupDelete'));
+		$this->registerCallback('after.delete', array($this, 'prevent404'));
 		
 		//Perhaps we need to prefill the text if quote state exists
 		$this->registerCallback('before.read', array($this, 'canQuote'));
-		
-		// Workaround for avoiding 404 status on editor preview ajax
-		// @TODO replace MarkItUp with a wysiwyg editor so that ajax previews are no longer necessary.
-		$this->registerCallback('after.read', array($this, 'prevent404'));
 	}
 
 	/**
@@ -246,25 +242,6 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 			$item->delete();
 		}		
 	}
-
-	protected function _actionSave(KCommandContext $context)
-	{
-		$result = parent::_actionSave($context);
-
-		$row = $this->getModel()->getItem();
-
-		if($row->ninjaboard_topic_id && $row->id)
-		{
-			$append = $this->_redirect_hash ? '#p'.$row->id : '';
-			$this->setRedirect('index.php?option=com_ninjaboard&view=topic&id='.$row->ninjaboard_topic_id.'&post='.$row->id.$append);
-		}
-		elseif($row->ninjaboard_topic_id)
-		{
-			$this->setRedirect('index.php?option=com_ninjaboard&view=topic&id='.$row->ninjaboard_topic_id);
-		}
-
-		return $result;
-	}
 	
 	/*
 	 * Generic cancel action
@@ -333,77 +310,78 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	 */
 	public function cleanupDelete(KCommandContext $context)
 	{
-		$rows = $context->result;
+		$row = $context->result;
 		$table = $this->getService('com://site/ninjaboard.database.table.posts');
 		
-		foreach($rows as $row)
+		$topic	= $this->getService('com://site/ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
+
+		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('ninjaboard_topic_id', '=', $topic->id);
+		$posts = $table->count($query);
+	
+		if($posts)
 		{
-			$topic	= $this->getService('com://site/ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
-			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('ninjaboard_topic_id', '=', $topic->id);
-			$posts = $table->count($query);
-		
-			if($posts)
-			{
-				//Replies does not count the first post, thus we subtract by 1
-				$topic->replies = $posts - 1;
-				
-				// @TODO merge into one query
-				$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
-																->select('ninjaboard_post_id')
-																->where('ninjaboard_topic_id', '=', $topic->id)
-																->order('created_time', 'desc');
-				$topic->last_post_id = $table->select($query, KDatabase::FETCH_FIELD);
-				
-				$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
-																->select('created_time')
-																->where('ninjaboard_topic_id', '=', $topic->id)
-																->order('created_time', 'desc');
-				$topic->last_post_on = $table->select($query, KDatabase::FETCH_FIELD);
-				
-				$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
-																->select('created_user_id')
-																->where('ninjaboard_topic_id', '=', $topic->id)
-																->order('created_time', 'desc');
-				$topic->last_post_by = $table->select($query, KDatabase::FETCH_FIELD);
-
-				$topic->save();
-			}
+			//Replies does not count the first post, thus we subtract by 1
+			$topic->replies = $posts - 1;
 			
-			if($topic->first_post_id == $row->id)
+			// @TODO merge into one query
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
+															->select('ninjaboard_post_id')
+															->where('ninjaboard_topic_id', '=', $topic->id)
+															->order('created_time', 'desc');
+			$topic->last_post_id = $table->select($query, KDatabase::FETCH_FIELD);
+			
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
+															->select('created_time')
+															->where('ninjaboard_topic_id', '=', $topic->id)
+															->order('created_time', 'desc');
+			$topic->last_post_on = $table->select($query, KDatabase::FETCH_FIELD);
+			
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
+															->select('created_user_id')
+															->where('ninjaboard_topic_id', '=', $topic->id)
+															->order('created_time', 'desc');
+			$topic->last_post_by = $table->select($query, KDatabase::FETCH_FIELD);
+
+			$topic->save();
+		}
+		
+		if($topic->first_post_id == $row->id)
+		{
+			//If this is the last post, and only post in the topic, delete the topic.
+			//If not, then don't delete it
+			if(!$posts) $topic->delete();
+			else return false;
+		}
+
+		//Update the forums' topics and posts count, and correct the last_post_id column
+		$forums	= $this->getService('com://site/ninjaboard.model.forums')->limit(0)->id($topic->forum_id)->getListWithParents();
+		$forums->recount();
+
+		if($row->created_by)
+		{
+			$user	= $this->getService('com://site/ninjaboard.model.people')->id($row->created_by)->getItem();
+			if(!$user->guest)
 			{
-				//If this is the last post, and only post in the topic, delete the topic.
-				//If not, then don't delete it
-				if(!$posts) $topic->delete();
-				else return false;
-			}
+				$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('created_user_id', '=', $user->id);
+				$user->posts = $table->count($query);
 
-			//Update the forums' topics and posts count, and correct the last_post_id column
-			$forums	= $this->getService('com://site/ninjaboard.model.forums')->limit(0)->id($topic->forum_id)->getListWithParents();
-			$forums->recount();
-
-			if($row->created_by)
-			{
-				$user	= $this->getService('com://site/ninjaboard.model.people')->id($row->created_by)->getItem();
-				if(!$user->guest)
-				{
-					$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('created_user_id', '=', $user->id);
-					$user->posts = $table->count($query);
-
-					$user->save();
-				}
+				$user->save();
 			}
 		}
 	}
 	
 	/**
-	 * Workaround for preview ajax requests that will fail if the status code is 404
+	 * Workaround for ajax delete action 404ing due to actionForward not working correctly
+	 * @see http://nooku.assembla.com/spaces/nooku-framework/tickets/206-ajax-delete-gives-a-404-error
 	 *
 	 * @param  KCommandContext $context
 	 * @return void
 	 */
 	public function prevent404(KCommandContext $context)
 	{
-	    if($this->_request->layout == 'preview' || $this->_request->topic) $context->status = KHttpResponse::OK;
+	    if ($this->getView()->getFormat() == 'json' && $context->result->getStatus() == KDatabase::STATUS_DELETED) { 
+			$context->result->setStatus(KDatabase::STATUS_DELETED); 
+		} 
 	}
 	
 	/*
@@ -421,5 +399,24 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 
 	    // Set the text on our item
 	    $this->getModel()->getItem()->set('text', '[quote="'.htmlspecialchars($quote->display_name).'"]'.$quote->text.'[/quote]');
+	}
+
+	/**
+	 * Redirect the user after add/edit
+	 *
+	 * @param  KCommandContext $context
+	 * @return void
+	 */
+	public function redirect(KCommandContext $context)
+	{
+		$row = $this->getModel()->getItem();
+		$app = JFactory::getApplication();
+
+		if($row->ninjaboard_topic_id && $row->id) {
+			$append = $this->_redirect_hash ? '#p'.$row->id : '';
+			$app->redirect('index.php?option=com_ninjaboard&view=topic&id='.$row->ninjaboard_topic_id.'&post='.$row->id.$append);
+		} elseif($row->ninjaboard_topic_id){
+			$app->redirect('index.php?option=com_ninjaboard&view=topic&id='.$row->ninjaboard_topic_id);
+		}
 	}
 }

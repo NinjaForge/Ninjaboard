@@ -155,4 +155,51 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		
 		return implode($html);
 	}
+
+
+	/**
+	 * Delete posts functionality
+	 */
+	public function deletePosts($config = array())
+	{
+		$config = new KConfig($config);
+		$config->append(array(
+			'element' 	=> 'delete-button',
+			'url' 		=> '/index.php?option=com_ninjaboard&view=post&tmpl=&format=json',
+			'confirm'	=> JText::_("Are you sure you want to delete this post? This action cannot be undone.")
+ 		));
+ 		
+ 		$helper = $this->getService('ninja:template.helper.document');
+
+		$signature = md5(serialize(array($config->element,$config->options)));
+		if (!isset(self::$_loaded[$signature]))
+		{
+			$this->getService('ninja:template.helper.document')->load('js',
+				'ninja(function($){
+					var posts = $("'.$config->element.'"), url = '.json_encode($config->url).', parts = [];
+					posts.click(function(event){
+						if($(event.target).hasClass("delete") && confirm('.json_encode($config->confirm).')){
+							parts = event.currentTarget.id.split("-");
+							$(event.target).addClass("spinning");
+							
+							event.preventDefault();
+							
+							$.post(
+								url+"&id="+parts.pop(), 
+								{
+									action: "delete",
+									_token: '.json_encode(JUtility::getToken()).'
+								},
+								function(){
+									$(event.target).removeClass("spinning");
+									$(event.currentTarget).animate({height: 0, opacity: 0, margin: 0, padding: 0}, "slow", function(){ $(this).remove(); });
+								},
+								"json");
+						}
+					});
+				});');
+
+			self::$_loaded[$signature] = true;
+		}
+	}
 }

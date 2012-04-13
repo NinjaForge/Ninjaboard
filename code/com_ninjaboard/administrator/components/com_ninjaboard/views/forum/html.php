@@ -14,7 +14,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		jimport( 'joomla.filesystem.file' );
 
 		// path to images directory
-		$identifier = $this->getService($this->getModel())->getIdentifier();
+		$identifier = $this->getModel()->getIdentifier();
 		$path		= JPATH_ROOT.DS.'media'.DS.$identifier->type.'_'.$identifier->package.DS.'images'.DS.'forums';
 		$filter		= '\.png$|\.gif$|\.jpg$|\.bmp$|\.ico$';
 		$files		= JFolder::files($path, $filter, true, true);
@@ -64,7 +64,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		}
 		$this->assign('forums', $forums);
 		$filepath = dirname($this->getIdentifier()->filepath).'/tmpl/params.xml';
-		$model 	  = $this->getService($this->getModel());
+		$model 	  = $this->getModel();
 		$forum	  = $model->getItem();
 		$this->form = $this->getService('ninja:form.parameter', array(
 					  		'data' => $forum->params,

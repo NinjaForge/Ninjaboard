@@ -27,6 +27,7 @@
 			event.preventDefault();
 			event.stopPropagation();
 			//Do basic forms validation for better usability
+			wswgEditor.doCheck();
 			var subject = document.getElementById('subject'), text = document.getElementById('text');
 
 			if(subject && !subject.value && text && !text.value) {

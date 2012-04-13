@@ -6,9 +6,4 @@
  * @link     	http://ninjaforge.com
  */
 
-KLoader::loadIdentifier('ninja:view.json');
-
-class ComNinjaboardViewWatchesJson extends NinjaViewJson
-{
-	//Do nothing yet
-}
+class ComNinjaboardViewWatchesJson extends KViewJson {}

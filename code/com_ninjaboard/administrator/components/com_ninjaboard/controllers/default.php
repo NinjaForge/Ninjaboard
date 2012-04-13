@@ -74,7 +74,7 @@ class ComNinjaboardControllerDefault extends NinjaControllerDefault
 		$title = KRequest::get('post.title', 'string', 'Untitled');
 		$id	   = KRequest::get('get.id', 'int', 0);
 		
-		$table		= $this->getService($this->getService($this->getModel())->getTable());
+		$table		= $this->getModel()->getTable();
 		$primaryKey	= current($table->getPrimaryKey())->name;
 		$query		= $table->getDatabase()->getQuery()->where('title', '=', $title)->where($primaryKey, '!=', $id);
 
@@ -94,8 +94,8 @@ class ComNinjaboardControllerDefault extends NinjaControllerDefault
 	 */
 	public function setPermissions()
 	{
-		$model 		= $this->getService($this->getModel());
-		$table		= $this->getService($this->getService($this->getService('ninja:template.helper.access')->models->assets)->getTable());
+		$model 		= $this->getModel();
+		$table		= $this->getService($this->getService('ninja:template.helper.access')->models->assets)->getTable();
 		$query		= $table->getDatabase()->getQuery();
 		$item  		= $model->getItem();
 		$identifier = $this->getIdentifier();

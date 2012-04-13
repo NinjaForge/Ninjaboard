@@ -60,7 +60,7 @@ class ComNinjaboardControllerAvatar extends ComNinjaboardControllerAttachment
 			$row->save();
 			
 			//In order to get the data from the jos_users table, we need to rerun the query by getting a fresh row and setting the data
-			$new = $this->getService($this->getModel())->id($row->id)->getItem();
+			$new = $this->getModel()->id($row->id)->getItem();
 			$row->setData($new->getData());
 		}
 

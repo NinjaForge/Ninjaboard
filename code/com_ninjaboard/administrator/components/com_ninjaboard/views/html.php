@@ -12,9 +12,9 @@ class ComNinjaboardViewHtml extends NinjaViewDefault
 	{
 		// Display the toolbar
 		/*$toolbar = $this->_createToolbar();
-		$path = $this->getService($this->getModel())->getIdentifier()->path;
+		$path = $this->getModel()->getIdentifier()->path;
 
-		if(KInflector::isPlural($this->getService($this->getModel())->getIdentifier()->name) && $this->getName() != 'dashboard')
+		if(KInflector::isPlural($this->getModel()->getIdentifier()->name) && $this->getName() != 'dashboard')
 		{
 			$this->_mixinMenubar();
 		}
@@ -41,7 +41,7 @@ class ComNinjaboardViewHtml extends NinjaViewDefault
 				'</div>';
 
 		//Add tooltips?
-		//if(KInflector::isPlural($this->getName()) && ($this->getService($this->getModel())->getTotal() > 1)) KTemplate::loadHelper('ninja:helper.behavior.tooltip', 'th.hasHint', array('showOnce' => true, 'showOnLoad' => true, 'fixed' => true));
+		//if(KInflector::isPlural($this->getName()) && ($this->getModel()->getTotal() > 1)) KTemplate::loadHelper('ninja:helper.behavior.tooltip', 'th.hasHint', array('showOnce' => true, 'showOnLoad' => true, 'fixed' => true));
 	}
 	
 	/**

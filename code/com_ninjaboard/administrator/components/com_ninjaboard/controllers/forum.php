@@ -45,8 +45,8 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerDefault
 		//Temp fix
 		if(KInflector::isPlural(KRequest::get('get.view', 'cmd')) || KRequest::type() == 'AJAX') return;
 		
-		$model 		= $this->getService($this->getModel());
-		$table		= $this->getService($this->getService($this->getService('ninja:template.helper.access')->models->assets)->getTable());
+		$model 		= $this->getModel();
+		$table		= $this->getService($this->getService('ninja:template.helper.access')->models->assets)->getTable();
 		$query		= $table->getDatabase()->getQuery();
 		$item  		= $model->getItem();
 	

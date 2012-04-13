@@ -101,7 +101,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 	{
 		$identifier = $this->getIdentifier();
 		$option		= $identifier->type.'_'.$identifier->package;
-		$user		= $this->getService($this->getModel())->getItem();
+		$user		= $this->getModel()->getItem();
 		$path		= '/media/'.$option.'/images/avatars/'.KRequest::get('get.id', 'int', $user->id).'/';
 		return $path;
 	}

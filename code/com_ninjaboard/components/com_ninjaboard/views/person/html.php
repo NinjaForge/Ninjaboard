@@ -12,7 +12,7 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 	{
 		$params = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 		$this->assign('params', $params);
-		$person = $this->getService($this->getModel())->getItem();
+		$person = $this->getModel()->getItem();
 
         if(JFactory::getUser()->guest && (!$person->id || $this->getlayout() == 'form'))
         {
