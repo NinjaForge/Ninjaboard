@@ -4,12 +4,9 @@
 <link rel="stylesheet" href="/form.css" />
 <link rel="stylesheet" href="/site.form.css" />
 
-<script type="text/javascript">
-	//jQuery version of keepalive
-	setInterval(function(){
-		ninja.get(<?= json_encode(KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH).@route()) ?>);
-	}, <?= 60000 * max(1, (int)JFactory::getApplication()->getCfg('lifetime')) ?>);
+<?= @helper('behavior.keepalive') ?>
 
+<script type="text/javascript">
 	ninja(function($){
 		var form = $('#<?= @id() ?>');
 		$('#<?= @id('cancel') ?>', '#<?= @id('save') ?>').click(function(event){
@@ -56,7 +53,7 @@
 		var slideDownAttachmentsHelp = function(){
 			$('.attachments-extensions-help').slideDown();
 		};
-		$("#addFile").one('click', slideDownAttachmentsHelp).click(function () {
+		$("#addFile").click(slideDownAttachmentsHelp).click(function() {
 			
 			var attachment = $('<li>'+
 					'<a class="remove" href="#" title="<?= @text('Remove') ?>">&#10005;</a>'+
@@ -115,7 +112,7 @@
 			</div>
 		<? endif ?>
 		<div class="element wider" style="text-align:center;position:relative">
-		    <?= @ninja('behavior.wysiwygbbcode', array('element' => 'text', 'placeholder' => @text('Enter some text'), 'value' => @escape($post->text))) ?>
+		    <?= @helper('behavior.editor', array('name' => 'text', 'placeholder' => 'Enter some text', 'value' => $post->text)) ?>
 		</div>
 
 		<? if($topic->attachment_permissions > 1 && ($topic->attachment_settings || $forum->post_permissions > 2)) : ?>

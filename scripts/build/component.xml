@@ -3,6 +3,7 @@
 
 	<!-- Get custom phing task class definitions -->
 	<taskdef name="getversion" classname="scripts.tasks.GetVersionTask" />
+	<taskdef name="getrevision" classname="scripts.tasks.GetRevisionTask" />
 	<taskdef name="setrevision" classname="scripts.tasks.SetRevisionTask" />
 	<taskdef name="transifex" classname="scripts.tasks.TransifexTask" />
 
@@ -12,8 +13,8 @@
 	<property file="scripts/build/component.properties" />
 	
 	
-	<!--<svnlastrevision workingcopy="${build.workingcopy}" propertyname="svn.lastrevision" />-->
-	<!--<setrevision file="${build.manifestdir}" property="${svn.lastrevision}" />-->
+	<getrevision file="${build.code}/administrator/components/${phing.project.name}/${build.manifest}" property="ext.revision" />
+	<setrevision file="${build.manifestdir}" property="${ext.revision}" />
 	<getversion file="${build.code}/administrator/components/${phing.project.name}/${build.manifest}" property="ext.version" />
 
 	<target name="prepare">
@@ -91,8 +92,7 @@
 			
 		<phingcall target="prepare" />
 		
-		<!--<property name="build.package" value="${phing.project.name}_v${ext.version}_rev${svn.lastrevision}.zip" />-->
-		<property name="build.package" value="${phing.project.name}_v${ext.version}.zip" />
+		<property name="build.package" value="${phing.project.name}_v${ext.version}_rev${ext.revision}.zip" />
 
 		<delete file="${build.packages}/${build.package}" includeemptydirs="true" />
 		<zip destfile="${build.packages}/${build.package}">

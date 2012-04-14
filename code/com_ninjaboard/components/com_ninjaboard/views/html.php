@@ -33,7 +33,7 @@ class ComNinjaboardViewHtml extends ComNinjaboardViewDefault
 		//@TODO optimize so it's not made available all the time, only when needed
 		if(KRequest::type() != 'AJAX' && KRequest::get('get.format', 'cmd', 'html') == 'html')
 		{
-			$this->_loadModBreadcrumbs();
+			if(!JVersion::isCompatible('1.6.0')) $this->_loadModBreadcrumbs();
 		}
 		
 		return parent::display();

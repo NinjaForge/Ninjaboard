@@ -1,8 +1,6 @@
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<? if(!$latest_style) : ?>
-<style src="media://com_ninjaboard/css/latest_posts.css" /></style>
-<? endif; ?>
+<style src="media://com_ninjaboard/css/latest_posts.css" />
 
 <? if($collapse_content) : ?>
 <script type="text/javascript">

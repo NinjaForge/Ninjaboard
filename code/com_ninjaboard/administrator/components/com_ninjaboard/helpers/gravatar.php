@@ -38,148 +38,51 @@ class ComNinjaboardHelperGravatar extends KObject
      *    Ratings available
      */
     private $GRAVATAR_RATING = array("G", "PG", "R", "X");
-    
-    /**
-     *    Query string. key/value
-     */
-    protected $properties = array(
-        "gravatar_id"	=> NULL,
-        "default"		=> NULL,
-        "size"			=> 80,        // The default value
-        "rating"		=> NULL,
-        "border"		=> NULL,
-    );
 
     /**
      *    E-mail. This will be converted to md5($email)
      */
-    protected $email = "";
+    public $email, $size;
 
     /**
-     *    Extra attributes to the IMG tag like ALT, CLASS, STYLE...
+     * Constructor
+     *
+     * @param   object  An optional KConfig object with configuration options
      */
-    protected $extra = "";
+    public function __construct(KConfig $config) 
+    {
+        parent::__construct($config);
 
-    /**
-     *    
-     */
-    public function __construct($email=NULL, $default=NULL) {
-        $this->setEmail($email);
-        $this->setDefault($default);
+        $this->email   = $config->email;
+        $this->size    = $config->size;
     }
 
     /**
-     *    
+     * Initializes the config for the object
+     *
+     * Called from {@link __construct()} as a first step of object instantiation.
+     *
+     * @param   object  An optional KConfig object with configuration options
+     * @return  void
      */
-    public function setEmail($email) {
-        if ($this->getService('koowa:filter.email')->validate($email)) {
-            $this->email = $email;
-            $this->properties['gravatar_id'] = md5(strtolower($this->email));
-            return true;
-        }
-        return false;
+    protected function _initialize(KConfig $config)
+    {
+        $config->append(array(
+            'email'   => '',
+            'size'    => 80
+        ));
+
+        parent::_initialize($config);
     }
 
     /**
-     *    
+     *    The toString
      */
-    public function setDefault($default) {
-        $this->properties['default'] = $default;
-    }
+    public function __toString() {
+        $url = self::GRAVATAR_URL.md5(strtolower($this->email)).'?'.http_build_query(array(
+            'size' => max(0, (int)$this->size)
+        ));
 
-    /**
-     *    
-     */
-    public function setRating($rating) {
-        if (in_array($rating, $this->GRAVATAR_RATING)) {
-            $this->properties['rating'] = $rating;
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     *    
-     */
-    public function setSize($size) {
-        $size = (int) $size;
-        if ($size <= 0)
-            $size = NULL;        // Use the default size
-        $this->properties['size'] = $size;
-    }
-
-    /**
-     *    
-     */
-    public function setExtra($extra) {
-        $this->extra = $extra;
-    }
-
-    /**
-     *    Object property overloading
-     */
-    public function __get($var) { return @$this->properties[$var]; }
-
-    /**
-     *    Object property overloading
-     */
-    public function __set($var, $value) {
-        switch($var) {
-            case "email":    return $this->setEmail($value);
-            case "rating":    return $this->setRating($value);
-            case "default":    return $this->setDefault($value);
-            case "size":    return $this->setSize($value);
-            // Cannot set gravatar_id
-            case "gravatar_id": return;
-        }
-        return @$this->properties[$var] = $value;
-    }
-
-    /**
-     *    Object property overloading
-     */
-    public function __isset($var) { return isset($this->properties[$var]); }
-
-    /**
-     *    Object property overloading
-     */
-    public function __unset($var) { return @$this->properties[$var] == NULL; }
-
-    /**
-     *    Get source
-     */
-    public function getSrc() {
-        $url = self::GRAVATAR_URL;
-
-        foreach($this->properties as $key => $value) {
-            if (isset($value)) {
-                if ($key != 'gravatar_id') {
-                    if ($key == 'default')
-                        $url .= '?';
-                    else 
-                        $url .= '&';
-                    $url .= $key."=".urlencode($value);
-                } else {
-                    $url .= urlencode($value);
-                }
-                
-            }
-        }
         return $url;    
     }
-
-    /**
-     *    toHTML
-     */
-    public function toHTML() {
-        return     '<img src="'. $this->getSrc() .'"'
-                .(!isset($this->size) ? "" : ' width="'.$this->size.'" height="'.$this->size.'"')
-                .$this->extra
-                .' />';    
-    }
-
-    /**
-     *    toString
-     */
-    public function __toString() { return $this->toHTML(); }
 }

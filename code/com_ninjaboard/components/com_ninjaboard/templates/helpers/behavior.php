@@ -53,6 +53,7 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		if(!isset($loaded[$selector]))
 		{
 			$loaded[$selector] = true;
+			$this->getService('ninja:template.helper.document')->load('/jquery/jquery.js');
 			$this->getService('ninja:template.helper.document')->load('/jquery/watch.js');
 			$this->getService('ninja:template.helper.document')->load('js', '
 				ninja(function($){
@@ -153,6 +154,53 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		$html[] = '<a class="close-reveal-modal">&#215;</a>';
 		$html[] = '</div>';
 		
+		return implode($html);
+	}
+
+	/**
+	 * Renders the editor
+	 *
+	 * @author Stian Didriksen
+	 */
+	public function editor($config = array())
+	{
+		$config = new KConfig($config);
+		
+		$config->append(array(
+			'name'            => false,
+			'value'           => false,
+			'placeholder'     => 'Write something…'
+		))->append(array(
+			'element'         => $config->name
+		))->append(array(
+			'element_preview' => $config->element.'_preview'
+		));
+
+		$html[] = '<textarea name="'.$config->name.'" id="'.$config->element.'" placeholder="'.JText::_($config->placeholder).'">';
+		$html[] = htmlspecialchars($config->value);
+		$html[] = '</textarea>';
+
+		$html[] = '<div id="'.$config->element_preview.'"></div>';
+
+		return implode($html);
+	}
+
+	/**
+	 * jQuery version of keepalive
+	 *
+	 * @author Stian Didriksen
+	 */
+	public function keepalive()
+	{
+		$html[] = '<script type="text/javascript">';
+		$html[] = "\n";
+		$html[] = 'if(window.ninja){';
+		$html[] =	 'setInterval(function(){';
+		$html[] = 		'ninja.get(' . json_encode(KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH)) . ');';
+		$html[] = 	'}, ' . (60000 * max(1, (int)JFactory::getApplication()->getCfg('lifetime'))) . ');';
+		$html[] = "}";
+		$html[] = '</script>';
+
 		return implode($html);
 	}
 

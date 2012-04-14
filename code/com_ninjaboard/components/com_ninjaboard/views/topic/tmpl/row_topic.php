@@ -5,7 +5,7 @@
 
 <style type="text/css">.ninjaboard .unread-indicator {background-image: url(<?= @$img('/unread.png') ?>);}</style>
 
-<li class="row topic <?= $topic->moved_to_forum_title ? 'moved' : '' ?> <?= $topic->new && $topic->unread ? 'unread' : '' ?> <?= !$topic->unread ? 'read' : '' ?>">
+<li class="row topic <?= $topic->sticky ? 'sticky' : '' ?> <?= $topic->moved_to_forum_title ? 'moved' : '' ?> <?= $topic->new && $topic->unread ? 'unread' : '' ?> <?= !$topic->unread ? 'read' : '' ?>">
 		
 		<style type="text/css">.row .<?= $iconclass ?> {background-image: url(<?= @$img('/topic/'.$img) ?>);}</style>
 		<dl class="icon <?= $iconclass ?>">

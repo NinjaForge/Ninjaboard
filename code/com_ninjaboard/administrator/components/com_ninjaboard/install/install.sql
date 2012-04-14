@@ -144,9 +144,13 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_topics` (
   `last_post_by` int(11) unsigned NOT NULL default 0 COMMENT 'This is also for caching purposes',
   `hits` int(11) unsigned NOT NULL DEFAULT '0',
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
-  `sticky` tinyint(1) NOT NULL DEFAULT '1',
-  `locked` tinyint(1) NOT NULL DEFAULT '1',
-  `resolved` tinyint(1) NOT NULL DEFAULT '1',
+  `sticky` tinyint(1) NOT NULL DEFAULT '0',
+  `sticky_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `sticky_by` int(11) unsigned NOT NULL default 0,
+  `locked` tinyint(1) NOT NULL DEFAULT '0',
+  `locked_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `locked_by` int(11) unsigned NOT NULL default 0,
+  `resolved` tinyint(1) NOT NULL DEFAULT '0',
   `params` text NOT NULL,
   `show_symlinks` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Show symlinks to moved topics',
   KEY `topic_type_id` (`topic_type_id`),
@@ -155,7 +159,13 @@ CREATE TABLE IF NOT EXISTS `#__ninjaboard_topics` (
   KEY `first_post_id` (`first_post_id`),
   KEY `last_post_id` (`last_post_id`),
   KEY `last_post_on` (`last_post_on`),
-  KEY `last_post_by` (`last_post_by`)
+  KEY `last_post_by` (`last_post_by`),
+  KEY `sticky` (`sticky`),
+  KEY `sticky_on` (`sticky_on`),
+  KEY `sticky_by` (`sticky_by`),
+  KEY `locked` (`locked`),
+  KEY `locked_on` (`locked_on`),
+  KEY `locked_by` (`locked_by`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
