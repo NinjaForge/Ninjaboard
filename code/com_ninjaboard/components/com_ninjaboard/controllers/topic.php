@@ -119,6 +119,9 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 		$topics		= $context->result;
 		$table		= $this->getService('com://site/ninjaboard.database.table.posts');
 		$symlinks	= $this->getService('com://site/ninjaboard.database.table.topic_symlinks');
+
+		// make sure we are not a row
+		if ($topics instanceof KDatabaseRowDefault) $topics = array($topics);
 		
 		foreach($topics as $topic)
 		{
@@ -164,6 +167,9 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 	public function updateForums(KCommandContext $context)
 	{
 		$topics = $context->result;
+
+		// make sure we are not a row
+		if ($topics instanceof KDatabaseRowDefault) $topics = array($topics);
 		
 		foreach($topics as $topic)
 		{
@@ -199,34 +205,6 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 				}
 			}
 		}
-	}
-	
-	protected function _actionSave(KCommandContext $context)
-	{
-		$result = parent::_actionSave($context);
-
-		$row = $this->getModel()->getItem();
-
-		if($row->id)
-		{
-			$this->setRedirect('index.php?option=com_ninjaboard&view=topic&id='.$row->id);
-		}
-
-		return $result;
-	}
-
-	/*
-	 * Generic cancel action
-	 *
-	 * @return 	void
-	 */
-	protected function _actionCancel(KCommandContext $context)
-	{
-		$topic	= $this->getModel()->getItem();
-
-		$this->_redirect = 'index.php?option=com_ninjaboard&view=topic&id='.$topic->id;
-		
-		return $topic;
 	}
 	
 	/**

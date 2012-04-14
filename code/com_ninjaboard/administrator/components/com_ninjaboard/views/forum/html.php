@@ -51,7 +51,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		$this->sort		 = $state->sort ? $state->sort : 'title';
 		$this->direction = $state->direction;
 
-		$list	= $this->getService($this->getModel()->getIdentifier())->limit(0)->sort('path_sort_ordering')->enabled('')->getList();
+		$list	= $this->getModel()->limit(0)->sort('path_sort_ordering')->enabled('')->getList();
 		$id		= $this->getModel()->getItem()->id;
 		foreach($list as $forum)
 		{

@@ -49,7 +49,7 @@
 	<? if($topic->post_permissions > 0) : ?>
 	<div class="header">
 		<?/*= @render(@template('default_toolbar'), false, $forum->params['module'])*/ ?>
-		<?//= @template('default_toolbar') ?>
+		<?= @template('default_toolbar') ?>
 		<div class="clearfix"></div>
 	</div>
 	<div class="body">

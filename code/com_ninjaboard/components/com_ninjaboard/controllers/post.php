@@ -39,10 +39,10 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 
 		//Add/Edit related event handlers
 		$this->registerCallback(array('before.add', 'before.edit'), array($this, 'validate'));
-		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'redirect'));
-		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setNotify'));
 		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setAttachments'));
+		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setNotify'));
 		$this->registerCallback('after.add', array($this, 'notify'));
+		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'redirect'));
 		
 		//Delete related event handlers
 		$this->registerCallback('before.delete', array($this, 'interceptDelete'));
@@ -310,62 +310,67 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	 */
 	public function cleanupDelete(KCommandContext $context)
 	{
-		$row = $context->result;
+		$rows  = $context->result;
 		$table = $this->getService('com://site/ninjaboard.database.table.posts');
-		
-		$topic	= $this->getService('com://site/ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
 
-		$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('ninjaboard_topic_id', '=', $topic->id);
-		$posts = $table->count($query);
+		// make sure we are not a row
+		if ($rows instanceof KDatabaseRowDefault) $rows = array($rows);
 	
-		if($posts)
+		foreach ($rows as $row)
 		{
-			//Replies does not count the first post, thus we subtract by 1
-			$topic->replies = $posts - 1;
-			
-			// @TODO merge into one query
-			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
-															->select('ninjaboard_post_id')
-															->where('ninjaboard_topic_id', '=', $topic->id)
-															->order('created_time', 'desc');
-			$topic->last_post_id = $table->select($query, KDatabase::FETCH_FIELD);
-			
-			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
-															->select('created_time')
-															->where('ninjaboard_topic_id', '=', $topic->id)
-															->order('created_time', 'desc');
-			$topic->last_post_on = $table->select($query, KDatabase::FETCH_FIELD);
-			
-			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
-															->select('created_user_id')
-															->where('ninjaboard_topic_id', '=', $topic->id)
-															->order('created_time', 'desc');
-			$topic->last_post_by = $table->select($query, KDatabase::FETCH_FIELD);
+			$topic	= $this->getService('com://site/ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('ninjaboard_topic_id', '=', $topic->id);
+			$posts = $table->count($query);
 
-			$topic->save();
-		}
-		
-		if($topic->first_post_id == $row->id)
-		{
-			//If this is the last post, and only post in the topic, delete the topic.
-			//If not, then don't delete it
-			if(!$posts) $topic->delete();
-			else return false;
-		}
-
-		//Update the forums' topics and posts count, and correct the last_post_id column
-		$forums	= $this->getService('com://site/ninjaboard.model.forums')->limit(0)->id($topic->forum_id)->getListWithParents();
-		$forums->recount();
-
-		if($row->created_by)
-		{
-			$user	= $this->getService('com://site/ninjaboard.model.people')->id($row->created_by)->getItem();
-			if(!$user->guest)
+			if($posts)
 			{
-				$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('created_user_id', '=', $user->id);
-				$user->posts = $table->count($query);
+				//Replies does not count the first post, thus we subtract by 1
+				$topic->replies = $posts - 1;
+				
+				// @TODO merge into one query
+				$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
+																->select('ninjaboard_post_id')
+																->where('ninjaboard_topic_id', '=', $topic->id)
+																->order('created_time', 'desc');
+				$topic->last_post_id = $table->select($query, KDatabase::FETCH_FIELD);
+				
+				$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
+																->select('created_time')
+																->where('ninjaboard_topic_id', '=', $topic->id)
+																->order('created_time', 'desc');
+				$topic->last_post_on = $table->select($query, KDatabase::FETCH_FIELD);
+				
+				$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
+																->select('created_user_id')
+																->where('ninjaboard_topic_id', '=', $topic->id)
+																->order('created_time', 'desc');
+				$topic->last_post_by = $table->select($query, KDatabase::FETCH_FIELD);
 
-				$user->save();
+				$topic->save();
+			}
+			
+			if($topic->first_post_id == $row->id)
+			{
+				//If this is the last post, and only post in the topic, delete the topic.
+				//If not, then don't delete it
+				if(!$posts) $topic->delete();
+				else return false;
+			}
+
+			//Update the forums' topics and posts count, and correct the last_post_id column
+			$forums	= $this->getService('com://site/ninjaboard.model.forums')->limit(0)->id($topic->forum_id)->getListWithParents();
+			$forums->recount();
+
+			if($row->created_by)
+			{
+				$user	= $this->getService('com://site/ninjaboard.model.people')->id($row->created_by)->getItem();
+				if(!$user->guest)
+				{
+					$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('created_user_id', '=', $user->id);
+					$user->posts = $table->count($query);
+
+					$user->save();
+				}
 			}
 		}
 	}
@@ -412,6 +417,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		$row = $this->getModel()->getItem();
 		$app = JFactory::getApplication();
 
+		// for some reason $this->setRedirect is ignored on the quote view so do it with joomla
 		if($row->ninjaboard_topic_id && $row->id) {
 			$append = $this->_redirect_hash ? '#p'.$row->id : '';
 			$app->redirect('index.php?option=com_ninjaboard&view=topic&id='.$row->ninjaboard_topic_id.'&post='.$row->id.$append);

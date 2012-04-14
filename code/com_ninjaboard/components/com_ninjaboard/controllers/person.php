@@ -26,6 +26,7 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		$this->registerCallback(array('before.edit', 'before.apply', 'before.save'), array($this, 'checkPermissions'));
 		$this->registerCallback(array('before.edit', 'before.apply', 'before.save'), array($this, 'checkAlias'));
 		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setAvatar'));
+		$this->registerCallback(array('after.apply', 'after.cancel'), array($this, 'redirect'));
 	}
 	
 	public function setMe()
@@ -65,7 +66,7 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		//Don't do anything if alias isn't a value
 		if(!$alias) return $this;
 		
-		$model = $this->getService($this->getModel()->getIdentifier())->not($this->getRequest()->id);
+		$model = $this->getModel()->not($this->getRequest()->id);
 
 		//Lets find out if this alias is already in use by someone else
 		$count = $model->alias($alias)->getTotal();
@@ -177,7 +178,7 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 				$row->save();
 
 				//In order to get the data from the jos_users table, we need to rerun the query by getting a fresh row and setting the data
-				$new = $this->getService($this->getModel()->getIdentifier())->id($request->id)->getItem();
+				$new = $this->getModel()->id($request->id)->getItem();
 				$row->setData($new->getData());
 			}
 		}
@@ -197,42 +198,11 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		return $row;
 	}
 
-	/*
-	 * Generic cancel action
-	 *
-	 * @return 	void
-	 */
-	protected function _actionCancel(KCommandContext $context)
-	{
-		$person	= $this->getModel()->getItem();
-		
-		$this->_redirect = 'index.php?option=com_ninjaboard&view=person&id='.$person->id;
-		
-		return $person;
-	}
-
 	/**
-	 * Apply action, workaround for redirects
+	 * Redirect the user after apply/save and cancel
 	 */
-	protected function _actionApply($context)
+	public function redirect(KCommandContext $context)
 	{
-		$result = parent::_actionApply($context);
-	
-		$row = parent::_actionRead($context);
-		$this->_redirect = 'index.php?option=com_ninjaboard&view=person&id='.$row->id.'&layout=default';
-		
-		return $result;
-	}
-
-	/*
-	 * Empty delete action
-	 *
-	 * Users can't be deleted
-	 *
-	 * @return 	void
-	 */
-	protected function _actionDelete()
-	{
-		return false;
+		$this->setRedirect('index.php?option=com_ninjaboard&view=person&id='.$this->getModel()->getItem()->id, $this->_redirect_message);
 	}
 }

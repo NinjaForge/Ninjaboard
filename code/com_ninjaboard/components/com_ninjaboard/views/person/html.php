@@ -58,7 +58,7 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 					->pagination($model->getTotal(), $state->offset, $state->limit, 4, false)
 			);
 			
-			$me		= $this->getService($this->getModel())->getMe();
+			$me		= $this->getModel()->getMe();
 			$this->me = $me;
 			if($me->id === $person->id) {
 				$this->edit_button = str_replace(

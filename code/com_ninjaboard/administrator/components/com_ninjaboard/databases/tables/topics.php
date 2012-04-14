@@ -27,21 +27,6 @@ class ComNinjaboardDatabaseTableTopics extends KDatabaseTableDefault
 		
 		parent::__construct($config);
 	}
-
-	/**
-	 * Table delete method
-	 *
-	 * @param  object	A KDatabaseRow object
-	 * @return boolean  TRUE if successfull, otherwise false
-	 */
-	public function delete( KDatabaseRowInterface $row )
-	{
-		
-		
-		parent::delete($row);
-		
-		
-	}
 	
 	/**
 	 * Table maintenance method

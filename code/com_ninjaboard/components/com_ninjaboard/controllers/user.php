@@ -11,41 +11,4 @@
  *
  * @package Ninjaboard
  */
-class ComNinjaboardControllerUser extends ComNinjaboardControllerAbstract
-{	
-    /*
-     * Empty add action
-     *
-     * Users can't be added
-     *
-     * @return 	void
-     */
-    protected function _actionAdd()
-    {
-    	return false;
-    }
-
-	/*
-	 * Empty edit action
-	 *
-	 * Users can't be edited
-	 *
-	 * @return 	void
-	 */
-	protected function _actionEdit()
-	{
-		return false;
-	}
-
-	/*
-	 * Empty delete action
-	 *
-	 * Users can't be deleted
-	 *
-	 * @return 	void
-	 */
-	protected function _actionDelete()
-	{
-		return false;
-	}
-}
+class ComNinjaboardControllerUser extends ComNinjaboardControllerAbstract {}

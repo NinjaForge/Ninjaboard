@@ -66,40 +66,4 @@ class ComNinjaboardControllerAvatar extends ComNinjaboardControllerAttachment
 
 		return $row;
 	}
-
-	/*
-	 * Empty delete action
-	 *
-	 * Avatars can't be deleted by the controller
-	 *
-	 * @return 	void
-	 */
-	protected function _actionDelete()
-	{
-		return $this->getModel()->getItem();
-	}
-
-	/*
-	 * Empty edit action
-	 *
-	 * Avatars can't be edited by the controller
-	 *
-	 * @return 	void
-	 */
-	protected function _actionEdit()
-	{
-		return $this->getModel()->getItem();
-	}
-
-	/*
-	 * Empty add action
-	 *
-	 * Avatars can't be added by the controller
-	 *
-	 * @return 	void
-	 */
-	protected function _actionAdd()
-	{
-		return $this->getModel()->getItem();
-	}
 }

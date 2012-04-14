@@ -16,7 +16,7 @@ class ComNinjaboardViewMessagesJson extends KViewJson
 	public function display()
 	{
 		$model		= $this->getModel();
-		$template	= $this->getService('com://site/ninjaboard.view.message.html')->getTemplate();
+		$template	= $this->getService('com://site/ninjaboard.view.message.html')->getTemplate()->addFilter(array($this->getService('ninja:template.filter.document')));
 		$params 	= $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 		$me			= $this->getService('com://admin/ninjaboard.model.people')->getMe();
 		$data		= array();

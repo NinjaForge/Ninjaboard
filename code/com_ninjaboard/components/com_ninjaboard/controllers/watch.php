@@ -69,7 +69,7 @@ class ComNinjaboardControllerWatch extends ComNinjaboardControllerAbstract
 		
 		if(!$id && isset($this->getRequest()->type_id)) $id = $this->getRequest()->type_id; 
 
-		if(!$me->id || $id === null) return false;
+		if($id === null) return false;
 
 		//Makes sure the user do not delete other peoples subscriptions
 		$this->getModel()->by($me->id);
@@ -84,7 +84,7 @@ class ComNinjaboardControllerWatch extends ComNinjaboardControllerAbstract
 	public function _actionNotify(KCommandContext $context)
 	{
 		$post		= $context->result;
-		$recipients	= $this->getService($this->getModel())->topic($post->ninjaboard_topic_id)->getRecipients();
+		$recipients	= $this->getModel()->topic($post->ninjaboard_topic_id)->getRecipients();
 		$topic		= $this->getService('com://admin/ninjaboard.model.topics')->id($post->ninjaboard_topic_id)->getItem();
 		$forum		= $this->getService('com://site/ninjaboard.model.forums')->id($topic->forum_id)->getItem();
 		$me			= $this->getService('com://admin/ninjaboard.model.people')->getMe();
