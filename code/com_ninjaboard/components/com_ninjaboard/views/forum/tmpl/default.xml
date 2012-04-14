@@ -10,14 +10,10 @@
 		<name>Forum</name>
 		<description>Renders a forum and its subforums if any.</description>
 		<url>
-			<param name="urldeleteme" type="napi" ninja="void" grouptag="url" formname="urlparams" />
-			<param name="id" type="getlist" default="" get="com://admin/ninjaboard.model.forums" set="indent:1;enabled:1;sort:path_sort_ordering;limit:0" label="Forum" description="Choose a forum." />
+			<param name="urldeleteme" type="napi" grouptag="url" formname="urlparams" xml="/components/com_ninjaboard/views/forum/tmpl/default.xml" />
 		</url>
 		<params>
-			<param name="deleteme" type="napi" ninja="void" />
-			<param name="ninjaboard_setting_id" type="getlist" get="com://admin/ninjaboard.model.settings" label="Setting" description="Choose a predefined setting from the Ninjaboard Settings.">
-				<option>- Use default -</option>
-			</param>
+			<param name="deleteme" type="napi" xml="/components/com_ninjaboard/views/forum/tmpl/default.xml" />
 		</params>
 	</state>
 	<!-- @end -->
@@ -25,13 +21,26 @@
 	<!-- @group j!1.6 -->
 	<fields name="request" addfieldpath="/administrator/components/com_ninja/overrides">
 		<fieldset name="request">
-			<field name="urldeleteme" type="napi" ninja="void" grouptag="url" formname="urlparams" />
+			<field name="urldeleteme" type="napi" grouptag="url" formname="urlparams" xml="/components/com_ninjaboard/views/forum/tmpl/default.xml" />
 		</fieldset>
 	</fields>
 	<fields name="params">
 		<fieldset name="basic" label="Basic Options">
-				<field name="deleteme" type="napi" ninja="void" />
+				<field name="deleteme" type="napi" xml="/components/com_ninjaboard/views/forum/tmpl/default.xml" />
 		</fieldset>
 	</fields>
+	<!-- @end -->
+
+	<!-- @group Actual form -->
+	<form>
+		<url>
+			<param name="id" type="getlist" default="" get="com://admin/ninjaboard.model.forums" set="indent:1;enabled:1;sort:path_sort_ordering;limit:0" label="Forum" description="Choose a forum." />
+		</url>
+		<params group="basic">
+			<param name="ninjaboard_setting_id" type="getlist" get="com://admin/ninjaboard.model.settings" label="Setting" description="Choose a predefined setting from the Ninjaboard Settings.">
+				<option>- Use default -</option>
+			</param>
+		</params>
+	</form>
 	<!-- @end -->
 </metadata>

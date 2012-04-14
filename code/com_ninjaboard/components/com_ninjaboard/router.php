@@ -237,7 +237,7 @@ class ComNinjaboardRouter
                 //For SEO purposes, redirect to the right url if the forum slug is incorrect
                 if(!is_numeric($id))
                 {
-                    $topic = KService::get('com://admin/ninjaboard.model.topics')->id($item->ninjaboard_topic_id)->getItem();
+                    $topic = KService::get('com://admin/ninjaboard.model.topics')->id($item->ninjaboard_topic_id)->sticky(-1)->getItem();
                     $forum = KService::get('com://admin/ninjaboard.model.forums')->id($topic->forum_id)->getItem();
 
                     $parts        = explode(':', $first);

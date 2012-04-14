@@ -26,9 +26,10 @@ class ComNinjaboardModelTopics extends ComDefaultModelDefault
 		parent::__construct($config);
 
 		$this->_state
-						->insert('forum', 'int')
-						->insert('post' , 'int')
-						->insert('at'	, 'int', false);
+						->insert('forum' , 'int')
+						->insert('post'  , 'int')
+						->insert('at'	 , 'int', false)
+                        ->insert('sticky', 'int', -1);
 	}
 
 	protected function _buildQueryJoins(KDatabaseQuery $query)
@@ -67,6 +68,10 @@ class ComNinjaboardModelTopics extends ComDefaultModelDefault
 		
 		$query->where('forum.enabled', '=', 1)
 			  ->where('tbl.enabled', '=', 1);
+        
+        if($this->_state->sticky !== -1) {
+            $query->where('tbl.sticky', '=', (int)$this->_state->sticky);
+        }
 		
 		//Building the permissions query WHERE clause
 		$this->getService('com://admin/ninjaboard.model.people')->buildForumsPermissionsWhere($query, 'forum.ninjaboard_forum_id');

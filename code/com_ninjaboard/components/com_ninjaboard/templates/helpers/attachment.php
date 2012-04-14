@@ -29,19 +29,22 @@ class ComNinjaboardTemplateHelperAttachment extends KTemplateHelperAbstract
 		
 		$show = json_encode(JText::_('Show allowed file types'));
 		$hide = json_encode(JText::_('Hide allowed file types'));
-		$this->getService('ninja:template.helper.document')->load('js', "
-			window.addEvent('domready', function(){
-				$$('.allowed-file-extensions-toggle').addEvent('click', function(event){
+		
+		$html[] = "<script type=\"type/javascript\">
+			ninja(function($){
+				$('.allowed-file-extensions-toggle').click(function(event){
 					event.preventDefault();
 
-					var prev = this.getPrevious();
-					this.set('text', prev.isVisible() ? $show : $hide);
-					prev.slide('toggle');
+					var prev = $(this).prev();
+					$(this).text(prev.is(':visible') ? $show : $hide);
+					prev.slideToggle();
 				});
 			});
-		");
+		</script>";
 		
-		return '<p class="allowed-file-extensions">'.$extensions.'</p><a href="#" class="allowed-file-extensions-toggle">'.JText::_('Show allowed file types').'</a>';
+		$html[] = '<p class="allowed-file-extensions">'.$extensions.'</p><a href="#" class="allowed-file-extensions-toggle">'.JText::_('Show allowed file types').'</a>';
+
+		return implode($html);
 	}
 	
 	/**

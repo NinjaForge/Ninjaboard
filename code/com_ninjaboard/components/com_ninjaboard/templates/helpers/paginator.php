@@ -65,11 +65,11 @@ class ComNinjaboardTemplateHelperPaginator extends NinjaTemplateHelperPaginator
 		if(!$this->override) $this->getService('ninja:template.helper.document')->load('/pagination.css');
 
 		$view = $this->name;
-		$items = (int) $total === 1 ? KInflector::singularize($view) : $view;
-		//if($total <= 10) return '<div class="pagination"><div class="limit">'.sprintf(JText::_(KInflector::humanize($items)) . ' %s', $total ).'</div></div>';
+		$items = (int) $config->total === 1 ? KInflector::singularize($view) : $view;
+		//if($config->total <= 10) return '<div class="pagination"><div class="limit">'.sprintf(JText::_(KInflector::humanize($items)) . ' %s', $config->total ).'</div></div>';
 
-		$list = $this->_pages($config);
-		$limitlist = $total > $limit ? $this->limit(array('state' => array('limit' => $limit))) : $total;
+		$list = $this->_items($config);
+		$limitlist = $config->total > $config->limit ? $this->limit(array('state' => array('limit' => $config->limit))) : $config->total;
 		
 		$html  = '<div class="pagination">';
 		//$html .= '<div class="limit">'.sprintf(JText::_(KInflector::humanize($items)) . ' %s', $total ).'</div>';

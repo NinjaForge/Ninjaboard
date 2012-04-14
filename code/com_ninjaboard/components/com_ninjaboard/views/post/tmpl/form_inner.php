@@ -51,13 +51,12 @@
 	}
 </style>
 
-<script type="text/javascript" src="/jquery.markitup.pack.js"></script>
+<script type="text/javascript" src="/jquery/jquery.markitup.pack.js"></script>
 
 <? $bbcode = dirname($this->getView()->getIdentifier()->filepath).'/bbcode.js' ?>
 <? if(file_exists($bbcode)) : ?>
 <script type="text/javascript">
-    <? /* @TODO this shouldn't be needed anymore */ ?>
-	<?/*= str_replace(
+	<?= str_replace(
 			array(
 				'~/sets/bbcode/preview.php', 
 				'magifier_zoom_out.png', 
@@ -70,73 +69,64 @@
 			),
 			file_get_contents($bbcode)
 		)
-	*/?>
+	?>
 </script>
 <? endif ?>
 
 <?= @helper('behavior.keepalive') ?>
 
 <script type="text/javascript">
-    //@TODO converting jQuery to moo
-	window.addEvent('domready', function(){
-		var form = document.id('<?= @id() ?>');
-		$$('#<?= @id('cancel') ?>', '#<?= @id('save') ?>').addEvent('click', function(event){
+	ninja(function($){
+		var form = $('#<?= @id() ?>');
+		$('#<?= @id('cancel') ?>, #<?= @id('save') ?>').click(function(event){
 			event.preventDefault();
 			event.stopPropagation();
 		});
-		var submitting = false;
-		document.id('<?= @id('cancel') ?>').addEvent('click', function(event){
-		    if(submitting) return;
-		    else           submitting = true;
-
+		$('#<?= @id('cancel') ?>').one('click', function(event){
 			event.preventDefault();
 			event.stopPropagation();
 
             //@TODO refactor to use koowa.js
-			form.adopt(new Element('input', {type: 'hidden', name: 'action', value: 'cancel'}))
-			    .fireEvent('submit')
-				.submit();
+			form.append('<input type=\"hidden\" name=\"action\" value=\"cancel\" />')
+			    .trigger('submit');
 		});
 		
 		var save = function(event){
-		    if(submitting) return;
-		    else           submitting = true;
-		
 			event.preventDefault();
 			event.stopPropagation();
 			//Do basic forms validation for better usability
-			var subject = document.id('subject'), text = document.id('text');
+			var subject = document.getElementById('subject'), text = document.getElementById('text');
 
 			if(subject && !subject.value && text && !text.value) {
-				submitting = false;
+				$('#<?= @id('save') ?>').one('click', save);
 				alert(<?= json_encode(@text("You need to enter text and a subject.")) ?>);
 				return false; 
 			}
 
 			if(subject && !subject.value) {
-				submitting = false;
+				$('#<?= @id('save') ?>').one('click', save);
 				alert(<?= json_encode(@text("You need to enter a subject.")) ?>);
 				return false; 
 			}
 			
 			if(text && !text.value) {
-				submitting = false;
+				$('#<?= @id('save') ?>').one('click', save);
 				alert(<?= json_encode(@text("You need to enter some text.")) ?>);
 				return false; 
 			}
 			
-			form.adopt(new Element('input', {type: 'hidden', name: 'action', value: 'save'}))
-			    .fireEvent('submit')
-				.submit();
+			form.append('<input type=\"hidden\" name=\"action\" value=\"save\" />')
+				.trigger('submit');
 		};
-		document.id('<?= @id('save') ?>').addEvent('click', save);
+		$('#<?= @id('save') ?>').one('click', save);
+		$('#text').markItUp(myBbcodeSettings);
 		
 		//@TODO jquery port progress, below is what's left
 		
 		var slideDownAttachmentsHelp = function(){
 			$('.attachments-extensions-help').slideDown();
 		};
-		document.id("addFile").addEvent('click', slideDownAttachmentsHelp).addEvent('click', function () {
+		$("#addFile").click(slideDownAttachmentsHelp).click(function() {
 			
 			var attachment = $('<li>'+
 					'<a class="remove" href="#" title="<?= @text('Remove') ?>">&#10005;</a>'+
@@ -169,11 +159,10 @@
 			return false;
 		});
 		
-		$$('.image-select input')
-    		.addEvent('change', function(){
-    			this.getSiblings('label').removeClass('selected');
-    			if(this.getNext()) this.getNext().addClass('selected');
-    		});
+		$('.image-select input').change(function(){
+    		$(this).siblings('label').removeClass('selected');
+    		$(this).next().addClass('selected');
+    	});
 		
 		//This is for IE, which don't respect the for attribute if the input isn't visible
 		$('.image-select label').bind('click', function(){
@@ -200,7 +189,7 @@
 			</div>
 		<? endif ?>
 		<div class="element wider" style="text-align:center;position:relative">
-		    <?= @ninja('behavior.wysiwygbbcode', array('element' => 'text', 'placeholder' => @text('Enter some text'), 'value' => @escape($post->text))) ?>
+			<?= @helper('behavior.editor', array('name' => 'text', 'placeholder' => 'Enter some text', 'value' => $post->text)) ?>
 		</div>
 
 		<? if($topic->attachment_permissions > 1 && ($topic->attachment_settings || $forum->post_permissions > 2)) : ?>
@@ -229,8 +218,7 @@
 			</div>
 		</div>
 		<? endif ?>
-		
-		<? /* @TODO sticky is WIP */ ?><!--
+
 		<? if($forum->topic_permissions > 2 && (!$topic->id || $topic->first_post_id == $post->id)) : ?>
 			<div class="element">
 				<label for="sticky">
@@ -239,7 +227,7 @@
 					<?= @text('Sticky topic') ?>
 				</label>
 			</div>
-		<? endif ?>-->
+		<? endif ?>
 
 		<div class="element"></div>
 

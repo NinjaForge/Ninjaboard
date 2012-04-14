@@ -12,7 +12,7 @@
 				options = settings[toggle],
 				id		= $(this).attr('data-id') ? '&id='+$(this).attr('data-id') : '';
 			
-			jQuery.ajax({
+			$.ajax({
 			    type: 'POST',
 			    url: options.url+id,
 			    data: options.data,
@@ -57,4 +57,4 @@
 		
 		return this;
 	};
-})(jQuery);
+})(ninja);

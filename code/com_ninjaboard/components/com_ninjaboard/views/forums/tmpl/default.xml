@@ -10,10 +10,7 @@
 		<name>Forums</name>
 		<description>Renders top level forums in a list.</description>
 		<params>
-			<param name="deleteme" type="napi" ninja="void" />
-			<param name="ninjaboard_setting_id" type="getlist" get="com://admin/ninjaboard.model.settings" label="Setting" description="Choose a predefined setting from the Ninjaboard Settings.">
-				<option>- Use default -</option>
-			</param>
+			<param name="deleteme" type="napi" xml="/components/com_ninjaboard/views/forums/tmpl/default.xml" />
 		</params>
 	</state>
 	<!-- @end -->
@@ -21,8 +18,18 @@
 	<!-- @group j!1.6 -->
 	<fields name="params" addfieldpath="/administrator/components/com_ninja/overrides">
 		<fieldset name="basic" label="Basic Options">
-				<field name="deleteme" type="napi" ninja="void" />
+				<field name="deleteme" type="napi" xml="/components/com_ninjaboard/views/forums/tmpl/default.xml" />
 		</fieldset>
 	</fields>
+	<!-- @end -->
+
+	<!-- @group Actual form -->
+	<form>
+		<params group="basic">
+			<param name="ninjaboard_setting_id" type="getlist" get="com://admin/ninjaboard.model.settings" label="Setting" description="Choose a predefined setting from the Ninjaboard Settings.">
+				<option>- Use default -</option>
+			</param>
+		</params>
+	</form>
 	<!-- @end -->
 </metadata>

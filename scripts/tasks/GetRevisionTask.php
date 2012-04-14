@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: SetRevisionTask.php 521 2010-10-10 15:39:54Z stian $
+ * $Id: GetRevisionTask.php 521 2010-10-10 15:39:54Z stian $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,15 +21,18 @@
 require_once 'phing/Task.php';
 
  /**
-  * SetRevisionTask
+  * GetRevisionTask
   *
-  * Updates an xml manifest with the revision number from the supplied property
+  * Reads an Xml manifest and retrieves the version string
+  * Resulting version number is also published under supplied property.
+  *
+  * Based on RevisionTask by Mike Wittje <mw@mike.wittje.de>
   *
   * @author      Stian Didriksen <stian@ninjaforge.com>
-  * @version     $Id: SetRevisionTask.php 521 2010-10-10 15:39:54Z stian $
+  * @version     $Id: GetRevisionTask.php 521 2010-10-10 15:39:54Z stian $
   * @package     napi.phing.tasks
   */
-class SetRevisionTask extends Task
+class GetRevisionTask extends Task
 {
     /**
      * Property for File
@@ -51,7 +54,7 @@ class SetRevisionTask extends Task
     {
         $this->file = $file;
     }
-    
+
     /**
      * Set
      * @param $property
@@ -77,24 +80,26 @@ class SetRevisionTask extends Task
         // load file
         $xml = simplexml_load_file($this->file);
 
-        // set new version, overwriting the old one
-        $xml = $this->setRevision($xml);
+        // get new version
+        $newRevision = $this->getRevision($xml);
 
-        // write the new xml to the old xml file
-        $xml->asXML($this->file);
+        // publish new version number as property
+        $this->project->setProperty($this->property, $newRevision);
+
     }
 
     /**
-     * Sets the new revision number
+     * Returns new version number
      *
      * @param SimpleXMLElement $xml
-     * @return SimpleXMLElement
+     * @return string
      */
-    private function setRevision($xml)
+    private function getRevision($xml)
     {
-    	$xml->revision = (int)$xml->revision++;
+        // Extract version
+        $newRevision = (string) $xml->revision;
 
-        return $xml;
+        return $newRevision;
     }
 
     /**
@@ -107,7 +112,7 @@ class SetRevisionTask extends Task
         // check File
         if ($this->file === null ||
         strlen($this->file) == 0) {
-            throw new BuildException('You must specify an xml file containing the <revision> tag.', $this->location);
+            throw new BuildException('You must specify an xml file containing the version number', $this->location);
         }
 
         $content = file_get_contents($this->file);
@@ -126,7 +131,7 @@ class SetRevisionTask extends Task
     {
         if (is_null($this->property) ||
             strlen($this->property) === 0) {
-            throw new BuildException('Property for revision number is not set', $this->location);
+            throw new BuildException('Property for publishing version number is not set', $this->location);
         }
     }
 }

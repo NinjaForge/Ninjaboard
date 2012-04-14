@@ -82,7 +82,12 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		
 		$this->assign('pagination', 
 			$this->getService('com://site/ninjaboard.template.helper.paginator', array('name' => 'topics'))
-				->pagination($this->total, KRequest::get('get.offset', 'int', 0), $this->limit, 4)
+				->pagination(array(
+					'total' => $this->total,
+					'offset' => KRequest::get('get.offset', 'int', 0),
+					'limit' => $this->limit,
+					'display' => 5
+				))
 		);
 		
 		if($model->getTotal())

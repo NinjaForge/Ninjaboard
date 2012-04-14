@@ -6,9 +6,7 @@
  * @link     	http://ninjaforge.com
  */
 
-KLoader::loadIdentifier('ninja:view.json');
-
-class ComNinjaboardViewMessagesJson extends NinjaViewJson
+class ComNinjaboardViewMessagesJson extends KViewJson
 {
 	/**
 	 * Return the views output
