@@ -30,6 +30,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	public function __construct(KConfig $config)
 	{
 		$config->append(array(
+			'behaviors'     =>  array('verifiable'),
 			'request' => array(
 				'layout'	=> 'form'
 			)
@@ -37,11 +38,12 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	
 		parent::__construct($config);
 
+		$watch = $this->getService('com://site/ninjaboard.controller.watch');
+
 		//Add/Edit related event handlers
-		$this->registerCallback(array('before.add', 'before.edit'), array($this, 'validate'));
 		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setAttachments'));
-		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setNotify'));
-		$this->registerCallback('after.add', array($this, 'notify'));
+		$this->registerCallback(array('after.add', 'after.edit'), array($watch, 'subscribe'));
+		$this->registerCallback('after.add', array($watch, 'notify'));
 		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'redirect'));
 		
 		//Delete related event handlers
@@ -69,88 +71,6 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 
         parent::_initialize($config);
     }
-
-	/**
-	 * Validates the entered data
-	 *
-	 * @param	KCommandContext	The context of the event
-	 * @return	boolean			True when valid, false when invalid to stop the action from executing
-	 */
-	public function validate(KCommandContext $context)
-	{
-		$data 	 = $context->data;
-		$request = $this->getRequest();
-		
-		//If there's a topic id, then we're replying or editing
-		if(!empty($data->ninjaboard_topic_id) && empty($data->subject)) {
-			$topic = $this->getService('com://site/ninjaboard.model.topics')
-																		->id($data->ninjaboard_topic_id)
-																		->getItem();
-			//If the id is set, then we're editing
-			if(isset($request->id)) {
-				//If this post is the topic starter, it can't be without a subject or body
-				if($topic->first_post_id === $request->id) {
-					JError::raiseWarning(21, JText::_('Topics cannot be without a subject.'));
-					$this->execute('cancel');
-					return false;
-				} 
-			}
-		} elseif(empty($data->subject)) {
-			JError::raiseWarning(21, JText::_('Topics cannot be without a subject.'));
-			$this->execute('cancel');
-			return false;
-		}
-		
-		if(empty($data->text)) {
-			JError::raiseWarning(21, JText::_('Posts cannot be without text.'));
-			$this->execute('cancel');
-			return false;
-		}
-	}
-	
-	/**
-	 * Set email notifications status when editing, posting or replying
-	 */
-	public function setNotify(KCommandContext $context)
-	{
-		$data = $context->result;
-		if(is_a($data, 'KDatabaseRowsetInterface')) $data = (object) end($data->getData());
-
-		if(!isset($data->notify_on_reply_topic) || !$data->ninjaboard_topic_id) return;
-		
-		$table = $this->getService('com://admin/ninjaboard.database.table.watches');
-		$type  = $table->getTypeIdFromName('topic');
-		
-		//Always run delete to clean out duplicates
-		//@TODO make this lazier
-		$this->getService('com://site/ninjaboard.controller.watch')
-															->type($type)
-															->type_id($data->ninjaboard_topic_id)
-															->execute('delete');
-		
-		if($data->notify_on_reply_topic)
-		{
-			$this->getService('com://site/ninjaboard.controller.watch')->execute('add', array(
-				'subscription_type'		=> $type,
-				'subscription_type_id'	=> $data->ninjaboard_topic_id
-			));
-		}
-	}
-	
-	/**
-	 * Email notifications
-	 */
-	public function notify(KCommandContext $context)
-	{
-		//If no id, do not notify
-		if(!$context->result->id) return;
-		
-		$params = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
-		if($params['email_notification_settings']['enable_email_notification'])
-		{
-			$this->getService('com://site/ninjaboard.controller.watch')->execute('notify', $context);
-		}
-	}
 
 	public function setAttachments(KCommandContext $context)
 	{

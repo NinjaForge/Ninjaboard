@@ -34,19 +34,19 @@
 
 			if(subject && !subject.value && text && !text.value) {
 				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("You need to enter text and a subject.")) ?>);
+				alert(<?= json_encode(@text("NB_DATA_VALIDATION_FAILED_SUBJECT_TEXT")) ?>);
 				return false; 
 			}
 
 			if(subject && !subject.value) {
 				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("You need to enter a subject.")) ?>);
+				alert(<?= json_encode(@text("NAPI_DATA_VALIDATION_FAILED_SUBJECT")) ?>);
 				return false; 
 			}
 			
 			if(text && !text.value) {
 				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("You need to enter some text.")) ?>);
+				alert(<?= json_encode(@text("NAPI_DATA_VALIDATION_FAILED_TEXT")) ?>);
 				return false; 
 			}
 			
