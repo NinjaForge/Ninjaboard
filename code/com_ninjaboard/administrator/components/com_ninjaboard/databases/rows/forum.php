@@ -84,7 +84,8 @@ class ComNinjaboardDatabaseRowForum extends ComNinjaboardDatabaseRowParam
 			$gids	= explode('|', $me->ninjaboard_usergroup_id);
 
 			//If super admin, then the permission level is always 3
-			if($me->gid == 25) return $this->_permissions[$object] = 3;
+			if($me->gid == 25 || (JVersion::isCompatible('1.6.0') && in_array('8', JFactory::getUser($me->id)->groups)))
+				return $this->_permissions[$object] = 3;
 			
 			$query
 					->select('IFNULL(tbl.level, '.(int)$me->{$object.'_permissions'}.') AS level')

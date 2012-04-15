@@ -1,0 +1,504 @@
+{
+	"joomlausergroupmaps": [
+		{
+			"id": "1",
+			"ninjaboard_gid": "1"
+		},
+		{
+			"id": "2",
+			"ninjaboard_gid": "2"
+		},
+		{
+			"id": "3",
+			"ninjaboard_gid": "2"
+		},
+		{
+			"id": "4",
+			"ninjaboard_gid": "2"
+		},
+		{
+			"id": "5",
+			"ninjaboard_gid": "3"
+		},
+		{
+			"id": "6",
+			"ninjaboard_gid": "3"
+		},
+		{
+			"id": "7",
+			"ninjaboard_gid": "4"
+		},
+		{
+			"id": "8",
+			"ninjaboard_gid": "4"
+		}
+	],
+    "assets": [
+        {
+            "level": "3",
+            "name": "com_ninjaboard.usergroup.4.forum"
+        },
+        {
+            "level": "3",
+            "name": "com_ninjaboard.usergroup.4.topic"
+        },
+        {
+            "level": "3",
+            "name": "com_ninjaboard.usergroup.4.post"
+        },
+        {
+            "level": "3",
+            "name": "com_ninjaboard.usergroup.4.attachment"
+        },
+        {
+            "level": "1",
+            "name": "com_ninjaboard.usergroup.1.forum"
+        },
+        {
+            "level": "1",
+            "name": "com_ninjaboard.usergroup.1.topic"
+        },
+        {
+            "level": "1",
+            "name": "com_ninjaboard.usergroup.1.post"
+        },
+        {
+            "level": "1",
+            "name": "com_ninjaboard.usergroup.1.attachment"
+        },
+        {
+            "level": "1",
+            "name": "com_ninjaboard.usergroup.3.forum"
+        },
+        {
+            "level": "3",
+            "name": "com_ninjaboard.usergroup.3.topic"
+        },
+        {
+            "level": "3",
+            "name": "com_ninjaboard.usergroup.3.post"
+        },
+        {
+            "level": "3",
+            "name": "com_ninjaboard.usergroup.3.attachment"
+        },
+        {
+            "level": "1",
+            "name": "com_ninjaboard.usergroup.2.forum"
+        },
+        {
+            "level": "2",
+            "name": "com_ninjaboard.usergroup.2.topic"
+        },
+        {
+            "level": "2",
+            "name": "com_ninjaboard.usergroup.2.post"
+        },
+        {
+            "level": "2",
+            "name": "com_ninjaboard.usergroup.2.attachment"
+        },
+        {
+            "level": "0",
+            "name": "com_ninjaboard.usergroup.5.forum"
+        },
+        {
+            "level": "0",
+            "name": "com_ninjaboard.usergroup.5.topic"
+        },
+        {
+            "level": "0",
+            "name": "com_ninjaboard.usergroup.5.post"
+        },
+        {
+            "level": "0",
+            "name": "com_ninjaboard.usergroup.5.attachment"
+        }
+    ],
+    "ranks": [{
+        "title": "Newbie",
+        "min": "0",
+        "rank_file": "blue\/0.png"
+    },
+    {
+        "title": "Fresh User",
+        "min": "1",
+        "rank_file": "blue\/1.png"
+    },
+    {
+        "title": "User",
+        "min": "25",
+        "rank_file": "blue\/2.png"
+    },
+    {
+        "title": "Experienced",
+        "min": "50",
+        "rank_file": "blue\/3.png"
+    },
+    {
+        "title": "Hero",
+        "min": "100",
+        "rank_file": "blue\/4.png"
+    },
+    {
+        "title": "Master",
+        "min": "200",
+        "rank_file": "blue\/5.png"
+    },
+    {
+        "title": "Elite",
+        "min": "1000",
+        "rank_file": "yellow\/star.png"
+    }],
+    "usergroups": [{
+        "id": "1",
+        "title": "Public",
+        "visible": 0
+    },
+    {
+        "id": "2",
+        "title": "Registered",
+        "visible": 0
+    },
+    {
+        "id": "3",
+        "title": "Moderator"
+    },
+    {
+        "id": "4",
+        "title": "Administrator"
+    },
+    {
+        "id": "5",
+        "title": "Banned"
+    }],
+    "forums": [{
+        "id": "1",
+        "level": "1",
+        "path": "\/",
+        "title": "Ninjaboard rocks!",
+        "alias": "ninjaboard-rocks",
+        "description": "The most easy to use, intuitive and powerful forum extension for Joomla!",
+        "posts": "5",
+        "topics": "4",
+        "last_post_id": "5",
+        "ordering": 1
+    },
+    {
+        "id": "2",
+        "level": "2",
+        "path": "\/1\/",
+        "title": "Powered by the Nooku Framework",
+        "alias": "powered-by-the-nooku-framework",
+        "description": "Strict PHP 5.2 OOP. Unparalleled extensibility. Powerful command chain and event handler.",
+        "posts": "1",
+        "topics": "1",
+        "last_post_id": "1",
+        "ordering": 2,
+        "params": {
+            "customization": {
+                "icon": "misc_07.png"
+            }
+        }
+    },
+    {
+        "id": "3",
+        "level": "2",
+        "path": "\/1\/",
+        "title": "Built from scratch.",
+        "alias": "built-from-scratch",
+        "description": "Using HMVC, template layout sandboxing, MySQLi security and more!",
+        "posts": "1",
+        "topics": "1",
+        "last_post_id": "2",
+        "ordering": 3,
+        "params": {
+            "customization": {
+                "icon": "books_16.png"
+            }
+        }
+    },
+    {
+        "id": "4",
+        "level": "2",
+        "path": "\/1\/",
+        "title": "Redesigned back-end UI",
+        "alias": "redesigned-back-end-ui",
+        "description": "New icons, new toolbar, new pagination and so much more!",
+        "posts": "2",
+        "topics": "1",
+        "last_post_id": "4",
+        "ordering": 4,
+        "params": {
+            "customization": {
+                "icon": "books_03.png"
+            }
+        }
+    },
+    {
+        "id": "5",
+        "level": "2",
+        "path": "\/1\/",
+        "title": "New auto-skinning template engine, only in Ninjaboard",
+        "alias": "new-auto-skinning-template-engine-only-in-ninjaboard",
+        "description": "Blends beautifully in with any J! template. Codename Chameleon.",
+        "posts": "1",
+        "topics": "1",
+        "last_post_id": "5",
+        "ordering": 5,
+        "params": {
+            "customization": {
+                "icon": "hardware_01.png"
+            }
+        }
+    },
+    {
+        "id": "6",
+        "level": "1",
+        "path": "\/",
+        "title": "Support",
+        "alias": "support",
+        "description": "Here you'll find support and help for Ninjaboard.",
+        "last_post_id": "8",
+        "posts": "3",
+        "topics": "1",
+        "ordering": 6,
+        "params": {
+            "customization": {
+                "icon": "books_02.png"
+            }
+        }
+    },
+    {
+        "id": "7",
+        "level": "2",
+        "path": "\/6\/",
+        "title": "General",
+        "alias": "general",
+        "description": "General help and FAQs.",
+        "last_post_id": "8",
+        "posts": "3",
+        "topics": "1",
+        "ordering": 7,
+        "params": {
+            "customization": {
+                "icon": "button_white_info.png"
+            }
+        }
+    },
+    {
+        "id": "9",
+        "level": "2",
+        "path": "\/6\/",
+        "title": "Chameleon",
+        "alias": "chameleon",
+        "description": "Find examples of how Chameleon can be configured with popular Joomla! templates.",
+        "ordering": 8,
+        "params": {
+            "customization": {
+                "icon": "button_color_circle.png"
+            }
+        }
+    },
+    {
+        "id": "10",
+        "level": "2",
+        "path": "\/6\/",
+        "title": "Converters",
+        "alias": "converters",
+        "description": "What can the current supplied converters handle, and how can I make my own?",
+        "ordering": 9,
+        "params": {
+            "customization": {
+                "icon": "database.png"
+            }
+        }
+    },
+    {
+        "id": "11",
+        "level": "2",
+        "path": "\/6\/",
+        "title": "Ninjaboard and Ninja APIs",
+        "description": "Find out what APIs are available in Ninjaboard, and how easy it is to extend it any way you want.",
+        "ordering": 10,
+        "params": {
+            "customization": {
+                "icon": "magic_wand.png"
+            }
+        }
+    },
+    {
+        "id": "12",
+        "level": "2",
+        "path": "\/6\/",
+        "title": "Secrets",
+        "description": "What hidden features and easter egg exist in Ninjaboard?",
+        "ordering": 11,
+        "params": {
+            "customization": {
+                "icon": "drawer_open.png"
+            }
+        }
+    }],
+    "topics": [{
+        "id": "1",
+        "forum_id": "2",
+        "first_post_id": "1",
+        "last_post_id": "1",
+        "params": {
+        	"customization": {
+        		"icon": "32_heart.png"
+        	}
+        }
+    },
+    {
+        "id": "2",
+        "forum_id": "3",
+        "first_post_id": "2",
+        "last_post_id": "2",
+        "params": {
+        	"customization": {
+        		"icon": "32_info.png"
+        	}
+        }
+    },
+    {
+        "id": "3",
+        "replies": "1",
+        "forum_id": "4",
+        "first_post_id": "3",
+        "last_post_id": "4",
+        "hits": "1",
+        "params": {
+        	"customization": {
+        		"icon": "32_fire.png"
+        	}
+        }
+    },
+    {
+        "id": "4",
+        "forum_id": "5",
+        "first_post_id": "5",
+        "last_post_id": "5",
+        "params": {
+        	"customization": {
+        		"icon": "32_star.png"
+        	}
+        }
+    },
+    {
+	    "id": "5",
+	    "forum_id": "7",
+	    "first_post_id": "6",
+	    "last_post_id": "8",
+	    "params": {
+	    	"customization": {
+	    		"icon": "32_radioactive.png"
+	    	}
+	    }
+	}],
+    "posts": [{
+        "id": "1",
+        "subject": "Nooku Framework 0.7",
+        "text": "Ninjaboard is using the 0.7 version of the Nooku Framework (Codename Koowa).",
+        "created_on": "2009-09-21 21:41:37",
+        "created_by": "62",
+        "ninjaboard_topic_id": "1",
+        "params": {
+        	"customization": {
+        		"icon": "32_heart.png"
+        	}
+        }
+    },
+    {
+        "id": "2",
+        "subject": "No longer a fork",
+        "text": "Ninjaboard 1.0 marks the [b]end[\/b] of the fork status.\r\nThere's not a [u]trace[\/u] left of [url=#]JooBB[\/url].",
+        "created_on": "2010-03-26 21:42:25",
+        "created_by": "62",
+        "ninjaboard_topic_id": "2",
+        "params": {
+        	"customization": {
+        		"icon": "32_info.png"
+        	}
+        }
+    },
+    {
+        "id": "3",
+        "subject": "Sexy in khepri",
+        "text": "Also being prepared for AdminPraise lite, and Stainless.",
+        "created_on": "2010-03-26 21:42:23",
+        "created_by": "62",
+        "ninjaboard_topic_id": "3",
+        "params": {
+        	"customization": {
+        		"icon": "32_fire.png"
+        	}
+        }
+    },
+    {
+        "id": "4",
+        "subject": "RE: Sexy in khepri",
+        "text": "We're adding support for JoomlaBamboo admin templates as well.",
+        "created_on": "2010-07-24 21:42:15",
+        "created_by": "62",
+        "ninjaboard_topic_id": "3",
+        "params": {
+        	"customization": {
+        		"icon": "32_fire.png"
+        	}
+        }
+    },
+    {
+        "id": "5",
+        "subject": "Showcase gallery",
+        "text": "Show us how NB looks like on your own sites :)",
+        "created_on": "2010-07-18 21:47:07",
+        "created_by": "62",
+        "ninjaboard_topic_id": "4",
+        "params": {
+        	"customization": {
+        		"icon": "32_star.png"
+        	}
+        }
+    },
+    {
+        "id": "6",
+        "subject": "URL data detector tests",
+        "text": "Testing the URL data detector wether it picks up everything it should without compromising security.",
+        "created_on": "2010-12-13 15:47:31",
+        "created_by": "62",
+        "ninjaboard_topic_id": "5",
+        "params": {
+        	"customization": {
+        		"icon": "32_radioactive.png"
+        	}
+        }
+    },
+    {
+        "id": "7",
+        "subject": "",
+        "text": "Test data for the URL-matching regex pattern presented here:\r\n\r\nhttp:\/\/daringfireball.net\/2010\/07\/improved_regex_for_matching_urls\/\r\n\r\n\r\nMatches the right thing in the following lines:\r\n\r\nhttp:\/\/foo.com\/blah_blah\r\nhttp:\/\/foo.com\/blah_blah\/\r\n(Something like http:\/\/foo.com\/blah_blah)\r\nhttp:\/\/foo.com\/blah_blah_(wikipedia)\r\nhttp:\/\/foo.com\/more_(than)_one_(parens)\r\n(Something like http:\/\/foo.com\/blah_blah_(wikipedia))\r\nhttp:\/\/foo.com\/blah_(wikipedia)#cite-1\r\nhttp:\/\/foo.com\/blah_(wikipedia)_blah#cite-1\r\nhttp:\/\/foo.com\/unicode_(\u272a)_in_parens\r\nhttp:\/\/foo.com\/(something)?after=parens\r\nhttp:\/\/foo.com\/blah_blah.\r\nhttp:\/\/foo.com\/blah_blah\/.\r\nhttp:\/\/foo.com\/blah_blah,\r\nhttp:\/\/www.extinguishedscholar.com\/wpglob\/?p=364.\r\nhttp:\/\/\u272adf.ws\/1234\r\nrdar:\/\/1234\r\nrdar:\/1234\/\r\nx-yojimbo-item:\/\/6303E4C1-6A6E-45A6-AB9D-3A908F59AE0E\r\nmessage:\/\/%3c330e7f840905021726r6a4ba78dkf1fd71420c1bf6ff@mail.gmail.com%3e\r\nhttp:\/\/\u27a1.ws\/\u4a39\/\r\nwww.c.ws\/\u4a39\r\nhttp:\/\/example.com\r\nJust a www.example.com link.\r\nhttp:\/\/example.com\/something?with,commas,in,url, but not at end\r\nmailto:name@example.com\r\nbit.ly\/foo\r\n\u201cis.gd\/foo\/\u201d\r\nWWW.EXAMPLE.COM\r\nhttp:\/\/www.asianewsphoto.com\/(S(neugxif4twuizg551ywh3f55))\/Web_ENG\/View_DetailPhoto.aspx?PicId=752\r\nhttp:\/\/www.asianewsphoto.com\/(S(neugxif4twuizg551ywh3f55))\r\nhttp:\/\/lcweb2.loc.gov\/cgi-bin\/query\/h?pp\/horyd:@field(NUMBER+@band(thc+5a46634))\r\n\r\n\r\nShould fail against:\r\n6:00p\r\nfilename.txt\r\n\r\n\r\nKnown to fail against:\r\nhttp:\/\/example.com\/quotes-are-\u201cpart\u201d\r\n\u272adf.ws\/1234\r\nexample.com\r\nexample.com\/",
+        "created_on": "2010-12-13 15:48:07",
+        "created_by": "62",
+        "ninjaboard_topic_id": "5",
+        "params": {
+        	"customization": {
+        		"icon": "32_radioactive.png"
+        	}
+        }
+    },
+    {
+        "id": "8",
+        "subject": "",
+        "text": "Testing URL detector security.\r\n\r\nWithin url backets: [url]javascript:alert(1)[\/url]\r\n\r\nIn plain text: javascript:alert(1)",
+        "created_on": "2010-12-13 16:02:17",
+        "created_by": "62",
+        "ninjaboard_topic_id": "5",
+        "params": {
+        	"customization": {
+        		"icon": "32_radioactive.png"
+        	}
+        }
+    }]
+}

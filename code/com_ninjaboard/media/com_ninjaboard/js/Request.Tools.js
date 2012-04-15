@@ -251,14 +251,19 @@ Request.Tools = new Class({
 		    	    var message = msg.success.replace('{label}', link.get('text')).replace('{total}', total.timeDiff());
 		    		Notifications.createNotification(icon, document.title,  message);
 		    		this.options.title.set('text', message + ' | ' + this.options.title.get('data-title'));
-		    		this.options.placeholder.get('spinner', {message: message}).hide(true).show(true);
-		    		this.options.placeholder.get('spinner').element.addClass('success');
+		    		var spinner = this.options.placeholder.get('spinner')
+		    		spinner.msg.set('html', message);
+
+		    		spinner.hide(true).show(true);
+		    		spinner.element.addClass('success');
 		    		request.fireEvent('complete');
 		    	}
 		    	
 		    },
 		    onFailure: function(){
-		    	this.options.placeholder.get('spinner', {message: msg.failure}).hide(true).show(true);
+		    	var spinner = this.options.placeholder.get('spinner')
+		    	spinner.msg.set('html', message);
+				spinner.hide(true).show(true);
 		    	this.options.placeholder.get('spinner').element.addClass('failed');
 		    	Notifications.createNotification(icon, document.title,  msg.failure);
 		    }

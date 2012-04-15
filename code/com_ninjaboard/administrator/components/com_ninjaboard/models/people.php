@@ -196,7 +196,8 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 			$ids 		= array();
 
 			//If super admin, then no forums are without access
-			if($me->gid == 25) return $this->_forums = array();
+			if($me->gid == 25 || (JVersion::isCompatible('1.6.0') && in_array('8', JFactory::getUser($me->id)->groups))) 
+				return $this->_forums = array();
 			
 			$query2
 					->select('tbl.name')

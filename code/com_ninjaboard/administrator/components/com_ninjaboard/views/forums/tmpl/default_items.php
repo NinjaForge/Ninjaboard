@@ -1,5 +1,4 @@
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
-
 <? foreach($forums as $i => $forum) : ?>
 	<tr class="sortable state-<?= @toggle($forum->enabled, 'enable', 'disable') ?>">
 		<?= @ninja('grid.count', array('total' => $total)) ?>

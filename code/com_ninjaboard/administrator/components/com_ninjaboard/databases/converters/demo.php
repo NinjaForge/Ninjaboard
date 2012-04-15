@@ -22,7 +22,8 @@ class ComNinjaboardDatabaseConvertersDemo extends ComNinjaboardDatabaseConverter
 	 */
 	public function convert()
 	{
-		$this->data = json_decode(file_get_contents(JPATH_COMPONENT_ADMINISTRATOR . '/data/demo.json'), true);
+		$file = (JVersion::isCompatible('1.6.0')) ? 'demo25.json' : 'demo.json';
+		$this->data = json_decode(file_get_contents(JPATH_COMPONENT_ADMINISTRATOR . '/data/'.$file), true);
 
 		parent::convert();
 
@@ -48,6 +49,7 @@ class ComNinjaboardDatabaseConvertersDemo extends ComNinjaboardDatabaseConverter
 	 */
 	public function canConvert()
 	{
-		return file_exists(JPATH_COMPONENT_ADMINISTRATOR . '/data/demo.json');
+		$file = (JVersion::isCompatible('1.6.0')) ? 'demo25.json' : 'demo.json';
+		return file_exists(JPATH_COMPONENT_ADMINISTRATOR . '/data/'.$file);
 	}
 }

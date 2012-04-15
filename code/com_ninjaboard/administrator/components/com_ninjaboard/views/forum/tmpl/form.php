@@ -60,11 +60,10 @@
 		<script type="text/javascript" src="/switch.js"></script>
 
 		<script type="text/javascript">
-			var Permissions = Switch.extend({
+			var Permissions = new Class({
+				Extends : Switch,
 				focus: true,
 				initialize: function(target, options){
-
-
 					this.targets = $$('#'+target.get('id') + '-switch', '#'+target.get('id') + '-wrap');
 					this.clones  = this.targets.clone();
 					this.name    = target.get('id');
@@ -91,7 +90,7 @@
 						$([this.name, i, 'switch'].join('-')).getParent().getNext().set('html', '<span class="on">'+this.options.text.on+'</span><span class="off">'+this.options.text.off+'</span>');
 					}.bind(this));
 					
-					this.addEvent('onChange', this.onChange.bind(this)).fireEvent('onChange', this.container.getPrevious().value);
+					this.addEvent('onChange', this.onChange.bind(this)).fireEvent('onChange', $(this.container).getPrevious().value);
 
 					return this;
 				},
@@ -106,33 +105,6 @@
 						this.table.addClass('disabled').fade(0.6).getElements('input').set('disabled', 'disabled');
 					}
 				}
-			});
-			
-			Element.Properties.switcher = {
-			
-				set: function(options){
-					var switcher = this.retrieve('switcher');
-					return this.eliminate('switcher').store('switcher:options', options);
-				},
-			
-				get: function(options){
-					if (options || !this.retrieve('switcher')){
-						if (this.retrieve('switcher')) this.retrieve('switcher').destroy();
-						if (options || !this.retrieve('switcher:options')) this.set('switcher', options);
-						new Permissions(this, this.retrieve('switcher:options'));
-					}
-					return this.retrieve('switcher');
-				}
-			
-			};
-			
-			Element.implement({
-			
-				switcher: function(options){
-					this.get('switcher', options);
-					return this;
-				}
-			
 			});
 		</script>
 			
@@ -172,8 +144,7 @@
 			<legend><?= @text('Permissions') ?></legend>
 			<?= @helper('accordion.startpane', array('id' => @id('permissions'), 'options' => array('opacity' => true, 'scroll' => true))) ?>
 			<? foreach (@$permissions as $permission) : ?>
-				<script><?= "\n\twindow.addEvent('domready', function(){ $('" . $permission['id'] . "').switcher(".json_encode(array('text' => array('on' => @text('on'), 'off' => @text('off'))))."); });\n" ?></script>
-
+				<script><?= "\n\twindow.addEvent('domready', function(){ new Permissions($('" . $permission['id'] . "'), ".json_encode(array('text' => array('on' => @text('on'), 'off' => @text('off'))))."); });\n" ?></script>
 				<?= @helper('accordion.startpanel', array('title' => $permission['title'], 'translate' => false)) ?>
 
 					<? $permissions = 0 ?>
