@@ -196,7 +196,7 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		$html[] = "\n";
 		$html[] = 'if(window.ninja){';
 		$html[] =	 'setInterval(function(){';
-		$html[] = 		'ninja.get(' . json_encode(KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH)) . ');';
+		$html[] = 		'ninja.get(' . json_encode(KRequest::url()->get()) . ');';
 		$html[] = 	'}, ' . (60000 * max(1, (int)JFactory::getApplication()->getCfg('lifetime'))) . ');';
 		$html[] = "}";
 		$html[] = '</script>';

@@ -217,3 +217,10 @@ li.active .message-third-row {
 .splitview-list .message-unread {
     background: url(../../com_ninja/images/unread.png) center center no-repeat;
 }
+.element.name-to {
+    overflow: visible;
+}
+.textboxlist-autocomplete {
+    /* @TODO this is because of the MarkItUp editor */
+    z-index: 1;
+}

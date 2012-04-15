@@ -3,28 +3,33 @@
 <?= @template('com://site/ninjaboard.view.default.head') ?>
 <link rel="stylesheet" href="/form.css" />
 <link rel="stylesheet" href="/site.form.css" />
+<link rel="stylesheet" href="/bbcode.css" />
+
+<script type="text/javascript" src="/jquery/jquery.markitup.pack.js"></script>
+<script type="text/javascript" src="/jquery/bbcode.js"></script>
 
 <?= @helper('behavior.keepalive') ?>
 
 <script type="text/javascript">
 	ninja(function($){
 		var form = $('#<?= @id() ?>');
-		$('#<?= @id('cancel') ?>', '#<?= @id('save') ?>').click(function(event){
+		$('#<?= @id('cancel') ?>, #<?= @id('save') ?>').click(function(event){
 			event.preventDefault();
 			event.stopPropagation();
 		});
 		$('#<?= @id('cancel') ?>').one('click', function(event){
 			event.preventDefault();
 			event.stopPropagation();
+
+            //@TODO refactor to use koowa.js
 			form.append('<input type=\"hidden\" name=\"action\" value=\"cancel\" />')
-				.trigger('submit');
+			    .trigger('submit');
 		});
 		
 		var save = function(event){
 			event.preventDefault();
 			event.stopPropagation();
 			//Do basic forms validation for better usability
-			wswgEditor.doCheck();
 			var subject = document.getElementById('subject'), text = document.getElementById('text');
 
 			if(subject && !subject.value && text && !text.value) {
@@ -49,6 +54,9 @@
 				.trigger('submit');
 		};
 		$('#<?= @id('save') ?>').one('click', save);
+
+		myBbcodeSettings.previewParserPath = '<?= @route("option=com_ninjaboard&view=post&layout=preview&format=raw&tmpl=") ?>';
+		$('#text').markItUp(myBbcodeSettings);
 		
 		var slideDownAttachmentsHelp = function(){
 			$('.attachments-extensions-help').slideDown();
@@ -86,15 +94,19 @@
 			return false;
 		});
 		
-		$('.image-select input')
-		.bind('change', function(){
-			$(this).siblings('label').removeClass('selected');
-			$(this).next().addClass('selected');
-		});
+		$('.image-select input').change(function(){
+    		$(this).siblings('label').removeClass('selected');
+    		$(this).next().addClass('selected');
+    	});
 		
 		//This is for IE, which don't respect the for attribute if the input isn't visible
 		$('.image-select label').bind('click', function(){
 			$(this).prev().attr('checked', true).trigger('change');
+		});
+		
+		$('#<?= @id('preview') ?>').click(function(event){
+			event.preventDefault();
+			$('#markItUpText .button_preview').triggerHandler('mousedown');
 		});
 	});
 </script>
@@ -112,7 +124,7 @@
 			</div>
 		<? endif ?>
 		<div class="element wider" style="text-align:center;position:relative">
-		    <?= @helper('behavior.editor', array('name' => 'text', 'placeholder' => 'Enter some text', 'value' => $post->text)) ?>
+			<?= @helper('behavior.editor', array('name' => 'text', 'placeholder' => 'Enter some text', 'value' => $post->text)) ?>
 		</div>
 
 		<? if($topic->attachment_permissions > 1 && ($topic->attachment_settings || $forum->post_permissions > 2)) : ?>
@@ -141,8 +153,7 @@
 			</div>
 		</div>
 		<? endif ?>
-		
-		<? /* @TODO sticky is WIP */ ?><!--
+
 		<? if($forum->topic_permissions > 2 && (!$topic->id || $topic->first_post_id == $post->id)) : ?>
 			<div class="element">
 				<label for="sticky">
@@ -151,7 +162,7 @@
 					<?= @text('Sticky topic') ?>
 				</label>
 			</div>
-		<? endif ?>-->
+		<? endif ?>
 
 		<div class="element"></div>
 
@@ -170,7 +181,6 @@
 				<div id="<?= @id('save') ?>">
 					<?= @$create_topic_button ?>
 				</div>
-				&#160;
 				<div id="<?= @id('cancel') ?>"><?= str_replace('$title', @text('Cancel'), @$topic->params['tmpl']['cancel_button']) ?></div>
 			</div>
 		</div>

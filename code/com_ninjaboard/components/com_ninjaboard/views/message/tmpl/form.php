@@ -1,17 +1,18 @@
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
-
-
 <?= @template('com://site/ninjaboard.view.default.head') ?>
 
 <link rel="stylesheet" href="/form.css" />
 <link rel="stylesheet" href="/site.form.css" />
+<link rel="stylesheet" href="/bbcode.css" />
 <link rel="stylesheet" href="/message.css" />
-<script type="text/javascript">
-	//jQuery version of keepalive
-	setInterval(function(){
-		ninja.get(<?= json_encode(KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH).@route()) ?>);
-	}, <?= 60000 * max(1, (int)JFactory::getApplication()->getCfg('lifetime')) ?>);
 
+<script type="text/javascript" src="/jquery/jquery.markitup.pack.js"></script>
+<script type="text/javascript" src="/jquery/bbcode.js"></script>
+
+
+<?= @helper('behavior.keepalive') ?>
+
+<script type="text/javascript">
 	ninja(function($){
 		var form = $('#<?= @id() ?>');
 		$('#<?= @id('cancel') ?>', '#<?= @id('save') ?>').click(function(event){
@@ -29,7 +30,6 @@
 			event.preventDefault();
 			event.stopPropagation();
 			//Do basic forms validation for better usability
-			wswgEditor.doCheck();
 			var to = document.getElementById('to'), subject = document.getElementById('subject'), text = document.getElementById('text');
 
 			if(to && !to.value) {
@@ -38,18 +38,6 @@
 				return false; 
 			}
 
-			/*if(subject && !subject.value && text && !text.value) {
-				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("You need to enter text and a subject.")) ?>);
-				return false; 
-			}
-
-			if(subject && !subject.value) {
-				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("You need to enter a subject.")) ?>);
-				return false; 
-			}*/
-			
 			if(text && !text.value) {
 				$('#<?= @id('save') ?>').one('click', save);
 				alert(<?= json_encode(@text("You need to enter some text.")) ?>);
@@ -60,10 +48,19 @@
 				.trigger('submit');
 		};
 		$('#<?= @id('save') ?>').one('click', save);
+
+		myBbcodeSettings.previewParserPath = '<?= @route("option=com_ninjaboard&view=post&layout=preview&format=raw&tmpl=") ?>';
+		$('#text').markItUp(myBbcodeSettings);
 		
 		//This is for IE, which don't respect the for attribute if the input isn't visible
 		$('.image-select label').bind('click', function(){
 			$(this).prev().attr('checked', true).trigger('change');
+		});
+		
+		$('#text_preview').insertAfter($('#text'));
+		$('#<?= @id('preview') ?>').click(function(event){
+			event.preventDefault();
+			$('#markItUpText .button_preview').triggerHandler('mousedown');
 		});
 	});
 </script>
@@ -77,7 +74,7 @@
 				<?= @ninja('behavior.textboxlist', array('name' => 'to', 'id' => 'to')) ?>
 			</div>
 			<div class="element wider" style="text-align:center;position:relative">
-				<?= @ninja('behavior.wysiwygbbcode', array('element' => 'text', 'placeholder' => @text('Enter some text'))) ?>
+				<?= @helper('behavior.editor', array('name' => 'text', 'placeholder' => 'Enter some text')) ?>
 			</div>
 	
 			<div class="element"></div>
