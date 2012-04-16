@@ -76,9 +76,6 @@ class ComNinjaboardModelAvatars extends ComNinjaboardModelPeople
 				}
 			}
 
-			print_R($this->_item->image);
-			die();
-
 			$this->_item->image = $this->getService('ninja:helper.image', array('image' => JPATH_ROOT.$this->_item->image));
 
 			$from	= $this->_item->image->width / $this->_item->image->height;

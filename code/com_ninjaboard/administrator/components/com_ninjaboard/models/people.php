@@ -69,24 +69,19 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 	
 	protected function _buildQueryJoins(KDatabaseQuery $query)
 	{
-		$query
-				//->join('left', 'ninjaboard_people AS person', 'tbl.id = person.ninjaboard_person_id');
-				->join('left', 'users AS user', 'user.id = tbl.ninjaboard_person_id');
-				//->join('left', 'ninjaboard_ranks AS rank', 'IFNULL(person.posts, 0) >= rank.min')
-				//->order('rank.min', 'DESC');
+		$query->join('left', 'users AS user', 'user.id = tbl.ninjaboard_person_id');
 		
 		if(JVersion::isCompatible('1.6.0'))
 		{
-			$query
-					->join('left', 'user_usergroup_map AS joomla_usergroup', 'joomla_usergroup.user_id = user.id')
-					->select('GROUP_CONCAT(joomla_usergroup.group_id SEPARATOR \'|\') AS ninjaboard_usergroup_id');
+			$query->join('left', 'user_usergroup_map AS joomla_usergroup', 'joomla_usergroup.user_id = user.id')
+				 	->join('left', 'ninjaboard_joomla_user_group_maps AS joomla_map', 'joomla_map.joomla_gid = joomla_usergroup.group_id');
 		}
 		else
 		{
-			$query
-					->join('left', 'ninjaboard_joomla_user_group_maps AS joomla_map', 'joomla_map.joomla_gid = user.gid')
-					->select("IFNULL((SELECT GROUP_CONCAT(ninjaboard_map.ninjaboard_user_group_id SEPARATOR '|') FROM #__ninjaboard_user_group_maps AS ninjaboard_map WHERE ninjaboard_map.joomla_user_id = user.id), joomla_map.ninjaboard_gid) AS ninjaboard_usergroup_id");
+			$query->join('left', 'ninjaboard_joomla_user_group_maps AS joomla_map', 'joomla_map.joomla_gid = user.gid');
 		}
+
+		$query->select("IFNULL((SELECT GROUP_CONCAT(ninjaboard_map.ninjaboard_user_group_id SEPARATOR '|') FROM #__ninjaboard_user_group_maps AS ninjaboard_map WHERE ninjaboard_map.joomla_user_id = user.id), joomla_map.ninjaboard_gid) AS ninjaboard_usergroup_id");
 		
 		parent::_buildQueryJoins($query);
 	}
@@ -135,19 +130,24 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
         	$table  = $this->getTable();
 			$query = $table->getDatabase()->getQuery();
 		
-			$query
-				->select(array(
-					'tbl.*',
-					'user.*'
-				))
-				->from('users AS user')
-				->join('left', 'ninjaboard_people AS tbl', 'user.id = tbl.ninjaboard_person_id')
-				->where('user.id', '=', $id)
+			$query->select(array('tbl.*','user.*'));
+			$query->from('users AS user')
+				->join('left', 'ninjaboard_people AS tbl', 'user.id = tbl.ninjaboard_person_id');
+
+			if(JVersion::isCompatible('1.6.0'))
+			{
+				// get the first group for this user and use it as the gid
+				$query->join('left', 'user_usergroup_map AS joomla_usergroup', 'joomla_usergroup.user_id = user.id')
+					 	->select('joomla_usergroup.group_id AS gid');
+			}
+				
+			$query->where('user.id', '=', $id)
 				->limit(1);
 
 			$this->buildScreenNameQuery($query);
 
 			$this->_me = $table->select($query, KDatabase::FETCH_ROW);
+
 		}
 		
 		return $this->_me;
@@ -196,7 +196,7 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 			$ids 		= array();
 
 			//If super admin, then no forums are without access
-			if($me->gid == 25 || (JVersion::isCompatible('1.6.0') && in_array('8', JFactory::getUser($me->id)->groups))) 
+			if($me->gid == 25 || (JVersion::isCompatible('1.6.0') && $me->gid == 8)) 
 				return $this->_forums = array();
 			
 			$query2

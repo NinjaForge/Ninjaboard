@@ -150,7 +150,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 		$person = $this->getService('com://admin/ninjaboard.model.people')
 				->id($context->data->id)
 				->getItem()
-				->setData(KConfig::toData($context->data));
+				->setData(KConfig::unbox($context->data));
 
 		$person->save();
 

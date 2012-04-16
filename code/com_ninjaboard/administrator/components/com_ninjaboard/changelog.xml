@@ -4,7 +4,7 @@
 
 <changelogs>
     <version>2.0</version>
-    <date>TBA</date>
+    <date>April 2012</date>
     <state>Major Release
     	<!-- Changelog for 1.2 is very incomplete -->
 		<bugfix>Fixed CSS issue in Joomla Usergroup Maps modal where long usergroup names would break onto the second line causing an overlap with the next group's name.</bugfix>
@@ -14,10 +14,12 @@
     </state>
 
     <version>1.1.6</version>
-    <date>TBA</date>
+    <date>April 5th 2012</date>
     <state>Maintenance Release
         <upgrade>Synced with the latest translation updates from our Transifex project.</upgrade>
         <bugfix>Fixed regression caused by canonical support that caused trouble in a few format=raw views and JDocumentRaw not having an addCustomTag method.</bugfix>
+        <bugfix>Fixed Gravatars not downloading correctly</bugfix>
+        <bugfix>bmp's are not supported</bugfix>
     </state>
 
     <version>1.1.5</version>
