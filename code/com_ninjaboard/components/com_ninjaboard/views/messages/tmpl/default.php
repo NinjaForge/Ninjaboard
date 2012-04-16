@@ -1,15 +1,13 @@
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
-
-
 <?= @template('com://site/ninjaboard.view.default.head') ?>
 
 <link rel="stylesheet" href="/reveal.css" />
 <link rel="stylesheet" href="/messages.css" />
 
-<script type="text/javascript" src="/reveal.js"></script>
-<script type="text/javascript" src="/messages.js"></script>
+<script type="text/javascript" src="/jquery/reveal.js"></script>
+<script type="text/javascript" src="/jquery/messages.js"></script>
 <script type="text/javascript">
-jQuery(function($){
+ninja(function($){
     $('#ninjaboard-message-form').appendTo(document.body);
     var messages = $('#<?= @id('messages') ?>'), children = messages.children(), setHeight = function(){
         messages.children().height($(window).height() - 100);
@@ -68,7 +66,7 @@ jQuery(function($){
         <?= @template('com://site/ninjaboard.view.message.form') ?>
         <a class="close-reveal-modal">&#215;</a>
     </div>
-    <?= @helper('com://site/ninjaboard.template.helper.splitview.messages', array(
+    <?= @helper('splitview.messages', array(
         'id' => @id('messages'),
         'options' => array(
             'primary_key' => 'conversation_id',

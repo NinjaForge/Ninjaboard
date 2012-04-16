@@ -17,7 +17,7 @@ class ComNinjaboardViewThemesHtml extends NinjaViewTemplatesHtml
 
 		$toolbar->append($this->getService('ninja:toolbar.button.about'));
 		
-		if(KInflector::isPlural($this->getService($this->getModel())->getIdentifier()->name))
+		if(KInflector::isPlural($this->getModel()->getIdentifier()->name))
 		{
             $this->_mixinMenubar();
 		}

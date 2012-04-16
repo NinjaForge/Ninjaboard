@@ -114,6 +114,7 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 	public function setBreadcrumbs()
 	{
 		$pathway	= JFactory::getApplication()->getPathWay();		
+		$menu	 	= JSite::getMenu()->getActive()->query;
 		
 		//Checks the view properties first, in case they're already set
 		if(!isset($this->post))
@@ -126,6 +127,7 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 																	->topic;
 			}
 		}
+
 		if(!isset($this->topic))
 		{
 			$this->topic = $this->getService('com://admin/ninjaboard.model.topics')
@@ -134,8 +136,10 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 		}
 		if(!isset($this->forum))
 		{
+			// there will allways be a forum id, its either in the topic (if its existing) or its in the request
+			$forum_id = $this->topic->forum_id ? $this->topic->forum_id : KRequest::get('get.forum', 'int');
 			$this->forum = $this->getService('com://admin/ninjaboard.model.forums')
-																			->id($this->topic->forum_id)
+																			->id($forum_id)
 																			->getItem();
 		}
 		
@@ -145,7 +149,8 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 		{
 			$pathway->addItem($parent->title, $this->createRoute('view=forum&id='.$parent->id));
 		}
-		$pathway->addItem($this->forum->title, $this->createRoute('view=forum&id='.$this->forum->id));
+
+		if ($menu['view'] != 'forum') $pathway->addItem($this->forum->title, $this->createRoute('view=forum&id='.$this->forum->id));
 		
 		$pathway->addItem($this->getDocumentSubtitle(), $this->createRoute('view=topic&id='.$this->topic->id));
 	}

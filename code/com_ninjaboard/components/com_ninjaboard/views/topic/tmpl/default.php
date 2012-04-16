@@ -32,13 +32,13 @@
 </style>
 
 <script type="text/javascript">
-	window.addEvent('domready', function(){
-		document.getElements('.<?= @id('delete') ?>').addEvent('click', function(event){
+	ninja(function($){
+		$('.<?= @id('delete') ?>').click(function(event){
 			event.preventDefault();
 
 			if(!confirm(<?= json_encode(@text("Are you sure you want to delete this topic? This action cannot be undone.")) ?>)) return;
 
-			this.getParent('form').submit();
+			$(this).closest('form').submit();
 		});
 	});
 </script>
@@ -49,7 +49,7 @@
 	<? if($topic->post_permissions > 0) : ?>
 	<div class="header">
 		<?/*= @render(@template('default_toolbar'), false, $forum->params['module'])*/ ?>
-		<?//= @template('default_toolbar') ?>
+		<?= @template('default_toolbar') ?>
 		<div class="clearfix"></div>
 	</div>
 	<div class="body">

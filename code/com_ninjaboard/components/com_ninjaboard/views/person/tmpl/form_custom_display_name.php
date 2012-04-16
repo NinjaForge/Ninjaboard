@@ -1,13 +1,12 @@
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <script type="text/javascript">
-window.addEvent('domready', function(){
-	document.id('use_alias').addEvent('click', function(){
-	    //@TODO .select() might not work as it does in jQuery
-		document.id('alias').select();
+ninja(function($){
+	$('#use_alias').click(function(){
+		$('#alias').select();
 	});
-	document.id('alias').addEvent('focus', function(){
-		if(!document.id('use_alias').checked) document.id('use_alias').set('checked', true);
+	$('#alias').focus(function(){
+		if(!$('#use_alias').is(':checked')) $('#use_alias').attr('checked', true);
 	});
 });
 </script>

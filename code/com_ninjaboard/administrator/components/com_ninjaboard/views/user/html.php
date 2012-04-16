@@ -29,7 +29,7 @@ class ComNinjaboardViewUserHtml extends ComNinjaboardViewHtml
 		
 		$this->assign('avatar', null);
 		
-		$user = $this->getService($this->getModel())->getItem();
+		$user = $this->getModel()->getItem();
 		$usergroups = array();
 
 		foreach($user->usergroups as $group)

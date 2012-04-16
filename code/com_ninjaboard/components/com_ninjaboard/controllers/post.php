@@ -30,6 +30,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	public function __construct(KConfig $config)
 	{
 		$config->append(array(
+			'behaviors'     =>  array('verifiable'),
 			'request' => array(
 				'layout'	=> 'form'
 			)
@@ -37,29 +38,21 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	
 		parent::__construct($config);
 
-		$this->addBehavior('editable');
+		$watch = $this->getService('com://site/ninjaboard.controller.watch');
 
-		//Register validation event
-		//@TODO we shouldn't have to attach to the save and apply events. But KControllerView expects 'edit' to succeed.
-		$this->registerCallback(array('before.add', 'before.edit', 'before.save', 'before.apply'), array($this, 'validate'));
-
-		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setNotify'));
+		//Add/Edit related event handlers
 		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setAttachments'));
-		$this->registerCallback('after.add', array($this, 'notify'));
+		$this->registerCallback(array('after.add', 'after.edit'), array($watch, 'subscribe'));
+		$this->registerCallback('after.add', array($watch, 'notify'));
+		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'redirect'));
 		
 		//Delete related event handlers
 		$this->registerCallback('before.delete', array($this, 'interceptDelete'));
 		$this->registerCallback('after.delete', array($this, 'cleanupDelete'));
+		$this->registerCallback('after.delete', array($this, 'prevent404'));
 		
 		//Perhaps we need to prefill the text if quote state exists
 		$this->registerCallback('before.read', array($this, 'canQuote'));
-		
-		// Workaround for avoiding 404 status on editor preview ajax
-		// @TODO replace MarkItUp with a wysiwyg editor so that ajax previews are no longer necessary.
-		$this->registerCallback('after.read', array($this, 'prevent404'));
-
-		// @TODO cleanup
-		$this->registerCallback('after.save', array($this, 'afterSave'));
 	}
 
 	/**
@@ -78,93 +71,6 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 
         parent::_initialize($config);
     }
-
-	/**
-	 * Validates the entered data
-	 *
-	 * @param	KCommandContext	The context of the event
-	 * @return	boolean			True when valid, false when invalid to stop the action from executing
-	 */
-	public function validate(KCommandContext $context)
-	{
-		$data 	 = $context->data;
-		$request = $this->getRequest();
-		
-		//If there's a topic id, then we're replying or editing
-		if(!empty($data->ninjaboard_topic_id) && empty($data->subject)) {
-			$topic = $this->getService('com://site/ninjaboard.model.topics')
-																		->id($data->ninjaboard_topic_id)
-																		->getItem();
-			//If the id is set, then we're editing
-			if(isset($request->id)) {
-				//If this post is the topic starter, it can't be without a subject or body
-				if($topic->first_post_id === $request->id) {
-					JError::raiseWarning(21, JText::_('Topics cannot be without a subject.'));
-					$this->execute('cancel');
-					return false;
-				} 
-			}
-		} elseif(empty($data->subject)) {
-			JError::raiseWarning(21, JText::_('Topics cannot be without a subject.'));
-			$this->execute('cancel');
-			return false;
-		}
-		
-		if(empty($data->text)) {
-			JError::raiseWarning(21, JText::_('Posts cannot be without text.'));
-			$this->execute('cancel');
-			return false;
-		}
-	}
-	
-	/**
-	 * Set email notifications status when editing, posting or replying
-	 */
-	public function setNotify(KCommandContext $context)
-	{
-		$data = $context->result;
-		if(is_a($data, 'KDatabaseRowsetInterface')) $data = (object) end($data->getData());
-
-		if(!isset($data->notify_on_reply_topic) || !$data->ninjaboard_topic_id) return;
-		
-		$table = $this->getService('com://admin/ninjaboard.database.table.watches');
-		$type  = $table->getTypeIdFromName('topic');
-		
-		//Always run delete to clean out duplicates
-		//@TODO make this lazier
-		try {
-			$this->getService('com://site/ninjaboard.controller.watch')
-															->type($type)
-															->type_id($data->ninjaboard_topic_id)
-															->execute('delete');
-		} catch (KControllerException $e) {
-			
-		}
-		
-		
-		if($data->notify_on_reply_topic)
-		{
-			$this->getService('com://site/ninjaboard.controller.watch')->execute('add', array(
-				'subscription_type'		=> $type,
-				'subscription_type_id'	=> $data->ninjaboard_topic_id
-			));
-		}
-	}
-	
-	/**
-	 * Email notifications
-	 */
-	public function notify(KCommandContext $context)
-	{
-		//If no id, do not notify
-		if(!$context->result->id) return;
-		
-		$params = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
-		if($params['email_notification_settings']['enable_email_notification'])
-		{
-			$this->getService('com://site/ninjaboard.controller.watch')->execute('notify', clone $context);
-		}
-	}
 
 	public function setAttachments(KCommandContext $context)
 	{
@@ -256,21 +162,6 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 			$item->delete();
 		}		
 	}
-
-	public function afterSave(KCommandContext $context)
-	{
-		$row = $context->result;
-
-		if($row->ninjaboard_topic_id && $row->id)
-		{
-			$append = $this->_redirect_hash ? '#p'.$row->id : '';
-			$this->setRedirect('index.php?option=com_ninjaboard&view=topic&id='.$row->ninjaboard_topic_id.'&post='.$row->id.$append);
-		}
-		elseif($row->ninjaboard_topic_id)
-		{
-			$this->setRedirect('index.php?option=com_ninjaboard&view=topic&id='.$row->ninjaboard_topic_id);
-		}
-	}
 	
 	/*
 	 * Generic cancel action
@@ -339,15 +230,18 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	 */
 	public function cleanupDelete(KCommandContext $context)
 	{
-		$rows = $context->result;
+		$rows  = $context->result;
 		$table = $this->getService('com://site/ninjaboard.database.table.posts');
-		
-		foreach($rows as $row)
+
+		// make sure we are not a row
+		if ($rows instanceof KDatabaseRowDefault) $rows = array($rows);
+	
+		foreach ($rows as $row)
 		{
 			$topic	= $this->getService('com://site/ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
 			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('ninjaboard_topic_id', '=', $topic->id);
 			$posts = $table->count($query);
-		
+
 			if($posts)
 			{
 				//Replies does not count the first post, thus we subtract by 1
@@ -402,14 +296,17 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 	}
 	
 	/**
-	 * Workaround for preview ajax requests that will fail if the status code is 404
+	 * Workaround for ajax delete action 404ing due to actionForward not working correctly
+	 * @see http://nooku.assembla.com/spaces/nooku-framework/tickets/206-ajax-delete-gives-a-404-error
 	 *
 	 * @param  KCommandContext $context
 	 * @return void
 	 */
 	public function prevent404(KCommandContext $context)
 	{
-	    if($this->_request->layout == 'preview' || $this->_request->topic) $context->status = KHttpResponse::OK;
+	    if ($this->getView()->getFormat() == 'json' && $context->result->getStatus() == KDatabase::STATUS_DELETED) { 
+			$context->result->setStatus(KDatabase::STATUS_DELETED); 
+		} 
 	}
 	
 	/*
@@ -427,5 +324,25 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 
 	    // Set the text on our item
 	    $this->getModel()->getItem()->set('text', '[quote="'.htmlspecialchars($quote->display_name).'"]'.$quote->text.'[/quote]');
+	}
+
+	/**
+	 * Redirect the user after add/edit
+	 *
+	 * @param  KCommandContext $context
+	 * @return void
+	 */
+	public function redirect(KCommandContext $context)
+	{
+		$row = $this->getModel()->getItem();
+		$app = JFactory::getApplication();
+
+		// for some reason $this->setRedirect is ignored on the quote view so do it with joomla
+		if($row->ninjaboard_topic_id && $row->id) {
+			$append = $this->_redirect_hash ? '#p'.$row->id : '';
+			$app->redirect('index.php?option=com_ninjaboard&view=topic&id='.$row->ninjaboard_topic_id.'&post='.$row->id.$append);
+		} elseif($row->ninjaboard_topic_id){
+			$app->redirect('index.php?option=com_ninjaboard&view=topic&id='.$row->ninjaboard_topic_id);
+		}
 	}
 }

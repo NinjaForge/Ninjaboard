@@ -26,6 +26,7 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		$this->registerCallback(array('before.edit', 'before.apply', 'before.save'), array($this, 'checkPermissions'));
 		$this->registerCallback(array('before.edit', 'before.apply', 'before.save'), array($this, 'checkAlias'));
 		$this->registerCallback(array('after.add', 'after.edit'), array($this, 'setAvatar'));
+		$this->registerCallback(array('after.apply', 'after.cancel'), array($this, 'redirect'));
 	}
 	
 	public function setMe()
@@ -65,7 +66,7 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		//Don't do anything if alias isn't a value
 		if(!$alias) return $this;
 		
-		$model = $this->getService($this->getModel()->getIdentifier())->not($this->getRequest()->id);
+		$model = $this->getModel()->not($this->getRequest()->id);
 
 		//Lets find out if this alias is already in use by someone else
 		$count = $model->alias($alias)->getTotal();
@@ -117,6 +118,13 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		
 		
 		$avatar = KRequest::get('files.avatar', 'raw');
+
+		//if we are a bmp we cant upload it
+		if (strtolower(JFile::getExt($avatar['name'])) == 'bmp') {
+			JError::raiseWarning(21, sprintf(JText::_('%s failed to upload because this file type is not supported'), $avatar['name']));
+			return $this;
+		}
+		
 		if(!MediaHelper::canUpload($avatar, $error)) {
 			$message = JText::_("%s failed to upload because %s");
 			JError::raiseWarning(21, sprintf($message, $avatar['name'], lcfirst($error)));
@@ -165,22 +173,14 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		if(!$row->id && $request->id) {
 			//Check that the person exists, before creating Ninjaboard record
 			$exists = $this->getService('com://site/ninjaboard.model.users')->id($request->id)->getTotal() > 0;
-			if(!$exists) {
-				JError::raiseError(404, JText::_('Person not found.'));
-			}
-		
-			$row->id = $request->id;
-			$row->save();
+			if($exists) {
+				$row->id = $request->id;
+				$row->save();
 
-			//In order to get the data from the jos_users table, we need to rerun the query by getting a fresh row and setting the data
-			$new = $this->getService($this->getModel()->getIdentifier())->id($request->id)->getItem();
-			$row->setData($new->getData());
-		}
-		
-		//an id is absolutely required
-		if(!$row->id && !JFactory::getUser()->guest) {
-			JError::raiseError(404, JText::_('Person not found.'));
-			
+				//In order to get the data from the jos_users table, we need to rerun the query by getting a fresh row and setting the data
+				$new = $this->getModel()->id($request->id)->getItem();
+				$row->setData($new->getData());
+			}
 		}
 		
 		if(isset($request->layout) && $request->layout == 'form')
@@ -198,42 +198,11 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 		return $row;
 	}
 
-	/*
-	 * Generic cancel action
-	 *
-	 * @return 	void
-	 */
-	protected function _actionCancel(KCommandContext $context)
-	{
-		$person	= $this->getModel()->getItem();
-		
-		$this->_redirect = 'index.php?option=com_ninjaboard&view=person&id='.$person->id;
-		
-		return $person;
-	}
-
 	/**
-	 * Apply action, workaround for redirects
+	 * Redirect the user after apply/save and cancel
 	 */
-	protected function _actionApply($context)
+	public function redirect(KCommandContext $context)
 	{
-		$result = parent::_actionApply($context);
-	
-		$row = parent::_actionRead($context);
-		$this->_redirect = 'index.php?option=com_ninjaboard&view=person&id='.$row->id.'&layout=default';
-		
-		return $result;
-	}
-
-	/*
-	 * Empty delete action
-	 *
-	 * Users can't be deleted
-	 *
-	 * @return 	void
-	 */
-	protected function _actionDelete()
-	{
-		return false;
+		$this->setRedirect('index.php?option=com_ninjaboard&view=person&id='.$this->getModel()->getItem()->id, $this->_redirect_message);
 	}
 }

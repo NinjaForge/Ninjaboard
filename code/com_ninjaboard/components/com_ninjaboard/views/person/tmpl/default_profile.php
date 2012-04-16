@@ -4,7 +4,8 @@
 	<?= $person->display_name ?>
 </h2>-->
 
-<? if($post->usergroups) : ?>
+
+<? if($person->usergroups) : ?>
 <?= @template('com://site/ninjaboard.view.person.usergroups', array('usergroups' => $person->usergroups)) ?>
 <? endif ?>
 

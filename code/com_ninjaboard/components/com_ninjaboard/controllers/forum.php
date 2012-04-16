@@ -93,61 +93,6 @@ class ComNinjaboardControllerForum extends ComNinjaboardControllerAbstract
 		if(isset($params->sort)) $this->_request->sort = $params->sort;
 		else return true;
 		
-		$this->getService($this->getModel())->set($this->getRequest());
-	}
-
-	/**
-	 * Generic save action
-	 *
-	 * @param   KCommandContext	A command context object
-	 * @return 	KDatabaseRow 	A row object containing the saved data
-	 */
-	protected function _actionSave(KCommandContext $context)
-	{
-		//Saving not supported on the frontend
-	}
-
-	/**
-	 * Generic apply action
-	 *
-	 * @param	KCommandContext	A command context object
-	 * @return 	KDatabaseRow 	A row object containing the saved data
-	 */
-	protected function _actionApply(KCommandContext $context)
-	{
-		//Apply not supported on the frontend
-	}
-
-	/**
-	 * Generic edit action, saves over an existing item
-	 *
-	 * @param	KCommandContext	A command context object
-	 * @return 	KDatabaseRowset A rowset object containing the updated rows
-	 */
-	protected function _actionEdit(KCommandContext $context)
-	{
-		//Edit not supported on the frontend
-	}
-
-	/**
-	 * Generic add action, saves a new item
-	 *
-	 * @param	KCommandContext	A command context object
-	 * @return 	KDatabaseRow 	A row object containing the new data
-	 */
-	protected function _actionAdd(KCommandContext $context)
-	{
-		//Add not supported on the frontend
-	}
-
-	/**
-	 * Generic delete function
-	 *
-	 * @param	KCommandContext	A command context object
-	 * @return 	KDatabaseRowset	A rowset object containing the deleted rows
-	 */
-	protected function _actionDelete(KCommandContext $context)
-	{
-		//Delete not supported on the frontend
+		$this->getModel()->set($this->getRequest());
 	}
 }

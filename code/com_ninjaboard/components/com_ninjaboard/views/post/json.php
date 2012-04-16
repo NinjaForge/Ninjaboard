@@ -6,7 +6,4 @@
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaboardViewPostJson extends KViewJson
-{
-	//Do nothing yet
-}
+class ComNinjaboardViewPostJson extends KViewJson {}

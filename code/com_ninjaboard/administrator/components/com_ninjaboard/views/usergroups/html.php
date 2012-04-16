@@ -10,10 +10,9 @@ class ComNinjaboardViewUsergroupsHtml extends ComNinjaboardViewHtml
 {
 	public function display()
 	{
-		if(!$this->getModel()->getTotal()) return parent::display();
-
 		$permissions 	= array();
 		$objects 		= $this->getService('com://admin/ninjaboard.permissions')->getObjects();
+		
 		foreach($objects as $permission)
 		{
 			$permissions[$permission] = KInflector::humanize($permission);

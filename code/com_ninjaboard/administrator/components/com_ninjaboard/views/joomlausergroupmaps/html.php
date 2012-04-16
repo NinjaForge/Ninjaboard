@@ -16,7 +16,7 @@ class ComNinjaboardViewJoomlausergroupmapsHtml extends ComNinjaboardViewHtml
 		$this->usergroups = $this->getService('com://admin/ninjaboard.model.usergroups')->limit(0)->getList();
 		
 		$maps = array();
-		foreach($this->getService($this->getModel()->getIdentifier())->limit(0)->getList() as $map)
+		foreach($this->getModel()->limit(0)->getList() as $map)
 		{
 			$maps[$map->id] = $map->ninjaboard_gid;
 		}

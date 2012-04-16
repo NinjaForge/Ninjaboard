@@ -32,55 +32,51 @@ class ComNinjaboardModelAvatars extends ComNinjaboardModelPeople
 			
 			$settings = $this->getService('com://site/ninjaboard.model.settings')->getParams();
 			$settings = $settings['avatar_settings'];
-			$this->_item->default = $this->_item->avatar;
+
+			// set our default avatar and use it if we have not uploaded one
+			$default  			= '/media/com_ninjaboard/images/avatar.png';
+			$this->_item->image = $this->_item->avatar ? $this->_item->avatar : $default;
 			
 			$size = $this->_state->thumbnail == 'small' ? 'small' : 'large';
 			
-			//Always check if there exist an alternate avatar
-			if($this->getService('koowa:filter.url')->validate($this->_item->default)) {
+			//If we have an avatar and its an external url then try and download it
+			if($this->getService('koowa:filter.url')->validate($this->_item->image)) {
 				// Prepare curl
 				$curl = $this->getService('ninja:helper.curl');
 				$opt  = array(
 								CURLOPT_RETURNTRANSFER => true
 						);
-				$curl->addSession($this->_item->default, $opt );
+				$curl->addSession($this->_item->image, $opt );
 		
 				$image = $curl->exec();
 				if($image != '404 Not Found') {
 					$dest  = '/media/com_ninjaboard/images/avatars/'.$id.'/avatar.png';
-					JFile::write(JPATH_ROOT.$dest, $image);
-					$this->_item->default = $dest;
-				} else {
-					$this->_item->default = '/media/com_ninjaboard/images/avatar.png';
+					if (JFile::write(JPATH_ROOT.$dest, $image)) $this->_item->image = $dest;
 				}
-			} elseif(!JFile::exists(JPATH_ROOT.$this->_item->default) || $this->_item->default == '/media/com_ninjaboard/images/avatar.png') {
+			} elseif(!JFile::exists(JPATH_ROOT.$this->_item->image) || $this->_item->image == $default) {
 				if($settings['enable_gravatar']) {
-					$this->_item->default = (string)$this->getService('com://admin/ninjaboard.helper.gravatar', array(
-						'email' => $this->_item->email,
-						'size'   => max($settings[$size.'_thumbnail_width'], $settings[$size.'_thumbnail_height'])
-					));
-
+					//Gravatars are square, so use the largest value as size
+					$gsize = max($settings[$size.'_thumbnail_width'], $settings[$size.'_thumbnail_height']);
+					$gravatar  = $this->getService('com://site/ninjaboard.template.helper.avatar')->gravatar(array(
+																											'email' => $this->_item->email,
+																											'size'  => $gsize
+																										));
 					// Prepare curl
 					$curl = $this->getService('ninja:helper.curl');
 					$opt  = array(
 									CURLOPT_RETURNTRANSFER => true
 							);
-					$curl->addSession($this->_item->default, $opt );
+					$curl->addSession($gravatar, $opt );
 			
 					$image = $curl->exec();
 					if($image != '404 Not Found') {
 						$dest  = '/media/com_ninjaboard/images/avatars/'.$id.'/gravatar.png';
-						JFile::write(JPATH_ROOT.$dest, $image);
-						$this->_item->default = $dest;
-					} else {
-						$this->_item->default = '/media/com_ninjaboard/images/avatar.png';
+						if (JFile::write(JPATH_ROOT.$dest, $image)) $this->_item->image = $dest;
 					}
-				} else {
-					$this->_item->default = '/media/com_ninjaboard/images/avatar.png';
 				}
 			}
 
-			$this->_item->image = $this->getService('ninja:helper.image', array('image' => JPATH_ROOT.$this->_item->default));
+			$this->_item->image = $this->getService('ninja:helper.image', array('image' => JPATH_ROOT.$this->_item->image));
 
 			$from	= $this->_item->image->width / $this->_item->image->height;
 			$to		= $settings[$size.'_thumbnail_width'] / $settings[$size.'_thumbnail_height'];

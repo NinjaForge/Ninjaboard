@@ -19,8 +19,7 @@ class ComNinjaboardControllerToolbarUsergroups extends ComDefaultControllerToolb
 {
     public function getCommands()
     {
-        $this
-            ->addSeparator()
+        $this->addSeparator()
             ->addCommand('modal', array(
             	'label' => 'Map',
             	'href' => JRoute::_('?option=com_ninjaboard&view=joomlausergroupmaps&tmpl=component'),

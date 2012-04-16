@@ -14,6 +14,13 @@
 class ComNinjaboardModelJoomlausergroupmaps extends ComDefaultModelDefault
 {
 	/**
+	 * the usergroup row
+	 *
+	 * @var KDatabaseRow
+	 */
+	protected $_default = null;
+
+	/**
 	 * Get guest item
 	 */
 	public function getGuest()
