@@ -1,34 +1,8 @@
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <?= @template('com://site/ninjaboard.view.default.head') ?>
-
-<script type="text/javascript">
-	window.addEvent('domready', function(){
-		<? /* @route('view=post&tmpl=&format=json') fails on sites with SEF + URL suffixes turned on */ ?>
-		var posts = document.getElements('.<?= @id() ?>'), url = '<?= KRequest::root() ?>/?option=com_ninjaboard&view=post&tmpl=&format=json', parts = [];
-		posts.addEvent('click', function(event){
-			if(event.target.hasClass('delete') && confirm(<?= json_encode(@text("Are you sure you want to delete this post? This action cannot be undone.")) ?>)){
-				parts = event.currentTarget.id.split('-');
-				event.target.addClass('spinning');
-				
-				event.preventDefault();
-				
-				new Request.JSON({
-					url: url+'&id='+parts.pop(), 
-					//@TODO add error handler
-					//onFailure
-				onSuccess: function(){
-					event.target.removeClass('spinning');
-					event.currentTarget.hide('slow')
-					event.currentTarget.remove.delay(600, event.currentTarget);
-				}}).post({
-					action: "delete",
-					_token: <?= json_encode(JUtility::getToken()) ?>
-				});
-			}
-		});
-	});
-</script>
+	    	
+<?= @helper('behavior.deleteposts', array('element' => '.'.@id())) ?>
 
 <? if($params['view_settings']['topic_layout'] == 'classic') : ?>
 	<div class="header relative">

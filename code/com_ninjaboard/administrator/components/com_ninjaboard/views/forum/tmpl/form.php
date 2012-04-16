@@ -29,7 +29,7 @@
 			</div>
 			<div class="element">
 				<label for="alias" class="key"><?= @text('Alias') ?></label>
-				<input type="text" name="alias" id="alias" class="inputbox required validate-no-space value" size="50" value="<?= @$forum->alias ?>" maxlength="150" />
+				<input type="text" name="alias" id="alias" class="inputbox required validate-no-space value" size="50" value="<?= @$forum->slug ?>" maxlength="150" />
 			</div>
 			<div class="element">
 				<label for="description" class="key"><?= @text('Description') ?></label>
@@ -37,7 +37,7 @@
 			</div>
 			<div class="element">
 				<label for="header" class="key hasTip" title="<?= @text("Forum header is used on the forum detail page. If left empty, the forum description is used instead.") ?>"><?= @text('Forum header') ?></label>
-				<textarea name="params[forum][header]" id="params-forum-header" rows="5" cols="50" class="inputbox value" placeholder="<?= @text('Leave empty for using the description as the header.') ?>"><?= \@@$forum->params['forum']['header'] ?></textarea>
+				<textarea name="params[forum][header]" id="params-forum-header" rows="5" cols="50" class="inputbox value" placeholder="<?= @text('Leave empty for using the description as the header.') ?>"><?= isset($forum->params['forum']['header']) ? $forum->params['forum']['header'] : '' ?></textarea>
 			</div>
 			<div class="element">
 				<label class="key"><?= @text('State') ?></label>
@@ -60,11 +60,10 @@
 		<script type="text/javascript" src="/switch.js"></script>
 
 		<script type="text/javascript">
-			var Permissions = Switch.extend({
+			var Permissions = new Class({
+				Extends : Switch,
 				focus: true,
 				initialize: function(target, options){
-
-
 					this.targets = $$('#'+target.get('id') + '-switch', '#'+target.get('id') + '-wrap');
 					this.clones  = this.targets.clone();
 					this.name    = target.get('id');
@@ -91,7 +90,7 @@
 						$([this.name, i, 'switch'].join('-')).getParent().getNext().set('html', '<span class="on">'+this.options.text.on+'</span><span class="off">'+this.options.text.off+'</span>');
 					}.bind(this));
 					
-					this.addEvent('onChange', this.onChange.bind(this)).fireEvent('onChange', this.container.getPrevious().value);
+					this.addEvent('onChange', this.onChange.bind(this)).fireEvent('onChange', $(this.container).getPrevious().value);
 
 					return this;
 				},
@@ -106,33 +105,6 @@
 						this.table.addClass('disabled').fade(0.6).getElements('input').set('disabled', 'disabled');
 					}
 				}
-			});
-			
-			Element.Properties.switcher = {
-			
-				set: function(options){
-					var switcher = this.retrieve('switcher');
-					return this.eliminate('switcher').store('switcher:options', options);
-				},
-			
-				get: function(options){
-					if (options || !this.retrieve('switcher')){
-						if (this.retrieve('switcher')) this.retrieve('switcher').destroy();
-						if (options || !this.retrieve('switcher:options')) this.set('switcher', options);
-						new Permissions(this, this.retrieve('switcher:options'));
-					}
-					return this.retrieve('switcher');
-				}
-			
-			};
-			
-			Element.implement({
-			
-				switcher: function(options){
-					this.get('switcher', options);
-					return this;
-				}
-			
 			});
 		</script>
 			
@@ -172,11 +144,13 @@
 			<legend><?= @text('Permissions') ?></legend>
 			<?= @helper('accordion.startpane', array('id' => @id('permissions'), 'options' => array('opacity' => true, 'scroll' => true))) ?>
 			<? foreach (@$permissions as $permission) : ?>
-				<script><?= "\n\twindow.addEvent('domready', function(){ $('" . $permission['id'] . "').switcher(".json_encode(array('text' => array('on' => @text('on'), 'off' => @text('off'))))."); });\n" ?></script>
-
+				<script><?= "\n\twindow.addEvent('domready', function(){ new Permissions($('" . $permission['id'] . "'), ".json_encode(array('text' => array('on' => @text('on'), 'off' => @text('off'))))."); });\n" ?></script>
 				<?= @helper('accordion.startpanel', array('title' => $permission['title'], 'translate' => false)) ?>
 
-					<? $permissions = \@$forum->params['permissions'][$permission['group']]['enabled'] == 1 ? 1 : 0 ?>
+					<? $permissions = 0 ?>
+					<? if (isset($forum->params['permissions'][$permission['group']]['enabled'])) : ?>
+						<? $permissions = \@$forum->params['permissions'][$permission['group']]['enabled'] == 1 ? 1 : 0 ?>
+					<? endif ?>
 					<? $checked = $permissions ? ' checked="checked"' : null ?>
 					<div class="wrapper switch" id="<?= $permission['id'] ?>-wrap">
 						<input name="params[permissions][<?= $permission['group'] ?>][enabled]" value="<?= $permissions ?>" type="hidden" />

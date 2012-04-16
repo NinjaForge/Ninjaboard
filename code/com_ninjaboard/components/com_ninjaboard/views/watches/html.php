@@ -21,7 +21,7 @@ class ComNinjaboardViewWatchesHtml extends ComNinjaboardViewHtml
 		}
 		
 		$this->person = $this->getService('com://admin/ninjaboard.model.people')->getMe();
-		$title = $this->person->display_name;
+		$title = sprintf(JText::_("%s's subscriptions"), $this->person->display_name);
 
 		$this->_subtitle = $title;
 		$this->assign('title', $title);

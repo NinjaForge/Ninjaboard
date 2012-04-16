@@ -90,12 +90,10 @@ class ComNinjaboardViewHtml extends ComNinjaboardViewDefault
 	public function setBreadcrumbs()
 	{
 		$pathway = JFactory::getApplication()->getPathWay();
+
+		$menu	 = JSite::getMenu()->getActive()->query;
 		
-		//@TODO Don't add a pathway item that's a duplicate of something else
-		//$menu	 = JSite::getMenu()->getActive()->query;
-		//if()
-		
-		$pathway->addItem($this->getDocumentSubtitle(), $this->createRoute());
+		if (!KInflector::isPlural($this->getName()) && $menu['view'] != 'forum') $pathway->addItem($this->getDocumentSubtitle(), $this->createRoute());
 	}
 
 	/**

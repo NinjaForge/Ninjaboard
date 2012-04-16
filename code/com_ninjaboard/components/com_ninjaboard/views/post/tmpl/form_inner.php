@@ -5,73 +5,8 @@
 <link rel="stylesheet" href="/site.form.css" />
 <link rel="stylesheet" href="/bbcode.css" />
 
-<style type="text/css">
-	
-	#text_preview {	
-		display:none;
-		padding: 5px;
-		border: 1px solid transparent;
-		margin: 0;
-		overflow: auto;
-	}
-	/* Hide any dropdown menus */
-	.markItUpHeader.previewing ul li ul {
-		opacity: 0;
-		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-		filter: alpha(opacity=0);
-	}
-	.markItUpHeader .markItUpButton, .markItUpHeader .markItUpSeparator {
-		-webkit-transition: opacity 0s linear;
-		-moz-transition: opacity 0s linear;
-		transition: opacity 0s linear;
-	}
-	.markItUpHeader.previewing .markItUpButton, .markItUpHeader.previewing .markItUpSeparator {
-		-webkit-transition: opacity 300ms linear;
-		-moz-transition: opacity 300ms linear;
-		transition: opacity 300ms linear;
-		opacity: 0.2;
-		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-		filter: alpha(opacity=20);
-	}
-	.markItUpHeader.previewing .markItUpButton.button_preview {
-		opacity: 1;
-		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-		filter: alpha(opacity=100);
-	}
-	#text.previewing {
-		-webkit-user-select: none;
-		color: transparent;
-		opacity: 0.6;
-		
-		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-		filter: alpha(opacity=0);
-	}
-	#text::-webkit-input-placeholder {
-		color: currentcolor;
-	}
-</style>
-
 <script type="text/javascript" src="/jquery/jquery.markitup.pack.js"></script>
-
-<? $bbcode = dirname($this->getView()->getIdentifier()->filepath).'/bbcode.js' ?>
-<? if(file_exists($bbcode)) : ?>
-<script type="text/javascript">
-	<?= str_replace(
-			array(
-				'~/sets/bbcode/preview.php', 
-				'magifier_zoom_out.png', 
-				'magnifier.png'
-			),
-			array(
-				'?option=com_ninjaboard&view=post&layout=preview&format=raw&tmpl=', 
-				@$img('/bbcode/magifier_zoom_out.png'), 
-				@$img('/bbcode/magnifier.png')
-			),
-			file_get_contents($bbcode)
-		)
-	?>
-</script>
-<? endif ?>
+<script type="text/javascript" src="/jquery/bbcode.js"></script>
 
 <?= @helper('behavior.keepalive') ?>
 
@@ -99,19 +34,19 @@
 
 			if(subject && !subject.value && text && !text.value) {
 				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("You need to enter text and a subject.")) ?>);
+				alert(<?= json_encode(@text("NB_DATA_VALIDATION_FAILED_SUBJECT_TEXT")) ?>);
 				return false; 
 			}
 
 			if(subject && !subject.value) {
 				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("You need to enter a subject.")) ?>);
+				alert(<?= json_encode(@text("NAPI_DATA_VALIDATION_FAILED_SUBJECT")) ?>);
 				return false; 
 			}
 			
 			if(text && !text.value) {
 				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("You need to enter some text.")) ?>);
+				alert(<?= json_encode(@text("NAPI_DATA_VALIDATION_FAILED_TEXT")) ?>);
 				return false; 
 			}
 			
@@ -119,9 +54,9 @@
 				.trigger('submit');
 		};
 		$('#<?= @id('save') ?>').one('click', save);
+
+		myBbcodeSettings.previewParserPath = '<?= @route("option=com_ninjaboard&view=post&layout=preview&format=raw&tmpl=") ?>';
 		$('#text').markItUp(myBbcodeSettings);
-		
-		//@TODO jquery port progress, below is what's left
 		
 		var slideDownAttachmentsHelp = function(){
 			$('.attachments-extensions-help').slideDown();
@@ -246,11 +181,6 @@
 				<div id="<?= @id('save') ?>">
 					<?= @$create_topic_button ?>
 				</div>
-				<? /*&#160;
-				<div id="<?= @id('preview') ?>">
-					<?= $preview_button ?>
-				</div>*/ ?>
-				&#160;
 				<div id="<?= @id('cancel') ?>"><?= str_replace('$title', @text('Cancel'), @$topic->params['tmpl']['cancel_button']) ?></div>
 			</div>
 		</div>

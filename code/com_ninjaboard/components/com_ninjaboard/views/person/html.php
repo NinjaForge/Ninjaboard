@@ -12,7 +12,7 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 	{
 		$params = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 		$this->assign('params', $params);
-		$person = $this->getService($this->getModel())->getItem();
+		$person = $this->getModel()->getItem();
 
         if(JFactory::getUser()->guest && (!$person->id || $this->getlayout() == 'form'))
         {
@@ -58,7 +58,7 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 					->pagination($model->getTotal(), $state->offset, $state->limit, 4, false)
 			);
 			
-			$me		= $this->getService($this->getModel())->getMe();
+			$me		= $this->getModel()->getMe();
 			$this->me = $me;
 			if($me->id === $person->id) {
 				$this->edit_button = str_replace(
@@ -78,6 +78,7 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 			$title = sprintf(JText::_("%s's settings"), $person->display_name);
 		
 			$this->save_button = str_replace('$title', JText::_('Save'), $this->params['tmpl']['create_topic_button']);
+			$this->save_button = str_replace('$link', '#', $this->save_button);
 		}
 
 		$this->_subtitle = $title;

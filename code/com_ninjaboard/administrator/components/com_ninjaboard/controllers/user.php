@@ -55,6 +55,13 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 		
 		
 		$avatar = KRequest::get('files.avatar', 'raw');
+
+		//if we are a bmp we cant upload it
+		if (strtolower(JFile::getExt($avatar['name'])) == 'bmp') {
+			JError::raiseWarning(21, sprintf(JText::_('%s failed to upload because this file type is not supported'), $avatar['name']));
+			return $this;
+		}
+		
 		if(!MediaHelper::canUpload($avatar, $error)) {
 			$message = JText::_("%s failed to upload because %s");
 			JError::raiseWarning(21, sprintf($message, $avatar['name'], lcfirst($error)));
@@ -94,7 +101,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 	{
 		$identifier = $this->getIdentifier();
 		$option		= $identifier->type.'_'.$identifier->package;
-		$user		= $this->getService($this->getModel())->getItem();
+		$user		= $this->getModel()->getItem();
 		$path		= '/media/'.$option.'/images/avatars/'.KRequest::get('get.id', 'int', $user->id).'/';
 		return $path;
 	}
@@ -143,7 +150,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 		$person = $this->getService('com://admin/ninjaboard.model.people')
 				->id($context->data->id)
 				->getItem()
-				->setData(KConfig::toData($context->data));
+				->setData(KConfig::unbox($context->data));
 
 		$person->save();
 

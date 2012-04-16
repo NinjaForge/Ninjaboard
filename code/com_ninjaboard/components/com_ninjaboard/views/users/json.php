@@ -6,7 +6,7 @@
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaboardViewUsersJson extends KViewJson
+class ComNinjaboardViewUsersJson extends KViewJson 
 {
 	/**
 	 * Return the views output

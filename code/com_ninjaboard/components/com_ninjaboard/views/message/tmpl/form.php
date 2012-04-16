@@ -1,6 +1,4 @@
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
-
-
 <?= @template('com://site/ninjaboard.view.default.head') ?>
 
 <link rel="stylesheet" href="/form.css" />
@@ -8,91 +6,14 @@
 <link rel="stylesheet" href="/bbcode.css" />
 <link rel="stylesheet" href="/message.css" />
 
-<style type="text/css">
-	
-	#text_preview {	
-		display:none;
-		padding: 5px;
-		border: 1px solid transparent;
-		overflow: auto;
-	}
-	/* Hide any dropdown menus */
-	.markItUpHeader.previewing ul li ul {
-		opacity: 0;
-		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-		filter: alpha(opacity=0);
-	}
-	.markItUpHeader .markItUpButton, .markItUpHeader .markItUpSeparator {
-		-webkit-transition: opacity 0s linear;
-		-moz-transition: opacity 0s linear;
-		transition: opacity 0s linear;
-	}
-	.markItUpHeader.previewing .markItUpButton, .markItUpHeader.previewing .markItUpSeparator {
-		-webkit-transition: opacity 300ms linear;
-		-moz-transition: opacity 300ms linear;
-		transition: opacity 300ms linear;
-		opacity: 0.2;
-		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-		filter: alpha(opacity=20);
-	}
-	.markItUpHeader.previewing .markItUpButton.button_preview {
-		opacity: 1;
-		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-		filter: alpha(opacity=100);
-	}
-	#text {
-	    resize: vertical;
-	}
-	#text.previewing {
-		-webkit-user-select: none;
-		color: transparent;
-		opacity: 0.6;
-		
-		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-		filter: alpha(opacity=0);
-	}
-	#text::-webkit-input-placeholder {
-		color: currentcolor;
-	}
-	.element.name-to {
-	    overflow: visible;
-	}
-	.textboxlist-autocomplete {
-	    /* @TODO this is because of the MarkItUp editor */
-	    z-index: 1;
-	}
-</style>
-
-<? $bbcode = dirname($this->getService('com://site/ninjaboard.view.post.form')->getIdentifier()->filepath).'/bbcode.js' ?>
-<? if(file_exists($bbcode)) : ?>
-<script type="text/javascript">
-	<?= str_replace(
-			array(
-				'~/sets/bbcode/preview.php', 
-				'magifier_zoom_out.png', 
-				'magnifier.png'
-			),
-			array(
-			    //@TODO move previewing into its own view
-				@route('index.php?option=com_ninjaboard&view=post&layout=preview&format=raw&tmpl='), 
-				@$img('/bbcode/magifier_zoom_out.png'), 
-				@$img('/bbcode/magnifier.png')
-			),
-			file_get_contents($bbcode)
-		)
-	?>
-</script>
-<? endif ?>
+<script type="text/javascript" src="/jquery/jquery.markitup.pack.js"></script>
+<script type="text/javascript" src="/jquery/bbcode.js"></script>
 
 
+<?= @helper('behavior.keepalive') ?>
 
 <script type="text/javascript">
-	//jQuery version of keepalive
-	setInterval(function(){
-		jQuery.get(<?= json_encode(KRequest::url()->get(KHttpUrl::BASE ^ KHttpUrl::PATH).@route()) ?>);
-	}, <?= 60000 * max(1, (int)JFactory::getApplication()->getCfg('lifetime')) ?>);
-
-	jQuery(function($){
+	ninja(function($){
 		var form = $('#<?= @id() ?>');
 		$('#<?= @id('cancel') ?>', '#<?= @id('save') ?>').click(function(event){
 			event.preventDefault();
@@ -117,18 +38,6 @@
 				return false; 
 			}
 
-			/*if(subject && !subject.value && text && !text.value) {
-				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("You need to enter text and a subject.")) ?>);
-				return false; 
-			}
-
-			if(subject && !subject.value) {
-				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("You need to enter a subject.")) ?>);
-				return false; 
-			}*/
-			
 			if(text && !text.value) {
 				$('#<?= @id('save') ?>').one('click', save);
 				alert(<?= json_encode(@text("You need to enter some text.")) ?>);
@@ -139,6 +48,8 @@
 				.trigger('submit');
 		};
 		$('#<?= @id('save') ?>').one('click', save);
+
+		myBbcodeSettings.previewParserPath = '<?= @route("option=com_ninjaboard&view=post&layout=preview&format=raw&tmpl=") ?>';
 		$('#text').markItUp(myBbcodeSettings);
 		
 		//This is for IE, which don't respect the for attribute if the input isn't visible
@@ -163,8 +74,7 @@
 				<?= @ninja('behavior.textboxlist', array('name' => 'to', 'id' => 'to')) ?>
 			</div>
 			<div class="element wider" style="text-align:center;position:relative">
-				<textarea name="text" id="text" placeholder="<?= @text('Enter some text') ?>"></textarea>
-				<div id="text_preview"></div>
+				<?= @helper('behavior.editor', array('name' => 'text', 'placeholder' => 'Enter some text')) ?>
 			</div>
 	
 			<div class="element"></div>

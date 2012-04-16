@@ -54,23 +54,22 @@ class ComNinjaboardDatabaseRowPerson extends KDatabaseRowDefault
 				$table	= $this->getTable();
 				$query	= $table->getDatabase()->getQuery();
 
-				$query
-						->select("joomla_map.ninjaboard_gid AS ninjaboard_usergroup_id")
-						->from('ninjaboard_joomla_user_group_maps AS joomla_map')
-						->where('joomla_map.joomla_gid', '=', (int)$this->gid)
-						->where('joomla_map.ninjaboard_gid', '!=', 0)
-						->limit(1);
+
+
+				$query->select("joomla_map.ninjaboard_gid AS ninjaboard_usergroup_id")
+					 	->from('ninjaboard_joomla_user_group_maps AS joomla_map')
+					  	->where('joomla_map.joomla_gid', '=', (int)$this->gid)
+					  	->where('joomla_map.ninjaboard_gid', '!=', 0)
+					  	->limit(1);
 
 				$ninjaboard_usergroup_id = $table->getDatabase()->select($query, KDatabase::FETCH_FIELD, 'ninjaboard_usergroup_id');
 
 				if($this->id)
 				{
 					$query	= $table->getDatabase()->getQuery();
-					$query
-							->select("ninjaboard_map.ninjaboard_user_group_id AS ninjaboard_usergroup_id")
+					$query->select("ninjaboard_map.ninjaboard_user_group_id AS ninjaboard_usergroup_id")
 							->from('ninjaboard_user_group_maps AS ninjaboard_map')
-							->where('ninjaboard_map.joomla_user_id', '=', $this->id)
-							;
+							->where('ninjaboard_map.joomla_user_id', '=', $this->id);
 				
 					$groups = $table->getDatabase()->select($query, KDatabase::FETCH_FIELD_LIST);
 					$ninjaboard_usergroup_id = $groups ? implode('|', $groups) : $ninjaboard_usergroup_id;

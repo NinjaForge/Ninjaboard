@@ -36,26 +36,21 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 	{
 		$query->join('left', 'ninjaboard_people AS person', 'person.ninjaboard_person_id = tbl.id');
 
-/*
-		$query
-			->join('left', 'ninjaboard_joomla_user_group_maps AS joomla_map', 'joomla_map.joomla_gid = tbl.gid')
-			->select("IFNULL((SELECT GROUP_CONCAT(ninjaboard_map.ninjaboard_user_group_id SEPARATOR '|') FROM #__ninjaboard_user_group_maps AS ninjaboard_map WHERE ninjaboard_map.joomla_user_id = tbl.id), joomla_map.ninjaboard_gid) AS ninjaboard_usergroup_id");
-//*/	
 		//Get the default gid for users that's not mapped
 		$gid	= (int)$this->getService('com://admin/ninjaboard.model.joomlausergroupmaps')->getGuest()->gid;
 
 		if(JVersion::isCompatible('1.6.0'))
 		{
-			//$query
-					//->join('left', 'user_usergroup_map AS joomla_usergroup', 'joomla_usergroup.user_id = tbl.id')
-					//->select('GROUP_CONCAT(joomla_usergroup.group_id SEPARATOR \'|\') AS ninjaboard_usergroup_id');
+			$query->join('left', 'user_usergroup_map AS joomla_usergroup', 'joomla_usergroup.user_id = tbl.id')
+				 	->join('left', 'ninjaboard_joomla_user_group_maps AS joomla_map', 'joomla_map.joomla_gid = joomla_usergroup.group_id')
+				 	->group('tbl.id');
 		}
 		else
 		{
-			$query
-					->join('left', 'ninjaboard_joomla_user_group_maps AS joomla_map', 'joomla_map.joomla_gid = tbl.gid')
-					->select("IFNULL(IFNULL((SELECT GROUP_CONCAT(ninjaboard_map.ninjaboard_user_group_id SEPARATOR '|') FROM #__ninjaboard_user_group_maps AS ninjaboard_map WHERE ninjaboard_map.joomla_user_id = tbl.id), joomla_map.ninjaboard_gid), $gid) AS ninjaboard_usergroup_id");
+			$query->join('left', 'ninjaboard_joomla_user_group_maps AS joomla_map', 'joomla_map.joomla_gid = tbl.gid');
 		}
+
+		$query->select("IFNULL(IFNULL((SELECT GROUP_CONCAT(ninjaboard_map.ninjaboard_user_group_id SEPARATOR '|') FROM #__ninjaboard_user_group_maps AS ninjaboard_map WHERE ninjaboard_map.joomla_user_id = tbl.id), joomla_map.ninjaboard_gid), $gid) AS ninjaboard_usergroup_id");
 
 		parent::_buildQueryJoins($query);
 	}

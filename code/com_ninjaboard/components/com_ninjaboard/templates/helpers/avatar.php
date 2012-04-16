@@ -25,6 +25,10 @@ class ComNinjaboardTemplateHelperAvatar extends KTemplateHelperAbstract
 		$extensions = preg_split('/[\s,]+/', $extensions);
 		$extensions = array_unique($extensions);
 		sort($extensions);
+
+		if(($key = array_search('bmp', $extensions)) !== false)
+		    unset($extensions[$key]);
+		
 		return implode(', ', $extensions).'.';
 	}
 	
@@ -142,5 +146,44 @@ class ComNinjaboardTemplateHelperAvatar extends KTemplateHelperAbstract
 		}
 		
 		return $html;
+	}
+
+	/**
+	 * Gets an avatar from gravatar - Based on:
+	 *
+	 * From Gravatar Help:
+	 *        "A gravatar is a dynamic image resource that is requested from our server. The request
+	 *        URL is presented here, broken into its segments."
+	 * Source:
+	 *    http://site.gravatar.com/site/implement
+	 *
+	 *
+	 *	Class Page: http://www.phpclasses.org/browse/package/4227.html
+	 *
+	 * @author Lucas Araújo <araujo.lucas@gmail.com>
+	 * @version 1.0
+	 * @package Gravatar
+	 */
+	public function gravatar($config = array())
+	{
+		$config = new KConfig($config);
+		$config->append(array(
+			'email'			=> '',
+			'size'			=> '80',
+			'gravatar_id'	=> null,
+			'default'		=> 404,
+			'extra'			=> '',
+			'html'			=> false
+		));
+
+		if ($this->getService('koowa:filter.email')->validate($config->email)) {
+            $config->gravatar_id = md5(strtolower($config->email));
+        } 
+
+        if (!$config->gravatar_id) return;
+
+        $url = 'http://www.gravatar.com/avatar/'.$config->gravatar_id.'?default='.$config->default.'&size='.$config->size;
+
+        return !$config->html ? $url : '<img src="'.$url.'" width="'.$config->size.'" height="'.$config->size.'"'.$config->extra.' />';    
 	}
 }

@@ -37,7 +37,6 @@
 		
 	}).delay(100)});
 </script>
-
 <form action="<?= @route() ?>" method="post" id="<?= @id() ?>">
 	<? if(KRequest::get('get.tmpl', 'cmd') == 'component') : ?>
 		<fieldset style="border-radius: 3px;" id="toolbar-joomlausergroupmaps">
@@ -55,16 +54,19 @@
 			<div class="map-points-from">
 				<ul style="margin-right:25%;text-align:right;" id="<?= @id('points-from') ?>">
 				    <? $i = 0; $fallback = current($usergroups->getData()) ?>
-				    <li class="map" id="<?= @id('points-from-0') ?>">
-				    	<h1><?= @text('Unregistered') ?></h1>
-				    	<? $value = (int)\@$maps[0] ?>
-				    	<input type="hidden" name="group[0]" id="group<?= (int) $i++ ?>" value="<?= $value ? $value : $fallback['id'] ?>" />
-				    </li>
+
+				    <? if (!JVersion::isCompatible('1.6.0')) : ?>
+					    <li class="map" id="<?= @id('points-from-0') ?>">
+					    	<h1><?= @text('Unregistered') ?></h1>
+					    	<? $value = isset($maps[0]) ? $maps[0] : null ?>
+					    	<input type="hidden" name="group[0]" id="group<?= (int) $i++ ?>" value="<?= $value ? $value : $fallback['id'] ?>" />
+					    </li>
+					<? endif ?>
 					<? foreach(@$acltree as $acl) : ?>
 						<? if(in_array($acl->id, array(29, 30))) continue ?>
 						<li class="map" id="<?= @id('points-from-' . $acl->value) ?>">
 							<h1><?= $acl->title ?></h1>
-							<? $value = (int)\@$maps[$acl->id] ?>
+							<? $value = isset($maps[$acl->id]) ? (int) $maps[$acl->id] : 0 ?>
 							<input type="hidden" name="group[<?= $acl->id ?>]" id="group<?= (int) $i++ ?>" value="<?= $value ? $value : $fallback['id'] ?>" />
 						</li>
 					<? endforeach ?>

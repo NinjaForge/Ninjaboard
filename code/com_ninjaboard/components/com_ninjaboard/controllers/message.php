@@ -21,12 +21,6 @@ class ComNinjaboardControllerMessage extends ComNinjaboardControllerAbstract
 	public function __construct(KConfig $config)
 	{
 		parent::__construct($config);
-
-        $this->registerActionAlias('apply', 'save');
-
-		//Register validation event
-		//@TODO we shouldn't have to attach to the save and apply events. But KControllerView expects 'edit' to succeed.
-		//$this->registerCallback(array('before.add', 'before.edit', 'before.save', 'before.apply'), array($this, 'validate'));
 		
 		$this->registerCallback('after.browse', array($this, 'setRead'));
 	}
@@ -70,22 +64,6 @@ class ComNinjaboardControllerMessage extends ComNinjaboardControllerAbstract
 
         parent::_initialize($config);
     }
-	
-	/*
-	 * Delete not supported yet
-	 */
-	protected function _actionDelete(KCommandContext $context)
-	{
-	    return false;
-	}
-	
-	/*
-	 * Edit not allowed
-	 */
-	protected function _actionEdit(KCommandContext $context)
-	{
-	    return false;
-	}
 
 	protected function _actionAdd(KCommandContext $context)
 	{
@@ -147,24 +125,5 @@ class ComNinjaboardControllerMessage extends ComNinjaboardControllerAbstract
 	    }
 	    
 	    return $result;
-	}
-
-	protected function _actionSave(KCommandContext $context)
-	{
-		$result = parent::_actionSave($context);
-
-		$this->_redirect = 'index.php?option=com_ninjaboard&view=messages';
-
-		return $result;
-	}
-	
-	/*
-	 * Generic cancel action
-	 *
-	 * @return 	void
-	 */
-	protected function _actionCancel(KCommandContext $context)
-	{
-		$this->_redirect = 'index.php?option=com_ninjaboard&view=messages';
 	}
 }
