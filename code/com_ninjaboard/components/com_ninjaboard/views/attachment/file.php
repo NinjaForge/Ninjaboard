@@ -75,7 +75,7 @@ class ComNinjaboardViewAttachmentFile extends KViewFile
 	 */
 	public function notFound()
 	{
-		JError::raiseError(404, JText::_('Attachment not found.'));
+		JError::raiseError(404, JText::_('COM_NINJABOARD_ATTACHMENT_NOT_FOUND'));
 
 		return false;
 	}

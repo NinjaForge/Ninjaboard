@@ -17,7 +17,7 @@
 			<? endif; ?>
 			<dd class="ninjaboard-latest-date">
 			    <a href="<?= @route('view=topic&id=' . $post->ninjaboard_topic_id . '&post=' . $post->id . '#p' . $post->id) ?>">
-					<img src="<?= @$img('/16/page.png') ?>" width="16" height="16" alt="<?= @text('Link to this post') ?>" />
+					<img src="<?= @$img('/16/page.png') ?>" width="16" height="16" alt="<?= @text('COM_NINJABOARD_LINK_TO_THIS_POST') ?>" />
 					<?= @ninja('date.html', array('date' => $post->created_on)) ?>
 				</a>
 			</dd>

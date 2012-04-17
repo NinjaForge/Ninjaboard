@@ -70,7 +70,7 @@
 		<fieldset class="adminform ninja-form">
 		    <h2 class="reply-to"></h2>
 			<div class="element name-to">
-				<label class="key" for="to"><?= @text('To') ?></label>
+				<label class="key" for="to"><?= @text('COM_NINJABOARD_TO') ?></label>
 				<?= @ninja('behavior.textboxlist', array('name' => 'to', 'id' => 'to')) ?>
 			</div>
 			<div class="element wider" style="text-align:center;position:relative">
@@ -82,9 +82,9 @@
 			<div class="element footer">
 				<div class="inner">
 					<div id="<?= @id('save') ?>">
-						<?= str_replace('$title', JText::_('Send'), $params['tmpl']['create_topic_button']) ?>
+						<?= str_replace('$title', JText::_('COM_NINJABOARD_SEND'), $params['tmpl']['create_topic_button']) ?>
 					</div>
-					<!--<div id="<?= @id('cancel') ?>"><?= str_replace('$title', @text('Cancel'), $params['tmpl']['cancel_button']) ?></div>-->
+					<!--<div id="<?= @id('cancel') ?>"><?= str_replace('$title', @text('COM_NINJABOARD_CANCEL'), $params['tmpl']['cancel_button']) ?></div>-->
 				</div>
 			</div>
 		</fieldset>

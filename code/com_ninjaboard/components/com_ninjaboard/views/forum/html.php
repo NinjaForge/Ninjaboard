@@ -28,8 +28,8 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 			else
 			{
 				$this->title = JText::_("Access to this forum declined");
-				$this->msg	 = JText::_('Contact an administrator immidiatly if this is an mistake.');
-				JError::raiseError(404, JText::_('Forum not found'));
+				$this->msg	 = JText::_('COM_NINJABOARD_CONTACT_AN_ADMINISTRATOR_IMMIDIATLY_IF_THIS_IS_AN_MISTAKE');
+				JError::raiseError(404, JText::_('COM_NINJABOARD_FORUM_NOT_FOUND'));
 				return parent::display();
 			}
 		}
@@ -110,7 +110,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
         {
     		$this->new_topic_button = '<div class="new-topic">'.str_replace(
     			array('$title', '$link', '$class'), 
-    			array(JText::_('New Topic'), $this->createRoute('view=post&forum='.$forum->id), 'action-new'), 
+    			array(JText::_('COM_NINJABOARD_NEW_TOPIC'), $this->createRoute('view=post&forum='.$forum->id), 'action-new'), 
     			$forum->params['tmpl']['new_topic_button']
     		).'</div>';
     	}

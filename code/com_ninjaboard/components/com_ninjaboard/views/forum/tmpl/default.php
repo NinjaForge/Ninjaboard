@@ -50,6 +50,6 @@
 		</div>
 	<? /* If the user can't create anything or is a super admin, don't show anything */ ?>
 	<? elseif(($forum->topic_permissions > 1 && $me->gid != 25) || ($forum->topic_permissions >1 && JVersion::isCompatible('1.6.0') && in_array('8', JFactory::getUser($me->id)->groups))) : ?>
-		<h2 class="message"><?= @text('No topics found here yet, go ahead and start one.') ?></h2>
+		<h2 class="message"><?= @text('COM_NINJABOARD_NO_TOPICS_FOUND_HERE_YET_GO_AHEAD_AND_START_ONE') ?></h2>
 	<? endif ?>
 </div>

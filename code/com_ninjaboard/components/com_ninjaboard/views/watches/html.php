@@ -27,7 +27,7 @@ class ComNinjaboardViewWatchesHtml extends ComNinjaboardViewHtml
 		$this->assign('title', $title);
 		
 		
-		$this->remove_selected_button = str_replace(array('$title', '$link'), array(JText::_('Remove Selected'), '#'), $this->params['tmpl']['create_topic_button']);
+		$this->remove_selected_button = str_replace(array('$title', '$link'), array(JText::_('COM_NINJABOARD_REMOVE_SELECTED'), '#'), $this->params['tmpl']['create_topic_button']);
 		
 		$state			= $this->getModel()->getState();
 		$this->total	= $this->getModel()->getTotal();

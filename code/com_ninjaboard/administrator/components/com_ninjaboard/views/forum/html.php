@@ -19,7 +19,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		$filter		= '\.png$|\.gif$|\.jpg$|\.bmp$|\.ico$';
 		$files		= JFolder::files($path, $filter, true, true);
 		$options = array ();
-		$options[] = JHTML::_('select.option',  null, JText::_('None'));
+		$options[] = JHTML::_('select.option',  null, JText::_('COM_NINJABOARD_NONE'));
 		$img[]	   = $this->mediaurl . '/napi/img/blank.gif';
 		$optgroup = null;
 		if ( is_array($files) )

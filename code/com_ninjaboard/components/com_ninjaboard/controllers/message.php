@@ -88,7 +88,7 @@ class ComNinjaboardControllerMessage extends ComNinjaboardControllerAbstract
 			$mailfrom = $me->email;
 		}
 		
-		$subject = sprintf(JText::_('%s sent you a message on %s'), $me->display_name, $sitename);
+		$subject = sprintf(JText::_('COM_NINJABOARD_%S_SENT_YOU_A_MESSAGE_ON_%S'), $me->display_name, $sitename);
 		$subject = html_entity_decode($subject, ENT_QUOTES);
 		$text    = $this->getService('ninja:helper.bbcode')->parse(array('text' => $result->text));
 		

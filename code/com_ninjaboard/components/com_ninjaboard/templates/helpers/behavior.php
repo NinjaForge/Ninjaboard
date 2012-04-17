@@ -29,9 +29,9 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 			'hover'		=> 'unwatch',
 			'class'		=> 'watch',
 			'lang'		=> array(
-				'subscribe'		=> JText::_('Subscribe'),
-				'subscribed'	=> JText::_('Subscribed'),
-				'unsubscribe'	=> JText::_('Unsubscribe'),
+				'subscribe'		=> JText::_('COM_NINJABOARD_SUBSCRIBE'),
+				'subscribed'	=> JText::_('COM_NINJABOARD_SUBSCRIBED'),
+				'unsubscribe'	=> JText::_('COM_NINJABOARD_UNSUBSCRIBE'),
 			),
 			
 		));
@@ -127,7 +127,7 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		$config->append(array(
 			'message_to_id'           => false,
 			'message_to_display_name' => false,
-			'header' => JText::_('Send %s a message:')
+			'header' => JText::_('COM_NINJABOARD_SEND_%S_A_MESSAGE')
 		));
 		
 		$this->getService('ninja:template.helper.document')->load('/reveal.js');
@@ -143,7 +143,7 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		});
 		");
 		
-		$html[] = '<a class="ninjaboard-button ninjaboard-button-secondary ninjaboard-button-message" href="#" data-reveal-id="ninjaboard-message-form">'.JText::_('Message').'</a>';
+		$html[] = '<a class="ninjaboard-button ninjaboard-button-secondary ninjaboard-button-message" href="#" data-reveal-id="ninjaboard-message-form">'.JText::_('COM_NINJABOARD_MESSAGE').'</a>';
 		
 		$template = $this->getService('com://site/ninjaboard.view.message.html')->getTemplate();
 		$params   = $this->getService('com://admin/ninjaboard.model.settings')->getParams();

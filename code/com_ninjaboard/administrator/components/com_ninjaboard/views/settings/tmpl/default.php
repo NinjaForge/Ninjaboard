@@ -12,11 +12,11 @@
 	<table class="adminlist ninja-list">
 		<thead>
 			<tr>
-				<th class="hasHint" title="<?= @text('Drag here to reorder&hellip;') ?>"></th>
+				<th class="hasHint" title="<?= @text('COM_NINJABOARD_DRAG_HERE_TO_REORDERHELLIP;') ?>"></th>
 				<?= @ninja('grid.count', array('total' => @$total, 'title' => true)) ?>
 				<th class="grid-check"><?= @helper('grid.checkall') ?></th>
 				<th><?= @helper('grid.sort', array('column' => 'title')) ?></th>
-				<th><?= @text('Theme') ?></th>
+				<th><?= @text('COM_NINJABOARD_THEME') ?></th>
 				<th width="1px" class="grid-center">
 					<?= @helper('grid.sort', array('column' => 'default')) ?>
 				</th>																

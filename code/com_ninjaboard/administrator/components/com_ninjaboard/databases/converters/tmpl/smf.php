@@ -52,7 +52,7 @@
 <fieldset class="ninja-form">
 	<form id="smf">
 		<div class="element">
-			<label for="smf-path" class="key"><?= @text('Absolute path to SMF') ?></label>
+			<label for="smf-path" class="key"><?= @text('COM_NINJABOARD_ABSOLUTE_PATH_TO_SMF') ?></label>
 			<input type="text" name="path" id="smf-path" value="<?= $converter->getPath() ?>" placeholder="<?= $converter->getPath() ?>" class="value" />
 		</div>
 	</form>

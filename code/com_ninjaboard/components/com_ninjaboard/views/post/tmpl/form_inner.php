@@ -64,7 +64,7 @@
 		$("#addFile").click(slideDownAttachmentsHelp).click(function() {
 			
 			var attachment = $('<li>'+
-					'<a class="remove" href="#" title="<?= @text('Remove') ?>">&#10005;</a>'+
+					'<a class="remove" href="#" title="<?= @text('COM_NINJABOARD_REMOVE') ?>">&#10005;</a>'+
 					<?= json_encode(@helper('com://site/ninjaboard.template.helper.attachment.input')) ?>+
 				'</li>')
 				.hide();
@@ -114,11 +114,11 @@
 	<fieldset class="adminform ninja-form">
 		<? if(!$topic->id || $topic->first_post_id == $post->id) : ?>
 			<div class="element subject">
-				<label class="key" for="subject"><?= @text('Subject') ?></label>
+				<label class="key" for="subject"><?= @text('COM_NINJABOARD_SUBJECT') ?></label>
 				<input type="text" name="subject" id="subject" class="inputbox required value" size="50" value="<?= @escape($post->subject) ?>" maxlength="100" />
 			</div>
 			<div class="element icons">
-				<label class="key"><?= @text('Topic Icon') ?></label>
+				<label class="key"><?= @text('COM_NINJABOARD_TOPIC_ICON') ?></label>
 				<? $icon = isset($topic->params['customization']['icon']) ? $topic->params['customization']['icon'] : '32__default.png' ?>
 				<?= @ninja('select.images', array('path' => JPATH_ROOT.'/media/com_ninjaboard/images/topic', 'name' => 'params[customization][icon]', 'attribs' => array('class' => 'value', 'id' => 'params[customization][icon]'), 'selected' => $icon, 'idtag' => false, 'translate' => true, 'vertical' => false, 'script' => false)) ?>
 			</div>
@@ -129,12 +129,12 @@
 
 		<? if($topic->attachment_permissions > 1 && ($topic->attachment_settings || $forum->post_permissions > 2)) : ?>
 		<div class="element attachment">
-			<span class="key"><?= @text('Attachments') ?></span>
-			<a href="#" class="button" id="addFile"><?= @text('Add File') ?></a>
+			<span class="key"><?= @text('COM_NINJABOARD_ATTACHMENTS') ?></span>
+			<a href="#" class="button" id="addFile"><?= @text('COM_NINJABOARD_ADD_FILE') ?></a>
 			<ul id="attachments" style="margin-left:0;display:block">
 				<? foreach (@$attachments as $attachment) : ?>
 				<li style="display:block">
-					<label for="<?= $id = @id('attachments-'.$attachment->id) ?>" title="<?= @text('Remove') ?>" ><?= @text('Remove') ?><input type="checkbox" name="attachments[]" value="<?= $attachment->id ?>" id="<?= $id ?>"></label>
+					<label for="<?= $id = @id('attachments-'.$attachment->id) ?>" title="<?= @text('COM_NINJABOARD_REMOVE') ?>" ><?= @text('COM_NINJABOARD_REMOVE') ?><input type="checkbox" name="attachments[]" value="<?= $attachment->id ?>" id="<?= $id ?>"></label>
 					<?= $attachment->name ?>
 				</li>
 				<? endforeach ?>
@@ -142,9 +142,9 @@
 			<div class="attachments-extensions-help">
 				<div class="click-submit">
 					<? if($post->id) : ?>
-						<? $text = @text('Click «%s» in order to upload or delete attachments.') ?>
+						<? $text = @text('COM_NINJABOARD_CLICK_%S_IN_ORDER_TO_UPLOAD_OR_DELETE_ATTACHMENTS') ?>
 					<? else : ?>
-						<? $text = @text('Click «%s» in order to upload attachments.') ?>
+						<? $text = @text('COM_NINJABOARD_CLICK_%S_IN_ORDER_TO_UPLOAD_ATTACHMENTS') ?>
 					<? endif ?>
 					<?= sprintf($text, $create_topic_button_title) ?>
 				</div>
@@ -159,7 +159,7 @@
 				<label for="sticky">
 					<input type="hidden" name="sticky" value="0" />
 					<input type="checkbox" name="sticky" <? if($topic->sticky) echo 'checked' ?> id="sticky" value="1" />
-					<?= @text('Sticky topic') ?>
+					<?= @text('COM_NINJABOARD_STICKY_TOPIC') ?>
 				</label>
 			</div>
 		<? endif ?>
@@ -171,7 +171,7 @@
 				<label for="notify_on_reply_topic">
 					<input type="hidden" name="notify_on_reply_topic" value="0" />
 					<input type="checkbox" name="notify_on_reply_topic" <? if($notify) echo 'checked' ?> id="notify_on_reply_topic" value="1" />
-					<?= @text('Notify me when a reply is posted') ?>
+					<?= @text('COM_NINJABOARD_NOTIFY_ME_WHEN_A_REPLY_IS_POSTED') ?>
 				</label>
 			</div>
 		<? endif ?>
@@ -181,7 +181,7 @@
 				<div id="<?= @id('save') ?>">
 					<?= @$create_topic_button ?>
 				</div>
-				<div id="<?= @id('cancel') ?>"><?= str_replace('$title', @text('Cancel'), @$topic->params['tmpl']['cancel_button']) ?></div>
+				<div id="<?= @id('cancel') ?>"><?= str_replace('$title', @text('COM_NINJABOARD_CANCEL'), @$topic->params['tmpl']['cancel_button']) ?></div>
 			</div>
 		</div>
 	</fieldset>

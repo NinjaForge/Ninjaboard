@@ -71,7 +71,7 @@
 <form action="<?= @route('id=' . @$user->id) ?>" method="post" id="<?= @id() ?>" class="-koowa-form" enctype="multipart/form-data">
 	<div class="col width-50">	
 		<fieldset class="adminform ninja-form">
-			<legend><?= @text('Ninjaboard User Details') ?></legend>
+			<legend><?= @text('COM_NINJABOARD_NINJABOARD_USER_DETAILS') ?></legend>
 			<div class="element avatar">
 				<label class="key">
 					<?= @text("Avatar") ?>
@@ -82,8 +82,8 @@
 				)) ?>
 				
 				<span class="avatar options">
-					<a href="#" class="change-image"><?= @text('Change image') ?></a>
-					<a href="#" class="delete-image"><?= @text('Delete this image') ?></a>
+					<a href="#" class="change-image"><?= @text('COM_NINJABOARD_CHANGE_IMAGE') ?></a>
+					<a href="#" class="delete-image"><?= @text('COM_NINJABOARD_DELETE_THIS_IMAGE') ?></a>
 				</span>
 				
 				<span class="avatar upload">
@@ -94,25 +94,25 @@
 							<?= @helper('com://site/ninjaboard.template.helper.avatar.extensions') ?>
 						</span>
 					</small>
-					<a href="#" class="cancel-upload"><?= @text('Cancel upload') ?></a>
+					<a href="#" class="cancel-upload"><?= @text('COM_NINJABOARD_CANCEL_UPLOAD') ?></a>
 				</span>
 				
 				<span class="avatar delete">
 					<strong><?= @text("Click save if you're sure you want to delete this picture.") ?></strong>
 					<input type="hidden" name="avatar" disabled="disabled" />
-					<a href="#" class="cancel-delete"><?= @text('Do not delete this image.') ?></a>
+					<a href="#" class="cancel-delete"><?= @text('COM_NINJABOARD_DO_NOT_DELETE_THIS_IMAGE') ?></a>
 				</span>
 			</div>
 			<div class="element">
 				<label for="signature" class="key">
-					<?= @text('Forum Signature') ?>
+					<?= @text('COM_NINJABOARD_FORUM_SIGNATURE') ?>
 				</label>
-				<textarea name="signature" id="signature" rows="5" cols="40" class="inputbox value" placeholder="<?= @text('Signatures can have bbcode in them.') ?>"><?= $user->signature ?></textarea>
+				<textarea name="signature" id="signature" rows="5" cols="40" class="inputbox value" placeholder="<?= @text('COM_NINJABOARD_SIGNATURES_CAN_HAVE_BBCODE_IN_THEM') ?>"><?= $user->signature ?></textarea>
 			</div>
 		</fieldset>
 		<fieldset class="adminform ninja-form">
 			<legend>
-				<?= @text('Joomla! User Details') ?>
+				<?= @text('COM_NINJABOARD_JOOMLA_USER_DETAILS') ?>
 			</legend>
 				<? foreach (@$joomla as $key => $value) : ?>
 				<div class="element">
@@ -129,19 +129,19 @@
 	</div>
 	<div class="col width-50">
 		<fieldset class="adminform ninja-form">	
-			<legend><?= @text('Permissions') ?></legend>
+			<legend><?= @text('COM_NINJABOARD_PERMISSIONS') ?></legend>
 			<? if($user->inherits) : ?>
 			<div class="element">
 				<p>
-					<?= sprintf(@text('%s are %s by default.'), $user->name, $inherits) ?>
+					<?= sprintf(@text('COM_NINJABOARD_%S_ARE_%S_BY_DEFAULT'), $user->name, $inherits) ?>
 				</p>
 				<p>
-					<?= sprintf(@text('You can assign %s to other usergroups below'), $user->name) ?>
+					<?= sprintf(@text('COM_NINJABOARD_YOU_CAN_ASSIGN_%S_TO_OTHER_USERGROUPS_BELOW'), $user->name) ?>
 				</p>
 			</div>
 			<? endif ?>
 			<div class="element">
-				<label for="usergroup_id" class="key hasHint" title="<?= @text('You can select multiple usergroups.') ?>"><?= @text('Assign to usergroups') ?></label>
+				<label for="usergroup_id" class="key hasHint" title="<?= @text('COM_NINJABOARD_YOU_CAN_SELECT_MULTIPLE_USERGROUPS') ?>"><?= @text('COM_NINJABOARD_ASSIGN_TO_USERGROUPS') ?></label>
 				<?= $this->getService('ninja:form.element.select.genericlist')->importXml(simplexml_load_string('
 					<element name="usergroup" type="ninja:form.select.genericlist" get="com://admin/ninjaboard.model.usergroups" class="value" multiple="true">
 						<option value="0">- Inherit -</option>
@@ -154,7 +154,7 @@
 		<fieldset class="adminform ninja-form">	
 			<? $placeholder = false/*$this->getService('com://admin/ninjaboard.view.profile_fields.html')->placeholder()*/ ?>
 			<? if(!$placeholder) : ?>
-				<legend><?= @text('Custom Profile Fields') ?></legend>
+				<legend><?= @text('COM_NINJABOARD_CUSTOM_PROFILE_FIELDS') ?></legend>
 				<a href="<?= @route('view=profile_field') ?>"></a>
 				<div style="position:relative;height:30px">
 					<div style="position:absolute;right:5px;top:0;">

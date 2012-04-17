@@ -127,7 +127,7 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 		{
 			//@TODO find a better way to set the redirect
 			$this->_redirect   		 = 'index.php?option=com_ninjaboard&view=forum&id='.$topic->forum_id;
-			$this->_redirect_message = sprintf(JText::_('Topic «%s» deleted.'), $topic->subject);
+			$this->_redirect_message = sprintf(JText::_('COM_NINJABOARD_TOPIC_%S_DELETED'), $topic->subject);
 		
 			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('ninjaboard_topic_id', '=', $topic->id);
 			$table->select($query, KDatabase::FETCH_ROWSET)->delete();

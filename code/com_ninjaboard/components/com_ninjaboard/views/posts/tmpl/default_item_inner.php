@@ -3,7 +3,7 @@
 <div class="wrap">
 	<div class="section">
 		<a class="ninjaboard-post-permalink" href="<?= @route('view=topic&id='.$topic->id.'&post='.$post->id) ?>#p<?= $post->id ?>">
-			<img src="<?= @$img('/16/page.png') ?>" width="16" height="16" alt="<?= @text('Link to this post') ?>" />
+			<img src="<?= @$img('/16/page.png') ?>" width="16" height="16" alt="<?= @text('COM_NINJABOARD_LINK_TO_THIS_POST') ?>" />
 			<?= @ninja('date.html', array('date' => $post->created_on)) ?>
 		</a>
 		<div class="text"><?= @helper('ninja:helper.bbcode.parse', array('text' => $post->text)) ?></div>
@@ -74,7 +74,7 @@
 		<strong class="rank"><?= @$post->rank_title ?></strong>
 		<div class="rank_icon"><img src="<?= @$img('/rank/'.@$post->rank_icon) ?>" /></div>
 		<? endif ?>
-		<p class="posts"><strong><?= @text('Posts:') ?></strong> <?= $post->person_posts ?></p>
+		<p class="posts"><strong><?= @text('COM_NINJABOARD_POSTS') ?></strong> <?= $post->person_posts ?></p>
 		
 		<!--<img src="<?= @$img('/usergroup/'.KInflector::underscore($post->usertype).'.png') ?>" />
 		<img src="<?= @$img('/usergroup/'.KInflector::underscore($post->usertype).'.png') ?>" />-->

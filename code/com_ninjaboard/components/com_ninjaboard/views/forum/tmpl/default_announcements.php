@@ -4,10 +4,10 @@
 <div class="ninjaboard-block category">	
 	<ul class="topiclist header">
 		<li class="row">
-				<span><?= @text('Announcements') ?></span>
-				<span class="topics"><?= @text('Topics') ?></span>
-				<span class="posts"><?= @text('Posts') ?></span>
-				<span class="lastpost"><?= @text('Last Post') ?></span>
+				<span><?= @text('COM_NINJABOARD_ANNOUNCEMENTS') ?></span>
+				<span class="topics"><?= @text('COM_NINJABOARD_TOPICS') ?></span>
+				<span class="posts"><?= @text('COM_NINJABOARD_POSTS') ?></span>
+				<span class="lastpost"><?= @text('COM_NINJABOARD_LAST_POST') ?></span>
 		</li>
 	</ul>
 	<ul class="topiclist forums categories announcements">
@@ -21,7 +21,7 @@
 			<span class="posts"><span class="separator"></span><span class="separator right"></span><!--<?= $announcement->posts ?>-->0</span>
 			<span class="lastpost">
 				<?= $announcement->last_username ?>
-				<a href="<?= @route('index.php?view=topic&id=' . $announcement->id_last_post) ?>"><img src="<?= @mediaurl ?>/napi/img/16/page.png" alt="<?= @text('View the latest post') ?>" title="<?= @text('View the latest post') ?>" /></a> <br /><?= @date($announcement->last_post_date, @$dateformat, @$timezone) ?>
+				<a href="<?= @route('index.php?view=topic&id=' . $announcement->id_last_post) ?>"><img src="<?= @mediaurl ?>/napi/img/16/page.png" alt="<?= @text('COM_NINJABOARD_VIEW_THE_LATEST_POST') ?>" title="<?= @text('COM_NINJABOARD_VIEW_THE_LATEST_POST') ?>" /></a> <br /><?= @date($announcement->last_post_date, @$dateformat, @$timezone) ?>
 			</span>
 		</li>
 	<? endforeach ?>

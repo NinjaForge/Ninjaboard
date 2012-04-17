@@ -25,7 +25,7 @@ class ComNinjaboardViewMessageHtml extends ComNinjaboardViewHtml
 			return parent::display();
 		}
 
-		$this->send_button = str_replace('$title', JText::_('Send'), $this->params['tmpl']['create_topic_button']);
+		$this->send_button = str_replace('$title', JText::_('COM_NINJABOARD_SEND'), $this->params['tmpl']['create_topic_button']);
 
 		$title = JText::_("Compose");
 		$this->_subtitle = $title;

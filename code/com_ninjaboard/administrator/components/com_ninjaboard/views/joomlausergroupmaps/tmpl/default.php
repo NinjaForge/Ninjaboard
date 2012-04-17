@@ -41,7 +41,7 @@
 	<? if(KRequest::get('get.tmpl', 'cmd') == 'component') : ?>
 		<fieldset style="border-radius: 3px;" id="toolbar-joomlausergroupmaps">
 			<div style="float: right">
-				<button type="submit" name="save"><?= @text('Save') ?></button>
+				<button type="submit" name="save"><?= @text('COM_NINJABOARD_SAVE') ?></button>
 			</div>
 			<div class="configuration"><?= @text(KInflector::humanize($this->getView()->getName())) ?></div>
 			<input type="hidden" name="action" value="edit" />
@@ -57,7 +57,7 @@
 
 				    <? if (!JVersion::isCompatible('1.6.0')) : ?>
 					    <li class="map" id="<?= @id('points-from-0') ?>">
-					    	<h1><?= @text('Unregistered') ?></h1>
+					    	<h1><?= @text('COM_NINJABOARD_UNREGISTERED') ?></h1>
 					    	<? $value = isset($maps[0]) ? $maps[0] : null ?>
 					    	<input type="hidden" name="group[0]" id="group<?= (int) $i++ ?>" value="<?= $value ? $value : $fallback['id'] ?>" />
 					    </li>

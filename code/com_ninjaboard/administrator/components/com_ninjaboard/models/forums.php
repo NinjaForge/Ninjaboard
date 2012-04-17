@@ -93,7 +93,7 @@ class ComNinjaboardModelForums extends NinjaModelTable
 		
 		//Build query for the screen names
 		$this->getService('com://admin/ninjaboard.model.people')
-			->buildScreenNameQuery($query, 'person', 'usr', 'last_post_username', 'IFNULL(last_post.guest_name, \''.JText::_('Anonymous').'\')');
+			->buildScreenNameQuery($query, 'person', 'usr', 'last_post_username', 'IFNULL(last_post.guest_name, \''.JText::_('COM_NINJABOARD_ANONYMOUS').'\')');
 		
 		if(JFactory::getUser()->guest) {
 		    $query->select(array('0 AS new', '1 AS unread'));

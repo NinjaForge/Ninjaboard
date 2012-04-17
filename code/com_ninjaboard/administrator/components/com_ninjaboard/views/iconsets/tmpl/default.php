@@ -6,10 +6,10 @@
 			<tr>
 				<?= @ninja('grid.count', @$state->offset, @$total, true) ?>
 				<th width="1px"><?= @ninja('grid.checkall') ?></th>
-				<th><?= @text('Name') ?></th>
-				<th><?= @text('Version') ?></th>
-				<th><?= @text('Date') ?></th>
-				<th><?= @text('Author') ?></th>
+				<th><?= @text('COM_NINJABOARD_NAME') ?></th>
+				<th><?= @text('COM_NINJABOARD_VERSION') ?></th>
+				<th><?= @text('COM_NINJABOARD_DATE') ?></th>
+				<th><?= @text('COM_NINJABOARD_AUTHOR') ?></th>
 			</tr>
 		</thead>
 		<?= @ninja('paginator.tfoot', @$total, @$state->offset, @$state->limit, 4, 6) ?>

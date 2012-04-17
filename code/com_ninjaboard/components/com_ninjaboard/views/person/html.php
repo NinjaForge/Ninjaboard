@@ -46,7 +46,7 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 			    	->at($this->getModel()->getItem()->id)
 					->display().
 					'</div>', 
-				JText::_('Latest Posts'), 
+				JText::_('COM_NINJABOARD_LATEST_POSTS'), 
 				$params['module'])
 			);
 			
@@ -63,7 +63,7 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 			if($me->id === $person->id) {
 				$this->edit_button = str_replace(
 					array('$title', '$link'), 
-					array(JText::_('Edit Profile'), $this->createRoute('view=person&id='.$person->id.'&layout=form')),
+					array(JText::_('COM_NINJABOARD_EDIT_PROFILE'), $this->createRoute('view=person&id='.$person->id.'&layout=form')),
 					$this->params['tmpl']['new_topic_button']
 				);
 			} else {
@@ -77,7 +77,7 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 		} else {
 			$title = sprintf(JText::_("%s's settings"), $person->display_name);
 		
-			$this->save_button = str_replace('$title', JText::_('Save'), $this->params['tmpl']['create_topic_button']);
+			$this->save_button = str_replace('$title', JText::_('COM_NINJABOARD_SAVE'), $this->params['tmpl']['create_topic_button']);
 			$this->save_button = str_replace('$link', '#', $this->save_button);
 		}
 

@@ -283,7 +283,7 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 	 */
 	public function buildScreenNameQuery(KDatabaseQuery $query, $person_alias = 'tbl', $user_alias = 'user', $column = 'display_name', $fallback = '')
 	{
-		if(!$fallback) $fallback = '\''.JText::_('Anonymous').'\'';
+		if(!$fallback) $fallback = '\''.JText::_('COM_NINJABOARD_ANONYMOUS').'\'';
 
 		//Decide wether to display realname or username
 		$params			= $this->getService('com://admin/ninjaboard.model.settings')->getParams();

@@ -83,7 +83,7 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 	
 	private function _checkAliasFailed(KCommandContext $context)
 	{
-		JError::raiseWarning(0, sprintf(JText::_('"%s" is already in use. Please choose another one.'), $context->data->alias));
+		JError::raiseWarning(0, sprintf(JText::_('COM_NINJABOARD_%S_IS_ALREADY_IN_USE_PLEASE_CHOOSE_ANOTHER_ONE'), $context->data->alias));
 		
 		unset($context->data->alias);
 		
@@ -121,7 +121,7 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 
 		//if we are a bmp we cant upload it
 		if (strtolower(JFile::getExt($avatar['name'])) == 'bmp') {
-			JError::raiseWarning(21, sprintf(JText::_('%s failed to upload because this file type is not supported'), $avatar['name']));
+			JError::raiseWarning(21, sprintf(JText::_('COM_NINJABOARD_%S_FAILED_TO_UPLOAD_BECAUSE_THIS_FILE_TYPE_IS_NOT_SUPPORTED'), $avatar['name']));
 			return $this;
 		}
 		

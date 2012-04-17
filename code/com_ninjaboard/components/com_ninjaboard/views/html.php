@@ -24,7 +24,7 @@ class ComNinjaboardViewHtml extends ComNinjaboardViewDefault
 
 	public function display()
 	{	
-		$this->assign('dateformat', str_replace(array('%A', '%B'), array('%a', '%b'), JText::_('DATE_FORMAT_LC2')));
+		$this->assign('dateformat', str_replace(array('%A', '%B'), array('%a', '%b'), JText::_('COM_NINJABOARD_DATE_FORMAT_LC2')));
 		$timezone = JFactory::getUser()->getParam('timezone');
 		if(is_null($timezone)) $timezone = JFactory::getConfig()->getValue('offset');
 		$this->assign('timezone', $timezone);

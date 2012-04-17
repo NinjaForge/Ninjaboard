@@ -95,7 +95,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		{
 			$this->new_topic_button = '<div class="new-topic">'.str_replace(
 				array('$title', '$link'), 
-				array(JText::_('New Topic'), $this->createRoute('view=post&forum='.$this->forum->id)), 
+				array(JText::_('COM_NINJABOARD_NEW_TOPIC'), $this->createRoute('view=post&forum='.$this->forum->id)), 
 				$this->forum->params['tmpl']['new_topic_button']
 			).'</div>';
 		}
@@ -105,7 +105,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		{
     		$button = str_replace(
     			array('$title', '$link'), 
-    			array(JText::_('Reply topic'), $this->createRoute('view=post&topic='.$this->topic->id)), 
+    			array(JText::_('COM_NINJABOARD_REPLY_TOPIC'), $this->createRoute('view=post&topic='.$this->topic->id)), 
     			$this->forum->params['tmpl']['new_topic_button']
     		);
 		}
@@ -121,7 +121,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 			$this->lock_topic_button = $this->_createActionButton('lock', 'Lock topic', $this->topic->id, 'lock');
 			$this->move_topic_button = str_replace(
 				array('$title', '$link'), 
-				array(JText::_('Move topic'), $this->createRoute('view=topic&layout=move&id='.$this->topic->id)), 
+				array(JText::_('COM_NINJABOARD_MOVE_TOPIC'), $this->createRoute('view=topic&layout=move&id='.$this->topic->id)), 
 				$this->forum->params['tmpl']['new_topic_button']
 			);
 			$this->delete_topic_button = $this->_createActionButton('delete', 'Delete topic', $this->topic->id, 'trash');
@@ -171,7 +171,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		}
 		$pathway->addItem($this->forum->title, $this->createRoute('view=forum&id='.$this->forum->id));
 		
-		$pathway->addItem($this->topic->subject ? $this->topic->subject : JText::_('New Topic'), $this->createRoute('view=topic&id='.$this->topic->id));
+		$pathway->addItem($this->topic->subject ? $this->topic->subject : JText::_('COM_NINJABOARD_NEW_TOPIC'), $this->createRoute('view=topic&id='.$this->topic->id));
 	}
 	
 	private function _createActionButton($action, $title, $id, $symbol = '&#8986;')

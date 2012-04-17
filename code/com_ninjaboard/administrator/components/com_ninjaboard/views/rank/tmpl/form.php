@@ -7,21 +7,21 @@
 <form action="<?= @route('id='.@$rank->id) ?>" method="post" id="<?= @id() ?>" class="validator-inline -koowa-form">
 	<div class="col width-50">
 		<fieldset class="adminform ninja-form">
-			<legend><?= @text('Details') ?></legend>
+			<legend><?= @text('COM_NINJABOARD_DETAILS') ?></legend>
 			<div class="element">	
-				<label for="title" class="key"><?= @text('Title') ?></label>
-				<input type="text" name="title" id="title" class="inputbox required value" rel="<?= @text('Ranks require a title!') ?>" size="50" value="<?= @escape($rank->title) ?>" maxlength="150" />
+				<label for="title" class="key"><?= @text('COM_NINJABOARD_TITLE') ?></label>
+				<input type="text" name="title" id="title" class="inputbox required value" rel="<?= @text('COM_NINJABOARD_RANKS_REQUIRE_A_TITLE') ?>" size="50" value="<?= @escape($rank->title) ?>" maxlength="150" />
 			</div>
 			<div class="element">	
-				<label for="min" class="key"><?= @text('Min Required Posts') ?></label>
+				<label for="min" class="key"><?= @text('COM_NINJABOARD_MIN_REQUIRED_POSTS') ?></label>
 				<input type="text" name="min" id="min" class="inputbox required validate-integer value" size="50" value="<?= @escape($rank->min) ?>" maxlength="150" />
 			</div>
 			<div class="element">	
-				<label class="key"><?= @text('State') ?></label>
+				<label class="key"><?= @text('COM_NINJABOARD_STATE') ?></label>
 				<div class="value"><?= @ninja('select.statelist', array('attribs' => array('class' => 'validate-reqchk-byname label:\'state\''), 'selected' => @$rank->enabled)) ?></div>
 			</div>
 			<div class="element">	
-				<label for="rank_file" class="key"><?= @text('Rank Image File') ?></label>
+				<label for="rank_file" class="key"><?= @text('COM_NINJABOARD_RANK_IMAGE_FILE') ?></label>
 				<div class="value"><?= @ninja('select.images', array('path' => JPATH_ROOT.'/media/com_ninjaboard/images/rank', 'name' => 'rank_file', 'atrribs' => array('class' => 'value'), 'selected' => @$rank->rank_file, 'vertical' => true)) ?></div>
 			</div>
 			<div class="element">

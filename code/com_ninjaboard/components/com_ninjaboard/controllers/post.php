@@ -93,7 +93,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 			// Check Forum Attachment Settings
 			$params			= $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 			if(!$params['attachment_settings']['enable_attachments']){
-				JError::raiseWarning(21, JText::_('Attachments have been disabled on this forum.'));
+				JError::raiseWarning(21, JText::_('COM_NINJABOARD_ATTACHMENTS_HAVE_BEEN_DISABLED_ON_THIS_FORUM'));
 				$this->execute('cancel');
 				return false;	
 			}

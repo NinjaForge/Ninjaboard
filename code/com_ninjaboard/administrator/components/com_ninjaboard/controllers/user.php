@@ -58,7 +58,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 
 		//if we are a bmp we cant upload it
 		if (strtolower(JFile::getExt($avatar['name'])) == 'bmp') {
-			JError::raiseWarning(21, sprintf(JText::_('%s failed to upload because this file type is not supported'), $avatar['name']));
+			JError::raiseWarning(21, sprintf(JText::_('COM_NINJABOARD_%S_FAILED_TO_UPLOAD_BECAUSE_THIS_FILE_TYPE_IS_NOT_SUPPORTED'), $avatar['name']));
 			return $this;
 		}
 		

@@ -5,9 +5,9 @@
 		<li class="header">
 			<dl class="icon">
 				<dt></dt>
-				<dd class="topics"><?= @text('Replies') ?></dd>
-				<dd class="posts"><?= @text('Views') ?></dd>
-				<dd class="lastpost"><span><?= @text('Last post') ?></span></dd>
+				<dd class="topics"><?= @text('COM_NINJABOARD_REPLIES') ?></dd>
+				<dd class="posts"><?= @text('COM_NINJABOARD_VIEWS') ?></dd>
+				<dd class="lastpost"><span><?= @text('COM_NINJABOARD_LAST_POST') ?></span></dd>
 			</dl>
 		</li>
 	</ul>

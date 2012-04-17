@@ -22,34 +22,34 @@
 <form action="<?= @route('id='.@$forum->id) ?>" method="post" id="<?= @id() ?>" class="validator-inline -koowa-form">
 	<div class="col width-50">
 		<fieldset class="adminform ninja-form">
-			<legend><?= @text('Details') ?></legend>
+			<legend><?= @text('COM_NINJABOARD_DETAILS') ?></legend>
 			<div class="element">	
-				<label for="title" class="key"><?= @text('Title') ?></label>
-				<input type="text" name="title" id="title" class="inputbox required value" data-warn-msg="<?= @text('Forums require a title!') ?>" size="50" value="<?= @escape($forum->title) ?>" maxlength="150" onkeyup="" autocomplete="off" />
+				<label for="title" class="key"><?= @text('COM_NINJABOARD_TITLE') ?></label>
+				<input type="text" name="title" id="title" class="inputbox required value" data-warn-msg="<?= @text('COM_NINJABOARD_FORUMS_REQUIRE_A_TITLE') ?>" size="50" value="<?= @escape($forum->title) ?>" maxlength="150" onkeyup="" autocomplete="off" />
 			</div>
 			<div class="element">
-				<label for="alias" class="key"><?= @text('Alias') ?></label>
+				<label for="alias" class="key"><?= @text('COM_NINJABOARD_ALIAS') ?></label>
 				<input type="text" name="alias" id="alias" class="inputbox required validate-no-space value" size="50" value="<?= @$forum->slug ?>" maxlength="150" />
 			</div>
 			<div class="element">
-				<label for="description" class="key"><?= @text('Description') ?></label>
+				<label for="description" class="key"><?= @text('COM_NINJABOARD_DESCRIPTION') ?></label>
 				<textarea name="description" id="description" rows="5" cols="50" class="inputbox value"><?= @$forum->description ?></textarea>
 			</div>
 			<div class="element">
-				<label for="header" class="key hasTip" title="<?= @text("Forum header is used on the forum detail page. If left empty, the forum description is used instead.") ?>"><?= @text('Forum header') ?></label>
-				<textarea name="params[forum][header]" id="params-forum-header" rows="5" cols="50" class="inputbox value" placeholder="<?= @text('Leave empty for using the description as the header.') ?>"><?= isset($forum->params['forum']['header']) ? $forum->params['forum']['header'] : '' ?></textarea>
+				<label for="header" class="key hasTip" title="<?= @text("Forum header is used on the forum detail page. If left empty, the forum description is used instead.") ?>"><?= @text('COM_NINJABOARD_FORUM_HEADER') ?></label>
+				<textarea name="params[forum][header]" id="params-forum-header" rows="5" cols="50" class="inputbox value" placeholder="<?= @text('COM_NINJABOARD_LEAVE_EMPTY_FOR_USING_THE_DESCRIPTION_AS_THE_HEADER') ?>"><?= isset($forum->params['forum']['header']) ? $forum->params['forum']['header'] : '' ?></textarea>
 			</div>
 			<div class="element">
-				<label class="key"><?= @text('State') ?></label>
+				<label class="key"><?= @text('COM_NINJABOARD_STATE') ?></label>
 				<?= @ninja('select.statelist', array('selected' => @$forum->enabled)) ?>
 				<?/* @TODO properly implement locked forums */?>
 				<?/*= @ninja('select.statelist', array('name' => 'locked', 'id' => 'locked', 'attribs' => array('class' => 'validate-reqchk-byname label:\'locked\' value'), 'selected' => @$forum->locked, 'yes' => 'Lock', 'no' => 'Unlock', 'img_x' => '/16/unlock.png', 'img_y' => '/16/lock.png')) */?>
 			</div>
 		</fieldset>
 		<fieldset class="adminform ninja-form">
-			<legend><?= @text('Forum Hierarchy') ?></legend>
+			<legend><?= @text('COM_NINJABOARD_FORUM_HIERARCHY') ?></legend>
 			<div class="element">
-				<label class="key" for="path"><?= @text('Parent Forum') ?></label>
+				<label class="key" for="path"><?= @text('COM_NINJABOARD_PARENT_FORUM') ?></label>
 					<? $size = max(max($total+1, 17)-2, 1) ?>
 					<?= JHTML::_('select.genericlist', $forums, 'path', array('class' => 'value required', 'size' => $size), 'path', 'title', @$forum->path ? @$forum->path : ' ') ?>
 			</div>
@@ -141,10 +141,10 @@
 		</style>
 
 		<fieldset class="adminform ninja-form">
-			<legend><?= @text('Permissions') ?></legend>
+			<legend><?= @text('COM_NINJABOARD_PERMISSIONS') ?></legend>
 			<?= @helper('accordion.startpane', array('id' => @id('permissions'), 'options' => array('opacity' => true, 'scroll' => true))) ?>
 			<? foreach (@$permissions as $permission) : ?>
-				<script><?= "\n\twindow.addEvent('domready', function(){ new Permissions($('" . $permission['id'] . "'), ".json_encode(array('text' => array('on' => @text('on'), 'off' => @text('off'))))."); });\n" ?></script>
+				<script><?= "\n\twindow.addEvent('domready', function(){ new Permissions($('" . $permission['id'] . "'), ".json_encode(array('text' => array('on' => @text('COM_NINJABOARD_ON'), 'off' => @text('COM_NINJABOARD_OFF'))))."); });\n" ?></script>
 				<?= @helper('accordion.startpanel', array('title' => $permission['title'], 'translate' => false)) ?>
 
 					<? $permissions = 0 ?>

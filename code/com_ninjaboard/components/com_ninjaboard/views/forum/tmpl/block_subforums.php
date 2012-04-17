@@ -6,12 +6,12 @@
 			<dl class="icon">
 				<dt>
 					<? if(KRequest::get('get.view', 'cmd') == 'forums' && $params['view_settings']['forums_title'] == 'permalink' && isset($forum)) : ?>
-						<a href="<?= @route('view=forum&id='.$forum->id) ?>">[<?= @text('permalink') ?>]</a>
+						<a href="<?= @route('view=forum&id='.$forum->id) ?>">[<?= @text('COM_NINJABOARD_PERMALINK') ?>]</a>
 					<? endif ?>
 				</dt>
-				<dd class="topics"><?= @text('Topics') ?></dd>
-				<dd class="posts"><?= @text('Posts') ?></dd>
-				<dd class="lastpost"><span><?= @text('Last post') ?></span></dd>
+				<dd class="topics"><?= @text('COM_NINJABOARD_TOPICS') ?></dd>
+				<dd class="posts"><?= @text('COM_NINJABOARD_POSTS') ?></dd>
+				<dd class="lastpost"><span><?= @text('COM_NINJABOARD_LAST_POST') ?></span></dd>
 			</dl>
 		</li>
 	</ul>
