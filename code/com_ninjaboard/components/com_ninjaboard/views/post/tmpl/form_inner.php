@@ -34,19 +34,19 @@
 
 			if(subject && !subject.value && text && !text.value) {
 				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("NB_DATA_VALIDATION_FAILED_SUBJECT_TEXT")) ?>);
+				alert(<?= json_encode(@text('COM_NINJABOARD_NB_DATA_VALIDATION_FAILED_SUBJECT_TEXT')) ?>);
 				return false; 
 			}
 
 			if(subject && !subject.value) {
 				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("NAPI_DATA_VALIDATION_FAILED_SUBJECT")) ?>);
+				alert(<?= json_encode(@text('COM_NINJABOARD_NAPI_DATA_VALIDATION_FAILED_SUBJECT')) ?>);
 				return false; 
 			}
 			
 			if(text && !text.value) {
 				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("NAPI_DATA_VALIDATION_FAILED_TEXT")) ?>);
+				alert(<?= json_encode(@text('COM_NINJABOARD_NAPI_DATA_VALIDATION_FAILED_TEXT')) ?>);
 				return false; 
 			}
 			

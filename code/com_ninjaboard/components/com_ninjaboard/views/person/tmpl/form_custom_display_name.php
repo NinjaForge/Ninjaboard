@@ -37,5 +37,5 @@ ninja(function($){
 	<label for="alias">
 		<?= @text('COM_NINJABOARD_REPLACE_MY_SCREEN_NAME_WITH') ?> 
 	</label>
-	<input type="text" name="alias" id="alias" placeholder="<?= @escape(@text('COM_NINJABOARD_WHAT_I_TYPE_IN_HERE…')) ?>" class="value" value="<?= @escape($person->alias) ?>" />
+	<input type="text" name="alias" id="alias" placeholder="<?= @escape(@text('COM_NINJABOARD_WHAT_I_TYPE_IN_HERE')) ?>" class="value" value="<?= @escape($person->alias) ?>" />
 </div>

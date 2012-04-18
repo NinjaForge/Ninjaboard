@@ -34,7 +34,7 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 		}
 		elseif(!$forum->id || $forum->post_permissions < 2)
 		{
-			JError::raiseNotice(401, JText::_("You don't have the permissions to post in this forum."));
+			JError::raiseNotice(401, JText::_('COM_NINJABOARD_YOU_DONT_HAVE_THE_PERMISSIONS_TO_POST_IN_THIS_FORUM'));
 			return;
 		}
 		

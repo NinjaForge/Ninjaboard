@@ -36,7 +36,7 @@
 		$('.<?= @id('delete') ?>').click(function(event){
 			event.preventDefault();
 
-			if(!confirm(<?= json_encode(@text("Are you sure you want to delete this topic? This action cannot be undone.")) ?>)) return;
+			if(!confirm(<?= json_encode(@text('COM_NINJABOARD_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_TOPIC_THIS_ACTION_CANNOT_BE_UNDONE')) ?>)) return;
 
 			$(this).closest('form').submit();
 		});

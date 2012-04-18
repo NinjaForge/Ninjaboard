@@ -22,10 +22,10 @@
 		<div class="element" id="states">
 			<label class="key"><?= @text('COM_NINJABOARD_STATE') ?></label>
 			<div><?= @ninja('select.statelist', array('attribs' => array('class' => 'validate-reqchk-byname label:\'state\''), 'selected' => @$setting->enabled)) ?></div>
-			<div><?= @ninja('select.statelist', array('name' => 'default', 'attribs' => array('class' => 'validate-reqchk-byname label:\'default\''), 'selected' => @$setting->default, 'yes' => 'Default', 'no' => 'Not Default', 'img_y' => '/16/star.png', 'img_x' => '/16/star_off.png', 'id' => 'default')) ?></div>
+			<div><?= @ninja('select.statelist', array('name' => 'default', 'attribs' => array('class' => 'validate-reqchk-byname label:\'default\''), 'selected' => @$setting->default, 'yes' => 'COM_NINJABOARD_DEFAULT', 'no' => 'COM_NINJABOARD_NOT_DEFAULT', 'img_y' => '/16/star.png', 'img_x' => '/16/star_off.png', 'id' => 'default')) ?></div>
 		</div>
-		<!--<div class="element">
+		<?/*<div class="element">
 			<label class="key" for="theme"><?= @text('COM_NINJABOARD_THEME') ?></label>
 			<input type="text" name="theme" id="theme" class="inputbox required value" size="50" value="<?= @escape($setting->title) ?>" maxlength="100" />
-		</div>-->
+		</div>*/ ?>
 </fieldset>

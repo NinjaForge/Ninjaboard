@@ -27,7 +27,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 			}
 			else
 			{
-				$this->title = JText::_("Access to this forum declined");
+				$this->title = JText::_('COM_NINJABOARD_ACCESS_TO_THIS_FORUM_DECLINED');
 				$this->msg	 = JText::_('COM_NINJABOARD_CONTACT_AN_ADMINISTRATOR_IMMIDIATLY_IF_THIS_IS_AN_MISTAKE');
 				JError::raiseError(404, JText::_('COM_NINJABOARD_FORUM_NOT_FOUND'));
 				return parent::display();

@@ -39,7 +39,7 @@ class ComNinjaboardDatabaseConvertersDemo extends ComNinjaboardDatabaseConverter
 	 */
 	public function getTitle()
 	{
-		return 'Sample content';
+		return JText::_('COM_NINJABOARD_SAMPLE_CONTENT');
 	}
 
 	/**

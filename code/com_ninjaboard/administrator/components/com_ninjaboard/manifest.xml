@@ -12,7 +12,7 @@
     <authorurl>ninjaforge.com</authorurl>
     <updateurl>http://ninjaforge.com/extensions/ninjaboard-beta?format=file</updateurl>
     <support href="http://ninjaforge.com/forum/54-ninjaboard">Forums</support>
-    <rate href="http://extensions.joomla.org/extensions/communication/forum/11513">Joomla Extensions Directory (JED)</rate>
+    <rate href="http://extensions.joomla.org/extensions/communication/forum/11513">COM_NINJA_JED</rate>
     <!-- 
         Color cheat sheat
                 - Alpha         darkorange
@@ -23,7 +23,7 @@
     -->
     <version status="Alpha" color="darkorange">2.0</version>
     <revision>2519</revision>
-    <description>The sharpest user forum</description>
+    <description>COM_NINJABOARD_THE_SHARPEST_USER_FORUM</description>
     <credits>
         <a href="http://www.joomlaworks.gr/">SMF converter, Vanity URLs, Private Messaging sponsored by JoomlaWorks</a>
         <a href="http://www.joomlacontenteditor.net/">phpBB3 converter sponsored by JCE</a>

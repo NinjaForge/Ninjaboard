@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset group="board_details" class="adminlist" description="Parameters for board configuration">
-		<element name="theme" type="request" key="name" request="name" get="com://admin/ninjaboard.model.themes" default="chameleon" load="&amp;option=com_ninjaboard&amp;view=theme&amp;layout=settings&amp;format=raw" />
+	<fieldset group="board_details" label="COM_NINJABOARD_DETAILS" class="adminlist" description="Parameters for board configuration">
+		<element name="theme" label="COM_NINJABOARD_THEME" type="request" key="name" request="name" get="com://admin/ninjaboard.model.themes" default="chameleon" load="&amp;option=com_ninjaboard&amp;view=theme&amp;layout=settings&amp;format=raw" />
 	</fieldset>
 
-	<fieldset group="email_notification_settings" legend="Email Notifications Settings">
-		<element name="enable_email_notification" label="Enable Email Notifications" type="radio" default="1">
-			<option value="1">Yes</option>
-			<option value="0">No</option>
+	<fieldset group="email_notification_settings" legend="COM_NINJABOARD_EMAIL_NOTIFICATIONS_SETTINGS">
+		<element name="enable_email_notification" label="COM_NINJABOARD_ENABLE_EMAIL_NOTIFICATIONS" type="radio" default="1">
+			<option value="1">COM_NINJABOARD_YES</option>
+			<option value="0">COM_NINJABOARD_NO</option>
 		</element>
-		<element name="auto_notify_admins" type="radio" default="yes" class="group vertical" description="Decide wether or not to notify all users with «Receive System E-mails» enabled on all new posts.">
-			<option value="yes">Yes</option>
-			<option value="no">No</option>
+		<element name="auto_notify_admins" label="COM_NINJABOARD_AUTO_NOTIFY_ADMINS" type="radio" default="yes" class="group vertical" description="COM_NINJABOARD_DECIDE_WETHER_OR_NOT_TO_NOTIFY_ALL_USERS_WITH_RECEIVE_SYSTEM_E-MAILS_ENABLED_ON_ALL_NEW_POSTS">
+			<option value="yes">COM_NINJABOARD_YES</option>
+			<option value="no">COM_NINJABOARD_NO</option>
 		</element>
-		<element name="include_post" type="radio" default="yes" class="group vertical" description="Choose if you want people to be able to read the post or visit the site first.">
-			<option value="yes">Yes</option>
-			<option value="no">No</option>
+		<element name="include_post" label="COM_NINJABOARD_INCLUDE_POST" type="radio" default="yes" class="group vertical" description="COM_NINJABOARD_CHOOSE_IF_YOU_WANT_PEOPLE_TO_BE_ABLE_TO_READ_THE_POST_OR_VISIT_THE_SITE_FIRST">
+			<option value="yes">COM_NINJABOARD_YES</option>
+			<option value="no">COM_NINJABOARD_NO</option>
 		</element>
 	</fieldset>
 	
-	<fieldset group="messaging_settings">
-		<element name="enable_messaging" type="radio" default="1">
-			<option value="1">Yes</option>
-			<option value="0">No</option>
+	<fieldset group="messaging_settings" label="COM_NINJABOARD_MESSAGING_SETTINGS">
+		<element name="enable_messaging" label="COM_NINJABOARD_ENABLE_MESSAGING" type="radio" default="1">
+			<option value="1">COM_NINJABOARD_YES</option>
+			<option value="0">COM_NINJABOARD_NO</option>
 		</element>
 	</fieldset>
 
-	<fieldset group="attachment_settings" legend="Attachment Settings" description="Parameters for individual Attachment Configuration">
-		<element name="enable_attachments" type="radio" default="1">
-			<option value="1">Yes</option>
-			<option value="0">No</option>
+	<fieldset group="attachment_settings" legend="COM_NINJABOARD_ATTACHMENT_SETTINGS" description="Parameters for individual Attachment Configuration">
+		<element name="enable_attachments" label="COM_NINJABOARD_ENABLE_ATTACHMENTS" type="radio" default="1">
+			<option value="1">COM_NINJABOARD_YES</option>
+			<option value="0">COM_NINJABOARD_NO</option>
 		</element>
-		<element name="@description" type="description">Configure allowed filetypes and upload limits in the Joomla Global Configuration.</element>
-		<element name="disposition" label="Web browsers" type="radio" default="inline" class="group vertical">
-			<option value="inline">view attachments inline</option>
-			<option value="attachment">download attachments</option>
+		<element name="@description" type="description">COM_NINJABOARD_CONFIGURE_ALLOWED_FILETYPES_AND_UPLOAD_LIMITS_IN_THE_JOOMLA_GLOBAL_CONFIGURATION</element>
+		<element name="disposition" label="COM_NINJABOARD_WEB_BROWSERS" type="radio" default="inline" class="group vertical">
+			<option value="inline">COM_NINJABOARD_VIEW_ATTACHMENTS_INLINE</option>
+			<option value="attachment">COM_NINJABOARD_DOWNLOAD_ATTACHMENTS</option>
 		</element>
 	</fieldset>
 	
-	<fieldset group="avatar_settings">
-		<element name="enable_avatar" type="radio" default="1">
-			<option value="1">Yes</option>
-			<option value="0">No</option>
+	<fieldset group="avatar_settings" label="COM_NINJABOARD_AVATAR_SETTINGS">
+		<element name="enable_avatar" label="COM_NINJABOARD_ENABLE_AVATAR" type="radio" default="1">
+			<option value="1">COM_NINJABOARD_YES</option>
+			<option value="0">COM_NINJABOARD_NO</option>
 		</element>
-		<element name="enable_gravatar" type="radio" default="1" label="Integrate with Gravatar" description="Checkout gravatar.com to learn more about Globally Recognized Avatars.">
-			<option value="1">Yes</option>
-			<option value="0">No</option>
+		<element name="enable_gravatar" type="radio" default="1" label="COM_NINJABOARD_INTEGRATE_WITH_GRAVATAR" description="COM_NINJABOARD_CHECKOUT_GRAVATARCOM_TO_LEARN_MORE_ABOUT_GLOBALLY_RECOGNIZED_AVATARS">
+			<option value="1">COM_NINJABOARD_YES</option>
+			<option value="0">COM_NINJABOARD_NO</option>
 		</element>
-		<element name="upload_size_limit" type="bytes" default="716800" description="In bytes. Use 0 for unlimited" placeholder="716800" class="value required validate-integer" onzero="No upload size limit." />
-		<element name="thumbnail_quality" type="range" default="75" />
-		<element name="large_thumbnail_width" type="text" default="100" />
-		<element name="large_thumbnail_height" type="text" default="100" />
-		<element name="small_thumbnail_width" type="text" default="50" />
-		<element name="small_thumbnail_height" type="text" default="50" />
+		<element name="upload_size_limit" type="bytes" label="COM_NINJABOARD_UPLOAD_SIZE_LIMIT" default="716800" description="COM_NINJABOARD_IN_BYTES_USE_0_FOR_UNLIMITED" onzero="COM_NINJABOARD_NO_UPLOAD_SIZE_LIMIT" />
+		<element name="thumbnail_quality" label="COM_NINJABOARD_THUMBNAIL_QUALITY" type="range" default="75" />
+		<element name="large_thumbnail_width" label="COM_NINJABOARD_LARGE_THUMBNAIL_WIDTH" type="text" default="100" />
+		<element name="large_thumbnail_height" label="COM_NINJABOARD_LARGE_THUMBNAIL_HEIGHT" type="text" default="100" />
+		<element name="small_thumbnail_width" label="COM_NINJABOARD_SMALL_THUMBNAIL_WIDTH" type="text" default="50" />
+		<element name="small_thumbnail_height" label="COM_NINJABOARD_SMALL_THUMBNAIL_HEIGHT" type="text" default="50" />
 	</fieldset>
 </form>

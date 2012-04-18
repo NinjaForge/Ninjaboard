@@ -34,12 +34,12 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		}
 		elseif(!$this->topic->id)
 		{
-			JError::raiseError(404, JText::_("Topic not found."));
+			JError::raiseError(404, JText::_('COM_NINJABOARD_TOPIC_NOT_FOUND'));
 			return;
 		}
 		elseif(!$this->forum->id)
 		{
-			JError::raiseError(404, JText::_("Forum not found."));
+			JError::raiseError(404, JText::_('COM_NINJABOARD_FORUM_NOT_FOUND'));
 			return;
 		}
 		

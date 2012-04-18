@@ -29,7 +29,7 @@
 				<? endforeach ?>
 			</ol>
 		<? elseif(count($images) || count($files)) : ?>
-			<h5 class="notice attachments-no-access"><?= @text("You don't have access to view the attachments in this post.") ?></h5>
+			<h5 class="notice attachments-no-access"><?= @text('COM_NINJABOARD_YOU_DONT_HAVE_ACCESS_TO_VIEW_THE_ATTACHMENTS_IN_THIS_POST') ?></h5>
 		<? endif ?>
 		<div style="clear: both; display: block;"></div>
 		<!-- .signature.footer still present because of browser cache. Browser cache is solved permanently in Ninjaboard 1.2 -->

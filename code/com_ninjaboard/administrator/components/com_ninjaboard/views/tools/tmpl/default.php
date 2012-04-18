@@ -22,7 +22,7 @@
 				'titleleft' => @text('COM_NINJABOARD_TITLELEFT'),
 				'confirm'	=> @text('COM_NINJABOARD_IMPORT_FROM_LABEL_NOWHELLIP;'),
 				'imported'	=> @text('COM_NINJABOARD_LABEL_IMPORTED_SUCCESSFULLY'),
-				'warning'  => sprintf(@text("You're about to import from {label}.%sThe imported data will replace any current data.%sMake sure to take a backup on forehand,%s so you can recover if anything goes wrong."), "\n\n", "\n\n", "\n")
+				'warning'  => sprintf(@text('COM_NINJABOARD_YOURE_ABOUT_TO_IMPORT_FROM_LABEL%STHE_IMPORTED_DATA_WILL_REPLACE_ANY_CURRENT_DATA%SMAKE_SURE_TO_TAKE_A_BACKUP_ON_FOREHAND%S_SO_YOU_CAN_RECOVER_IF_ANYTHING_GOES_WRONG'), "\n\n", "\n\n", "\n")
 			)
 		)) ?>);
 	});

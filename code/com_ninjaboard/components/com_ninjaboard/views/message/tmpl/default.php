@@ -15,7 +15,7 @@
 			<span class="message-label"><?= @text('COM_NINJABOARD_TO') ?></span><a href="#"><?= $me->display_name ?></a>
 		</div>
 		<div class="message-header-date">
-			<span class="message-label"><?= @text('COM_NINJABOARD_DATE') ?></span><?= @date(array('date' => $message->created_on, 'format' => @text('COM_NINJABOARD_DATE_FORMAT_LC2'))) ?>
+			<span class="message-label"><?= @text('COM_NINJABOARD_DATE') ?></span><?= @date(array('date' => $message->created_on, 'format' => @text('DATE_FORMAT_LC2='))) ?>
 		</div>
 	</div>
 </div>

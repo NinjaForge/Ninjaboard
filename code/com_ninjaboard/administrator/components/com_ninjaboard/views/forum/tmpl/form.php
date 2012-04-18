@@ -36,7 +36,7 @@
 				<textarea name="description" id="description" rows="5" cols="50" class="inputbox value"><?= @$forum->description ?></textarea>
 			</div>
 			<div class="element">
-				<label for="header" class="key hasTip" title="<?= @text("Forum header is used on the forum detail page. If left empty, the forum description is used instead.") ?>"><?= @text('COM_NINJABOARD_FORUM_HEADER') ?></label>
+				<label for="header" class="key hasTip" title="<?= @text('COM_NINJABOARD_FORUM_HEADER_IS_USED_ON_THE_FORUM_DETAIL_PAGE_IF_LEFT_EMPTY_THE_FORUM_DESCRIPTION_IS_USED_INSTEAD') ?>"><?= @text('COM_NINJABOARD_FORUM_HEADER') ?></label>
 				<textarea name="params[forum][header]" id="params-forum-header" rows="5" cols="50" class="inputbox value" placeholder="<?= @text('COM_NINJABOARD_LEAVE_EMPTY_FOR_USING_THE_DESCRIPTION_AS_THE_HEADER') ?>"><?= isset($forum->params['forum']['header']) ? $forum->params['forum']['header'] : '' ?></textarea>
 			</div>
 			<div class="element">

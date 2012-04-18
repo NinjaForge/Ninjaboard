@@ -34,13 +34,13 @@
 
 			if(to && !to.value) {
 				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("You need to enter a recipient.")) ?>);
+				alert(<?= json_encode(@text('COM_NINJABOARD_YOU_NEED_TO_ENTER_A_RECIPIENT')) ?>);
 				return false; 
 			}
 
 			if(text && !text.value) {
 				$('#<?= @id('save') ?>').one('click', save);
-				alert(<?= json_encode(@text("You need to enter some text.")) ?>);
+				alert(<?= json_encode(@text('COM_NINJABOARD_YOU_NEED_TO_ENTER_SOME_TEXT')) ?>);
 				return false; 
 			}
 			

@@ -407,13 +407,13 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 		
 		if(!JFile::exists($config))
 		{
-			throw new ComNinjaboardDatabaseConverterException(sprintf(JText::_("Couldn't find SMF configuration file at: %s"), $config));
+			throw new ComNinjaboardDatabaseConverterException(sprintf(JText::_('COM_NINJABOARD_COULDNT_FIND_SMF_CONFIGURATION_FILE_AT_%S'), $config));
 		}
 		require $config;
 		
 		if(!isset($db_server, $db_user, $db_passwd, $db_name, $db_prefix))
 		{
-			throw new ComNinjaboardDatabaseConverterException(sprintf(JText::_("The configuration in '%s' is incomplete"), $config));
+			throw new ComNinjaboardDatabaseConverterException(sprintf(JText::_('COM_NINJABOARD_THE_CONFIGURATION_IN_%S_IS_INCOMPLETE'), $config));
 		}
 		
 
@@ -467,6 +467,6 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 	 */
 	public function getTitle()
 	{
-		return 'SMF';
+		return JText::_('COM_NINJABOARD_SMF');
 	}
 }

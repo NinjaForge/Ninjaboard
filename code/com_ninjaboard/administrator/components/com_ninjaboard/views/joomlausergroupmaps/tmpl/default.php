@@ -48,7 +48,7 @@
 			<input type="hidden" name="tmpl" value="component" />
 		</fieldset>
 	<? endif ?>
-	<h3 style="text-align: center;"><?= @text("Drag the points to change the mapping.") ?></h3>
+	<h3 style="text-align: center;"><?= @text('COM_NINJABOARD_DRAG_THE_POINTS_TO_CHANGE_THE_MAPPING') ?></h3>
 	<div style="width:100%;text-align:center;">
 		<div class="map-wrapper" onselectstart="return false;" style="-moz-user-select: none;">
 			<div class="map-points-from">
@@ -88,7 +88,7 @@
 	</div>
 
 	<div class="clr"></div>
-	<h5 style="text-align: center;"><?= @text("Note: Super Administrators will always have full permissions and no access restrictions throughout Ninjaboard") ?></h5>
+	<h5 style="text-align: center;"><?= @text('COM_NINJABOARD_NOTE_SUPER_ADMINISTRATORS_WILL_ALWAYS_HAVE_FULL_PERMISSIONS_AND_NO_ACCESS_RESTRICTIONS_THROUGHOUT_NINJABOARD') ?></h5>
 	<? if(KRequest::get('get.tmpl', 'cmd') == 'component') : ?>
 		<input type="hidden" name="tmpl" value="component" />
 	<? endif ?>

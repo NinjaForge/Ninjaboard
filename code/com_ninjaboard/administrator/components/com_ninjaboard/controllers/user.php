@@ -30,7 +30,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 	
 	public function showSearchTips()
 	{
-		$this->_raiseClosableMessage('Use flags like username:bob and email:bob@example.com for advanced searching.');
+		$this->_raiseClosableMessage('COM_NINJABOARD_USE_FLAGS_FOR_ADVANCED_SEARCHING');
 	}
 	
 	public function setAvatar(KCommandContext $context)
@@ -63,13 +63,13 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 		}
 		
 		if(!MediaHelper::canUpload($avatar, $error)) {
-			$message = JText::_("%s failed to upload because %s");
+			$message = JText::_('COM_NINJABOARD_%S_FAILED_TO_UPLOAD_BECAUSE_%S');
 			JError::raiseWarning(21, sprintf($message, $avatar['name'], lcfirst($error)));
 			
 			return $this;
 		}
 		if(!MediaHelper::isImage($avatar['name'])) {
-			$message = JText::_("%s failed to upload because it's not an image.");
+			$message = JText::_('COM_NINJABOARD_%S_FAILED_TO_UPLOAD_BECAUSE_ITS_NOT_AN_IMAGE');
 			JError::raiseWarning(21, sprintf($message, $avatar['name']));
 			
 			return $this;
@@ -80,7 +80,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 		$maxSize = (int) $params['upload_size_limit'];
 		if ($maxSize > 0 && (int) $avatar['size'] > $maxSize)
 		{
-			$message = JText::_("%s failed uploading because it's too large.");
+			$message = JText::_('COM_NINJABOARD_%S_FAILED_UPLOADING_BECAUSE_ITS_TOO_LARGE');
 			JError::raiseWarning(21, sprintf($message, $avatar['name']));
 			
 			return $this;

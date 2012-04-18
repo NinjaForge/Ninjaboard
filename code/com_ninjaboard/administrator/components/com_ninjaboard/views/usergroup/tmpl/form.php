@@ -14,9 +14,9 @@
 				<input type="text" name="title" id="title" class="inputbox required value" rel="<?= @text('COM_NINJABOARD_USER_GROUPS_REQUIRE_A_TITLE') ?>" size="50" value="<?= @escape($usergroup->title) ?>" maxlength="150" />
 			</div>
 			<div class="element">	
-				<label class="key hasTip" title="<?= @text("Visibility allows you to setup advanced acl without exposing it to your users. By only showing usergroups that makes sense to them, like 'Moderator', 'Administrator' and 'Banned'.") ?>"><?= @text('COM_NINJABOARD_VISIBILITY') ?></label>
+				<label class="key hasTip" title="<?= @text('COM_NINJABOARD_VISIBILITY_ALLOWS_YOU_TO_SETUP_ADVANCED_ACL_WITHOUT_EXPOSING_IT_TO_YOUR_USERS_BY_ONLY_SHOWING_USERGROUPS_THAT_MAKES_SENSE_TO_THEM_LIKE_MODERATOR_ADMINISTRATOR_AND_BANNED') ?>"><?= @text('COM_NINJABOARD_VISIBILITY') ?></label>
 				<? /* Needs to use other icons than the default enabled/disabled ones, or better yet should be iPhone style switches */ ?>
-				<?= @ninja('select.statelist', array('name' => 'visible', 'id' => 'visible', 'attribs' => array('class' => 'validate-reqchk-byname label:\'visible\''), 'selected' => $usergroup->visible, 'yes' => 'Visible', 'no' => 'Hidden')) ?>
+				<?= @ninja('select.statelist', array('name' => 'visible', 'id' => 'visible', 'attribs' => array('class' => 'validate-reqchk-byname label:\'visible\''), 'selected' => $usergroup->visible, 'yes' => 'COM_NINJABOARD_VISIBLE', 'no' => 'COM_NINJABOARD_HIDDEN')) ?>
 			</div>
 		</fieldset>
 		<fieldset class="adminform ninja-form">

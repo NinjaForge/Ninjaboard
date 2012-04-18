@@ -108,7 +108,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 																		->getItem();
 			
 			if($forum->attachment_permissions < 2){
-				JError::raiseWarning(21, JText::_("You don't have the permissions to use Attachments in this forum."));
+				JError::raiseWarning(21, JText::_('COM_NINJABOARD_YOU_DONT_HAVE_THE_PERMISSIONS_TO_USE_ATTACHMENTS_IN_THIS_FORUM'));
 				$this->execute('cancel');
 				return false;
 			}
@@ -149,7 +149,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		
 		foreach ($errors as $error)
 		{
-			JError::raiseWarning(21, sprintf(JText::_("%s couldn't upload because %s"), $error['name'], lcfirst($error['error'])));
+			JError::raiseWarning(21, sprintf(JText::_('COM_NINJABOARD_%S_COULDNT_UPLOAD_BECAUSE_%S'), $error['name'], lcfirst($error['error'])));
 		}
 		
 		foreach (KRequest::get('post.attachments', 'int', array()) as $attachment)
@@ -217,7 +217,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 
 			// @TODO we migth want to add an option later, wether or not to allow users to delete their own post.
 			if($forum->post_permissions < 3 && $row->created_by != $user->id) {
-				JError::raiseError(403, JText::_("You don't have the permissions to delete others topics."));
+				JError::raiseError(403, JText::_('COM_NINJABOARD_YOU_DONT_HAVE_THE_PERMISSIONS_TO_DELETE_OTHERS_TOPICS'));
 				return false;
 			}
 		}

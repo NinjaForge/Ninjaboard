@@ -74,7 +74,7 @@
 			<legend><?= @text('COM_NINJABOARD_NINJABOARD_USER_DETAILS') ?></legend>
 			<div class="element avatar">
 				<label class="key">
-					<?= @text("Avatar") ?>
+					<?= @text('COM_NINJABOARD_AVATAR') ?>
 				</label>
 				<?= @helper('com://site/ninjaboard.template.helper.avatar.image', array(
 					'id'		=> $user->id,
@@ -98,7 +98,7 @@
 				</span>
 				
 				<span class="avatar delete">
-					<strong><?= @text("Click save if you're sure you want to delete this picture.") ?></strong>
+					<strong><?= @text('COM_NINJABOARD_CLICK_SAVE_IF_YOURE_SURE_YOU_WANT_TO_DELETE_THIS_PICTURE') ?></strong>
 					<input type="hidden" name="avatar" disabled="disabled" />
 					<a href="#" class="cancel-delete"><?= @text('COM_NINJABOARD_DO_NOT_DELETE_THIS_IMAGE') ?></a>
 				</span>

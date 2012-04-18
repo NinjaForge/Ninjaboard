@@ -18,7 +18,7 @@ class ComNinjaboardViewToolsHtml extends ComNinjaboardViewHtml
 			$this->config->$config = $configs->getValue($config);
 		}
 
-		$this->menu = $this->getService('ninja:template.helper.placeholder', array('notice' => 'Select what you want to import.'));
+		$this->menu = $this->getService('ninja:template.helper.placeholder', array('notice' => 'COM_NINJABOARD_SELECT_WHAT_YOU_WANT_TO_IMPORT'));
 
 		$this->converters = $this->getModel()->limit(0)->getList();
 		foreach($this->converters as $name => $converter)

@@ -214,7 +214,7 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		$config->append(array(
 			'element' 	=> 'delete-button',
 			'url' 		=> '/index.php?option=com_ninjaboard&view=post&tmpl=&format=json',
-			'confirm'	=> JText::_("Are you sure you want to delete this post? This action cannot be undone.")
+			'confirm'	=> JText::_('COM_NINJABOARD_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_POST_THIS_ACTION_CANNOT_BE_UNDONE')
  		));
  		
  		$helper = $this->getService('ninja:template.helper.document');
