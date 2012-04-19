@@ -303,6 +303,9 @@ class ComNinjaboardDispatcher extends NinjaDispatcher
 			'maps'               => array('attachments', 'avatars', 'forums', 'messages', 'people', 'posts', 'profiles', 'settings', 'topics', 'usergroups', 'users', 'watches')
 		));
 
+            // Add untranslated words to the current NB language file
+            KService::get('ninja:helper.language');
+
 		parent::_initialize($config);
 	}
 

@@ -69,6 +69,3 @@ if($debug && false)
 	$time = number_format(microtime(true) - $profile, 4);
 	$document->addScriptDeclaration('if(console) console.log("Ninjaboard took '.$time.' seconds to render.");'.PHP_EOL);
 }
-
-// Add untranslated words to the current NB language file
-KService::get('ninja:helper.language');

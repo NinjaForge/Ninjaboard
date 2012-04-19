@@ -60,6 +60,3 @@ if(JFactory::getLanguage()->isRTL() && KRequest::has('get.debug.rtl')) {
 
 // Create the component dispatcher
 echo KService::get('com://admin/ninjaboard.dispatcher')->dispatch();
-
-// Add untranslated words to the current NB language file
-KService::get('ninja:helper.language');
