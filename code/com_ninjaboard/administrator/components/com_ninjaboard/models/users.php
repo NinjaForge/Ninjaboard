@@ -130,7 +130,8 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 		$group = $this->_state->usergroup;
 		if($group)
 		{
-			$query->where('tbl.gid', '=',  (int)$group);
+			$column = JVersion::isCompatible('1.6.0') ? 'group_id' : 'gid';
+			$query->where($column, '=',  (int)$group);
 		}
 		
 		if(!$this->_state->me)
