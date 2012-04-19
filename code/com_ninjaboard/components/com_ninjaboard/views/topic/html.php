@@ -48,17 +48,17 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		//if($this->topic->id && !KRequest::get('get.layout', 'cmd', false)) $this->setLayout('default');
 
 		$state	= $this->getModel()->getState();
-		//$limit	= $state->limit ? $state->limit : 6;
+		$limit	= $state->limit ? $state->limit : 6;
 		$offset	= $this->getService('com://site/ninjaboard.model.posts')
 						->topic($this->topic->id)
 						->post($state->post)
-						->limit(0)
+						->limit($limit)
 						->getOffset();
 		$offset = KRequest::get('get.offset', 'int', $offset);
 		//This is used to set the canonical link correctly in the topic controller after.read
 		//@TODO move all this logic out of the view in 1.2
 		//@TODO this is causing the getItem returned in the layout to be different than in this view
-		$this->getModel()->set(array('limit' => 0, 'offset' => $offset));		
+		$this->getModel()->set(array('limit' => $limit, 'offset' => $offset));		
 
         $controller = $this->getService('com://site/ninjaboard.controller.post');
         $test = $controller->getModel();
@@ -83,7 +83,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 			    //->setModel($this->getService('com://site/ninjaboard.model.posts')->setAcl(false))
 
 				->sort('created_on')
-				->limit(0)
+				->limit($limit)
 				->offset($offset)
 				->post(false)
 				->topic($this->topic->id)

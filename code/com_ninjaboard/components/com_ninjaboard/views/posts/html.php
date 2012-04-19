@@ -42,10 +42,10 @@ class ComNinjaboardViewPostsHtml extends ComNinjaboardViewHtml
 			'@edit_post_button' => '$this->getView()->edit_post_button',
 			'@quote_post_button' => '$this->getView()->quote_post_button'
 		));
-
+		
 		$this->assign('pagination', 
 			$this->getService('com://site/ninjaboard.template.helper.paginator', array('name' => 'posts'))
-				->pagination($this->total, $state->offset, $state->limit, 4)
+				->pagination(array('total' => $this->total, 'offset' => $state->offset, 'limit' => $state->limit))
 		);
 
 		return parent::display();
