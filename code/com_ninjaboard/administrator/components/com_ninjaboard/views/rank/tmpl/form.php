@@ -2,7 +2,7 @@
 
 <?= @template('ninja:view.form.head') ?>
 
-<?= @ninja('behavior.livetitle', array('title' => @$rank->title)) ?>
+<?= @ninja('behavior.livetitle', array('title' => $rank->title)) ?>
 
 <form action="<?= @route('id='.@$rank->id) ?>" method="post" id="<?= @id() ?>" class="validator-inline -koowa-form">
 	<div class="col width-50">

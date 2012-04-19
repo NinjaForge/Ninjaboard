@@ -39,7 +39,7 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 		//Get the default gid for users that's not mapped
 		$gid	= (int)$this->getService('com://admin/ninjaboard.model.joomlausergroupmaps')->getGuest()->gid;
 
-		if(JVersion::isCompatible('1.6.0'))
+		if (version_compare(JVERSION,'1.6.0','ge'))
 		{
 			$query->join('left', 'user_usergroup_map AS joomla_usergroup', 'joomla_usergroup.user_id = tbl.id')
 				 	->join('left', 'ninjaboard_joomla_user_group_maps AS joomla_map', 'joomla_map.joomla_gid = joomla_usergroup.group_id')
@@ -130,7 +130,7 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 		$group = $this->_state->usergroup;
 		if($group)
 		{
-			$column = JVersion::isCompatible('1.6.0') ? 'group_id' : 'gid';
+			$column = version_compare(JVERSION,'1.6.0','ge') ? 'group_id' : 'gid';
 			$query->where($column, '=',  (int)$group);
 		}
 		

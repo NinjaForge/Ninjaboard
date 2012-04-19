@@ -33,7 +33,7 @@ class ComNinjaboardViewHtml extends ComNinjaboardViewDefault
 		//@TODO optimize so it's not made available all the time, only when needed
 		if(KRequest::type() != 'AJAX' && KRequest::get('get.format', 'cmd', 'html') == 'html')
 		{
-			if(!JVersion::isCompatible('1.6.0')) $this->_loadModBreadcrumbs();
+			if(!version_compare(JVERSION,'1.6.0','ge')) $this->_loadModBreadcrumbs();
 		}
 		
 		return parent::display();
@@ -89,9 +89,9 @@ class ComNinjaboardViewHtml extends ComNinjaboardViewDefault
 	 */
 	public function setBreadcrumbs()
 	{
-		$pathway = JFactory::getApplication()->getPathWay();
-
-		$menu	 = JSite::getMenu()->getActive()->query;
+		$app		= JFactory::getApplication();
+		$pathway 	= $app->getPathWay();
+		$menu	 	= $app->getMenu()->getActive()->query;
 		
 		if (!KInflector::isPlural($this->getName()) && $menu['view'] != 'forum') $pathway->addItem($this->getDocumentSubtitle(), $this->createRoute());
 	}

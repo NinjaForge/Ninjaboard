@@ -71,7 +71,7 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 	{
 		$query->join('left', 'users AS user', 'user.id = tbl.ninjaboard_person_id');
 		
-		if(JVersion::isCompatible('1.6.0'))
+		if (version_compare(JVERSION,'1.6.0','ge'))
 		{
 			$query->join('left', 'user_usergroup_map AS joomla_usergroup', 'joomla_usergroup.user_id = user.id')
 				 	->join('left', 'ninjaboard_joomla_user_group_maps AS joomla_map', 'joomla_map.joomla_gid = joomla_usergroup.group_id');
@@ -134,7 +134,7 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 			$query->from('users AS user')
 				->join('left', 'ninjaboard_people AS tbl', 'user.id = tbl.ninjaboard_person_id');
 
-			if(JVersion::isCompatible('1.6.0'))
+			if (version_compare(JVERSION,'1.6.0','ge'))
 			{
 				// get the first group for this user and use it as the gid
 				$query->join('left', 'user_usergroup_map AS joomla_usergroup', 'joomla_usergroup.user_id = user.id')
@@ -196,7 +196,7 @@ class ComNinjaboardModelPeople extends ComDefaultModelDefault
 			$ids 		= array();
 
 			//If super admin, then no forums are without access
-			if($me->gid == 25 || (JVersion::isCompatible('1.6.0') && $me->gid == 8)) 
+			if($me->gid == 25 || (version_compare(JVERSION,'1.6.0','ge') && $me->gid == 8)) 
 				return $this->_forums = array();
 			
 			$query2

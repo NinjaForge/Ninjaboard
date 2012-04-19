@@ -57,7 +57,7 @@ class ComNinjaboardModelForums extends NinjaModelTable
 			->insert('acl'       , 'cmd', 'auth_view')
 			->insert('exclude', 'int', 0)
 			->insert('hierarchy', 'boolean', false)
-			->insert('enabled', 'int', JFactory::getApplication()->isSite())
+			->insert('enabled', 'int', JFactory::getApplication()->isSite() ? 1 : null)
 			->insert('recurse', 'boolean', false)
 			->insert('flat', 'boolean', false)
 			->insert('path', 'int')
@@ -150,7 +150,7 @@ class ComNinjaboardModelForums extends NinjaModelTable
 	{
 		parent::_buildQueryWhere($query);
 
-		if($this->_state->enabled !== false && $this->_state->enabled !== ''  && $this->_state->enabled !== NULL)
+		if(is_numeric($this->_state->enabled))
 		{
 			$query->where('tbl.enabled', '=', $this->_state->enabled);
 		}
@@ -205,7 +205,8 @@ class ComNinjaboardModelForums extends NinjaModelTable
 	        	{
 	        		if($row->level == 1) continue;
 
-	        		$parent = end(array_filter(explode('/', $row->path)));
+	        		$path = array_filter(explode('/', $row->path));
+	        		$parent = end($path);
 	        		
 	        		//If this forum havent been queried yet, then do a select count
 	        		if(!isset($this->_parent_count[$parent]))

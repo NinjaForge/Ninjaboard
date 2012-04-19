@@ -113,8 +113,9 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 	 */
 	public function setBreadcrumbs()
 	{
-		$pathway	= JFactory::getApplication()->getPathWay();		
-		$menu	 	= JSite::getMenu()->getActive()->query;
+		$app		= JFactory::getApplication();
+		$pathway	= $app->getPathWay();		
+		$menu	 	= $app->getMenu()->getActive()->query;
 		
 		//Checks the view properties first, in case they're already set
 		if(!isset($this->post))

@@ -55,7 +55,7 @@
 				<ul style="margin-right:25%;text-align:right;" id="<?= @id('points-from') ?>">
 				    <? $i = 0; $fallback = current($usergroups->getData()) ?>
 
-				    <? if (!JVersion::isCompatible('1.6.0')) : ?>
+				    <? if (!version_compare(JVERSION,'1.6.0','ge')) : ?>
 					    <li class="map" id="<?= @id('points-from-0') ?>">
 					    	<h1><?= @text('COM_NINJABOARD_UNREGISTERED') ?></h1>
 					    	<? $value = isset($maps[0]) ? $maps[0] : null ?>
