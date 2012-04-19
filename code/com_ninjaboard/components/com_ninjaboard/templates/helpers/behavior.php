@@ -127,7 +127,7 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		$config->append(array(
 			'message_to_id'           => false,
 			'message_to_display_name' => false,
-			'header' => JText::_('COM_NINJABOARD_SEND_%S_A_MESSAGE')
+			'header' => JText::_('COM_NINJABOARD_SEND_A_MESSAGE')
 		));
 		
 		$this->getService('ninja:template.helper.document')->load('/reveal.js');

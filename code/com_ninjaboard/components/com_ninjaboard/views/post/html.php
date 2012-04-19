@@ -41,7 +41,7 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 		if(!empty($post->id)) {
 			$title = $post->subject ? $post->subject : $topic->title;
 			$this->_subtitle = $title;
-			$this->title = sprintf(JText::_('COM_NINJABOARD_EDITING_POST_%S'), $title);
+			$this->title = sprintf(JText::_('COM_NINJABOARD_EDITING_POST'), $title);
 			if($this->me->id == $post->created_by) {
 				$this->notify = (bool)$this->getService('com://admin/ninjaboard.model.watches')
 																			->by($this->me->id)
@@ -53,7 +53,7 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 			}
 		}  else if($topic->id) {
 			$this->_subtitle = $topic->title;
-			$this->title = sprintf(JText::_('COM_NINJABOARD_POST_REPLY_TO_%S_IN_%S'), "'".$topic->title."'", $forum->title);
+			$this->title = sprintf(JText::_('COM_NINJABOARD_POST_REPLY_TO_IN'), "'".$topic->title."'", $forum->title);
 			$this->notify = $this->me->notify_on_reply_topic;
 			
 			$controller	= $this->getService('com://site/ninjaboard.controller.post', array('request' => array('view' => 'posts')))
@@ -88,7 +88,7 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 				->display();
 			 //*/
 		} else {
-			$this->title = $this->_subtitle = sprintf(JText::_('COM_NINJABOARD_CREATE_NEW_TOPIC_IN_%S'), $forum->title);
+			$this->title = $this->_subtitle = sprintf(JText::_('COM_NINJABOARD_CREATE_NEW_TOPIC_IN'), $forum->title);
 			$this->notify = $this->me->notify_on_create_topic;
 		}
 

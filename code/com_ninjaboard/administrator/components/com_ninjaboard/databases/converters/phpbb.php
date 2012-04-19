@@ -187,7 +187,7 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 		
 		if(!JFile::exists($config))
 		{
-			throw new ComNinjaboardDatabaseConverterException(sprintf(JText::_('COM_NINJABOARD_COULDNT_FIND_PHPBB3_CONFIGURATION_FILE_AT_%S'), $config));
+			throw new ComNinjaboardDatabaseConverterException(sprintf(JText::_('COM_NINJABOARD_COULDNT_FIND_PHPBB3_CONFIGURATION_FILE_AT'), $config));
 		}
 		
 
@@ -195,12 +195,12 @@ class ComNinjaboardDatabaseConvertersPhpbb extends ComNinjaboardDatabaseConverte
 		
 		if(!isset($dbms, $dbhost, $dbuser, $dbpasswd, $dbname, $table_prefix))
 		{
-			throw new ComNinjaboardDatabaseConverterException(sprintf(JText::_('COM_NINJABOARD_THE_CONFIGURATION_IN_%S_IS_INCOMPLETE'), $config));
+			throw new ComNinjaboardDatabaseConverterException(sprintf(JText::_('COM_NINJABOARD_THE_CONFIGURATION_IN_IS_INCOMPLETE'), $config));
 		}
 		
 		if(!in_array($dbms, array('mysql', 'mysqli')))
 		{
-			throw new ComNinjaboardDatabaseConverterException(sprintf(JText::_('COM_NINJABOARD_%S_IS_NOT_A_SUPPORTED_DATABASE_TYPE'), $dbms));
+			throw new ComNinjaboardDatabaseConverterException(sprintf(JText::_('COM_NINJABOARD_IS_NOT_A_SUPPORTED_DATABASE_TYPE'), $dbms));
 		}
 		
 

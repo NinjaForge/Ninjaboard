@@ -19,7 +19,7 @@ ninja(function($){
 		<input type="radio" name="which_name" <? if($which_name == 'username') echo 'checked' ?> id="username" value="username" />
 	</div>
 	<label for="username">
-		<?= sprintf(@text('COM_NINJABOARD_REPLACE_MY_SCREEN_NAME_WITH_MY_USERNAME_%S'), $person->username) ?>
+		<?= sprintf(@text('COM_NINJABOARD_REPLACE_MY_SCREEN_NAME_WITH_MY_USERNAME'), $person->username) ?>
 	</label>
 </div>
 <div class="element which_name-name">
@@ -27,7 +27,7 @@ ninja(function($){
 		<input type="radio" name="which_name" <? if($which_name == 'name') echo 'checked' ?> id="name" value="name" />
 	</div>
 	<label for="name">
-		<?= sprintf(@text('COM_NINJABOARD_REPLACE_MY_SCREEN_NAME_WITH_MY_REAL_NAME_%S'), $person->name) ?>
+		<?= sprintf(@text('COM_NINJABOARD_REPLACE_MY_SCREEN_NAME_WITH_MY_REAL_NAME'), $person->name) ?>
 	</label>
 </div>
 <div class="element which_name-alias">

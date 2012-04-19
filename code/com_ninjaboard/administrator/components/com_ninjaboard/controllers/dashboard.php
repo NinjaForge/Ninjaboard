@@ -52,7 +52,7 @@ class ComNinjaboardControllerDashboard extends NinjaControllerDashboard
 		if($existing) return $this;
 		
 		JError::raiseNotice(0, sprintf(
-			JText::_('COM_NINJABOARD_CONGRATULATIONS_ON_THE_UPGRADE_YOULL_FIND_THAT_ALL_YOUR_05_DATA_WERE_BACKED_UP_DURING_THE_10_INSTALL_%S'),
+			JText::_('COM_NINJABOARD_CONGRATULATIONS_ON_THE_UPGRADE_YOULL_FIND_THAT_ALL_YOUR_05_DATA_WERE_BACKED_UP_DURING_THE_10_INSTALL'),
 			'<a href="'.JRoute::_('&option=com_ninjaboard&view=tools&shortcut=legacy').'">'.
 			JText::_('COM_NINJABOARD_CLICK_HERE_TO_MIGRATE').
 			'</a>'

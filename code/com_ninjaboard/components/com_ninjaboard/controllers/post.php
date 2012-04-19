@@ -149,7 +149,7 @@ class ComNinjaboardControllerPost extends ComNinjaboardControllerAbstract
 		
 		foreach ($errors as $error)
 		{
-			JError::raiseWarning(21, sprintf(JText::_('COM_NINJABOARD_%S_COULDNT_UPLOAD_BECAUSE_%S'), $error['name'], lcfirst($error['error'])));
+			JError::raiseWarning(21, sprintf(JText::_('COM_NINJABOARD_COULDNT_UPLOAD_BECAUSE'), $error['name'], lcfirst($error['error'])));
 		}
 		
 		foreach (KRequest::get('post.attachments', 'int', array()) as $attachment)

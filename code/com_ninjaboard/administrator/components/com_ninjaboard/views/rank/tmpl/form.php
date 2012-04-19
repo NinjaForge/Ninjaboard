@@ -26,7 +26,7 @@
 			</div>
 			<div class="element">
 				<?= $this->getService('ninja:element.note', array(
-					'node' => simplexml_load_string('<param name="hint" type="note" class="note" slide="true" description="COM_NINJABOARD_GO_TO_THE_JOOMLA_MEDIA_MANAGER_AND_UPLOAD_ICONS_HERE_%S_CREATE_THE_FOLDERS_IF_THEY_DONT_ALREADY_EXIST" eval="return JPATH_ROOT.DS.\'images\'.DS.\'com_ninjaboard\'.DS.\'rank\';" show="COM_NINJABOARD_SHOW_HOW_TO_UPLOAD_CUSTOM_ICONS" hide="COM_NINJABOARD_HIDE_HOW_TO_UPLOAD_CUSTOM_ICONS" />'),
+					'node' => simplexml_load_string('<param name="hint" type="note" class="note" slide="true" description="COM_NINJABOARD_GO_TO_THE_JOOMLA_MEDIA_MANAGER_AND_UPLOAD_ICONS_HERE_CREATE_THE_FOLDERS_IF_THEY_DONT_ALREADY_EXIST" eval="return JPATH_ROOT.DS.\'images\'.DS.\'com_ninjaboard\'.DS.\'rank\';" show="COM_NINJABOARD_SHOW_HOW_TO_UPLOAD_CUSTOM_ICONS" hide="COM_NINJABOARD_HIDE_HOW_TO_UPLOAD_CUSTOM_ICONS" />'),
 					'value'	=> '',
 					'field'	=> 'note'
 				)) ?>

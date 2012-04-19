@@ -58,18 +58,18 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 
 		//if we are a bmp we cant upload it
 		if (strtolower(JFile::getExt($avatar['name'])) == 'bmp') {
-			JError::raiseWarning(21, sprintf(JText::_('COM_NINJABOARD_%S_FAILED_TO_UPLOAD_BECAUSE_THIS_FILE_TYPE_IS_NOT_SUPPORTED'), $avatar['name']));
+			JError::raiseWarning(21, sprintf(JText::_('COM_NINJABOARD_FAILED_TO_UPLOAD_BECAUSE_THIS_FILE_TYPE_IS_NOT_SUPPORTED'), $avatar['name']));
 			return $this;
 		}
 		
 		if(!MediaHelper::canUpload($avatar, $error)) {
-			$message = JText::_('COM_NINJABOARD_%S_FAILED_TO_UPLOAD_BECAUSE_%S');
+			$message = JText::_('COM_NINJABOARD_FAILED_TO_UPLOAD_BECAUSE');
 			JError::raiseWarning(21, sprintf($message, $avatar['name'], lcfirst($error)));
 			
 			return $this;
 		}
 		if(!MediaHelper::isImage($avatar['name'])) {
-			$message = JText::_('COM_NINJABOARD_%S_FAILED_TO_UPLOAD_BECAUSE_ITS_NOT_AN_IMAGE');
+			$message = JText::_('COM_NINJABOARD_FAILED_TO_UPLOAD_BECAUSE_ITS_NOT_AN_IMAGE');
 			JError::raiseWarning(21, sprintf($message, $avatar['name']));
 			
 			return $this;
@@ -80,7 +80,7 @@ class ComNinjaboardControllerUser extends ComNinjaboardControllerDefault
 		$maxSize = (int) $params['upload_size_limit'];
 		if ($maxSize > 0 && (int) $avatar['size'] > $maxSize)
 		{
-			$message = JText::_('COM_NINJABOARD_%S_FAILED_UPLOADING_BECAUSE_ITS_TOO_LARGE');
+			$message = JText::_('COM_NINJABOARD_FAILED_UPLOADING_BECAUSE_ITS_TOO_LARGE');
 			JError::raiseWarning(21, sprintf($message, $avatar['name']));
 			
 			return $this;

@@ -133,10 +133,10 @@
 			<? if($user->inherits) : ?>
 			<div class="element">
 				<p>
-					<?= sprintf(@text('COM_NINJABOARD_%S_ARE_%S_BY_DEFAULT'), $user->name, $inherits) ?>
+					<?= sprintf(@text('COM_NINJABOARD_ARE_BY_DEFAULT'), $user->name, $inherits) ?>
 				</p>
 				<p>
-					<?= sprintf(@text('COM_NINJABOARD_YOU_CAN_ASSIGN_%S_TO_OTHER_USERGROUPS_BELOW'), $user->name) ?>
+					<?= sprintf(@text('COM_NINJABOARD_YOU_CAN_ASSIGN_TO_OTHER_USERGROUPS_BELOW'), $user->name) ?>
 				</p>
 			</div>
 			<? endif ?>

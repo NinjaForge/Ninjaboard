@@ -407,13 +407,13 @@ class ComNinjaboardDatabaseConvertersSmf extends ComNinjaboardDatabaseConverters
 		
 		if(!JFile::exists($config))
 		{
-			throw new ComNinjaboardDatabaseConverterException(sprintf(JText::_('COM_NINJABOARD_COULDNT_FIND_SMF_CONFIGURATION_FILE_AT_%S'), $config));
+			throw new ComNinjaboardDatabaseConverterException(sprintf(JText::_('COM_NINJABOARD_COULDNT_FIND_SMF_CONFIGURATION_FILE_AT'), $config));
 		}
 		require $config;
 		
 		if(!isset($db_server, $db_user, $db_passwd, $db_name, $db_prefix))
 		{
-			throw new ComNinjaboardDatabaseConverterException(sprintf(JText::_('COM_NINJABOARD_THE_CONFIGURATION_IN_%S_IS_INCOMPLETE'), $config));
+			throw new ComNinjaboardDatabaseConverterException(sprintf(JText::_('COM_NINJABOARD_THE_CONFIGURATION_IN_IS_INCOMPLETE'), $config));
 		}
 		
 

@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/site.form.css" />
 
 <div id="ninjaboard" class="ninjaboard topic move <?= $topic->params['pageclass_sfx'] ?> <?= $forum->params['style']['type'] ?> <?= $forum->params['style']['border'] ?> <?= $forum->params['style']['separators'] ?>">
-	<h1 class="title"><?= sprintf(@text('COM_NINJABOARD_MOVING_TOPIC_%S'), $topic->subject) ?></a></h1>
+	<h1 class="title"><?= sprintf(@text('COM_NINJABOARD_MOVING_TOPIC'), $topic->subject) ?></a></h1>
 	<form action="<?= @route('id='.@$topic->id) ?>" method="post" id="<?= @id() ?>" class="ninjaboard">
 		<fieldset class="adminform ninja-form">
 			<div class="element subject">

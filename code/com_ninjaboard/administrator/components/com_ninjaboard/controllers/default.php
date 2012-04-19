@@ -61,7 +61,7 @@ class ComNinjaboardControllerDefault extends NinjaControllerDefault
     	//$this->getService('com://admin/ninjaboard.controller.tool')->execute('import');
     	//JError::raiseNotice(0, JText::_('COM_NINJABOARD_IN_ORDER_TO_GET_YOU_STARTED_WITH_USING_NINJABOARD_SAMPLE_CONTENT_WAS_JUST_IMPORTED'));
     	JError::raiseNotice(0, sprintf(
-    		JText::_('COM_NINJABOARD_IN_ORDER_TO_GET_YOU_STARTED_WITH_USING_NINJABOARD_%S'),
+    		JText::_('COM_NINJABOARD_IN_ORDER_TO_GET_YOU_STARTED_WITH_USING_NINJABOARD'),
     		'<a href="'.JRoute::_('&option=com_ninjaboard&view=tools&shortcut=demo').'">'.
     		JText::_('COM_NINJABOARD_IMPORT_SAMPLE_CONTENT').
     		'</a>'

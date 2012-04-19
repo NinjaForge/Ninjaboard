@@ -12,7 +12,7 @@
 	<table class="adminlist ninja-list">
 		<thead>
 			<tr>
-				<th width="32px" class="hasHint" title="<?= @text('COM_NINJABOARD_DRAG_HERE_TO_REORDERHELLIP;') ?>"></th>
+				<th width="32px" class="hasHint" title="<?= @text('COM_NINJABOARD_DRAG_HERE_TO_REORDER') ?>"></th>
 				<?= @ninja('grid.count', array('total' => @$total, 'title' => true)) ?>
 				<th class="grid-check"><?= @helper('grid.checkall') ?></th>
 				<th colspan="2"><?= @helper('grid.sort', array('column' => 'title')) ?></th>

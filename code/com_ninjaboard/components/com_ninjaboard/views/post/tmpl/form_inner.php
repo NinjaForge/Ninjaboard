@@ -142,9 +142,9 @@
 			<div class="attachments-extensions-help">
 				<div class="click-submit">
 					<? if($post->id) : ?>
-						<? $text = @text('COM_NINJABOARD_CLICK_%S_IN_ORDER_TO_UPLOAD_OR_DELETE_ATTACHMENTS') ?>
+						<? $text = @text('COM_NINJABOARD_CLICK_IN_ORDER_TO_UPLOAD_OR_DELETE_ATTACHMENTS') ?>
 					<? else : ?>
-						<? $text = @text('COM_NINJABOARD_CLICK_%S_IN_ORDER_TO_UPLOAD_ATTACHMENTS') ?>
+						<? $text = @text('COM_NINJABOARD_CLICK_IN_ORDER_TO_UPLOAD_ATTACHMENTS') ?>
 					<? endif ?>
 					<?= sprintf($text, $create_topic_button_title) ?>
 				</div>

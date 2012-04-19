@@ -4,7 +4,7 @@
 		<param name="pageclass_sfx" type="text" default="forum" label="COM_NINJABOARD_PAGE_CLASS_SFX" description="COM_NINJABOARD_SFX_USED_FOR_SPECIFIC_STYLING_ON_THE_FORUM_PAGE" />
 		<param name="blockclass_sfx" type="text" default="forum" label="COM_NINJABOARD_BLOCK_CLASS_SFX" description="COM_NINJABOARD_SFX_USED_FOR_SPECIFIC_STYLING_ON_THE_FORUM_BLOCK_AS_SEEN_IN_THE_BOARD_INDEX_VIEW" />
 		<param name="icon" type="images" label="COM_NINJABOARD_FORUM_ICON" path="media/com_ninjaboard/images/forums" default="default.png" />
-		<param name="hint" type="note" class="note" slide="true" description="COM_NINJABOARD_GO_TO_THE_JOOMLA_MEDIA_MANAGER_AND_UPLOAD_ICONS_HERE_%S_CREATE_THE_FOLDERS_IF_THEY_DONT_ALREADY_EXIST" eval="return JPATH_ROOT.DS.'images'.DS.'com_ninjaboard'.DS.'forums';" show="COM_NINJABOARD_SHOW_HOW_TO_UPLOAD_CUSTOM_ICONS" hide="COM_NINJABOARD_HIDE_HOW_TO_UPLOAD_CUSTOM_ICONS" />
+		<param name="hint" type="note" class="note" slide="true" description="COM_NINJABOARD_GO_TO_THE_JOOMLA_MEDIA_MANAGER_AND_UPLOAD_ICONS_HERE_CREATE_THE_FOLDERS_IF_THEY_DONT_ALREADY_EXIST" eval="return JPATH_ROOT.DS.'images'.DS.'com_ninjaboard'.DS.'forums';" show="COM_NINJABOARD_SHOW_HOW_TO_UPLOAD_CUSTOM_ICONS" hide="COM_NINJABOARD_HIDE_HOW_TO_UPLOAD_CUSTOM_ICONS" />
 	</params>
 	<params group="module" legend="COM_NINJABOARD_MODULE_RENDER_ENGINE" toggle="disabled">
 		<param name="moduleclass_sfx" label="COM_NINJABOARD_MODULECLASS_SFX" type="text" default="forum" />

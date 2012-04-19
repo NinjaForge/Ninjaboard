@@ -97,7 +97,7 @@
 						<span class="level"><?= @text($this->getService('ninja:template.helper.access')->getlevel($permission->level)) ?></span>
 					</span>
 				<? else : ?>
-					<?= sprintf(@text('COM_NINJABOARD_%S_IS_UNDEFINED'), $title) ?>
+					<?= sprintf(@text('COM_NINJABOARD_IS_UNDEFINED'), $title) ?>
 				<? endif ?>
 				</td>
 			<? endforeach ?>

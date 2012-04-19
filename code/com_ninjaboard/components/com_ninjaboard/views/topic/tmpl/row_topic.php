@@ -15,7 +15,7 @@
 					<?= @escape(@$topic->subject) ?>
 					<? if($topic->moved_to_forum_title) : ?>
 					<em>
-						<?= sprintf(@text('COM_NINJABOARD_TOPIC_MOVED_TO_%S'), '<strong>'.$topic->moved_to_forum_title.'</strong>') ?>
+						<?= sprintf(@text('COM_NINJABOARD_TOPIC_MOVED_TO'), '<strong>'.$topic->moved_to_forum_title.'</strong>') ?>
 					</em>
 					<? endif ?>
 				</a>

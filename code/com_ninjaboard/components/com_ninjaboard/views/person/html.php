@@ -73,9 +73,9 @@ class ComNinjaboardViewPersonHtml extends ComNinjaboardViewHtml
 			$this->message_button = $me->id && $this->params['messaging_settings']['enable_messaging'];
 			$this->watch_button   = $me->id && $this->params['email_notification_settings']['enable_email_notification'];
 			
-			$title = sprintf(JText::_('COM_NINJABOARD_%S_PROFILE'), $person->display_name);
+			$title = sprintf(JText::_('COM_NINJABOARD_PROFILE'), $person->display_name);
 		} else {
-			$title = sprintf(JText::_('COM_NINJABOARD_%S_SETTINGS'), $person->display_name);
+			$title = sprintf(JText::_('COM_NINJABOARD_SETTINGS'), $person->display_name);
 		
 			$this->save_button = str_replace('$title', JText::_('COM_NINJABOARD_SAVE'), $this->params['tmpl']['create_topic_button']);
 			$this->save_button = str_replace('$link', '#', $this->save_button);

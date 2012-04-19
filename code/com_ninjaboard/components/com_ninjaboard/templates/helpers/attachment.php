@@ -62,7 +62,7 @@ class ComNinjaboardTemplateHelperAttachment extends KTemplateHelperAbstract
 		if($upload_size_limit == 0) return false;
 
 		return sprintf(
-			JText::_('COM_NINJABOARD_MAXIMUM_SIZE_OF_%S_PER_FILE'),
+			JText::_('COM_NINJABOARD_MAXIMUM_SIZE_OF_PER_FILE'),
 			$this->getService('ninja:template.helper.convert')->bytes(array('bytes' => $upload_size_limit))
 		);
 	}

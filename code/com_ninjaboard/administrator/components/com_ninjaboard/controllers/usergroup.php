@@ -48,7 +48,7 @@ class ComNinjaboardControllerUsergroup extends ComNinjaboardControllerDefault
 		$cookie	= $this->getService('ninja:template.helper.document')->formid('show-reminder');
 		JError::raiseNotice(0, 
 			sprintf(
-				JText::_('COM_NINJABOARD_REMEMBER_TO_MAP_YOUR_JOOMLA_GROUPS_TO_NINJABOARD_HOVER_%S_TO_SEE_WHERE_%S'),
+				JText::_('COM_NINJABOARD_REMEMBER_TO_MAP_YOUR_JOOMLA_GROUPS_TO_NINJABOARD_HOVER_TO_SEE_WHERE'),
 				'<a href="#" id="' . $id . '" style="text-decoration: underline">' .
 					JText::_('COM_NINJABOARD_HERE') .
 				'</a>',
