@@ -348,19 +348,4 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
 	
 		return $this->$cache;
 	}
-
-	/**
-	 * Table delete method
-	 *
-	 * @param  object	A KDatabaseRow object
-	 * @return boolean  TRUE if successfull, otherwise false
-	 */
-	public function delete( KDatabaseRowInterface $row )
-	{
-		
-		
-		parent::delete($row);
-		
-		
-	}
 }
