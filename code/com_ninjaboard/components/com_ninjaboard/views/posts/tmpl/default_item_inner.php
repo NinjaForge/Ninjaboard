@@ -1,6 +1,6 @@
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<div class="wrap">
+<div class="post-wrap">
 	<div class="section">
 		<a class="ninjaboard-post-permalink" href="<?= @route('view=topic&id='.$topic->id.'&post='.$post->id) ?>#p<?= $post->id ?>">
 			<img src="<?= @$img('/16/page.png') ?>" width="16" height="16" alt="<?= @text('COM_NINJABOARD_LINK_TO_THIS_POST') ?>" />
