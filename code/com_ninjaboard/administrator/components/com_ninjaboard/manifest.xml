@@ -21,8 +21,8 @@
                 - GM            #D6B600
                 - Stable        #009199
     -->
-    <version status="Alpha" color="darkorange">2.0</version>
-    <revision>2519</revision>
+    <version status="Beta" color="red">2.0</version>
+    <revision>2521</revision>
     <description>COM_NINJABOARD_THE_SHARPEST_USER_FORUM</description>
     <credits>
         <a href="http://www.joomlaworks.gr/">SMF converter, Vanity URLs, Private Messaging sponsored by JoomlaWorks</a>
