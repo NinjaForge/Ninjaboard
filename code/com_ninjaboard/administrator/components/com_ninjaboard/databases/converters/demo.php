@@ -22,7 +22,7 @@ class ComNinjaboardDatabaseConvertersDemo extends ComNinjaboardDatabaseConverter
 	 */
 	public function convert()
 	{
-		$file = (JVersion::isCompatible('1.6.0')) ? 'demo25.json' : 'demo.json';
+		$file = (version_compare(JVERSION,'1.6.0','ge')) ? 'demo25.json' : 'demo.json';
 		$this->data = json_decode(file_get_contents(JPATH_COMPONENT_ADMINISTRATOR . '/data/'.$file), true);
 
 		parent::convert();
@@ -39,7 +39,7 @@ class ComNinjaboardDatabaseConvertersDemo extends ComNinjaboardDatabaseConverter
 	 */
 	public function getTitle()
 	{
-		return 'Sample content';
+		return JText::_('COM_NINJABOARD_SAMPLE_CONTENT');
 	}
 
 	/**
@@ -49,7 +49,7 @@ class ComNinjaboardDatabaseConvertersDemo extends ComNinjaboardDatabaseConverter
 	 */
 	public function canConvert()
 	{
-		$file = (JVersion::isCompatible('1.6.0')) ? 'demo25.json' : 'demo.json';
+		$file = (version_compare(JVERSION,'1.6.0','ge')) ? 'demo25.json' : 'demo.json';
 		return file_exists(JPATH_COMPONENT_ADMINISTRATOR . '/data/'.$file);
 	}
 }

@@ -11,12 +11,12 @@
 
 <ul>
 	<li>
-		<strong><?= @text('Posts:') ?></strong> <?= $person->posts ?>
+		<strong><?= @text('COM_NINJABOARD_POSTS') ?></strong> <?= $person->posts ?>
 	</li>
 	<li>
-		<strong><?= @text('Member Since:') ?></strong> <?= @ninja('date.html', array('date' => $person->registerDate)) ?>
+		<strong><?= @text('COM_NINJABOARD_MEMBER_SINCE') ?></strong> <?= @ninja('date.html', array('date' => $person->registerDate)) ?>
 	</li>
 	<li>
-		<strong><?= @text('Last Logged In:') ?></strong> <?= @ninja('date.html', array('date' => $person->lastvisitDate)) ?>
+		<strong><?= @text('COM_NINJABOARD_LAST_LOGGED_IN') ?></strong> <?= @ninja('date.html', array('date' => $person->lastvisitDate)) ?>
 	</li>
 </ul>

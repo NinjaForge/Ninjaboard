@@ -40,7 +40,7 @@ ninja(function($){
         messageform.addClass('replying').removeClass('creating');
         
         var data = reply.data('item');
-        title.text(<?= json_encode(@text('Send {PERSON} a message:')) ?>.replace('{PERSON}', data.conversation_with.join(', ')));
+        title.text(<?= json_encode(@text('COM_NINJABOARD_SEND_PERSON_A_MESSAGE')) ?>.replace('{PERSON}', data.conversation_with.join(', ')));
         input.val(data.conversation_id);
     });
 
@@ -56,10 +56,10 @@ ninja(function($){
 
 <div id="ninjaboard" class="ninjaboard forums <?= $params['pageclass_sfx'] ?> <?= $params['style']['type'] ?> <?= $params['style']['border'] ?> <?= $params['style']['separators'] ?>">
     <a id="<?= @id('new-message') ?>" href="#" data-reveal-id="ninjaboard-message-form" class="ninjaboard-button ninjaboard-button-primary ninjaboard-button-new-message">
-        <?= @text('New Message') ?>
+        <?= @text('COM_NINJABOARD_NEW_MESSAGE') ?>
     </a>
     <a id="<?= @id('reply-message') ?>" href="#" data-reveal-id="ninjaboard-message-form" class="ninjaboard-button ninjaboard-button-secondary ninjaboard-button-reply-message" style="display: none">
-        <?= @text('Reply') ?>
+        <?= @text('COM_NINJABOARD_REPLY') ?>
     </a>
     <?= @helper('template.space') ?>
     <div id="ninjaboard-message-form" class="reveal-modal">

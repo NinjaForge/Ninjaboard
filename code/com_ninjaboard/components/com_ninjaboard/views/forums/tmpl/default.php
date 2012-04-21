@@ -34,7 +34,7 @@
 	<? /* Render Latest Topics */ ?>
 	<? if($showtopics) : ?>
 		<div class="header relative">
-			<h2 class="title"><?= @text('Latest Topics') ?></h2>
+			<h2 class="title"><?= @text('COM_NINJABOARD_LATEST_TOPICS') ?></h2>
 			<?= $pagination ?>
 			<div style="clear:both"></div>
 		</div>

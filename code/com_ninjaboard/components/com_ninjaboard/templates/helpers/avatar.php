@@ -50,7 +50,7 @@ class ComNinjaboardTemplateHelperAvatar extends KTemplateHelperAbstract
 		if($upload_size_limit == 0) return false;
 
 		return sprintf(
-			JText::_('Maximum size of %s.'),
+			JText::_('COM_NINJABOARD_MAXIMUM_SIZE_OF'),
 			$this->getService('ninja:template.helper.convert')->bytes(array('bytes' => $upload_size_limit))
 		);
 	}

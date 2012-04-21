@@ -5,11 +5,11 @@
 <link rel="stylesheet" href="/site.form.css" />
 
 <div id="ninjaboard" class="ninjaboard topic move <?= $topic->params['pageclass_sfx'] ?> <?= $forum->params['style']['type'] ?> <?= $forum->params['style']['border'] ?> <?= $forum->params['style']['separators'] ?>">
-	<h1 class="title"><?= sprintf(@text('Moving topic «%s»'), $topic->subject) ?></a></h1>
+	<h1 class="title"><?= sprintf(@text('COM_NINJABOARD_MOVING_TOPIC'), $topic->subject) ?></a></h1>
 	<form action="<?= @route('id='.@$topic->id) ?>" method="post" id="<?= @id() ?>" class="ninjaboard">
 		<fieldset class="adminform ninja-form">
 			<div class="element subject">
-				<label class="key" for="forum_id"><?= @text('Forum') ?></label>
+				<label class="key" for="forum_id"><?= @text('COM_NINJABOARD_FORUM') ?></label>
 				<?
 					$list = $this->getService('com://admin/ninjaboard.model.forums')->limit(0)->indent(1)->getList();
 					$id = $topic->forum_id;
@@ -28,16 +28,16 @@
 					<input type="checkbox" name="show_symlinks" id="show_symlinks" <? if($topic->show_symlinks) echo 'checked' ?> value="1" />
 				</div>
 				<label for="show_symlinks">
-					<?= @text('Leave ghost topic behind') ?>
+					<?= @text('COM_NINJABOARD_LEAVE_GHOST_TOPIC_BEHIND') ?>
 				</label>
 			</div>
 			<div class="element footer">
 				<div class="inner">
 					<div id="<?= @id('save') ?>">
-						<button name="action" value="save" type="submit"><?= @text('Save') ?></button>
+						<button name="action" value="save" type="submit"><?= @text('COM_NINJABOARD_SAVE') ?></button>
 					</div>
 					&#160;
-					<button name="action" value="cancel" type="submit"><?= @text('Cancel') ?></button>
+					<button name="action" value="cancel" type="submit"><?= @text('COM_NINJABOARD_CANCEL') ?></button>
 				</div>
 			</div>
 		</fieldset>

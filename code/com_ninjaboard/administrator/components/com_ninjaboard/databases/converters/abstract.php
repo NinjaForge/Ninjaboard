@@ -346,7 +346,7 @@ abstract class ComNinjaboardDatabaseConvertersAbstract extends KObject implement
 	 */
 	public function getDescription()
 	{
-		$key		= strtoupper($this->getName()) . '_DESCRIPTION';
+		$key		= 'COM_NINJABOARD_'.strtoupper($this->getName()) . '_DESCRIPTION';
 		return JText::_($key) == $key ? $this->_description : JText::_($key);
 	}
 	

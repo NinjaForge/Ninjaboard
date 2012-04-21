@@ -402,7 +402,7 @@
         "subject": "Nooku Framework 0.7",
         "text": "Ninjaboard is using the 0.7 version of the Nooku Framework (Codename Koowa).",
         "created_on": "2009-09-21 21:41:37",
-        "created_by": "62",
+        "created_by": "42",
         "ninjaboard_topic_id": "1",
         "params": {
         	"customization": {
@@ -415,7 +415,7 @@
         "subject": "No longer a fork",
         "text": "Ninjaboard 1.0 marks the [b]end[\/b] of the fork status.\r\nThere's not a [u]trace[\/u] left of [url=#]JooBB[\/url].",
         "created_on": "2010-03-26 21:42:25",
-        "created_by": "62",
+        "created_by": "42",
         "ninjaboard_topic_id": "2",
         "params": {
         	"customization": {
@@ -428,7 +428,7 @@
         "subject": "Sexy in khepri",
         "text": "Also being prepared for AdminPraise lite, and Stainless.",
         "created_on": "2010-03-26 21:42:23",
-        "created_by": "62",
+        "created_by": "42",
         "ninjaboard_topic_id": "3",
         "params": {
         	"customization": {
@@ -441,7 +441,7 @@
         "subject": "RE: Sexy in khepri",
         "text": "We're adding support for JoomlaBamboo admin templates as well.",
         "created_on": "2010-07-24 21:42:15",
-        "created_by": "62",
+        "created_by": "42",
         "ninjaboard_topic_id": "3",
         "params": {
         	"customization": {
@@ -454,7 +454,7 @@
         "subject": "Showcase gallery",
         "text": "Show us how NB looks like on your own sites :)",
         "created_on": "2010-07-18 21:47:07",
-        "created_by": "62",
+        "created_by": "42",
         "ninjaboard_topic_id": "4",
         "params": {
         	"customization": {
@@ -467,7 +467,7 @@
         "subject": "URL data detector tests",
         "text": "Testing the URL data detector wether it picks up everything it should without compromising security.",
         "created_on": "2010-12-13 15:47:31",
-        "created_by": "62",
+        "created_by": "42",
         "ninjaboard_topic_id": "5",
         "params": {
         	"customization": {
@@ -480,7 +480,7 @@
         "subject": "",
         "text": "Test data for the URL-matching regex pattern presented here:\r\n\r\nhttp:\/\/daringfireball.net\/2010\/07\/improved_regex_for_matching_urls\/\r\n\r\n\r\nMatches the right thing in the following lines:\r\n\r\nhttp:\/\/foo.com\/blah_blah\r\nhttp:\/\/foo.com\/blah_blah\/\r\n(Something like http:\/\/foo.com\/blah_blah)\r\nhttp:\/\/foo.com\/blah_blah_(wikipedia)\r\nhttp:\/\/foo.com\/more_(than)_one_(parens)\r\n(Something like http:\/\/foo.com\/blah_blah_(wikipedia))\r\nhttp:\/\/foo.com\/blah_(wikipedia)#cite-1\r\nhttp:\/\/foo.com\/blah_(wikipedia)_blah#cite-1\r\nhttp:\/\/foo.com\/unicode_(\u272a)_in_parens\r\nhttp:\/\/foo.com\/(something)?after=parens\r\nhttp:\/\/foo.com\/blah_blah.\r\nhttp:\/\/foo.com\/blah_blah\/.\r\nhttp:\/\/foo.com\/blah_blah,\r\nhttp:\/\/www.extinguishedscholar.com\/wpglob\/?p=364.\r\nhttp:\/\/\u272adf.ws\/1234\r\nrdar:\/\/1234\r\nrdar:\/1234\/\r\nx-yojimbo-item:\/\/6303E4C1-6A6E-45A6-AB9D-3A908F59AE0E\r\nmessage:\/\/%3c330e7f840905021726r6a4ba78dkf1fd71420c1bf6ff@mail.gmail.com%3e\r\nhttp:\/\/\u27a1.ws\/\u4a39\/\r\nwww.c.ws\/\u4a39\r\nhttp:\/\/example.com\r\nJust a www.example.com link.\r\nhttp:\/\/example.com\/something?with,commas,in,url, but not at end\r\nmailto:name@example.com\r\nbit.ly\/foo\r\n\u201cis.gd\/foo\/\u201d\r\nWWW.EXAMPLE.COM\r\nhttp:\/\/www.asianewsphoto.com\/(S(neugxif4twuizg551ywh3f55))\/Web_ENG\/View_DetailPhoto.aspx?PicId=752\r\nhttp:\/\/www.asianewsphoto.com\/(S(neugxif4twuizg551ywh3f55))\r\nhttp:\/\/lcweb2.loc.gov\/cgi-bin\/query\/h?pp\/horyd:@field(NUMBER+@band(thc+5a46634))\r\n\r\n\r\nShould fail against:\r\n6:00p\r\nfilename.txt\r\n\r\n\r\nKnown to fail against:\r\nhttp:\/\/example.com\/quotes-are-\u201cpart\u201d\r\n\u272adf.ws\/1234\r\nexample.com\r\nexample.com\/",
         "created_on": "2010-12-13 15:48:07",
-        "created_by": "62",
+        "created_by": "42",
         "ninjaboard_topic_id": "5",
         "params": {
         	"customization": {
@@ -493,7 +493,7 @@
         "subject": "",
         "text": "Testing URL detector security.\r\n\r\nWithin url backets: [url]javascript:alert(1)[\/url]\r\n\r\nIn plain text: javascript:alert(1)",
         "created_on": "2010-12-13 16:02:17",
-        "created_by": "62",
+        "created_by": "42",
         "ninjaboard_topic_id": "5",
         "params": {
         	"customization": {

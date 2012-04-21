@@ -1,9 +1,9 @@
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<div class="wrap">
+<div class="post-wrap">
 	<div class="section">
 		<a class="ninjaboard-post-permalink" href="<?= @route('view=topic&id='.$topic->id.'&post='.$post->id) ?>#p<?= $post->id ?>">
-			<img src="<?= @$img('/16/page.png') ?>" width="16" height="16" alt="<?= @text('Link to this post') ?>" />
+			<img src="<?= @$img('/16/page.png') ?>" width="16" height="16" alt="<?= @text('COM_NINJABOARD_LINK_TO_THIS_POST') ?>" />
 			<?= @ninja('date.html', array('date' => $post->created_on)) ?>
 		</a>
 		<div class="text"><?= @helper('ninja:helper.bbcode.parse', array('text' => $post->text)) ?></div>
@@ -29,7 +29,7 @@
 				<? endforeach ?>
 			</ol>
 		<? elseif(count($images) || count($files)) : ?>
-			<h5 class="notice attachments-no-access"><?= @text("You don't have access to view the attachments in this post.") ?></h5>
+			<h5 class="notice attachments-no-access"><?= @text('COM_NINJABOARD_YOU_DONT_HAVE_ACCESS_TO_VIEW_THE_ATTACHMENTS_IN_THIS_POST') ?></h5>
 		<? endif ?>
 		<div style="clear: both; display: block;"></div>
 		<!-- .signature.footer still present because of browser cache. Browser cache is solved permanently in Ninjaboard 1.2 -->
@@ -74,7 +74,7 @@
 		<strong class="rank"><?= @$post->rank_title ?></strong>
 		<div class="rank_icon"><img src="<?= @$img('/rank/'.@$post->rank_icon) ?>" /></div>
 		<? endif ?>
-		<p class="posts"><strong><?= @text('Posts:') ?></strong> <?= $post->person_posts ?></p>
+		<p class="posts"><strong><?= @text('COM_NINJABOARD_POSTS') ?></strong> <?= $post->person_posts ?></p>
 		
 		<!--<img src="<?= @$img('/usergroup/'.KInflector::underscore($post->usertype).'.png') ?>" />
 		<img src="<?= @$img('/usergroup/'.KInflector::underscore($post->usertype).'.png') ?>" />-->

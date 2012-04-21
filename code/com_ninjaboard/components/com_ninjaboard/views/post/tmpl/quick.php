@@ -7,5 +7,5 @@
 </style>
 
 <div class="ninjaboard post-form<? if(!$topic->id || $topic->first_post_id == $post->id) : ?> new-topic-form<? endif ?>">
-	<?= @render(@template('form_inner'), @text('Post a reply'), $params['module']) ?>
+	<?= @render(@template('form_inner'), @text('COM_NINJABOARD_POST_A_REPLY'), $params['module']) ?>
 </div>

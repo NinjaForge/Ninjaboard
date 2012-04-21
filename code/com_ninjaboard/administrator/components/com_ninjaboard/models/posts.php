@@ -106,7 +106,7 @@ class ComNinjaboardModelPosts extends ComDefaultModelDefault
 			  ->select('(SELECT title FROM #__ninjaboard_ranks WHERE person.posts >= min AND enabled = 1 ORDER BY min DESC LIMIT 1) AS rank_title');
 		
 		//Build query for the screen names
-		$this->getService('com://admin/ninjaboard.model.people')->buildScreenNameQuery($query, 'person', 'user', 'display_name', 'IFNULL(tbl.guest_name, \''.JText::_('Anonymous').'\')');
+		$this->getService('com://admin/ninjaboard.model.people')->buildScreenNameQuery($query, 'person', 'user', 'display_name', 'IFNULL(tbl.guest_name, \''.JText::_('COM_NINJABOARD_ANONYMOUS').'\')');
 		
 		if($search = $this->_state->search)
 		{

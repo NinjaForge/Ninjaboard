@@ -1,35 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE metadata>
 <metadata>
-	<layout title="Forums">
-		<message>Renders top level forums in a list.</message>
+	<layout title="COM_NINJABOARD_FORUMS">
+		<message>COM_NINJBOARD_RENDERS_TOP_LEVEL_LIST</message>
 	</layout>
 	
 	<!-- @group j!1.5 -->
 	<state>
-		<name>Forums</name>
-		<description>Renders top level forums in a list.</description>
+		<name>COM_NINJABOARD_FORUMS</name>
+		<description>COM_NINJBOARD_RENDERS_TOP_LEVEL_LIST</description>
 		<params>
-			<param name="deleteme" type="napi" xml="/components/com_ninjaboard/views/forums/tmpl/default.xml" />
+			<param name="deleteme" type="napi" ninja="void" />
+			<param name="ninjaboard_setting_id" type="getlist" get="com://admin/ninjaboard.model.settings" label="COM_NINJABOARD_SETTING" description="COM_NINJABOARD_CHOOSE_SETTING">
+				<option>- COM_NINJABOARD_USE_DEFAULT -</option>
+			</param>
 		</params>
 	</state>
 	<!-- @end -->
 	
 	<!-- @group j!1.6 -->
-	<fields name="params" addfieldpath="/administrator/components/com_ninja/overrides">
-		<fieldset name="basic" label="Basic Options">
-				<field name="deleteme" type="napi" xml="/components/com_ninjaboard/views/forums/tmpl/default.xml" />
+	<fields name="params" addfieldpath="/administrator/components/com_ninja/forms/fields">
+		<fieldset name="basic" label="COM_NINJABOARD_BASIC_OPTIONS">
+				<field name="ninjaboard_setting_id" type="listbox" model="com://admin/ninjaboard.model.settings" label="COM_NINJABOARD_SETTING" description="COM_NINJABOARD_CHOOSE_SETTING." deselect="COM_NINJABOARD_USE_DEFAULT">
+				</field>
 		</fieldset>
 	</fields>
-	<!-- @end -->
-
-	<!-- @group Actual form -->
-	<form>
-		<params group="basic">
-			<param name="ninjaboard_setting_id" type="getlist" get="com://admin/ninjaboard.model.settings" label="Setting" description="Choose a predefined setting from the Ninjaboard Settings.">
-				<option>- Use default -</option>
-			</param>
-		</params>
-	</form>
 	<!-- @end -->
 </metadata>

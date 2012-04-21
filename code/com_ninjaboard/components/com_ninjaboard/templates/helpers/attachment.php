@@ -27,8 +27,8 @@ class ComNinjaboardTemplateHelperAttachment extends KTemplateHelperAbstract
 		sort($extensions);
 		$extensions = implode(', ', $extensions).'.';
 		
-		$show = json_encode(JText::_('Show allowed file types'));
-		$hide = json_encode(JText::_('Hide allowed file types'));
+		$show = json_encode(JText::_('COM_NINJABOARD_SHOW_ALLOWED_FILE_TYPES'));
+		$hide = json_encode(JText::_('COM_NINJABOARD_HIDE_ALLOWED_FILE_TYPES'));
 		
 		$html[] = "<script type=\"type/javascript\">
 			ninja(function($){
@@ -42,7 +42,7 @@ class ComNinjaboardTemplateHelperAttachment extends KTemplateHelperAbstract
 			});
 		</script>";
 		
-		$html[] = '<p class="allowed-file-extensions">'.$extensions.'</p><a href="#" class="allowed-file-extensions-toggle">'.JText::_('Show allowed file types').'</a>';
+		$html[] = '<p class="allowed-file-extensions">'.$extensions.'</p><a href="#" class="allowed-file-extensions-toggle">'.JText::_('COM_NINJABOARD_SHOW_ALLOWED_FILE_TYPES').'</a>';
 
 		return implode($html);
 	}
@@ -62,7 +62,7 @@ class ComNinjaboardTemplateHelperAttachment extends KTemplateHelperAbstract
 		if($upload_size_limit == 0) return false;
 
 		return sprintf(
-			JText::_('Maximum size of %s per file.'),
+			JText::_('COM_NINJABOARD_MAXIMUM_SIZE_OF_PER_FILE'),
 			$this->getService('ninja:template.helper.convert')->bytes(array('bytes' => $upload_size_limit))
 		);
 	}

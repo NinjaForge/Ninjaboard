@@ -1,46 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE metadata>
 <metadata>
-	<layout title="Forum">
-		<message>Renders a forum and its subforums if any.</message>
+	<layout title="COM_NINJABOARD_FORUM">
+		<message>COM_NINJBOARD_RENDERS_FORUM_AND_SUBFORUMS</message>
 	</layout>
 	
 	<!-- @group j!1.5 -->
 	<state>
-		<name>Forum</name>
-		<description>Renders a forum and its subforums if any.</description>
+		<name>COM_NINJABOARD_FORUM</name>
+		<description>COM_NINJBOARD_RENDERS_FORUM_AND_SUBFORUMS</description>
 		<url>
-			<param name="urldeleteme" type="napi" grouptag="url" formname="urlparams" xml="/components/com_ninjaboard/views/forum/tmpl/default.xml" />
+			<param name="urldeleteme" type="napi" ninja="void" grouptag="url" formname="urlparams" />
+			<param name="id" type="getlist" default="" get="com://admin/ninjaboard.model.forums" set="indent:1;enabled:1;sort:path_sort_ordering;limit:0" label="COM_NINJABOARD_FORUM" description="COM_NINJBOARD_CHOOSE_A_FORUM" />
 		</url>
 		<params>
-			<param name="deleteme" type="napi" xml="/components/com_ninjaboard/views/forum/tmpl/default.xml" />
+			<param name="deleteme" type="napi" ninja="void" />
+			<param name="ninjaboard_setting_id" type="getlist" get="com://admin/ninjaboard.model.settings" label="COM_NINJABOARD_SETTING" description="COM_NINJABOARD_CHOOSE_SETTING">
+				<option>- COM_NINJABOARD_USE_DEFAULT -</option>
+			</param>
 		</params>
 	</state>
 	<!-- @end -->
 	
 	<!-- @group j!1.6 -->
-	<fields name="request" addfieldpath="/administrator/components/com_ninja/overrides">
+	<fields name="request" addfieldpath="/administrator/components/com_ninja/forms/fields">
 		<fieldset name="request">
-			<field name="urldeleteme" type="napi" grouptag="url" formname="urlparams" xml="/components/com_ninjaboard/views/forum/tmpl/default.xml" />
+			<field name="id" type="listbox" default="" model="com://admin/ninjaboard.model.forums" states="indent:1;enabled:1;sort:path_sort_ordering;limit:0" label="Forum" description="Choose a forum." />
 		</fieldset>
 	</fields>
-	<fields name="params">
-		<fieldset name="basic" label="Basic Options">
-				<field name="deleteme" type="napi" xml="/components/com_ninjaboard/views/forum/tmpl/default.xml" />
+	<fields name="params" addfieldpath="/administrator/components/com_ninja/forms/fields">
+		<fieldset name="basic" label="COM_NINJABOARD_BASIC_OPTIONS">
+				<field name="ninjaboard_setting_id" type="listbox" model="com://admin/ninjaboard.model.settings" label="COM_NINJABOARD_SETTING" description="COM_NINJABOARD_CHOOSE_SETTING." deselect="COM_NINJABOARD_USE_DEFAULT">
+				</field>
 		</fieldset>
 	</fields>
-	<!-- @end -->
-
-	<!-- @group Actual form -->
-	<form>
-		<url>
-			<param name="id" type="getlist" default="" get="com://admin/ninjaboard.model.forums" set="indent:1;enabled:1;sort:path_sort_ordering;limit:0" label="Forum" description="Choose a forum." />
-		</url>
-		<params group="basic">
-			<param name="ninjaboard_setting_id" type="getlist" get="com://admin/ninjaboard.model.settings" label="Setting" description="Choose a predefined setting from the Ninjaboard Settings.">
-				<option>- Use default -</option>
-			</param>
-		</params>
-	</form>
 	<!-- @end -->
 </metadata>

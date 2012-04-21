@@ -45,7 +45,7 @@
 <fieldset class="ninja-form">
 	<form id="phpbb">
 		<div class="element">
-			<label for="phpbb-path" class="key"><?= @text('phpBB3 path') ?></label>
+			<label for="phpbb-path" class="key"><?= @text('COM_NINJABOARD_PHPBB3_PATH') ?></label>
 			<input type="text" name="path" id="phpbb-path" value="<?= $converter->getPath() ?>" placeholder="<?= $converter->getPath() ?>" class="value" />
 		</div>
 	</form>

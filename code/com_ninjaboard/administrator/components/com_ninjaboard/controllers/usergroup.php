@@ -48,12 +48,12 @@ class ComNinjaboardControllerUsergroup extends ComNinjaboardControllerDefault
 		$cookie	= $this->getService('ninja:template.helper.document')->formid('show-reminder');
 		JError::raiseNotice(0, 
 			sprintf(
-				JText::_('Remember to map your Joomla! groups to Ninjaboard. Hover %s to see where. %s'),
+				JText::_('COM_NINJABOARD_REMEMBER_TO_MAP_YOUR_JOOMLA_GROUPS_TO_NINJABOARD_HOVER_TO_SEE_WHERE'),
 				'<a href="#" id="' . $id . '" style="text-decoration: underline">' .
-					JText::_('here') .
+					JText::_('COM_NINJABOARD_HERE') .
 				'</a>',
 				'<a href="#" id="' . $close . '">[' .
-					JText::_('close') .
+					JText::_('COM_NINJABOARD_CLOSE') .
 				']</a>'
 			)
 		);

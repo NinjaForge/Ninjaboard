@@ -10,7 +10,7 @@
 		
 		<dl class="icon <?= $iconclass ?>">
 			<dt>
-			    <span class="unread-indicator" title="<?= @text('There are unread topics in this forum.') ?>"></span>
+			    <span class="unread-indicator" title="<?= @text('COM_NINJABOARD_THERE_ARE_UNREAD_TOPICS_IN_THIS_FORUM') ?>"></span>
 				<a href="<?= @route('view=forum&id=' . $forum->id) ?>" class="forumtitle <? if(!$forum->description) echo 'no-description' ?>" title="<?= @escape($forum->title) ?>">
 					<?= @escape($forum->title) ?>
 				</a>
@@ -21,8 +21,8 @@
 					<strong class="label">
 						<?= 
 							count($forum->subforums) > 1 
-							? @text('Subforums:') 
-							: @text('Subforum:')
+							? @text('COM_NINJABOARD_SUBFORUMS') 
+							: @text('COM_NINJABOARD_SUBFORUM')
 						?>
 					</strong>
 					<? foreach($forum->subforums as $subforum) : ?>
@@ -30,13 +30,13 @@
 					<? endforeach ?>
 				<? endif ?>
 			</dt>
-			<dd class="topics"><a href="#" class="separator"></a><?= $forum->topics ?> <dfn><?= @text('Topics') ?></dfn></dd>
-			<dd class="posts"><a href="#" class="separator"></a><?= $forum->posts ?> <dfn><?= @text('Posts') ?></dfn></dd>
+			<dd class="topics"><a href="#" class="separator"></a><?= $forum->topics ?> <dfn><?= @text('COM_NINJABOARD_TOPICS') ?></dfn></dd>
+			<dd class="posts"><a href="#" class="separator"></a><?= $forum->posts ?> <dfn><?= @text('COM_NINJABOARD_POSTS') ?></dfn></dd>
 			<dd class="lastpost"><a href="#" class="separator"></a><span class="lastpost">
 			<? if ($forum->last_post_id) : ?>
 				<dfn>Last post</dfn>
 					<a class="ninjaboard-lastpost" href="<?= @route('view=topic&id=' . $forum->last_topic_id . '&post='.$forum->last_post_id) ?>#p<?= $forum->last_post_id ?>" title="<?= @escape($forum->subject) ?>"><?= $forum->subject ?></a><br />
-					 <?= @text('by') ?>
+					 <?= @text('COM_NINJABOARD_BY') ?>
 					 <? if($forum->created_user_id) : ?>
 					 <a href="<?= @route('view=person&id=' . $forum->created_user_id) ?>" class="username-coloured"><?= @escape($forum->last_post_username) ?></a>
 					 <? else : ?>
@@ -44,7 +44,7 @@
 					 <? endif ?>
 					 <?= @ninja('date.html', array('date' => $forum->last_post_date)) ?>
 			<? else : ?>
-				<?= @text('No Posts') ?><br />&#160;
+				<?= @text('COM_NINJABOARD_NO_POSTS') ?><br />&#160;
 			<? endif ?>
 			</span></dd>
 		</dl>

@@ -51,7 +51,7 @@ class ComNinjaboardControllerTool extends NinjaControllerDefault
 	    if(!$user->authorize('com_config', 'manage'))
 	    {
 	        //@TODO implement differently
-	        //$app->redirect('index.php?option=com_ninjaboard', JText::_("You don't have permissions to use Ninjaboard administration tools."));
+	        //$app->redirect('index.php?option=com_ninjaboard', JText::_('COM_NINJABOARD_YOU_DONT_HAVE_PERMISSIONS_TO_USE_NINJABOARD_ADMINISTRATION_TOOLS'));
 
 	        //return false;
 	    }
@@ -103,7 +103,7 @@ class ComNinjaboardControllerTool extends NinjaControllerDefault
 
 	public function raiseNotice()
 	{
-		JError::raiseNotice(0, JText::_("Imported data will replace any existing data. Always remember to backup your site prior to imports."));
+		JError::raiseNotice(0, JText::_('COM_NINJABOARD_IMPORTED_DATA_WILL_REPLACE_ANY_EXISTING_DATA_ALWAYS_REMEMBER_TO_BACKUP_YOUR_SITE_PRIOR_TO_IMPORTS'));
 	}
 	
 	/*

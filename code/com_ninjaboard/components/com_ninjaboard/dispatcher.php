@@ -231,15 +231,17 @@ class ComNinjaboardDispatcher extends NinjaDispatcher
 
 		if(!is_a($view, 'ComNinjaboardViewHtml')) return;
 
+            $app = JFactory::getApplication();
+
 		//Add the "Forums" to the pathway if the current view or the last pathway item isn't "Forums"
-		$pathway = JFactory::getApplication()->getPathWay()->getPathway();
+		$pathway = $app->getPathWay()->getPathway();
 		$last	 = end($pathway);
 		
 		//If no ItemID, we need to check if there exist a menu item entry for Ninjaboard
 		if(KRequest::get('get.Itemid', 'int') === NULL)
 		{
 		    $component    = JComponentHelper::getComponent('com_ninjaboard');
-		    $menu         = JSite::getMenu();
+		    $menu         = $app->getMenu();
 		    $items        = $menu->getItems('componentid', $component->id);
 		    
 		    // If any menu links to Ninjaboard, find out if any root ones exists
@@ -250,8 +252,7 @@ class ComNinjaboardDispatcher extends NinjaDispatcher
 		    	    if(isset($item->query['view']) && $item->query['view'] == 'forums')
 		    	    {
 		    	        // Perform a 301 redirect to the right menu item to eliminate duplicate entrypoints
-		    	        return JFactory::getApplication()
-		    	                   ->redirect(JRoute::_('&Itemid='.$item->id, false), '', '', true);
+		    	        return $app->redirect(JRoute::_('&Itemid='.$item->id, false), '', '', true);
 		    	    }
 		    	}
 		    }
@@ -263,7 +264,7 @@ class ComNinjaboardDispatcher extends NinjaDispatcher
 
 		// We need to find out if the menu item link has a view param
 		$menuquery	= array('view' => '');
-		$menu		= JSite::getMenu();
+		$menu		= $app->getMenu();
 		$item		= $menu->getItem($query['Itemid']);
 		
 		//Menu item id is invalid, so lets get the active menu item
@@ -302,6 +303,9 @@ class ComNinjaboardDispatcher extends NinjaDispatcher
 			'controller' => 'forum',
 			'maps'               => array('attachments', 'avatars', 'forums', 'messages', 'people', 'posts', 'profiles', 'settings', 'topics', 'usergroups', 'users', 'watches')
 		));
+
+            // Add untranslated words to the current NB language file
+            KService::get('ninja:helper.language');
 
 		parent::_initialize($config);
 	}

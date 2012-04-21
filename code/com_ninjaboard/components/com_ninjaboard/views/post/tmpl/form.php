@@ -11,7 +11,7 @@
 					$('.ninjaboard.topicreview a[href]').removeAttr('href');
 				});
 			</script>
-			<h3><?= sprintf(@text('Topic review %s'), '('.@text('newest first').')') ?></h3>
+			<h3><?= sprintf(@text('COM_NINJABOARD_TOPIC_REVIEW'), '('.@text('COM_NINJABOARD_NEWEST_FIRST').')') ?></h3>
 			<?= $topicreview ?>
 		</div>
 	<? endif ?>

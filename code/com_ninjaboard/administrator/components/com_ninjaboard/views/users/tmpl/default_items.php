@@ -32,13 +32,13 @@
 		</a>
 	</td>
 	<td>
-		<?= $user->lastvisitDate == '0000-00-00 00:00:00' ? @text('No visit since registration') : @ninja('date.html', array('date' => $user->lastvisitDate)) ?>
+		<?= $user->lastvisitDate == '0000-00-00 00:00:00' ? @text('COM_NINJABOARD_NO_VISIT_SINCE_REGISTRATION') : @ninja('date.html', array('date' => $user->lastvisitDate)) ?>
 	</td>
 	<td width="1" style="text-align:center">
 		<?= $user->posts ?>
 	</td>
 	<td width="1">
-		<img src="<?= @$img('/rank/'.$user->rank_icon) ?>" alt="<?= @text('Rank logo') ?>" />
+		<img src="<?= @$img('/rank/'.$user->rank_icon) ?>" alt="<?= @text('COM_NINJABOARD_RANK_LOGO') ?>" />
 	</td>
 </tr>
 <? endforeach ?>

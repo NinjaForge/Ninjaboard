@@ -251,7 +251,7 @@ class ComNinjaboardDatabaseConvertersKunena extends ComNinjaboardDatabaseConvert
 
 		$kunena = JPATH_BASE.'/components/com_kunena/kunena.xml';
 		if(!file_exists($kunena)) {
-			JError::raiseWarning(0, JText::_('You need to upgrade to Kunena 1.6 or newer in order to use the Kunena converter.'));
+			JError::raiseWarning(0, JText::_('COM_NINJABOARD_YOU_NEED_TO_UPGRADE_TO_KUNENA_16_OR_NEWER_IN_ORDER_TO_USE_THE_KUNENA_CONVERTER'));
 			return false;
 		}
 

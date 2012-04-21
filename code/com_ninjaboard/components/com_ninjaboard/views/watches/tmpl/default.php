@@ -12,7 +12,7 @@
 				});
 			});
 		</script>
-		<label for="type"><?= @text('Filter') ?></label>
+		<label for="type"><?= @text('COM_NINJABOARD_FILTER') ?></label>
 		<?= @helper('select.optionlist', array(
 			'options' => array(
 				@helper('select.option', array('value' => '', 'text' => 'All Items')),
@@ -33,8 +33,8 @@
 			<thead>
 				<tr>
 					<th width="20px" style="text-align: center"><?= @ninja('grid.checkall') ?></th>
-					<th width="20px"><?= @text('Type') ?></th>
-					<th><?= @text('Title') ?></th>				
+					<th width="20px"><?= @text('COM_NINJABOARD_TYPE') ?></th>
+					<th><?= @text('COM_NINJABOARD_TITLE') ?></th>				
 				</tr>
 			</thead>
 			<tfoot>
