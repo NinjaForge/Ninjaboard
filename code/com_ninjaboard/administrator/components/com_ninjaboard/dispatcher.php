@@ -22,6 +22,9 @@ class ComNinjaboardDispatcher extends ComDefaultDispatcher
         	'controller' => 'dashboard'
         ));
 
+        // Load language helper that loads the fallback languages and updates files with missing strings
+        KService::get('ninja:helper.language');
+
         parent::_initialize($config);
     }
 }

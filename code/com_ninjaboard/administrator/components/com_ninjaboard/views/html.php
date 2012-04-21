@@ -62,7 +62,7 @@ class ComNinjaboardViewHtml extends NinjaViewDefault
 		
 		$dateParts = explode('-', str_replace(array('%Y','%M','%D'), array('year', 'month', 'date'), JText::_('%Y-%M-%D')));
 		$dateOrder = json_encode($dateParts);
-		$shortDate = JText::_('DATE_FORMAT_LC4');
+		$shortDate = JText::_('COM_NINJABOARD_DATE_FORMAT_LC4');
 		
 		$translate = create_function('$text', 'return JText::_($text);');
 		$parts = array_map($translate, array(

@@ -70,13 +70,13 @@ window.addEvent('domready', function(){
 					<?= @helper('grid.checkall') ?>
 				</th>
 				<th class="grid-align">
-					<?= @text('Title') ?>
+					<?= @text('COM_NINJABOARD_TITLE') ?>
 				</th>
 				<th width="40px" class="grid-center">
-					<?= @text('Topics') ?>
+					<?= @text('COM_NINJABOARD_TOPICS') ?>
 				</th>
 				<th width="40px" class="grid-center">
-					<?= @text('Posts') ?>
+					<?= @text('COM_NINJABOARD_POSTS') ?>
 				</th>
 				<th width="32px" colspan="2"></th>
 			</tr>

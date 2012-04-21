@@ -15,16 +15,16 @@
 					<?= @escape(@$topic->subject) ?>
 					<? if($topic->moved_to_forum_title) : ?>
 					<em>
-						<?= sprintf(@text('Topic moved to %s'), '<strong>'.$topic->moved_to_forum_title.'</strong>') ?>
+						<?= sprintf(@text('COM_NINJABOARD_TOPIC_MOVED_TO'), '<strong>'.$topic->moved_to_forum_title.'</strong>') ?>
 					</em>
 					<? endif ?>
 				</a>
 			</dt>
 			<dd class="topics">
-				<a href="#" class="separator"></a><?= @$topic->replies ?><dfn><?= @text('Replies') ?></dfn>
+				<a href="#" class="separator"></a><?= @$topic->replies ?><dfn><?= @text('COM_NINJABOARD_REPLIES') ?></dfn>
 			</dd>
 			<dd class="posts">
-				<a href="#" class="separator"></a><?= @$topic->hits ?><dfn><?= @text('Views') ?></dfn>
+				<a href="#" class="separator"></a><?= @$topic->hits ?><dfn><?= @text('COM_NINJABOARD_VIEWS') ?></dfn>
 			</dd>
 			<dd class="lastpost">
 				<a href="#" class="separator"></a>
@@ -32,9 +32,9 @@
 				<? if (@$topic->last_post_id) : ?>
 					<dfn>Last post</dfn>
 					<a href="<?= @route('view=topic&id=' . @$topic->id . '&post='.@$topic->last_post_id.'#p' . @$topic->last_post_id) ?>">
-						<img src="<?= @$img('/16/page.png') ?>" alt="<?= @text('View the latest post') ?>" title="<?= @escape(@$topic->last_post_subject) ?>" />
+						<img src="<?= @$img('/16/page.png') ?>" alt="<?= @text('COM_NINJABOARD_VIEW_THE_LATEST_POST') ?>" title="<?= @escape(@$topic->last_post_subject) ?>" />
 					</a>
-					 <?= @text('by') ?>  
+					 <?= @text('COM_NINJABOARD_BY') ?>  
 					 <? if($topic->created_user_id) : ?>
 					 <a href="<?= @route('view=person&id=' . $topic->created_user_id) ?>" class="username-coloured">
 					 	<?= @escape($topic->last_post_username) ?>
@@ -47,7 +47,7 @@
 					 	<?= @ninja('date.html', array('date' => @$topic->last_post_date)) ?>
 					 </em>
 				<? else : ?>
-					<? @text('No posts') ?><br />&#160;
+					<? @text('COM_NINJABOARD_NO_POSTS') ?><br />&#160;
 				<? endif ?>
 				</span>
 			</dd>

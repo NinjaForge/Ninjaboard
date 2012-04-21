@@ -46,7 +46,8 @@ class ComNinjaboardModelUsergroups extends ComDefaultModelDefault
 		$permissions = array();
 		foreach ($table->select($query, KDatabase::FETCH_ROWSET) as $permission)
 		{
-			$permission->column	= end(explode('.', $permission->name));
+			$column = explode('.', $permission->name);
+			$permission->column	= end($column);
 			$permission->title	= KInflector::humanize($permission->column);
 			$permissions[$permission->column] = $permission;
 		}

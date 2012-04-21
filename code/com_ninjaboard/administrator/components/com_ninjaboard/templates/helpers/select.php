@@ -256,12 +256,12 @@ class ComNinjaboardHelperSelect extends KTemplateHelperSelect
 	         * @TODO: change to acl_check method
 	         */
 	        if(!($user->get('gid') >= 23) && $client == 'administrator') {
-	            return JText::_('No Access');
+	            return JText::_('COM_NINJABOARD_NO_ACCESS');
 	        }
 	  
 	        jimport('joomla.language.helper');
 	        $languages = JLanguageHelper::createLanguageList($value, constant('JPATH_'.strtoupper($client)), true);
-	        array_unshift($languages, JHTML::_('select.option', '', '- '.JText::_('Select Language').' -'));
+	        array_unshift($languages, JHTML::_('select.option', '', '- '.JText::_('COM_NINJABOARD_SELECT_LANGUAGE').' -'));
 	 
 	        return JHTML::_('select.genericlist',  $languages, $name, 'class="inputbox"', 'value', 'text', $value, $name );
 	    }
@@ -297,7 +297,7 @@ class ComNinjaboardHelperSelect extends KTemplateHelperSelect
 			//Make sure the user is authorized to view this page
 			$user = & JFactory::getUser();
 			if (!$user->authorize( 'com_media', 'popup' )) {
-				return JText::_('You\'re not authorized to access the media manager');
+				return JText::_('COM_NINJABOARD_YOURE_NOT_AUTHORIZED_TO_ACCESS_THE_MEDIA_MANAGER');
 			}
 	
 			//Create the modal window link. &e_name let us have multiple instances of the modal window.

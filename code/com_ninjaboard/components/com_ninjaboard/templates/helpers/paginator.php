@@ -74,7 +74,7 @@ class ComNinjaboardTemplateHelperPaginator extends NinjaTemplateHelperPaginator
 		$html  = '<div class="pagination">';
 		//$html .= '<div class="limit">'.sprintf(JText::_(KInflector::humanize($items)) . ' %s', $total ).'</div>';
 		$html .=  $this->pages($list);
-		//$html .= '<div class="count"> '.JText::_('Pages').' '.$paginator->current.' '.JText::_('of').' '.$paginator->count.'</div>';
+		//$html .= '<div class="count"> '.JText::_('COM_NINJABOARD_PAGES').' '.$paginator->current.' '.JText::_('COM_NINJABOARD_OF').' '.$paginator->count.'</div>';
 		$html .= '</div>';
 
 		return $html;

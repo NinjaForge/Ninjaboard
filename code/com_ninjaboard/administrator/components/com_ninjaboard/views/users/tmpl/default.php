@@ -18,8 +18,8 @@
 				<!--<th><?= @helper('grid.sort', array('title' => 'NB Groups', 'column' => 'role')) ?></th>-->
 				<th><?= @helper('grid.sort', array('title' => 'Email', 'column' => 'email')) ?></th>
 				<th><?= @helper('grid.sort', array('title' => 'Last Visit Date', 'column' => 'lastvisitdate')) ?></th>
-				<th><?= @text('Posts') ?></th>
-				<th><?= @text('Rank') ?></th>
+				<th><?= @text('COM_NINJABOARD_POSTS') ?></th>
+				<th><?= @text('COM_NINJABOARD_RANK') ?></th>
 			</tr>
 		</thead>
 		<?= @ninja('paginator.tfoot', array('total' => @$total, 'colspan' => 11)) ?>

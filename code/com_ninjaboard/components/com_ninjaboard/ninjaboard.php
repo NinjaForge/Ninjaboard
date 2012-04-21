@@ -11,7 +11,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
  
 $ninja = JPATH_ADMINISTRATOR.'/components/com_ninja/ninja.php';
 if(!file_exists($ninja)) {
-	return JError::raiseWarning(0, JText::_('The Ninja Framework component (com_ninja) is required for this component to run.'));
+	return JError::raiseWarning(0, JText::_('COM_NINJABOARD_THE_NINJA_FRAMEWORK_COMPONENT_COM_NINJA_IS_REQUIRED_FOR_THIS_COMPONENT_TO_RUN'));
 }
 require_once $ninja;
 
@@ -20,7 +20,7 @@ require_once $ninja;
 * Abort the dispatcher
 */
 if(!defined('KOOWA')) {
-	return JError::raiseWarning(0, JText::_('This component cannot run without Nooku Framework.'));
+	return JError::raiseWarning(0, JText::_('COM_NINJABOARD_THIS_COMPONENT_CANNOT_RUN_WITHOUT_NOOKU_FRAMEWORK'));
 }
 
 
@@ -69,6 +69,3 @@ if($debug && false)
 	$time = number_format(microtime(true) - $profile, 4);
 	$document->addScriptDeclaration('if(console) console.log("Ninjaboard took '.$time.' seconds to render.");'.PHP_EOL);
 }
-
-// Add untranslated words to the current NB language file
-KService::get('ninja:helper.language');

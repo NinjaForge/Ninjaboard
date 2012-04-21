@@ -24,7 +24,7 @@ class ComNinjaboardDatabaseBehaviorPostable extends KDatabaseBehaviorAbstract
 		if(!$forum->isNestable()) return;
 		$forums	= $forum->getParents();
 		if(!$forum->id) {
-			JError::raiseWarning(404, JText::_('No forum id!'));
+			JError::raiseWarning(404, JText::_('COM_NINJABOARD_NO_FORUM_ID'));
 			return false;
 		}
 
@@ -34,7 +34,7 @@ class ComNinjaboardDatabaseBehaviorPostable extends KDatabaseBehaviorAbstract
 
 			if($forum->topic_permissions < 2 && $user->gid < 25) 
 			{
-				JError::raiseWarning(404, JText::_('You\'re not allowed to create topics.'));
+				JError::raiseWarning(404, JText::_('COM_NINJABOARD_YOURE_NOT_ALLOWED_TO_CREATE_TOPICS'));
 				return false;
 			}
 
@@ -59,7 +59,7 @@ class ComNinjaboardDatabaseBehaviorPostable extends KDatabaseBehaviorAbstract
 		{
 			if($forum->post_permissions < 2 && $user->gid < 25)
 			{
-				JError::raiseWarning(404, JText::_('You\'re not allowed to reply topics.'));
+				JError::raiseWarning(404, JText::_('COM_NINJABOARD_YOURE_NOT_ALLOWED_TO_REPLY_TOPICS'));
 				return false;
 			}
 			$topic->replies++;

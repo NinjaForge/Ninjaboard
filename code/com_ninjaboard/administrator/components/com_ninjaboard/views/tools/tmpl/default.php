@@ -16,13 +16,13 @@
 			'icon' => @$img('/256/ninjaboard.png'),
 			'limit' => KRequest::get('get.limit', 'int', 500),
 			'msg'   => array(
-				'success'  => @text('Import complete! Converted {label} in {total}.'),
-				'failure'  => @text('Import failed!'),
-				'timeleft' => @text('timeleft'),
-				'titleleft' => @text('titleleft'),
-				'confirm'	=> @text('Import from {label} now&hellip;'),
-				'imported'	=> @text('{label} imported successfully!'),
-				'warning'  => sprintf(@text("You're about to import from {label}.%sThe imported data will replace any current data.%sMake sure to take a backup on forehand,%s so you can recover if anything goes wrong."), "\n\n", "\n\n", "\n")
+				'success'  => @text('COM_NINJABOARD_IMPORT_COMPLETE_CONVERTED_LABEL_IN_TOTAL'),
+				'failure'  => @text('COM_NINJABOARD_IMPORT_FAILED'),
+				'timeleft' => @text('COM_NINJABOARD_TIMELEFT'),
+				'titleleft' => @text('COM_NINJABOARD_TITLELEFT'),
+				'confirm'	=> @text('COM_NINJABOARD_IMPORT_FROM_LABEL_NOW'),
+				'imported'	=> @text('COM_NINJABOARD_LABEL_IMPORTED_SUCCESSFULLY'),
+				'warning'  => sprintf(@text('COM_NINJABOARD_IMPORTED_DATA_WILL_REPLACE_ANY_CURRENT_DATA'), "\n\n", "\n\n", "\n")
 			)
 		)) ?>);
 	});

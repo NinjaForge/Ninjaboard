@@ -52,7 +52,7 @@ class ComNinjaboardControllerAvatar extends ComNinjaboardControllerAttachment
 			//Check that the person exists, before creating Ninjaboard record
 			$exists = $this->getService('com://site/ninjaboard.model.users')->id($request->id)->getTotal() > 0;
 			if(!$exists) {
-				JError::raiseWarning(404, JText::_('Person not found.'));
+				JError::raiseWarning(404, JText::_('COM_NINJABOARD_PERSON_NOT_FOUND'));
 				return $row;
 			}
 		

@@ -100,7 +100,7 @@ class ComNinjaboardModelTopics extends ComDefaultModelDefault
 		
 		//Build query for the screen names
 		$this->getService('com://admin/ninjaboard.model.people')
-				->buildScreenNameQuery($query, 'last_post_person', 'last_post_user', 'last_post_username', 'IFNULL(last_post.guest_name, \''.JText::_('Anonymous').'\')');
+				->buildScreenNameQuery($query, 'last_post_person', 'last_post_user', 'last_post_username', 'IFNULL(last_post.guest_name, \''.JText::_('COM_NINJABOARD_ANONYMOUS').'\')');
 		
 		if($this->_state->forum)
 		{

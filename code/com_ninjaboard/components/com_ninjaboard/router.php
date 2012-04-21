@@ -52,7 +52,7 @@ class ComNinjaboardRouter
             	static $items;
             	if (!$items) {
             		$component    = JComponentHelper::getComponent('com_ninjaboard');
-            		$menu         = JSite::getMenu();
+            		$menu         = JFactory::getApplication()->getMenu();
             		$items        = $menu->getItems('componentid', $component->id);
             	}
             	if (is_array($items))

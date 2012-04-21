@@ -53,7 +53,6 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
             'column_map' => array(
                 'locked_on'        => 'checked_out_time',
                 'locked_by'        => 'checked_out',
-                'slug'			   => 'alias'
             )
         ));
 
@@ -347,20 +346,5 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
 		}
 	
 		return $this->$cache;
-	}
-
-	/**
-	 * Table delete method
-	 *
-	 * @param  object	A KDatabaseRow object
-	 * @return boolean  TRUE if successfull, otherwise false
-	 */
-	public function delete( KDatabaseRowInterface $row )
-	{
-		
-		
-		parent::delete($row);
-		
-		
 	}
 }

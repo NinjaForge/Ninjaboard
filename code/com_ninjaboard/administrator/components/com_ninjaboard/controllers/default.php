@@ -59,11 +59,11 @@ class ComNinjaboardControllerDefault extends NinjaControllerDefault
     	if($migrated) return;
     	
     	//$this->getService('com://admin/ninjaboard.controller.tool')->execute('import');
-    	//JError::raiseNotice(0, JText::_('In order to get you started with using Ninjaboard, Sample Content was just imported.'));
+    	//JError::raiseNotice(0, JText::_('COM_NINJABOARD_IN_ORDER_TO_GET_YOU_STARTED_WITH_USING_NINJABOARD_SAMPLE_CONTENT_WAS_JUST_IMPORTED'));
     	JError::raiseNotice(0, sprintf(
-    		JText::_('In order to get you started with using Ninjaboard, %s'),
+    		JText::_('COM_NINJABOARD_IN_ORDER_TO_GET_YOU_STARTED_WITH_USING_NINJABOARD'),
     		'<a href="'.JRoute::_('&option=com_ninjaboard&view=tools&shortcut=demo').'">'.
-    		JText::_('import sample content.').
+    		JText::_('COM_NINJABOARD_IMPORT_SAMPLE_CONTENT').
     		'</a>'
     	));
     	
@@ -80,7 +80,7 @@ class ComNinjaboardControllerDefault extends NinjaControllerDefault
 
 		if($table->count($query))
 		{
-			KRequest::set('post.title', $title . ' ' . JText::_('copy'), 'string');
+			KRequest::set('post.title', $title . ' ' . JText::_('COM_NINJABOARD_COPY'), 'string');
 			if((bool) $table->count($table->getDatabase()->getQuery()->where('title', '=', KRequest::get('post.title', 'string'))->where($primaryKey, '!=', $id))) self::setTitle();
 		}
 		
@@ -138,7 +138,7 @@ class ComNinjaboardControllerDefault extends NinjaControllerDefault
 			JFactory::getApplication()->enqueueMessage( 
 				JText::_($text).
 				' <a href="#" id="' . $close . '">[' .
-					JText::_('close') .
+					JText::_('COM_NINJABOARD_CLOSE') .
 				']</a>'
 			);
 			$this->getService('ninja:template.helper.document')->load('js', 

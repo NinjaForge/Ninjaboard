@@ -63,7 +63,7 @@ class ComNinjaboardViewAttachmentFile extends KViewFile
 	 */
 	public function forbidden()
 	{
-		JError::raiseError(403, JText::_("Forbidden. You don't have the permissions to see this attachment."));
+		JError::raiseError(403, JText::_('COM_NINJABOARD_FORBIDDEN_YOU_DONT_HAVE_THE_PERMISSIONS_TO_SEE_THIS_ATTACHMENT'));
 		
 		return false;
 	}
@@ -75,7 +75,7 @@ class ComNinjaboardViewAttachmentFile extends KViewFile
 	 */
 	public function notFound()
 	{
-		JError::raiseError(404, JText::_('Attachment not found.'));
+		JError::raiseError(404, JText::_('COM_NINJABOARD_ATTACHMENT_NOT_FOUND'));
 
 		return false;
 	}

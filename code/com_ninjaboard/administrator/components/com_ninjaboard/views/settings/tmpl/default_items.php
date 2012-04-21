@@ -9,9 +9,9 @@
 	<td><?= $setting->theme ?></td>
 	<td class="grid-center">
 	<? if ($setting->default) : ?>
-		<img src="<?= @$img('/16/star.png') ?>" alt="<?= @text('Default') ?>" />
+		<img src="<?= @$img('/16/star.png') ?>" alt="<?= @text('COM_NINJABOARD_DEFAULT') ?>" />
 	<? else : ?>
-		<img src="<?= @$img('/16/star_off.png') ?>" alt="<?= @text('Default') ?>" />
+		<img src="<?= @$img('/16/star_off.png') ?>" alt="<?= @text('COM_NINJABOARD_DEFAULT') ?>" />
 	<? endif ?>
 	</td>
 	<td class="grid-center"><?= @ninja('grid.toggle', array('enabled' => $setting->enabled)) ?></td>

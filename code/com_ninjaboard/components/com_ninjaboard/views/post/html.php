@@ -34,14 +34,14 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 		}
 		elseif(!$forum->id || $forum->post_permissions < 2)
 		{
-			JError::raiseNotice(401, JText::_("You don't have the permissions to post in this forum."));
+			JError::raiseNotice(401, JText::_('COM_NINJABOARD_YOU_DONT_HAVE_THE_PERMISSIONS_TO_POST_IN_THIS_FORUM'));
 			return;
 		}
 		
 		if(!empty($post->id)) {
 			$title = $post->subject ? $post->subject : $topic->title;
 			$this->_subtitle = $title;
-			$this->title = sprintf(JText::_('Editing post «%s»'), $title);
+			$this->title = sprintf(JText::_('COM_NINJABOARD_EDITING_POST'), $title);
 			if($this->me->id == $post->created_by) {
 				$this->notify = (bool)$this->getService('com://admin/ninjaboard.model.watches')
 																			->by($this->me->id)
@@ -53,7 +53,7 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 			}
 		}  else if($topic->id) {
 			$this->_subtitle = $topic->title;
-			$this->title = sprintf(JText::_('Post Reply to %s in %s'), "'".$topic->title."'", $forum->title);
+			$this->title = sprintf(JText::_('COM_NINJABOARD_POST_REPLY_TO_IN'), "'".$topic->title."'", $forum->title);
 			$this->notify = $this->me->notify_on_reply_topic;
 			
 			$controller	= $this->getService('com://site/ninjaboard.controller.post', array('request' => array('view' => 'posts')))
@@ -88,15 +88,15 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 				->display();
 			 //*/
 		} else {
-			$this->title = $this->_subtitle = sprintf(JText::_('Create New Topic in %s'), $forum->title);
+			$this->title = $this->_subtitle = sprintf(JText::_('COM_NINJABOARD_CREATE_NEW_TOPIC_IN'), $forum->title);
 			$this->notify = $this->me->notify_on_create_topic;
 		}
 
-		if($post->id) $this->create_topic_button_title = JText::_('Save');
-		else $this->create_topic_button_title = JText::_('Submit');
+		if($post->id) $this->create_topic_button_title = JText::_('COM_NINJABOARD_SAVE');
+		else $this->create_topic_button_title = JText::_('COM_NINJABOARD_SUBMIT');
 		$this->create_topic_button = str_replace(array('$title', '$link'), array($this->create_topic_button_title, '#'), $this->params['tmpl']['create_topic_button']);
 		
-		$this->preview_button = str_replace(array('$title', '$link'), array(JText::_('Preview'), '#'), $this->params['tmpl']['create_topic_button']);
+		$this->preview_button = str_replace(array('$title', '$link'), array(JText::_('COM_NINJABOARD_PREVIEW'), '#'), $this->params['tmpl']['create_topic_button']);
 
 		//if($topic->id && !KRequest::get('get.layout', 'cmd', false)) $this->setLayout('default');
 		
@@ -113,8 +113,9 @@ class ComNinjaboardViewPostHtml extends ComNinjaboardViewHtml
 	 */
 	public function setBreadcrumbs()
 	{
-		$pathway	= JFactory::getApplication()->getPathWay();		
-		$menu	 	= JSite::getMenu()->getActive()->query;
+		$app		= JFactory::getApplication();
+		$pathway	= $app->getPathWay();		
+		$menu	 	= $app->getMenu()->getActive()->query;
 		
 		//Checks the view properties first, in case they're already set
 		if(!isset($this->post))

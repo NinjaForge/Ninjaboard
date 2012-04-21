@@ -11,70 +11,70 @@
   <description>Chameleon is a revolutionary new template engine able to camouflage itself into any Joomla! template all by itself.</description>
   
   <form>
-  	<fieldset group="style" legend="Theme Style">
-  		<element name="type" type="radio" default="light" class="group vertical" description="Select wether you have a light or dark overall site design.">
-  			<option value="light">Light</option>
-  			<option value="dark">Dark</option>
+  	<fieldset group="style" legend="COM_NINJABOARD_THEME_STYLE">
+  		<element name="type" label="COM_NINJABOARD_TYPE" type="radio" default="light" class="group vertical" description="COM_NINJABOARD_SELECT_WETHER_YOU_HAVE_A_LIGHT_OR_DARK_OVERALL_SITE_DESIGN">
+  			<option value="light">COM_NINJABOARD_LIGHT</option>
+  			<option value="dark">COM_NINJABOARD_DARK</option>
   		</element>
-  		<element name="border" type="radio" default="norounded" class="group vertical" description="Wether you want rounded borders or not.">
-  			<option value="norounded">Not rounded</option>
-  			<option value="rounded">Rounded</option>
-  			<option value="rounded small-radius">Rounded with lesser radius</option>
+  		<element name="border" label="COM_NINJABOARD_BORDER" type="radio" default="norounded" class="group vertical" description="COM_NINJABOARD_WETHER_YOU_WANT_ROUNDED_BORDERS_OR_NOT">
+  			<option value="norounded">COM_NINJABOARD_NOT_ROUNDED</option>
+  			<option value="rounded">COM_NINJABOARD_ROUNDED</option>
+  			<option value="rounded small-radius">COM_NINJABOARD_ROUNDED_WITH_LESSER_RADIUS</option>
   		</element>
-  		<element name="separators" type="radio" class="group vertical" default="separator-gray">
-  			<option value="separator-gray">Gray</option>
-  			<option value="separator-currentcolor">Separators have the same colors as links</option>
+  		<element name="separators" label="COM_NINJABOARD_SEPARATORS" type="radio" class="group vertical" default="separator-gray">
+  			<option value="separator-gray">COM_NINJABOARD_GRAY</option>
+  			<option value="separator-currentcolor">COM_NINJABOARD_SEPARATORS_HAVE_THE_SAME_COLORS_AS_LINKS</option>
   		</element>
-  		<element name="posts_wrap_style" type="radio" class="group vertical" default="extra" description="Wether to use the same styling as forum blocks or no styling beyond the module style. The default is 'Extra', but if you apply good module styling you likely want to set this to 'Standard'.">
-  		    <option value="standard">Standard</option>
-  			<option value="extra">Extra</option>
+  		<element name="posts_wrap_style" label="COM_NINJABOARD_POSTS_WRAP_STYLE" type="radio" class="group vertical" default="extra" description="COM_NINJABOARD_WETHER_TO_USE_THE_SAME_STYLING_AS_FORUM_BLOCKS_OR_NO_STYLING_BEYOND_THE_MODULE_STYLE_THE_DEFAULT_IS_EXTRA_BUT_IF_YOU_APPLY_GOOD_MODULE_STYLING_YOU_LIKELY_WANT_TO_SET_THIS_TO_STANDARD">
+  		    <option value="standard">COM_NINJABOARD_STANDARD</option>
+  			<option value="extra">COM_NINJABOARD_EXTRA</option>
   		</element>
   	</fieldset>
-  	<fieldset group="module" legend="Module Render Engine">
-  		<element name="style" void="chrome" type="getlist" get="ninja:model.module_chrome" set="client:0;incpath:0;limit:0" label="Module Style" description="Select the module chrome to use for wrapping the blocks" default="rounded" />
-  		<element name="moduleclass_sfx" type="text" void="moduleclasssfx" default="" />
+  	<fieldset group="module" legend="COM_NINJABOARD_MODULE_RENDER_ENGINE">
+  		<element name="style" void="chrome" type="getlist" get="ninja:model.module_chrome" set="client:0;incpath:0;limit:0" label="COM_NINJABOARD_MODULE_STYLE" description="COM_NINJABOARD_SELECT_THE_MODULE_CHROME_TO_USE_FOR_WRAPPING_THE_BLOCKS" default="rounded" />
+  		<element name="moduleclass_sfx" label="COM_NINJABOARD_MODULECLASS_SFX" type="text" void="moduleclasssfx" default="" />
   	</fieldset>
-  	<fieldset group="template" legend="Template">
-  		<element name="general_spacing" type="text" description="The spacing between posts, forums etc" default="10px" />
-  		<element name="toolbar_spacing" type="text" description="The whitespace below or above the toolbar" default="20px" />
+  	<fieldset group="template" legend="COM_NINJABOARD_TEMPLATE">
+  		<element name="general_spacing" label="COM_NINJABOARD_GENERAL_SPACING" type="text" description="COM_NINJABOARD_THE_SPACING_BETWEEN_POSTS_FORUMS_ETC" default="10px" />
+  		<element name="toolbar_spacing" label="COM_NINJABOARD_TOOLBAR_SPACING" type="text" description="COM_NINJABOARD_THE_WHITESPACE_BELOW_OR_ABOVE_THE_TOOLBAR" default="20px" />
   	</fieldset>
-  	<fieldset group="tmpl" legend="Element Templates">
-  		<element name="new_topic_button" type="textarea" default="&lt;a href=&quot;$link&quot; class=&quot;readon readmore button&quot; rel=&quot;nofollow&quot;&gt;&lt;span&gt;$title&lt;/span&gt;&lt;/a&gt;" class ="value required" size="60" />
-  		<element name="create_topic_button" type="textarea" default="&lt;a href=&quot;$link&quot; class=&quot;readon readmore button&quot;&gt;&lt;span&gt;$title&lt;/span&gt;&lt;/a&gt;" class ="value required" size="60" />
-  		<element name="cancel_button" type="textarea" default="&lt;a href=&quot;#&quot;&gt;$title&lt;/a&gt;" class ="value required" size="60" />
+  	<fieldset group="tmpl" legend="COM_NINJABOARD_ELEMENT_TEMPLATES">
+  		<element name="new_topic_button" label="COM_NINJABOARD_NEW_TOPIC_BUTTON" type="textarea" default="&lt;a href=&quot;$link&quot; class=&quot;readon readmore button&quot; rel=&quot;nofollow&quot;&gt;&lt;span&gt;$title&lt;/span&gt;&lt;/a&gt;" class ="value required" size="60" />
+  		<element name="create_topic_button" label="COM_NINJABOARD_CREATE_TOPIC_BUTTON" type="textarea" default="&lt;a href=&quot;$link&quot; class=&quot;readon readmore button&quot;&gt;&lt;span&gt;$title&lt;/span&gt;&lt;/a&gt;" class ="value required" size="60" />
+  		<element name="cancel_button" label="COM_NINJABOARD_CANCEL_BUTTON" type="textarea" default="&lt;a href=&quot;#&quot;&gt;$title&lt;/a&gt;" class ="value required" size="60" />
   	</fieldset>
   	
-  	<fieldset group="view_settings" legend="View Settings" description="Parameters for individual View Configuration">
-  		<element name="displayed_elements" type="check" class="group vertical">
-  			<option value="showtopics">Latest Topics</option>
+  	<fieldset group="view_settings" legend="COM_NINJABOARD_VIEW_SETTINGS" description="Parameters for individual View Configuration">
+  		<element name="displayed_elements" label="COM_NINJABOARD_DISPLAYED_ELEMENTS" type="check" class="group vertical">
+  			<option value="showtopics">COM_NINJABOARD_LATEST_TOPICS</option>
   		</element>
-  		<element name="display_name" type="radio" default="username" class="group vertical">
-  			<option value="username">Username</option>
-  			<option value="name">Real name</option>
+  		<element name="display_name" label="COM_NINJABOARD_DISPLAY_NAME" type="radio" default="username" class="group vertical">
+  			<option value="username">COM_NINJABOARD_USERNAME</option>
+  			<option value="name">COM_NINJABOARD_REAL_NAME</option>
   		</element>
-  		<element name="change_display_name" type="radio" default="custom" class="group vertical">
-  			<option value="custom">Users can set custom screen names.</option>
-  			<option value="yes">Users decide which display name to use but not make a custom one.</option>
-  			<option value="no">Not allowed</option>
+  		<element name="change_display_name" label="COM_NINJABOARD_CHANGE_DISPLAY_NAME" type="radio" default="custom" class="group vertical">
+  			<option value="custom">COM_NINJABOARD_USERS_CAN_SET_CUSTOM_SCREEN_NAMES</option>
+  			<option value="yes">COM_NINJABOARD_USERS_DECIDE_WHICH_DISPLAY_NAME_TO_USE_BUT_NOT_MAKE_A_CUSTOM_ONE</option>
+  			<option value="no">COM_NINJABOARD_NOT_ALLOWED</option>
   		</element>
-  		<element name="forums_title" type="genericlist" default="raw">
-  			<option value="linkable">is linkable</option>
-  			<option value="raw">not linkable</option>
-  			<option value="permalink">not linkable, render "[permalink]" below instead</option>
+  		<element name="forums_title" label="COM_NINJABOARD_FORUMS_TITLE" type="genericlist" default="raw">
+  			<option value="linkable">COM_NINJABOARD_IS_LINKABLE</option>
+  			<option value="raw">COM_NINJABOARD_NOT_LINKABLE</option>
+  			<option value="permalink">COM_NINJABOARD_NOT_LINKABLE_RENDER_PERMALINK_BELOW_INSTEAD</option>
   		</element>
-  		<element name="pagination" label="Pagination Style" type="radio" default="core" class="group vertical" description="The custom Ninjaboard pagination style might not work well in all sites and vice versa.">
-  			<option value="core">Joomla! core</option>
-  			<option value="ninjaboard">Ninjaboard custom</option>
+  		<element name="pagination" label="COM_NINJABOARD_PAGINATION_STYLE" type="radio" default="core" class="group vertical" description="COM_NINJABOARD_THE_CUSTOM_NINJABOARD_PAGINATION_STYLE_MIGHT_NOT_WORK_WELL_IN_ALL_SITES_AND_VICE_VERSA">
+  			<option value="core">COM_NINJABOARD_JOOMLA_CORE</option>
+  			<option value="ninjaboard">COM_NINJABOARD_NINJABOARD_CUSTOM</option>
   		</element>
-  		<element name="topic_layout" label="Topic Layout" type="radio" default="minimal" class="group vertical" description="How you want your topic layout to be like..">
-  			<option value="classic">Pagination and toolbar both top and bottom.</option>
-  			<option value="minimal">Toolbar top and pagination bottom.</option>
+  		<element name="topic_layout" label="COM_NINJABOARD_TOPIC_LAYOUT" type="radio" default="minimal" class="group vertical" description="COM_NINJABOARD_HOW_YOU_WANT_YOUR_TOPIC_LAYOUT_TO_BE_LIKE">
+  			<option value="classic">COM_NINJABOARD_PAGINATION_AND_TOOLBAR_BOTH_TOP_AND_BOTTOM</option>
+  			<option value="minimal">COM_NINJABOARD_TOOLBAR_TOP_AND_PAGINATION_BOTTOM</option>
   		</element>
-  		<element name="new_topic_button" type="radio" default="forum" description="Where to see the new topic button." class="group vertical">
-  			<option value="topic">Button visible both on forum pages and from a topic.</option>
-  			<option value="forum">Button only visible on forum pages.</option>
+  		<element name="new_topic_button" label="COM_NINJABOARD_NEW_TOPIC_BUTTON" type="radio" default="forum" description="COM_NINJABOARD_WHERE_TO_SEE_THE_NEW_TOPIC_BUTTON">
+  			<option value="topic">COM_NINJABOARD_BUTTON_VISIBLE_BOTH_ON_FORUM_PAGES_AND_FROM_A_TOPIC</option>
+  			<option value="forum">COM_NINJABOARD_BUTTON_ONLY_VISIBLE_ON_FORUM_PAGES</option>
   		</element>
-  		<element name="lightbox" type="text" description="The lightbox identifier used in post image uploads rel attribute. It's usually lightbox." default="lightbox" />
+  		<element name="lightbox" label="COM_NINJABOARD_LIGHTBOX" type="text" description="COM_NINJABOARD_THE_LIGHTBOX_IDENTIFIER_USED_IN_POST_IMAGE_UPLOADS_REL_ATTRIBUTE_ITS_USUALLY_LIGHTBOX" default="lightbox" />
   	</fieldset>
   </form>
 </install>

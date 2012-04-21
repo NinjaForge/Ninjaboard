@@ -54,11 +54,11 @@ class ComNinjaboardDatabaseRowPerson extends KDatabaseRowDefault
 				$table	= $this->getTable();
 				$query	= $table->getDatabase()->getQuery();
 
-
+				$gid = (version_compare(JVERSION,'1.6.0','ge') && !$this->gid) ? 1 : $this->gid;
 
 				$query->select("joomla_map.ninjaboard_gid AS ninjaboard_usergroup_id")
 					 	->from('ninjaboard_joomla_user_group_maps AS joomla_map')
-					  	->where('joomla_map.joomla_gid', '=', (int)$this->gid)
+					  	->where('joomla_map.joomla_gid', '=', (int)$gid)
 					  	->where('joomla_map.ninjaboard_gid', '!=', 0)
 					  	->limit(1);
 
@@ -91,7 +91,7 @@ class ComNinjaboardDatabaseRowPerson extends KDatabaseRowDefault
 				$gids	= explode('|', $this->ninjaboard_usergroup_id);
 
 				//If super admin, then the permission level is always 3
-				if($this->gid == 25) return $this->_permissions[$object] = 3;
+				if($this->gid == 25 || $this->gid == 8) return $this->_permissions[$object] = 3;
 				
 				$query
 						->select('tbl.level')

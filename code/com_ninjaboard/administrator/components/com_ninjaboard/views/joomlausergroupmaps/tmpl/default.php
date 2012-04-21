@@ -41,23 +41,23 @@
 	<? if(KRequest::get('get.tmpl', 'cmd') == 'component') : ?>
 		<fieldset style="border-radius: 3px;" id="toolbar-joomlausergroupmaps">
 			<div style="float: right">
-				<button type="submit" name="save"><?= @text('Save') ?></button>
+				<button type="submit" name="save"><?= @text('COM_NINJABOARD_SAVE') ?></button>
 			</div>
 			<div class="configuration"><?= @text(KInflector::humanize($this->getView()->getName())) ?></div>
 			<input type="hidden" name="action" value="edit" />
 			<input type="hidden" name="tmpl" value="component" />
 		</fieldset>
 	<? endif ?>
-	<h3 style="text-align: center;"><?= @text("Drag the points to change the mapping.") ?></h3>
+	<h3 style="text-align: center;"><?= @text('COM_NINJABOARD_DRAG_THE_POINTS_TO_CHANGE_THE_MAPPING') ?></h3>
 	<div style="width:100%;text-align:center;">
 		<div class="map-wrapper" onselectstart="return false;" style="-moz-user-select: none;">
 			<div class="map-points-from">
 				<ul style="margin-right:25%;text-align:right;" id="<?= @id('points-from') ?>">
 				    <? $i = 0; $fallback = current($usergroups->getData()) ?>
 
-				    <? if (!JVersion::isCompatible('1.6.0')) : ?>
+				    <? if (!version_compare(JVERSION,'1.6.0','ge')) : ?>
 					    <li class="map" id="<?= @id('points-from-0') ?>">
-					    	<h1><?= @text('Unregistered') ?></h1>
+					    	<h1><?= @text('COM_NINJABOARD_UNREGISTERED') ?></h1>
 					    	<? $value = isset($maps[0]) ? $maps[0] : null ?>
 					    	<input type="hidden" name="group[0]" id="group<?= (int) $i++ ?>" value="<?= $value ? $value : $fallback['id'] ?>" />
 					    </li>
@@ -88,7 +88,7 @@
 	</div>
 
 	<div class="clr"></div>
-	<h5 style="text-align: center;"><?= @text("Note: Super Administrators will always have full permissions and no access restrictions throughout Ninjaboard") ?></h5>
+	<h5 style="text-align: center;"><?= @text('COM_NINJABOARD_NOTE_SUPER_ADMINISTRATORS_WILL_ALWAYS_HAVE_FULL_PERMISSIONS_AND_NO_ACCESS_RESTRICTIONS_THROUGHOUT_NINJABOARD') ?></h5>
 	<? if(KRequest::get('get.tmpl', 'cmd') == 'component') : ?>
 		<input type="hidden" name="tmpl" value="component" />
 	<? endif ?>

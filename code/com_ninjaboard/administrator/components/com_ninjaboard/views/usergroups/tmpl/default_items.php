@@ -85,7 +85,7 @@
 		<? $permissions = $this->getService($this->getService($this->getView())->getModel())->getPermissions((int)$usergroup->id) ?>
 		<? if (count($permissions) < 1) : ?>
 			<td colspan="4">
-				<?= @text('This usergroup doesn\'t have any permissions defined.') ?>
+				<?= @text('COM_NINJABOARD_THIS_USERGROUP_DOESNT_HAVE_ANY_PERMISSIONS_DEFINED') ?>
 			</td>
 		<? else : ?>
 			<? foreach ($columns as $column => $title) : ?>
@@ -97,7 +97,7 @@
 						<span class="level"><?= @text($this->getService('ninja:template.helper.access')->getlevel($permission->level)) ?></span>
 					</span>
 				<? else : ?>
-					<?= sprintf(@text('%s is undefined.'), $title) ?>
+					<?= sprintf(@text('COM_NINJABOARD_IS_UNDEFINED'), $title) ?>
 				<? endif ?>
 				</td>
 			<? endforeach ?>

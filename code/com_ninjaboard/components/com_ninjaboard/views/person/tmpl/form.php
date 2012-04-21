@@ -61,13 +61,13 @@
 	<form action="<?= @route('id='.$person->id) ?>" method="post" id="<?= @id() ?>" class="ninjaboard" enctype="multipart/form-data">
 		<fieldset class="ninja-form outer">
 			<fieldset>
-				<!--<legend><?= @text('Profile') ?></legend>-->
-				<h2><?= @text('Profile') ?></h2>
+				<!--<legend><?= @text('COM_NINJABOARD_PROFILE') ?></legend>-->
+				<h2><?= @text('COM_NINJABOARD_PROFILE') ?></h2>
 				
 				<? if($params['avatar_settings']['enable_avatar']) : ?>
 				<div class="element avatar">
 					<label class="key">
-						<?= @text("Avatar") ?>
+						<?= @text('COM_NINJABOARD_AVATAR') ?>
 					</label>
 					<?= @helper('com://site/ninjaboard.template.helper.avatar.image', array(
 						'id'		=> $person->id,
@@ -75,8 +75,8 @@
 					)) ?>
 					
 					<span class="avatar options">
-						<a href="#" class="change-image"><?= @text('Change image') ?></a>
-						<a href="#" class="delete-image"><?= @text('Delete this image') ?></a>
+						<a href="#" class="change-image"><?= @text('COM_NINJABOARD_CHANGE_IMAGE') ?></a>
+						<a href="#" class="delete-image"><?= @text('COM_NINJABOARD_DELETE_THIS_IMAGE') ?></a>
 					</span>
 					
 					<span class="avatar upload">
@@ -87,28 +87,28 @@
 								<?= @helper('com://site/ninjaboard.template.helper.avatar.extensions') ?>
 							</span>
 						</small>
-						<a href="#" class="cancel-upload"><?= @text('Cancel upload') ?></a>
+						<a href="#" class="cancel-upload"><?= @text('COM_NINJABOARD_CANCEL_UPLOAD') ?></a>
 					</span>
 					
 					<span class="avatar delete">
-						<strong><?= @text("Click save if you're sure you want to delete this picture.") ?></strong>
+						<strong><?= @text('COM_NINJABOARD_CLICK_SAVE_IF_YOURE_SURE_YOU_WANT_TO_DELETE_THIS_PICTURE') ?></strong>
 						<input type="hidden" name="avatar" disabled="disabled" />
-						<a href="#" class="cancel-delete"><?= @text('Do not delete this image.') ?></a>
+						<a href="#" class="cancel-delete"><?= @text('COM_NINJABOARD_DO_NOT_DELETE_THIS_IMAGE') ?></a>
 					</span>
 				</div>
 				<? endif ?>
 				
 				<div class="element">
 					<label class="key" for="signature">
-						<?= @text("Signature") ?>
+						<?= @text('COM_NINJABOARD_SIGNATURE') ?>
 					</label>
-					<textarea name="signature" id="signature" placeholder="<?= @text('This is your forum signature…') ?>" class="value"><?= @escape($person->signature) ?></textarea>
+					<textarea name="signature" id="signature" placeholder="<?= @text('COM_NINJABOARD_THIS_IS_YOUR_FORUM_SIGNATURE') ?>" class="value"><?= @escape($person->signature) ?></textarea>
 				</div>
 			</fieldset>
 			
 			<? if($params->view_settings->change_display_name != 'no') : ?>
 			<fieldset>
-				<h2><?= @text('Visibility') ?></h2>
+				<h2><?= @text('COM_NINJABOARD_VISIBILITY') ?></h2>
 				
 					<? if($params->view_settings->change_display_name == 'yes') : ?>
 						<?= @template('form_change_display_name') ?>
@@ -121,14 +121,14 @@
 			
 			<? if($params->email_notification_settings->enable_email_notification) : ?>
 			<fieldset>
-				<h2><?= @text('Email Notifications') ?></h2>
+				<h2><?= @text('COM_NINJABOARD_EMAIL_NOTIFICATIONS') ?></h2>
 				<div class="element">
 					<div class="key">
 						<input type="hidden" name="notify_on_create_topic" value="0" />
 						<input type="checkbox" name="notify_on_create_topic" <? if($person->notify_on_create_topic) echo 'checked' ?> id="notify_on_create_topic" value="1" />
 					</div>
 					<label for="notify_on_create_topic">
-						<?= @text('Subscribe to threads I create') ?>
+						<?= @text('COM_NINJABOARD_SUBSCRIBE_TO_THREADS_I_CREATE') ?>
 					</label>
 				</div>
 				<div class="element">
@@ -137,7 +137,7 @@
 						<input type="checkbox" name="notify_on_reply_topic" <? if($person->notify_on_reply_topic) echo 'checked' ?> id="notify_on_reply_topic" value="1" />
 					</div>
 					<label for="notify_on_reply_topic">
-						<?= @text('Subscribe to threads I reply to') ?>
+						<?= @text('COM_NINJABOARD_SUBSCRIBE_TO_THREADS_I_REPLY_TO') ?>
 					</label>
 				</div>
 				<? if($params->messaging_settings->enable_messaging) : ?>
@@ -147,7 +147,7 @@
 						<input type="checkbox" name="notify_on_private_message" <? if($person->notify_on_private_message) echo 'checked' ?> id="notify_on_private_message" value="1" />
 					</div>
 					<label for="notify_on_private_message">
-						<?= @text('Notify me when I receive a private message') ?>
+						<?= @text('COM_NINJABOARD_NOTIFY_ME_WHEN_I_RECEIVE_A_PRIVATE_MESSAGE') ?>
 					</label>
 				</div>
 				<? endif ?>
@@ -160,7 +160,7 @@
 						<?= $save_button ?>
 					</div>
 					&#160;
-					<div id="<?= @id('cancel') ?>"><?= str_replace('$title', @text('Cancel'), $params['tmpl']['cancel_button']) ?></div>
+					<div id="<?= @id('cancel') ?>"><?= str_replace('$title', @text('COM_NINJABOARD_CANCEL'), $params['tmpl']['cancel_button']) ?></div>
 				</div>
 			</div>
 		</fieldset>

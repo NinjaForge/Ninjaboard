@@ -6,7 +6,7 @@
 	<td><?= @helper('grid.checkbox', array('row' => $iconset)) ?></td>
 	<td><?= $iconset->name ?></td>
 	<td align="center"><?= $iconset->version ?></td>
-	<td><?= @$date->_strftime(@text('DATE_FORMAT_LC'), @$date->toUnix($iconset->creationdate)) ?></td>
+	<td><?= @$date->_strftime(@text('COM_NINJABOARD_DATE_FORMAT_LC'), @$date->toUnix($iconset->creationdate)) ?></td>
 	<td><a href="http://<?= $iconset->authorurl ?>"><?= $iconset->author ?></a></td>
 </tr>
 <? endforeach ?>

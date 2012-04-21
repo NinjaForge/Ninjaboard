@@ -19,7 +19,7 @@ ninja(function($){
 		<input type="radio" name="which_name" <? if($which_name == 'username') echo 'checked' ?> id="username" value="username" />
 	</div>
 	<label for="username">
-		<?= sprintf(@text('Replace my screen name with my username (%s)'), $person->username) ?>
+		<?= sprintf(@text('COM_NINJABOARD_REPLACE_MY_SCREEN_NAME_WITH_MY_USERNAME'), $person->username) ?>
 	</label>
 </div>
 <div class="element which_name-name">
@@ -27,7 +27,7 @@ ninja(function($){
 		<input type="radio" name="which_name" <? if($which_name == 'name') echo 'checked' ?> id="name" value="name" />
 	</div>
 	<label for="name">
-		<?= sprintf(@text('Replace my screen name with my real name (%s)'), $person->name) ?>
+		<?= sprintf(@text('COM_NINJABOARD_REPLACE_MY_SCREEN_NAME_WITH_MY_REAL_NAME'), $person->name) ?>
 	</label>
 </div>
 <div class="element which_name-alias">
@@ -35,7 +35,7 @@ ninja(function($){
 		<input type="radio" name="which_name" <? if($which_name == 'alias') echo 'checked' ?> id="use_alias" value="alias" />
 	</div>
 	<label for="alias">
-		<?= @text('Replace my screen name with') ?> 
+		<?= @text('COM_NINJABOARD_REPLACE_MY_SCREEN_NAME_WITH') ?> 
 	</label>
-	<input type="text" name="alias" id="alias" placeholder="<?= @escape(@text('what I type in here…')) ?>" class="value" value="<?= @escape($person->alias) ?>" />
+	<input type="text" name="alias" id="alias" placeholder="<?= @escape(@text('COM_NINJABOARD_WHAT_I_TYPE_IN_HERE')) ?>" class="value" value="<?= @escape($person->alias) ?>" />
 </div>

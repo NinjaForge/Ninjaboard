@@ -164,7 +164,7 @@ class ComNinjaboardModelWatches extends ComDefaultModelDefault
 			{
 				//@TODO speed this up by adding it as a db column
 				$item->modified_by = false;
-				$item->modified_name = JText::_('n/a');
+				$item->modified_name = JText::_('COM_NINJABOARD_NA');
 				
 				if($item->subscription_type == $types['forum'])
 				{

@@ -34,12 +34,12 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		}
 		elseif(!$this->topic->id)
 		{
-			JError::raiseError(404, JText::_("Topic not found."));
+			JError::raiseError(404, JText::_('COM_NINJABOARD_TOPIC_NOT_FOUND'));
 			return;
 		}
 		elseif(!$this->forum->id)
 		{
-			JError::raiseError(404, JText::_("Forum not found."));
+			JError::raiseError(404, JText::_('COM_NINJABOARD_FORUM_NOT_FOUND'));
 			return;
 		}
 		
@@ -48,17 +48,17 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		//if($this->topic->id && !KRequest::get('get.layout', 'cmd', false)) $this->setLayout('default');
 
 		$state	= $this->getModel()->getState();
-		//$limit	= $state->limit ? $state->limit : 6;
+		$limit	= $state->limit ? $state->limit : 6;
 		$offset	= $this->getService('com://site/ninjaboard.model.posts')
 						->topic($this->topic->id)
 						->post($state->post)
-						->limit(0)
+						->limit($limit)
 						->getOffset();
 		$offset = KRequest::get('get.offset', 'int', $offset);
 		//This is used to set the canonical link correctly in the topic controller after.read
 		//@TODO move all this logic out of the view in 1.2
 		//@TODO this is causing the getItem returned in the layout to be different than in this view
-		$this->getModel()->set(array('limit' => 0, 'offset' => $offset));		
+		$this->getModel()->set(array('limit' => $limit, 'offset' => $offset));		
 
         $controller = $this->getService('com://site/ninjaboard.controller.post');
         $test = $controller->getModel();
@@ -83,7 +83,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 			    //->setModel($this->getService('com://site/ninjaboard.model.posts')->setAcl(false))
 
 				->sort('created_on')
-				->limit(0)
+				->limit($limit)
 				->offset($offset)
 				->post(false)
 				->topic($this->topic->id)
@@ -95,7 +95,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		{
 			$this->new_topic_button = '<div class="new-topic">'.str_replace(
 				array('$title', '$link'), 
-				array(JText::_('New Topic'), $this->createRoute('view=post&forum='.$this->forum->id)), 
+				array(JText::_('COM_NINJABOARD_NEW_TOPIC'), $this->createRoute('view=post&forum='.$this->forum->id)), 
 				$this->forum->params['tmpl']['new_topic_button']
 			).'</div>';
 		}
@@ -105,7 +105,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		{
     		$button = str_replace(
     			array('$title', '$link'), 
-    			array(JText::_('Reply topic'), $this->createRoute('view=post&topic='.$this->topic->id)), 
+    			array(JText::_('COM_NINJABOARD_REPLY_TOPIC'), $this->createRoute('view=post&topic='.$this->topic->id)), 
     			$this->forum->params['tmpl']['new_topic_button']
     		);
 		}
@@ -121,7 +121,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 			$this->lock_topic_button = $this->_createActionButton('lock', 'Lock topic', $this->topic->id, 'lock');
 			$this->move_topic_button = str_replace(
 				array('$title', '$link'), 
-				array(JText::_('Move topic'), $this->createRoute('view=topic&layout=move&id='.$this->topic->id)), 
+				array(JText::_('COM_NINJABOARD_MOVE_TOPIC'), $this->createRoute('view=topic&layout=move&id='.$this->topic->id)), 
 				$this->forum->params['tmpl']['new_topic_button']
 			);
 			$this->delete_topic_button = $this->_createActionButton('delete', 'Delete topic', $this->topic->id, 'trash');
@@ -171,7 +171,7 @@ class ComNinjaboardViewTopicHtml extends ComNinjaboardViewHtml
 		}
 		$pathway->addItem($this->forum->title, $this->createRoute('view=forum&id='.$this->forum->id));
 		
-		$pathway->addItem($this->topic->subject ? $this->topic->subject : JText::_('New Topic'), $this->createRoute('view=topic&id='.$this->topic->id));
+		$pathway->addItem($this->topic->subject ? $this->topic->subject : JText::_('COM_NINJABOARD_NEW_TOPIC'), $this->createRoute('view=topic&id='.$this->topic->id));
 	}
 	
 	private function _createActionButton($action, $title, $id, $symbol = '&#8986;')

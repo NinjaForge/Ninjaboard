@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE metadata>
 <metadata>
-	<layout title="Edit Profile">
-		<message>Profile edit form, letting the logged in user upload an avatar, set forum signature and more.</message>
+	<layout title="COM_NINJABOARD_EDIT_PROFILE">
+		<message>COM_NINJABOARD_EDIT_PROFILE_DESC</message>
 	</layout>
 
 	<!-- @group j!1.5 -->
 	<state>
-		<name>Edit Profile</name>
-		<description>Profile edit form, letting the logged in user upload an avatar, set forum signature and more.</description>
+		<name>COM_NINJABOARD_EDIT_PROFILE</name>
+		<description>COM_NINJABOARD_EDIT_PROFILE_DESC</description>
 		<params>
 			<param name="deleteme" type="napi" ninja="void" />
-			<param name="ninjaboard_setting_id" type="getlist" get="com://admin/ninjaboard.model.settings" label="Setting" description="Choose a predefined setting from the Ninjaboard Settings.">
-				<option>- Use default -</option>
+			<param name="ninjaboard_setting_id" type="getlist" get="com://admin/ninjaboard.model.settings" label="COM_NINJABOARD_SETTING" description="COM_NINJABOARD_CHOOSE_SETTING">
+				<option>- COM_NINJABOARD_USE_DEFAULT -</option>
 			</param>
 		</params>
 	</state>
 	<!-- @end -->
 	
 	<!-- @group j!1.6 -->
-	<fields name="params" addfieldpath="/administrator/components/com_ninja/overrides">
-		<fieldset name="basic" label="Basic Options">
-				<field name="deleteme" type="napi" ninja="void" />
+	<fields name="params" addfieldpath="/administrator/components/com_ninja/forms/fields">
+		<fieldset name="basic" label="COM_NINJABOARD_BASIC_OPTIONS">
+				<field name="ninjaboard_setting_id" type="listbox" model="com://admin/ninjaboard.model.settings" label="COM_NINJABOARD_SETTING" description="COM_NINJABOARD_CHOOSE_SETTING." deselect="COM_NINJABOARD_USE_DEFAULT">
+				</field>
 		</fieldset>
 	</fields>
 	<!-- @end -->

@@ -201,6 +201,6 @@ class ComNinjaboardDatabaseConvertersCcboard extends ComNinjaboardDatabaseConver
 	 */
 	public function getTitle()
 	{
-		return 'ccBoard';
+		return JText::_('COM_NINJABOARD_SAMPLE_CCBOARD');
 	}
 }
