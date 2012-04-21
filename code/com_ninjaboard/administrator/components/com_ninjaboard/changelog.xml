@@ -13,6 +13,7 @@
 		<log>"Show Usergroup" option deprecated. If it's desired not to display any usergroup information for a user then you do that by setting each usergroup to Visibility = Hidden.</log>
 		<log>Upgraded codebase to take advantage of Nooku Framework 12.1</log>
         <upgrade>Tweaked installation screent in order to be less confusing</upgrade>
+        <bugfix>Correctly show what was installed in the installation list</bugfix>
     </state>
 
     <version>1.1.6</version>

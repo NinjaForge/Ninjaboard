@@ -22,8 +22,8 @@
                 - Stable        #009199
     -->
     <version status="Beta" color="red">2.0</version>
-    <revision>2521</revision>
-    <description>COM_NINJABOARD_THE_SHARPEST_USER_FORUM</description>
+    <revision>2522</revision>
+    <description>The sharpest user forum</description>
     <credits>
         <a href="http://www.joomlaworks.gr/">SMF converter, Vanity URLs, Private Messaging sponsored by JoomlaWorks</a>
         <a href="http://www.joomlacontenteditor.net/">phpBB3 converter sponsored by JCE</a>

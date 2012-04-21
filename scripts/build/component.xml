@@ -62,16 +62,16 @@
 		
 		<mkdir dir="${build.tmpdir}/packages" />
 		
-		<!-- Package com_ninja and plg_system_ninja -->
+		<!-- Package plg_ninja -->
 		<move file="${build.tmpdir}/napi/administrator/components/com_ninja/manifest.xml" tofile="${build.tmpdir}/napi/manifest.xml" />
-		<zip destfile="${build.tmpdir}/packages/com_ninja.zip">
-			<fileset dir="${build.tmpdir}/napi">
-				<exclude name="plugins/**" />
-			</fileset>
+		<zip destfile="${build.tmpdir}/packages/plg_ninja.zip">
+			<fileset dir="${build.tmpdir}/napi/plugins/system/" />
 		</zip>
 		<mkdir dir="${build.tmpdir}/ninja" />
 		<copy todir="${build.tmpdir}/ninja" >
-		  <fileset dir="${build.tmpdir}/napi/plugins/system/" />
+		 	<fileset dir="${build.tmpdir}/napi">
+				<exclude name="plugins/**" />
+			</fileset>
 		</copy>
 		<delete dir="${build.tmpdir}/napi" includeemptydirs="true" />
 		
