@@ -53,7 +53,6 @@ class ComNinjaboardDatabaseTableForums extends KDatabaseTableDefault
             'column_map' => array(
                 'locked_on'        => 'checked_out_time',
                 'locked_by'        => 'checked_out',
-                'slug'			   => 'alias'
             )
         ));
 

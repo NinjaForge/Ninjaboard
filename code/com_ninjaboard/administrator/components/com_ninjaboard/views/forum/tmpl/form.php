@@ -29,7 +29,7 @@
 			</div>
 			<div class="element">
 				<label for="alias" class="key"><?= @text('COM_NINJABOARD_ALIAS') ?></label>
-				<input type="text" name="alias" id="alias" class="inputbox required validate-no-space value" size="50" value="<?= @$forum->slug ?>" maxlength="150" />
+				<input type="text" name="alias" id="alias" class="inputbox required validate-no-space value" size="50" value="<?= @$forum->alias ?>" maxlength="150" />
 			</div>
 			<div class="element">
 				<label for="description" class="key"><?= @text('COM_NINJABOARD_DESCRIPTION') ?></label>

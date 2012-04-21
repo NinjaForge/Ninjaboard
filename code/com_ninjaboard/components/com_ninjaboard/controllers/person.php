@@ -203,6 +203,6 @@ class ComNinjaboardControllerPerson extends ComNinjaboardControllerAbstract
 	 */
 	public function redirect(KCommandContext $context)
 	{
-		$this->setRedirect('index.php?option=com_ninjaboard&view=person&id='.$this->getModel()->getItem()->id, $this->_redirect_message);
+		$this->setRedirect('index.php?option=com_ninjaboard&view=person&id='.$this->getRequest()->id, $this->_redirect_message);
 	}
 }
