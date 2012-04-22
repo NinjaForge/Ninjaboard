@@ -22,7 +22,7 @@
                 - Stable        #009199
     -->
     <version status="Beta" color="red">2.0</version>
-    <revision>2522</revision>
+    <revision>2523</revision>
     <description>The sharpest user forum</description>
     <credits>
         <a href="http://www.joomlaworks.gr/">SMF converter, Vanity URLs, Private Messaging sponsored by JoomlaWorks</a>
@@ -161,6 +161,7 @@
         -->
     <deleted>
         <admin>
+            <file revision="2523">views/forums/html.php</file>
             <file>views/json.php</file>
             <file>views/users/html.php</file>
             <file>controllers/toolbars/menubar.php</file>
@@ -338,6 +339,8 @@
             <file>views/usersync.php</file>
         </admin>
         <site>
+            <file revision="2523">views/post/bbcode.js</file>
+            <file revision="2523">views/post/tmpl/preview.php</file>
             <file revision="2285">htaccess.txt</file>
             <folder revision="2284">iconsets</folder>
             <folder revision="2283">commands</folder>
