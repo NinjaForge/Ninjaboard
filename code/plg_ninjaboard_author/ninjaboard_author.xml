@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="content" method="upgrade">
+    <name>Ninjaboard Author</name>
+    <author>NinjaForge</author>
+    <creationDate>April 2012</creationDate>
+   <copyright>Copyright NinjaForge. All rights reserved.</copyright>
+    <license>GNU/GPL</license>
+    <csslicense>CC-BY</csslicense>
+    <jslicense>MIT</jslicense>
+    <authorurl>ninjaforge.com</authorurl>
+    <version>1.0</version>
+    <description>PLG_NINJABOARD_AUTHOR_DESCRIPTION</description>
+    <files>
+        <filename plugin="ninjaboard_author">ninjaboard_author.php</filename>
+    </files>
+
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.com_ninjaboard.ini</language>
+    <languages>
+</install>
