@@ -14,7 +14,11 @@
         <filename plugin="ninjaboard_author">ninjaboard_author.php</filename>
     </files>
 
-    <languages folder="language">
-        <language tag="en-GB">en-GB/en-GB.com_ninjaboard.ini</language>
-    <languages>
+    <languages folder="languages">
+        <language tag="en-GB">en-GB/en-GB.plg_content_ninjaboard_author.ini</language>
+    </languages>
+
+    <params>
+        <param type="menuitem" name="itemid" title="PLG_NINJABOARD_AUTHOR_ITEMID" description="PLG_NINJABOARD_AUTHOR_SELECT_DESIRED_ITEMID" />
+    </params>
 </install>

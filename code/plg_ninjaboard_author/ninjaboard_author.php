@@ -47,9 +47,9 @@ class plgContentNinjaboard_Author extends JPlugin
 					background-position:center
 				}'
 			);
-			$profile = JRoute::_('&option=com_ninjaboard&view=person&id='.$user->id);
+			$profile = JRoute::_('&option=com_ninjaboard&view=person&id='.$user->id.'&Itemid='.$this->params->get('itemid'));
 
-			$person		= KService::get('com://admin/lfnews.model.people')->id($user->id)->getItem();
+			$person		= KService::get('com://site/ninjaboard.model.people')->id($user->id)->getItem();
 			$avatar_on	= new DateTime($person->avatar_on);
 			$cache		= (int)$avatar_on->format('U');
 			$u =& JURI::getInstance( JURI::base() );
@@ -58,7 +58,7 @@ class plgContentNinjaboard_Author extends JPlugin
 
 			$html .= '<div id="ninjaboard_author_avatar" class="clearfix">';
 				$html .= '<div class="avatar">';
-					$html .= KService::get('com://admin/ninjaboard.template.helper.avatar')->image(array('id'	=> $user->id));
+					$html .= KService::get('com://site/ninjaboard.template.helper.avatar')->image(array('id'	=> $user->id));
 				$html .= '</div>';
 				$html .= '<h1><a href="'.$profile.'" itemprop="author">'.$user->name.'</a></h1>';
 			$html .= '</div>';
