@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE metadata>
 <metadata>
-	<view title="Forums">
-		<message>Renders top level forums in a list.</message>
+	<view title="COM_NINJABOARD_FORUMS">
+		<message>COM_NINJBOARD_RENDERS_TOP_LEVEL_LIST</message>
 	</view>
 </metadata>

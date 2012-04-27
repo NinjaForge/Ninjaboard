@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE metadata>
 <metadata>
-	<view title="Profile">
-		<message>View or edit the profile of a person.</message>
+	<view title="COM_NINJABOARD_VIEW_PROFILE">
+		<message>COM_NINJABAORD_VIEW_PROFILE_DESC</message>
 	</view>
 </metadata>

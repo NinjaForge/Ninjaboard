@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE metadata>
 <metadata>
-	<view title="Forum">
-		<message>Renders a forum and its subforums if any.</message>
+	<view title="COM_NINJABOARD_FORUM">
+		<message>COM_NINJBOARD_RENDERS_FORUM_AND_SUBFORUMS</message>
 	</view>
 </metadata>
