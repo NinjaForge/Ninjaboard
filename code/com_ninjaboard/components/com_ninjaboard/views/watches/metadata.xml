@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE metadata>
 <metadata>
-	<view title="Watches">
-		<message>Manage your email subscriptions.</message>
+	<view title="COM_NINAJBOARD_WATCHES">
+		<message>COM_NINAJBOARD_MANAGE_SUBSCRIPTIONS</message>
 	</view>
 </metadata>

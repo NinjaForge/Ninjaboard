@@ -12,7 +12,7 @@
 		<params>
 			<param name="deleteme" type="napi" ninja="void" />
 			<param name="ninjaboard_setting_id" type="getlist" get="com://admin/ninjaboard.model.settings" label="COM_NINJABOARD_SETTING" description="COM_NINJABOARD_CHOOSE_SETTING">
-				<option>- COM_NINJABOARD_USE_DEFAULT -</option>
+				<option>COM_NINJABOARD_USE_DEFAULT</option>
 			</param>
 		</params>
 	</state>
