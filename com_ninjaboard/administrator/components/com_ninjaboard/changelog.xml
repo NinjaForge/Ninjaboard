@@ -3,6 +3,11 @@
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+    <version>1.1.7</version>
+    <date>April 30th 2012</date>
+    <state>Maintenance Release
+        <bugfix>Fixed Watches filter throwing a sql error</bugfix>
+    </state>
     <version>1.1.6</version>
     <date>April 5th 2012</date>
     <state>Maintenance Release

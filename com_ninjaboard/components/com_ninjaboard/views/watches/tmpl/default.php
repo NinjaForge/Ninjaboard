@@ -8,9 +8,7 @@
 		<script type="text/javascript">
 			jQuery(function($){
 				$('[name=type_name]').change(function(){
-					var url = '<?= @route('type_name=%24type_name%24', true) ?>'.replace('$type_name$', $(this).val());
-
-					window.location.href = url;
+					window.location.href = "<?= @route('type_name=', true) ?>".replace('type_name=', 'type_name='+$(this).val());
 				});
 			});
 		</script>
