@@ -8,14 +8,14 @@
 
 	<target name="beforebuild">
 
-		<!-- @TODO in progress -->
+		<!-- @TODO in progress 
 		<delete dir="${build.additionals}" includeemptydirs="true" />
-		<mkdir dir="${build.additionals}" />
+		<mkdir dir="${build.additionals}" />-->
 		
 		<phingcall target="build" />
 		
-		<!-- @TODO in progress -->
-		<delete dir="${build.additionals}" includeemptydirs="true" />
+		<!-- @TODO in progress 
+		<delete dir="${build.additionals}" includeemptydirs="true" />-->
 
 	</target>
 
