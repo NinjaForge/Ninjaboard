@@ -41,7 +41,11 @@ class ComNinjaboardDatabaseBehaviorPostable extends KDatabaseBehaviorAbstract
 			//@Todo add acl functionality for these
 			$topic->resolved = 0;
 			$topic->locked   = 0;
-			$topic->sticky   = $context->data->sticky;
+
+			// we can only change the sticky state if we can manage
+			if ($forum->post_permissions == 3) {
+				$topic->sticky   = $context->data->sticky;
+			}
 			
 			
 			$topic->save();
@@ -131,13 +135,16 @@ class ComNinjaboardDatabaseBehaviorPostable extends KDatabaseBehaviorAbstract
 		$row 	= $context['data']; //get the row that was inserted
 
 		$topic	= $this->getService('com://site/ninjaboard.model.topics')->id($row->ninjaboard_topic_id)->getItem();
+		$forum  = $this->getService('com://admin/ninjaboard.model.forums')->id($row->topic_id)->getItem();
 		if($topic->first_post_id === $row->id) {
 			//To avoid getting inherited params saved to the table, we call getData(), which wont attach such data.
 			$data			= $row->getData();
 			$topic->params	= json_decode($data['params'], true);
 		}
 
-		$topic->sticky = $context->data->sticky;
+		// we can only change the sticky state if we can manage
+		if ($forum->topic_permissions == 3)
+			$topic->sticky = $context->data->sticky;
 		
 		$topic->save();		
 	}
