@@ -161,6 +161,7 @@
         -->
     <deleted>
         <admin>
+            <file revision="2525">views/settings/html.php</file>
             <file revision="2523">views/forums/html.php</file>
             <file>views/json.php</file>
             <file>views/users/html.php</file>
