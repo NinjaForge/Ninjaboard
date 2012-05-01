@@ -60,29 +60,36 @@
 		</copy>
 		<delete dir="${build.tmpdir}/napi/nooku" includeemptydirs="true" />
 		
-		<mkdir dir="${build.tmpdir}/packages" />
-		
-		<!-- Package plg_ninja -->
-		<move file="${build.tmpdir}/napi/administrator/components/com_ninja/manifest.xml" tofile="${build.tmpdir}/napi/manifest.xml" />
+		<!-- <mkdir dir="${build.tmpdir}/packages" />
 		<zip destfile="${build.tmpdir}/packages/plg_ninja.zip">
 			<fileset dir="${build.tmpdir}/napi/plugins/system/" />
-		</zip>
+		</zip>-->
+
+		<!-- move com_ninja to ninja directory ready for install -->
+		<move file="${build.tmpdir}/napi/administrator/components/com_ninja/manifest.xml" tofile="${build.tmpdir}/napi/manifest.xml" />
 		<mkdir dir="${build.tmpdir}/ninja" />
 		<copy todir="${build.tmpdir}/ninja" >
 		 	<fileset dir="${build.tmpdir}/napi">
 				<exclude name="plugins/**" />
 			</fileset>
 		</copy>
+		<!-- move plg_ninja to the ninja directory ready to install -->
+		<mkdir dir="${build.tmpdir}/ninja/plugin" />
+		<copy todir="${build.tmpdir}/ninja/plugin" >
+		 	<fileset dir="${build.tmpdir}/napi/plugins/system/" />
+		</copy>
 		<delete dir="${build.tmpdir}/napi" includeemptydirs="true" />
 		
 		<!-- Package any additionals if needed -->
-		<copy todir="${build.tmpdir}/packages" haltonerror="false">
-			<fileset dir="${build.additionals}" />
-		</copy>
-		
-		
-		
-		
+		<trycatch>
+    		<try>
+    			<mkdir dir="${build.tmpdir}/packages" />
+				<copy todir="${build.tmpdir}/packages" haltonerror="false">
+					<fileset dir="${build.additionals}" haltonerror="false" />
+				</copy>
+			</try>
+			<catch></catch>
+		</trycatch>
 	</target>
 	<target name="build">
 			
