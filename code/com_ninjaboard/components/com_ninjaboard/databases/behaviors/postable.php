@@ -41,7 +41,8 @@ class ComNinjaboardDatabaseBehaviorPostable extends KDatabaseBehaviorAbstract
 			//@Todo add acl functionality for these
 			$topic->resolved = 0;
 			$topic->locked   = 0;
-			$topic->sticky   = 0;
+			$topic->sticky   = $context->data->sticky;
+			
 			
 			$topic->save();
 			
@@ -135,6 +136,8 @@ class ComNinjaboardDatabaseBehaviorPostable extends KDatabaseBehaviorAbstract
 			$data			= $row->getData();
 			$topic->params	= json_decode($data['params'], true);
 		}
+
+		$topic->sticky = $context->data->sticky;
 		
 		$topic->save();		
 	}
