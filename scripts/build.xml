@@ -8,14 +8,17 @@
 
 	<target name="beforebuild">
 
-		<!-- @TODO in progress 
 		<delete dir="${build.additionals}" includeemptydirs="true" />
-		<mkdir dir="${build.additionals}" />-->
+		<mkdir dir="${build.additionals}" />
+
+		<!-- zip up our additionals and move them -->
+		<zip destfile="${build.additionals}/plg_search_ninjaboard.zip">
+			<fileset dir="code/plg_search_ninjaboard/" />
+		</zip>
 		
 		<phingcall target="build" />
-		
-		<!-- @TODO in progress 
-		<delete dir="${build.additionals}" includeemptydirs="true" />-->
+
+		<delete dir="${build.additionals}" includeemptydirs="true" />
 
 	</target>
 

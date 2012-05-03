@@ -15,6 +15,7 @@
         <upgrade>Tweaked installation screent in order to be less confusing</upgrade>
         <bugfix>Correctly show what was installed in the installation list</bugfix>
         <new>Sticky Topics</new>
+        <bugfix>Fixed ability to see an edit form when trying to edit a post where you have no permissions </bugfix>
     </state>
 
     <version>1.1.6</version>
