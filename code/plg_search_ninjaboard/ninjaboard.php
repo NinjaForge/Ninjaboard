@@ -70,7 +70,7 @@ function plgSearchNinjaboard( $text, $phrase = '', $ordering = '', $areas = null
 	}
 
 
-	$posts = KFactory::tmp('admin::com.ninjaboard.model.posts')
+	$posts = KService::get('com://admin/ninjaboard.model.posts')
 		->search($text)
 		->limit($limit)
 		->sort($order)
@@ -87,7 +87,7 @@ function plgSearchNinjaboard( $text, $phrase = '', $ordering = '', $areas = null
 			'title'			=> $post->subject,
 			'created'		=> $post->created_on,
 			'section'		=> $post->forum,
-			'text'			=> KFactory::get('admin::com.ninja.helper.bbcode')->parse(array('text' => $post->text)),
+			'text'			=> KService::get('ninja:helper.bbcode')->parse(array('text' => $post->text)),
 			'browsernav'	=> 0
 		);
 	}

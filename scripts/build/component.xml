@@ -85,7 +85,7 @@
     		<try>
     			<mkdir dir="${build.tmpdir}/packages" />
 				<copy todir="${build.tmpdir}/packages" haltonerror="false">
-					<fileset dir="${build.additionals}" haltonerror="false" />
+					<fileset dir="${build.additionals}" />
 				</copy>
 			</try>
 			<catch></catch>
@@ -101,7 +101,7 @@
 		
 		<property name="build.package" value="${phing.project.name}_v${ext.version}_rev${ext.revision}.zip" />
 
-		<delete file="${build.packages}/${build.package}" includeemptydirs="true" />
+		
 		<zip destfile="${build.packages}/${build.package}">
 			<fileset dir="${build.tmpdir}" expandsymboliclinks="true" />
 		</zip>

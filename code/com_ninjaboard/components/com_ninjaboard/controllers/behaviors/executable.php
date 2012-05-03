@@ -57,12 +57,17 @@ class ComNinjaboardControllerBehaviorExecutable extends ComDefaultControllerBeha
     {
     	$caller 	= $this->getMixer()->getIdentifier()->name;
     	$request 	= $this->getRequest();
+        $me         = $this->getService('com://admin/ninjaboard.model.people')->getMe();
     	$forum 		= $this->getService('com://site/ninjaboard.model.forums')->id($request->forum)->getItem();
+        $post       = $this->getService('com://site/ninjaboard.model.post')->id($request->id)->getItem();
 
     	// no one is allowed to edit forums or users or messages or avatars or watchers
     	if ($caller == 'forum' || $caller == 'user' || $caller == 'message' || $caller == 'avatar' || $caller == 'watch') return false;
 
-    	//only users with manage post permission of 3 can edit
+        //if we are the owner of the post then we can edit
+        if ($caller == 'post' && $post->created_by == $me->id) return true;
+        
+    	//if we were not the owner only users with manage post permission of 3 can edit
     	if ($caller == 'post' && $forum->post_permissions != 3) return false;
 
         //only users with a attachment permission > 1 can add attachements
@@ -105,5 +110,24 @@ class ComNinjaboardControllerBehaviorExecutable extends ComDefaultControllerBeha
     	if ($caller == 'topic' && $forum->topic_permissions != 3) return false;
 
     	return true;
+    }
+
+    /**
+     * Decide if a user has the ability ot Read things
+     */
+    public function canRead()
+    {
+        $caller     = $this->getMixer()->getIdentifier()->name;
+        $request    = $this->getRequest();
+        $me         = $this->getService('com://admin/ninjaboard.model.people')->getMe();
+        $forum      = $this->getService('com://site/ninjaboard.model.forums')->id($request->forum)->getItem();
+        $post       = $this->getService('com://site/ninjaboard.model.post')->id($request->id)->getItem();
+
+        // we can do what we please if we can mangage 
+        if ($caller == 'post' && $forum->post_permissions == 3) return true;
+
+        // if we dont own the post and were editing (hmvc call calls actionRead on post view so check we are not a topic view)
+        // we sure as hell cant read aka edit it
+        if ($caller == 'post' && $post->created_by != $me->id && KRequest::get('get.view', 'string') != 'topic' ) return false;
     }
 }
