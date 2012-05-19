@@ -51,7 +51,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 		$this->sort		 = $state->sort ? $state->sort : 'title';
 		$this->direction = $state->direction;
 
-		$list	= $this->getModel()->limit(0)->sort('path_sort_ordering')->enabled('')->getList();
+		$list	= $this->getService('com://admin/ninjaboard.model.forums')->limit(0)->sort('path_sort_ordering')->enabled('')->getList();
 		$id		= $this->getModel()->getItem()->id;
 		foreach($list as $forum)
 		{
@@ -62,6 +62,7 @@ class ComNinjaboardViewForumHtml extends ComNinjaboardViewHtml
 			$forum->title = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $forum->level) . $forum->title;
 			$forums[]	 = $forum->getData();
 		}
+
 		$this->assign('forums', $forums);
 		$filepath = dirname($this->getIdentifier()->filepath).'/tmpl/params.xml';
 		$model 	  = $this->getModel();

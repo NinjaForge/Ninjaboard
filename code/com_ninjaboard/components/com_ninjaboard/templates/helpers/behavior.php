@@ -145,7 +145,7 @@ class ComNinjaboardTemplateHelperBehavior extends ComDefaultTemplateHelperBehavi
 		
 		$html[] = '<a class="ninjaboard-button ninjaboard-button-secondary ninjaboard-button-message" href="#" data-reveal-id="ninjaboard-message-form">'.JText::_('COM_NINJABOARD_MESSAGE').'</a>';
 		
-		$template = $this->getService('com://site/ninjaboard.view.message.html')->getTemplate();
+		$template = $this->getService('com://site/ninjaboard.view.message.html')->getTemplate()->addFilter(array($this->getService('ninja:template.filter.document')));
 		$params   = $this->getService('com://admin/ninjaboard.model.settings')->getParams();
 		$form     = $template->loadIdentifier('com://site/ninjaboard.view.message.form', array('params' => $params));
 		
