@@ -15,6 +15,9 @@
 		<zip destfile="${build.additionals}/plg_search_ninjaboard.zip">
 			<fileset dir="code/plg_search_ninjaboard/" />
 		</zip>
+		<zip destfile="${build.additionals}/mod_ninjaboard_quickpanel.zip">
+			<fileset dir="code/mod_ninjaboard_quickpanel/" />
+		</zip>
 		
 		<phingcall target="build" />
 

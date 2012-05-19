@@ -6,28 +6,6 @@
  * @link     	http://ninjaforge.com
  */
 
-/** 
-* If koowa is unavailable
-* Abort the dispatcher
-*/
-if( !defined('KOOWA') ) return;
-
-/** 
-* If Ninjaboard is unavailable
-* Abort the dispatcher
-*/
-if(!KLoader::path('site::com.ninjaboard.dispatcher') || !method_exists('ComNinjaboardDispatcher', 'register'))
-{
-    echo JText::_('Ninjaboard 1.1 or later required.');
-    return;
-}
-
-//User needs to be logged in
-if(KFactory::get('lib.joomla.user')->guest) return;
-
-//Initialize the dispatcher just so models are mapped, and everything else Ninjaboard needs to run
-ComNinjaboardDispatcher::register();
-
 /**
  * Renders latest posts with the same look and feel like the regular component list
  *
@@ -37,8 +15,7 @@ ComNinjaboardDispatcher::register();
  * @link     	http://ninjaforge.com
  */
 
-echo KFactory::tmp('site::mod.ninjaboard_quickpanel.html', array(
-	'params'  => $params,
-	'module'  => $module,
-	'attribs' => $attribs
-))->display();
+echo KService::get('mod://site/ninjaboard_quickpanel.html')
+	->module($module)
+    ->attribs($attribs)
+    ->display();

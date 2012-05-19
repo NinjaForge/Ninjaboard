@@ -15,26 +15,26 @@
 	}
 </style>
 
-<?= @helper('site::com.ninjaboard.template.helper.avatar.image', array(
+<?= @helper('com://site/ninjaboard.template.helper.avatar.image', array(
 	'class' => 'ninjaboard-avatar',
 	'thumbnail' => 'small',
 	'avatarurl' => @route('index.php?option=com_ninjaboard&view=avatar&id='.$me->id.'&thumbnail=small'),
 	'profileurl' => $profileurl
 )) ?>
-<h4 class="ninjaboard-cpanel-title"><?= sprintf(@text('Hi %s,'), $me->display_name) ?></h4>
+<h4 class="ninjaboard-cpanel-title"><?= sprintf(@text('MOD_NINJABOARD_QUiCKPANEL_HI'), $me->display_name) ?></h4>
 <div class="ninjaboard-cpanel-links">
 	<ul>
 		<? if($messages) : ?>
-		<li><a href="<?= @route('index.php?option=com_ninjaboard&view=messages') ?>"><?= sprintf(@text('Messages: (%s)'), '<strong>'.sprintf(@text('%d Unread'), $unread).'</strong>') ?></a></li>
+		<li><a href="<?= @route('index.php?option=com_ninjaboard&view=messages') ?>"><?= sprintf(@text('MOD_NINJABOARD_QUICKPANEL_MESSAGES'), '<strong>'.sprintf(@text('MOD_NINJABOARD_QUICKPANEL_UNREAD'), $unread).'</strong>') ?></a></li>
 		<? endif; ?>
 		<? if($watches) : ?>
-		<li><a href="<?= @route('index.php?option=com_ninjaboard&view=watches') ?>"><?= @text('My Watches') ?></a></li>
+		<li><a href="<?= @route('index.php?option=com_ninjaboard&view=watches') ?>"><?= @text('MOD_NINJABOARD_QUICKPANEL_SUBSCRIPTIONS') ?></a></li>
 		<? endif; ?>
 		<? if($profile) : ?>
-		<li><a href="<?= $profileurl ?>"><?= @text('My Profile') ?></a></li>
+		<li><a href="<?= $profileurl ?>"><?= @text('MOD_NINJABOARD_QUICKPANEL_PROFILE') ?></a></li>
 		<? endif; ?>
 		<? if($logout) : ?>
-		<li><a href="<?= JRoute::_('index.php?option=com_user&task=logout&return='.base64_encode(JURI::getInstance()->toString())) ?>"><?= @text('Logout') ?></a></li>
+		<li><a href="<?= JRoute::_('index.php?option=com_user&task=logout&return='.base64_encode(JURI::getInstance()->toString())) ?>"><?= @text('MOD_NINJABOARD_QUICKPANEL_LOGOUT') ?></a></li>
 		<? endif; ?>
 	</ul>
 </div>
