@@ -12,10 +12,13 @@
         <log>IE6 support dropped.</log>
 		<log>"Show Usergroup" option deprecated. If it's desired not to display any usergroup information for a user then you do that by setting each usergroup to Visibility = Hidden.</log>
 		<log>Upgraded codebase to take advantage of Nooku Framework 12.1</log>
-        <upgrade>Tweaked installation screent in order to be less confusing</upgrade>
+        <upgrade>Tweaked installation screen in order to be less confusing</upgrade>
         <bugfix>Correctly show what was installed in the installation list</bugfix>
         <new>Sticky Topics</new>
         <bugfix>Fixed ability to see an edit form when trying to edit a post where you have no permissions </bugfix>
+        <bugfix>Fixed subscription emails being sent out to users when forum permissions are not sufficient</bugfix>
+        <bugfix>Fixed forum edit screen not showing all the categories in the select list</bugfix>
+        <upgrade>Including quickpanel module in the installation zip</upgrade>
     </state>
 
     <version>1.1.6</version>

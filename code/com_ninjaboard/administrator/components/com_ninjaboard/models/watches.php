@@ -129,7 +129,24 @@ class ComNinjaboardModelWatches extends ComDefaultModelDefault
 														->from('ninjaboard_subscriptions');
 		foreach($table->getDatabase()->select($query, KDatabase::FETCH_FIELD_LIST) as $id)
 		{
+			// we most have access to this forum to get notifications
+			$person = $this->getService('com://admin/ninjaboard.model.people')->id($id)->getItem();
+
+			// check we have permission for this forum
+			$query = $this->getService('koowa:database.adapter.mysqli')->getQuery()
+							->select('tbl.level AS level')
+							->from('ninjaboard_assets AS tbl')
+							->order('tbl.level', 'DESC')
+							->limit(1)
+							->where('tbl.name', '=', 'com_ninjaboard.forum.'.$forum->id.'.'.$person->ninjaboard_usergroup_id.'.forum');
+
+			$result = $table->getDatabase()->select($query, KDatabase::FETCH_FIELD);
+			$result = isset($result) ? $result : $person->forum_permissions;
+
+			if (!$result) continue;
+
 			$ids[$id] = $id;
+
 		}
 		
 		if(!$ids) return array();
