@@ -1,17 +1,17 @@
 <?xml version="1.0" ?>  
-<project name="com_ninjaboard" basedir=".." default="beforebuild">
+<project name="com_ninjaboard" basedir=".." default="build">
 
-	<import file="${project.basedir}/scripts/build/component.xml" />
-	
-	<!-- @TODO this is for Ninjabaord 1.2 that needs NAPI 2.0 -->
-	<property name="build.code" value="code/${phing.project.name}" />
+	<!-- Import the build properties -->
+	<property file="scripts/build.properties" />
 
-	<target name="beforebuild">
+	<!-- Get custom phing task class definitions -->
+	<taskdef name="getversion" classname="scripts.tasks.GetVersionTask" />
+	<taskdef name="transifex" classname="scripts.tasks.TransifexTask" />
+
+	<!--<target name="beforebuild">
 
 		<delete dir="${build.additionals}" includeemptydirs="true" />
 		<mkdir dir="${build.additionals}" />
-
-		<!-- zip up our additionals and move them -->
 		<zip destfile="${build.additionals}/plg_search_ninjaboard.zip">
 			<fileset dir="code/plg_search_ninjaboard/" />
 		</zip>
@@ -23,6 +23,89 @@
 
 		<delete dir="${build.additionals}" includeemptydirs="true" />
 
-	</target>
+	</target>-->
 
+	<!-- get our extensions version number from the manifest file -->
+	<getversion file="${build.code}/administrator/components/${phing.project.name}/${build.manifest}" property="ext.version" />
+
+	<target name="build">		
+		<echo message="Packaging ${phing.project.name}" />
+		<echo message="XML Manifest should be here ${build.manifestdir}" />
+		<echo message="build.tmpdir = ${build.tmpdir}" />
+		
+		<delete dir="${build.tmpdir}" includeemptydirs="true" />
+		
+		<!-- Update manifest.xml with language files -->
+		<transifex dir="${build.code}" file="${build.manifestdir}" />
+
+		<!-- copy our project to the temp directory -->
+		<copy todir="${build.tmpdir}" >
+		  <fileset dir="${build.code}" />
+		</copy>
+
+		<!-- copy com_ninja to the tmp directory @todo replace this with a gitpull -->
+		<copy todir="${build.tmpdir}/ninja">
+			<fileset dir="${build.ninja}" />
+		</copy>
+
+		<!-- Move our manifest file to the root of the temp directory -->
+		<move file="${build.tmpdir}/administrator/components/${phing.project.name}/${build.manifest}" tofile="${build.tmpdir}/${build.manifest}" />
+
+		<!-- Move our installation directory to the root of the temp directory -->
+		<!-- NOTE: the install directory should include JDependent -->
+		<copy todir="${build.tmpdir}/install">
+			<fileset dir="${build.tmpdir}/administrator/components/${phing.project.name}/install/" />
+		</copy>
+		
+		<!-- Create our dependents folder -->
+		<mkdir dir="${build.tmpdir}/dependents" />
+
+		<!-- zip up the nooku framework and store it in the dependents folder -->
+		<zip destfile="${build.tmpdir}/dependents/nooku.zip">
+			<fileset dir="${build.tmpdir}/ninja/nooku" />
+		</zip>
+
+		<!-- we are done with nooku so delete it -->
+		<delete dir="${build.tmpdir}/ninja/nooku" includeemptydirs="true" />
+
+		<!-- move com_ninja's manifest file to the root of com_ninja -->
+		<move file="${build.tmpdir}/ninja/administrator/components/com_ninja/${build.manifest}" tofile="${build.tmpdir}/ninja/${build.manifest}" />
+
+		<!-- zip up com_ninja and store it in the dependents folder -->
+		<zip destfile="${build.tmpdir}/dependents/ninja.zip">
+			<fileset dir="${build.tmpdir}/ninja" />
+		</zip>
+
+		<!-- we have finished with com_ninja so delete it -->
+		<delete dir="${build.tmpdir}/ninja" includeemptydirs="true" />
+		
+		<!-- Package any additionals if needed -->
+		<trycatch>
+    		<try>
+    			<mkdir dir="${build.tmpdir}/packages" />
+				<copy todir="${build.tmpdir}/packages" haltonerror="false">
+					<fileset dir="${build.additionals}" />
+				</copy>
+			</try>
+			<catch></catch>
+		</trycatch>
+		
+		<property name="build.package" value="${phing.project.name}_v${ext.version}.zip" />
+
+		
+		<zip destfile="${build.packages}/${build.package}">
+			<fileset dir="${build.tmpdir}" expandsymboliclinks="true" />
+		</zip>
+		
+		<delete dir="${build.tmpdir}" includeemptydirs="true" />
+
+		<if>
+			<istrue value="${build.output.props}"/>
+			<then>
+				<taskdef name="saveprops" classname="SavePropsTask" classpath="scripts/tasks" />
+				<saveprops targetfile="output.props" />
+			</then>
+		</if>
+		
+	</target>
 </project>
