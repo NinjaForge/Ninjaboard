@@ -153,8 +153,9 @@
         </sql>
     </uninstall>
     <installfile>install/install.php</installfile>
+    <uninstallFile>install/uninstall.php</uninstallFile>
     <!-- For j1.6 -->
-    <scriptfile>install/install.php</scriptfile>
+    <scriptfile>install/script.php</scriptfile>
     <!-- 
                 Long list over deprecated files and folders as time went by
                 If they exist on the current install, they'll be deleted in order to keep things clean.
