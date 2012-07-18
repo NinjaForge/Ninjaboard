@@ -25,5 +25,5 @@ if (JFolder::exists(JPATH_ADMINISTRATOR.'/components/com_koowa')) {
 	// remove it from the database
 	$db = JFactory::getDBO();
 	$db->setQuery("DELETE FROM `#__components` WHERE `option` = 'com_koowa' OR `option` = 'com_ninja';");
-	$db->execute();
+	$db->query();
 }
