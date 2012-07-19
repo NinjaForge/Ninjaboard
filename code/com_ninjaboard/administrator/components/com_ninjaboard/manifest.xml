@@ -153,7 +153,7 @@
         </sql>
     </uninstall>
     <installfile>install/install.php</installfile>
-    <uninstallFile>install/uninstall.php</uninstallFile>
+    <uninstallfile>install/uninstall.php</uninstallfile>
     <!-- For j1.6 -->
     <scriptfile>install/script.php</scriptfile>
     <!-- 
