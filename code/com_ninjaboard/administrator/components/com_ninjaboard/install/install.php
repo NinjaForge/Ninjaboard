@@ -27,3 +27,12 @@ if (JFolder::exists(JPATH_ADMINISTRATOR.'/components/com_koowa')) {
 	$db->setQuery("DELETE FROM `#__components` WHERE `option` = 'com_koowa' OR `option` = 'com_ninja';");
 	$db->query();
 }
+
+foreach (JFolder::files($this->parent->getPath('source').'/packages') as $extension) {
+	$folder = JFile::stripExt($extension);
+	$path 	= $this->parent->getPath('source').'/packages/';
+
+	JArchive::extract($path.$extension, $path.$folder);
+	$installer	= new JInstaller;
+	$installer->install($path.$folder);
+}

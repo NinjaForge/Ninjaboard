@@ -8,23 +8,6 @@
 	<taskdef name="getversion" classname="scripts.tasks.GetVersionTask" />
 	<taskdef name="transifex" classname="scripts.tasks.TransifexTask" />
 
-	<!--<target name="beforebuild">
-
-		<delete dir="${build.additionals}" includeemptydirs="true" />
-		<mkdir dir="${build.additionals}" />
-		<zip destfile="${build.additionals}/plg_search_ninjaboard.zip">
-			<fileset dir="code/plg_search_ninjaboard/" />
-		</zip>
-		<zip destfile="${build.additionals}/mod_ninjaboard_quickpanel.zip">
-			<fileset dir="code/mod_ninjaboard_quickpanel/" />
-		</zip>
-		
-		<phingcall target="build" />
-
-		<delete dir="${build.additionals}" includeemptydirs="true" />
-
-	</target>-->
-
 	<!-- get our extensions version number from the manifest file -->
 	<getversion file="${build.code}/administrator/components/${phing.project.name}/${build.manifest}" property="ext.version" />
 
@@ -41,6 +24,19 @@
 		<!-- copy our project to the temp directory -->
 		<copy todir="${build.tmpdir}" >
 		  <fileset dir="${build.code}" />
+		</copy>
+
+		<delete dir="${build.additionals}" includeemptydirs="true" />
+		<mkdir dir="${build.additionals}" />
+		<zip destfile="${build.additionals}/plg_search_ninjaboard.zip">
+			<fileset dir="code/plg_search_ninjaboard/" />
+		</zip>
+		<zip destfile="${build.additionals}/mod_ninjaboard_quickpanel.zip">
+			<fileset dir="code/mod_ninjaboard_quickpanel/" />
+		</zip>
+
+		<copy todir="${build.tmpdir}/ninja">
+			<fileset dir="${build.ninja}" />
 		</copy>
 
 		<!-- copy com_ninja to the tmp directory @todo replace this with a gitpull -->
@@ -98,6 +94,8 @@
 		</zip>
 		
 		<delete dir="${build.tmpdir}" includeemptydirs="true" />
+
+		<delete dir="${build.additionals}" includeemptydirs="true" />
 
 		<if>
 			<istrue value="${build.output.props}"/>

@@ -19,6 +19,8 @@ class com_NinjaboardInstallerScript
 		$installer = new JDependent();
 
 		$installer->install('nooku')->install('ninja');
+
+		$this->installAdditionals($parent);
 	}
  
 	/**
@@ -33,6 +35,18 @@ class com_NinjaboardInstallerScript
 		$installer->uninstall('nooku')->uninstall('ninja');
 	}
 
+	function installAdditionals($parent)
+	{
+		$path 	= $parent->getParent()->getPath('source').'/packages/';
+		foreach (JFolder::files($path) as $extension) {
+			$folder = JFile::stripExt($extension);
+		
+			JArchive::extract($path.$extension, $path.$folder);
+			$installer	= new JInstaller;
+			$installer->install($path.$folder);
+		}
+	}
+
 	/**
 	 * method to upgrade the component
 	 *
@@ -43,6 +57,8 @@ class com_NinjaboardInstallerScript
 		$installer = new JDependent();
 
 		$installer->install('nooku')->install('ninja');
+
+		$this->installAdditionals($parent);
 
 		// if com_koowa exists remove it
 		if (JFolder::exists(JPATH_ADMINISTRATOR.'/components/com_koowa')) {
