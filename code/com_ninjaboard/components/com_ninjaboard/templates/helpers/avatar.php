@@ -96,7 +96,7 @@ class ComNinjaboardTemplateHelperAvatar extends KTemplateHelperAbstract
 	public function image($config = array())
 	{
 		$params		= $this->getService('com://admin/ninjaboard.model.settings')->getParams();
-		$prepend	= JFactory::getApplication()->isAdmin() ? KRequest::root().'/' : '';
+		$prepend	= JFactory::getApplication()->isAdmin() ? JURI::root().'/' : '';
 
 		$config = new KConfig($config);
 		$config->append(array(

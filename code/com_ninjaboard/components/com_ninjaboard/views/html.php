@@ -89,11 +89,14 @@ class ComNinjaboardViewHtml extends ComNinjaboardViewDefault
 	 */
 	public function setBreadcrumbs()
 	{
-		$app		= JFactory::getApplication();
-		$pathway 	= $app->getPathWay();
-		$menu	 	= $app->getMenu()->getActive()->query;
+		$app = JFactory::getApplication();
+		if ($menu = $app->getMenu()->getActive()) {
+			$pathway 	= $app->getPathWay();
+			$menu	 	= $menu->query;
 		
-		if (!KInflector::isPlural($this->getName()) && $menu['view'] != 'forum') $pathway->addItem($this->getDocumentSubtitle(), $this->createRoute());
+			if (!KInflector::isPlural($this->getName()) && $menu['view'] != 'forum') 
+				$pathway->addItem($this->getDocumentSubtitle(), $this->createRoute());
+		}
 	}
 
 	/**

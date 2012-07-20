@@ -242,7 +242,7 @@ class ComNinjaboardDispatcher extends NinjaDispatcher
 		{
 		    $component    = JComponentHelper::getComponent('com_ninjaboard');
 		    $menu         = $app->getMenu();
-		    $items        = $menu->getItems('componentid', $component->id);
+		    $items        = $menu->getItems(version_compare(JVERSION,'1.6.0','ge') ? 'component_id' : 'componentid', $component->id);
 		    
 		    // If any menu links to Ninjaboard, find out if any root ones exists
 		    if(is_array($items))
