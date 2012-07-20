@@ -173,7 +173,6 @@
             <folder revision="1201">views/templates</folder>
             <file revision="1201">controllers/template.php</file>
             <file revision="1201">models/templates.php</file>
-            <file revision="1185">install/uninstall.php</file>
             <file revision="1059">databases/tables/usergroup_maps.php</file>
             <file revision="1059">models/usergroup_maps.php</file>
             <file revision="1056">controllers/joomla_usergroup_map.php</file>
