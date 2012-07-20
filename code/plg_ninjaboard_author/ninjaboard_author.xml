@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <install version="1.5" type="plugin" group="content" method="upgrade">
-    <name>Ninjaboard Author</name>
+    <name>plg_content_ninjaboard_author</name>
     <author>NinjaForge</author>
     <creationDate>April 2012</creationDate>
    <copyright>Copyright NinjaForge. All rights reserved.</copyright>
@@ -16,9 +16,6 @@
 
     <languages folder="languages">
         <language tag="en-GB">en-GB/en-GB.plg_content_ninjaboard_author.ini</language>
+        <language tag="en-GB">en-GB/en-GB.plg_content_ninjaboard_author.sys.ini</language>
     </languages>
-
-    <params>
-        <param type="menuitem" name="itemid" title="PLG_NINJABOARD_AUTHOR_ITEMID" description="PLG_NINJABOARD_AUTHOR_SELECT_DESIRED_ITEMID" />
-    </params>
 </install>
