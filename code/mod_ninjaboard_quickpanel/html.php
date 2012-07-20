@@ -30,7 +30,7 @@ class ModNinjaboard_quickpanelHtml extends ModDefaultHtml
 		$this->assign('profile'  , $this->module->params->get('profile', '1'));
 		$this->assign('logout'   , $this->module->params->get('logout', '1'));
 		
-		$this->me			= KService::get('com://site/ninjaboard.model.people')->getMe();
+		$this->me			= KService::get('com://admin/ninjaboard.model.people')->getMe();
 		$this->profileurl	= JRoute::_('index.php?option=com_ninjaboard&view=person&id='.$this->me->id);
 		$this->unread       = (int)KService::get('com://admin/ninjaboard.model.messages')->unread(1)->getTotal();
 		

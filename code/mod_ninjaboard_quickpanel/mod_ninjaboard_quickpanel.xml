@@ -50,4 +50,37 @@
 		</param>
 		<param name="cache_time" type="text" default="900" label="MOD_NINJABOARD_CACHING_TIME" description="MOD_NINJABOARD_CACHING_TIME_DESC"/>
 	</params>
+
+	<!-- @group j!1.6 -->
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="moduleclass_sfx" type="text" label="MOD_NINJABOARD_MODULE_CLASS_SUFFIX" description="MOD_NINJABOARD_MODULE_CLASS_SUFFIX_DESC" />
+				<field name="messages" type="radio" default="1" label="MOD_NINJABOARD_DISPLAY_MESSAGES" description="MOD_NINJABOARD_DISPLAY_MESSAGES_DESC">
+					<option value="0">MOD_NINJABOARD_NO</option>
+					<option value="1">MOD_NINJABOARD_YES</option>
+				</field>
+				<field name="watches" type="radio" default="1" label="MOD_NINJABOARD_DISPLAY_SUBSCRIPTIONS" description="MOD_NINJABOARD_DISPLAY_SUBSCRIPTIONS_DESC">
+					<option value="0">MOD_NINJABOARD_NO</option>
+					<option value="1">MOD_NINJABOARD_YES</option>
+				</field>
+				<field name="profile" type="radio" default="1" label="MOD_NINJABOARD_DISPLAY_PROFILE" description="MOD_NINJABOARD_DISPLAY_PROFILE_DESC">
+					<option value="0">MOD_NINJABOARD_NO</option>
+					<option value="1">MOD_NINJABOARD_YES</option>
+				</field>
+				<field name="logout" type="radio" default="1" label="MOD_NINJABOARD_DISPLAY_LOGOUT" description="MOD_NINJABOARD_DISPLAY_LOGOUT_DESC">
+					<option value="0">MOD_NINJABOARD_NO</option>
+					<option value="1">MOD_NINJABOARD_YES</option>
+				</field>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="cache" type="list" default="1" label="MOD_NINJABOARD_CACHING" description="MOD_NINJABOARD_CACHING_DESC">
+					<option value="1">MOD_NINJABOARD_USE_GLOBAL</option>
+					<option value="0">MOD_NINJABOARD_NONE</option>
+				</field>
+				<field name="cache_time" type="text" default="900" label="MOD_NINJABOARD_CACHING_TIME" description="MOD_NINJABOARD_CACHING_TIME_DESC"/>
+			</fieldset>
+		</fields>
+	</config>
+	<!-- @end -->
 </install>
