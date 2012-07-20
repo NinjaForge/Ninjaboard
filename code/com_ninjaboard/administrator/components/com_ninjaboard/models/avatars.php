@@ -15,6 +15,11 @@
  */
 class ComNinjaboardModelAvatars extends ComNinjaboardModelPeople
 {
+	/**
+     * Constructor
+     *
+     * @param   object  An optional KConfig object with configuration options
+     */
 	public function __construct($config)
 	{
 		parent::__construct($config);
@@ -23,12 +28,18 @@ class ComNinjaboardModelAvatars extends ComNinjaboardModelPeople
 					->insert('thumbnail', 'cmd', 'large');
 	}
 
+	/**
+     * Method to get a item object which represents a table row
+     *
+     * @return KDatabaseRow
+     */
 	public function getItem()
 	{
 		if(!$this->_item)
 		{
 			$this->_item = parent::getItem();
 			$id			 = $this->_item->id ? $this->_item->id : $this->_state->id;
+			$email		 = $this->_item->emaile ? $this->_item->email : JFactory::getUser($id)->email;
 			
 			$settings = $this->getService('com://site/ninjaboard.model.settings')->getParams();
 			$settings = $settings['avatar_settings'];
@@ -58,7 +69,7 @@ class ComNinjaboardModelAvatars extends ComNinjaboardModelPeople
 					//Gravatars are square, so use the largest value as size
 					$gsize = max($settings[$size.'_thumbnail_width'], $settings[$size.'_thumbnail_height']);
 					$gravatar  = $this->getService('com://site/ninjaboard.template.helper.avatar')->gravatar(array(
-																											'email' => $this->_item->email,
+																											'email' => $email,
 																											'size'  => $gsize
 																										));
 					// Prepare curl
@@ -67,7 +78,7 @@ class ComNinjaboardModelAvatars extends ComNinjaboardModelPeople
 									CURLOPT_RETURNTRANSFER => true
 							);
 					$curl->addSession($gravatar, $opt );
-			
+				
 					$image = $curl->exec();
 					if($image != '404 Not Found') {
 						$dest  = '/media/com_ninjaboard/images/avatars/'.$id.'/gravatar.png';
@@ -94,6 +105,11 @@ class ComNinjaboardModelAvatars extends ComNinjaboardModelPeople
 		return $this->_item;
 	}
 	
+	/**
+     * Method to get a image object
+     *
+     * @return NinjaHelperImage
+     */
 	public function getImage()
 	{
 		return $this->getItem()->image;

@@ -119,7 +119,15 @@
 					<div class="key"><?= @text($key) ?></div>
 					<div><?= @$user->$value ?>
 					<? if (next(@$ifedit)) : ?>
-						<div style="position:absolute;right:5px;top:0;"><div class="button2-left" style="float:none;display:inline-block;"><div class="page" style="float:none;">					<a style="float:none;" target="_blank" href="<?= @route('option=com_users&view=user&task=edit&cid[]='.@$user->id) ?>">&#9998; <?= JText::sprintf('Edit %s in the Joomla! User Manager', @$user->username) ?></a></div></div>
+						<div style="position:absolute;right:5px;top:0;">
+							<div class="button2-left" style="float:none;display:inline-block;">
+								<div class="page" style="float:none;">
+									<? $editlink = version_compare(JVERSION,'1.6.0','ge') ? '&layout=edit&id=' : '&task=edit&cid[]='; ?>
+									<a style="float:none;" target="_blank" href="<?= @route('option=com_users&view=user'.$editlink.$user->id) ?>">
+										&#9998; <?= JText::sprintf('Edit %s in the Joomla! User Manager', @$user->username) ?>
+									</a>
+								</div>
+							</div>
 					</div>
 					<? endif ?>
 					</div>
