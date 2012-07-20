@@ -1,0 +1,3 @@
+[submodule "code/com_ninjaboard/administrator/components/com_ninjaboard/install/jdependent"]
+	path = code/com_ninjaboard/administrator/components/com_ninjaboard/install/jdependent
+	url = https://github.com/NinjaForge/JDependent.git
