@@ -1,36 +1,30 @@
-<?php defined( 'KOOWA' ) or die( 'Restricted access' );
+<?php
 /**
- * @package		Ninjaboard
- * @subpackage	Modules
+ * @category	Ninjaboard
+ * @package		Modules
+ * @subpackage 	Ninjaboard_jump
  * @copyright	Copyright (C) 2010 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
-KLoader::load('admin::com.ninja.view.module');
+ defined( '_JEXEC' ) or die( 'Restricted access' );
+
+ /**
+ * Jump Module Class
+ *   
+ * @category	Ninjaboard
+ * @package		Modules
+ * @subpackage 	Ninjaboard_jump
+ */
 class ModNinjaboard_jumpHtml extends ModDefaultHtml
 {
-
 	/**
-	 * Model identifier, points to the component model
-	 *
-	 * @var	string
-	 */
-	protected $_model = 'admin::com.ninjaboard.model.forums';
-
-	public function __construct($options)
-	{
-		parent::__construct($options);
-	}
-	
+ 	* Render the jump module
+ 	*/
 	public function display()
 	{
-		$model		  = KFactory::get($this->getModel());
-		$this->forums = $model->getList();
-		$this->total  = $model->getTotal();
-		$this->state  = $model->getState();
-		$this->forum  = $model->getItem();
-		$this->i = 0;
+		$this->assign('forums' , KService::get('com://admin/ninjaboard.model.forums')->getList());
 		
-		parent::display();
+		return parent::display();
 	}
 }
