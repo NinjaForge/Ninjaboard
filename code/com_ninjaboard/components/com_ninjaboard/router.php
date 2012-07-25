@@ -1,11 +1,9 @@
 <?php defined('_JEXEC') or die('Restricted access');
- /**
- * NinjaForge Ninjaboard
- *
- * @package		Ninjaboard
- * @copyright	Copyright (C) 2007-2010 Ninja Media Group. All rights reserved.
- * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
- * @link     	http://ninjaforge.com
+/**
+ * @category    Ninjaboard
+ * @copyright   Copyright (C) 2007 - 2012 NinjaForge. All rights reserved.
+ * @license     GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
+ * @link        http://ninjaforge.com
  */
 
 class ComNinjaboardRouter
