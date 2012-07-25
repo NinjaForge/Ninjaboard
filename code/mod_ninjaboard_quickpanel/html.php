@@ -7,7 +7,7 @@
  */
 
 /**
- * Render the quickpanel
+ * Quickpanel Module Class
  *   
  * @author   	Stian Didriksen <stian@timble.net>
  * @category	Ninjaboard
@@ -21,6 +21,9 @@ class ModNinjaboard_quickpanelHtml extends ModDefaultHtml
 		$this->getTemplate()->addFilter(array($this->getService('ninja:template.filter.document')));
 	}
 
+	/**
+	 * Render the quickpanel
+	 */
 	public function display()
 	{
 		// get module parameters

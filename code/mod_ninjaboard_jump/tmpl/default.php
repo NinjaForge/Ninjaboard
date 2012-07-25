@@ -1,6 +1,8 @@
+<? defined( '_JEXEC' ) or die( 'Restricted access' ); ?>
+
 <div id="ninjaboard-quickjump">
 	<a href="forum" class="quickjump">
-		<span><?= @text('Jump to Forum') ?></span>
+		<span><?= @text('COM_NINJABOARD_JUMP_JUMP_TO_FORUM') ?></span>
 	</a>
 	<ul class="jumplist">
 		<? foreach ($forums as $forum) : ?>
