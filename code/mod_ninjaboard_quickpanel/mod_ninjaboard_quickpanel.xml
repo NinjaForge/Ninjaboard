@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/module-install.dtd">
 <install type="module" version="1.5.0" method="upgrade" client="site">
-	<name>Ninjaboard Quickpanel</name>
+	<name>MOD_NINJABOARD_QUICKPANEL</name>
 	<author>NinjaForge</author>
     <creationDate>2011-01-15</creationDate>
 	<copyright>(C) 2007-2010 Ninja Media Group. All rights reserved.</copyright>
@@ -12,7 +12,7 @@
     <authorurl>ninjaforge.com</authorurl>
 	<version>1.1.0</version>
 	<revision>2232</revision>
-	<description>MOD_NINJABOARD_DESCRIPTION</description>
+	<description>MOD_NINJABOARD_QUICKPANEL_DESCRIPTION</description>
 
 	<files>
 	    <folder>tmpl</folder>
@@ -22,63 +22,64 @@
 
 	<languages folder="languages">
 		<language tag="en-GB">en-GB.mod_ninjaboard_quickpanel.ini</language>
+		<language tag="en-GB">en-GB.mod_ninjaboard_quickpanel.sys.ini</language>
 	</languages>
 
 	<params>
-		<param name="moduleclass_sfx" type="text" default="" label="MOD_NINJABOARD_MODULE_CLASS_SUFFIX" description="MOD_NINJABOARD_MODULE_CLASS_SUFFIX_DESC"/>
-		<param name="messages" type="radio" default="1" label="MOD_NINJABOARD_DISPLAY_MESSAGES" description="MOD_NINJABOARD_DISPLAY_MESSAGES_DESC">
-			<option value="0">MOD_NINJABOARD_NO</option>
-			<option value="1">MOD_NINJABOARD_YES</option>
+		<param name="moduleclass_sfx" type="text" default="" label="MOD_NINJABOARD_QUICKPANEL_MODULE_CLASS_SUFFIX" description="MOD_NINJABOARD_QUICKPANEL_MODULE_CLASS_SUFFIX_DESC"/>
+		<param name="messages" type="radio" default="1" label="MOD_NINJABOARD_QUICKPANEL_DISPLAY_MESSAGES" description="MOD_NINJABOARD_QUICKPANEL_DISPLAY_MESSAGES_DESC">
+			<option value="0">MOD_NINJABOARD_QUICKPANEL_NO</option>
+			<option value="1">MOD_NINJABOARD_QUICKPANEL_YES</option>
 		</param>
-		<param name="watches" type="radio" default="1" label="MOD_NINJABOARD_DISPLAY_SUBSCRIPTIONS" description="MOD_NINJABOARD_DISPLAY_SUBSCRIPTIONS_DESC">
-			<option value="0">MOD_NINJABOARD_NO</option>
-			<option value="1">MOD_NINJABOARD_YES</option>
+		<param name="watches" type="radio" default="1" label="MOD_NINJABOARD_QUICKPANEL_DISPLAY_SUBSCRIPTIONS" description="MOD_NINJABOARD_QUICKPANEL_DISPLAY_SUBSCRIPTIONS_DESC">
+			<option value="0">MOD_NINJABOARD_QUICKPANEL_NO</option>
+			<option value="1">MOD_NINJABOARD_QUICKPANEL_YES</option>
 		</param>
-		<param name="profile" type="radio" default="1" label="MOD_NINJABOARD_DISPLAY_PROFILE" description="MOD_NINJABOARD_DISPLAY_PROFILE_DESC">
-			<option value="0">MOD_NINJABOARD_NO</option>
-			<option value="1">MOD_NINJABOARD_YES</option>
+		<param name="profile" type="radio" default="1" label="MOD_NINJABOARD_QUICKPANEL_DISPLAY_PROFILE" description="MOD_NINJABOARD_QUICKPANEL_DISPLAY_PROFILE_DESC">
+			<option value="0">MOD_NINJABOARD_QUICKPANEL_NO</option>
+			<option value="1">MOD_NINJABOARD_QUICKPANEL_YES</option>
 		</param>
-		<param name="logout" type="radio" default="1" label="MOD_NINJABOARD_DISPLAY_LOGOUT" description="MOD_NINJABOARD_DISPLAY_LOGOUT_DESC">
-			<option value="0">MOD_NINJABOARD_NO</option>
-			<option value="1">MOD_NINJABOARD_YES</option>
+		<param name="logout" type="radio" default="1" label="MOD_NINJABOARD_QUICKPANEL_DISPLAY_LOGOUT" description="MOD_NINJABOARD_QUICKPANEL_DISPLAY_LOGOUT_DESC">
+			<option value="0">MOD_NINJABOARD_QUICKPANEL_NO</option>
+			<option value="1">MOD_NINJABOARD_QUICKPANEL_YES</option>
 		</param>
 	</params>
 	<params group="advanced">
-		<param name="cache" type="list" default="1" label="MOD_NINJABOARD_CACHING" description="MOD_NINJABOARD_CACHING_DESC">
-			<option value="1">MOD_NINJABOARD_USE_GLOBAL</option>
-			<option value="0">MOD_NINJABOARD_NONE</option>
+		<param name="cache" type="list" default="1" label="MOD_NINJABOARD_QUICKPANEL_CACHING" description="MOD_NINJABOARD_QUICKPANEL_CACHING_DESC">
+			<option value="1">MOD_NINJABOARD_QUICKPANEL_USE_GLOBAL</option>
+			<option value="0">MOD_NINJABOARD_QUICKPANEL_NONE</option>
 		</param>
-		<param name="cache_time" type="text" default="900" label="MOD_NINJABOARD_CACHING_TIME" description="MOD_NINJABOARD_CACHING_TIME_DESC"/>
+		<param name="cache_time" type="text" default="900" label="MOD_NINJABOARD_QUICKPANEL_CACHING_TIME" description="MOD_NINJABOARD_QUICKPANEL_CACHING_TIME_DESC"/>
 	</params>
 
 	<!-- @group j!1.6 -->
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="moduleclass_sfx" type="text" label="MOD_NINJABOARD_MODULE_CLASS_SUFFIX" description="MOD_NINJABOARD_MODULE_CLASS_SUFFIX_DESC" />
-				<field name="messages" type="radio" default="1" label="MOD_NINJABOARD_DISPLAY_MESSAGES" description="MOD_NINJABOARD_DISPLAY_MESSAGES_DESC">
-					<option value="0">MOD_NINJABOARD_NO</option>
-					<option value="1">MOD_NINJABOARD_YES</option>
+				<field name="moduleclass_sfx" type="text" label="MOD_NINJABOARD_QUICKPANEL_MODULE_CLASS_SUFFIX" description="MOD_NINJABOARD_QUICKPANEL_MODULE_CLASS_SUFFIX_DESC" />
+				<field name="messages" type="radio" default="1" label="MOD_NINJABOARD_QUICKPANEL_DISPLAY_MESSAGES" description="MOD_NINJABOARD_QUICKPANEL_DISPLAY_MESSAGES_DESC">
+					<option value="0">MOD_NINJABOARD_QUICKPANEL_NO</option>
+					<option value="1">MOD_NINJABOARD_QUICKPANEL_YES</option>
 				</field>
-				<field name="watches" type="radio" default="1" label="MOD_NINJABOARD_DISPLAY_SUBSCRIPTIONS" description="MOD_NINJABOARD_DISPLAY_SUBSCRIPTIONS_DESC">
-					<option value="0">MOD_NINJABOARD_NO</option>
-					<option value="1">MOD_NINJABOARD_YES</option>
+				<field name="watches" type="radio" default="1" label="MOD_NINJABOARD_QUICKPANEL_DISPLAY_SUBSCRIPTIONS" description="MOD_NINJABOARD_QUICKPANEL_DISPLAY_SUBSCRIPTIONS_DESC">
+					<option value="0">MOD_NINJABOARD_QUICKPANEL_NO</option>
+					<option value="1">MOD_NINJABOARD_QUICKPANEL_YES</option>
 				</field>
-				<field name="profile" type="radio" default="1" label="MOD_NINJABOARD_DISPLAY_PROFILE" description="MOD_NINJABOARD_DISPLAY_PROFILE_DESC">
-					<option value="0">MOD_NINJABOARD_NO</option>
-					<option value="1">MOD_NINJABOARD_YES</option>
+				<field name="profile" type="radio" default="1" label="MOD_NINJABOARD_QUICKPANEL_DISPLAY_PROFILE" description="MOD_NINJABOARD_QUICKPANEL_DISPLAY_PROFILE_DESC">
+					<option value="0">MOD_NINJABOARD_QUICKPANEL_NO</option>
+					<option value="1">MOD_NINJABOARD_QUICKPANEL_YES</option>
 				</field>
-				<field name="logout" type="radio" default="1" label="MOD_NINJABOARD_DISPLAY_LOGOUT" description="MOD_NINJABOARD_DISPLAY_LOGOUT_DESC">
-					<option value="0">MOD_NINJABOARD_NO</option>
-					<option value="1">MOD_NINJABOARD_YES</option>
+				<field name="logout" type="radio" default="1" label="MOD_NINJABOARD_QUICKPANEL_DISPLAY_LOGOUT" description="MOD_NINJABOARD_QUICKPANEL_DISPLAY_LOGOUT_DESC">
+					<option value="0">MOD_NINJABOARD_QUICKPANEL_NO</option>
+					<option value="1">MOD_NINJABOARD_QUICKPANEL_YES</option>
 				</field>
 			</fieldset>
 			<fieldset name="advanced">
-				<field name="cache" type="list" default="1" label="MOD_NINJABOARD_CACHING" description="MOD_NINJABOARD_CACHING_DESC">
-					<option value="1">MOD_NINJABOARD_USE_GLOBAL</option>
-					<option value="0">MOD_NINJABOARD_NONE</option>
+				<field name="cache" type="list" default="1" label="MOD_NINJABOARD_QUICKPANEL_CACHING" description="MOD_NINJABOARD_QUICKPANEL_CACHING_DESC">
+					<option value="1">MOD_NINJABOARD_QUICKPANEL_USE_GLOBAL</option>
+					<option value="0">MOD_NINJABOARD_QUICKPANEL_NONE</option>
 				</field>
-				<field name="cache_time" type="text" default="900" label="MOD_NINJABOARD_CACHING_TIME" description="MOD_NINJABOARD_CACHING_TIME_DESC"/>
+				<field name="cache_time" type="text" default="900" label="MOD_NINJABOARD_QUICKPANEL_CACHING_TIME" description="MOD_NINJABOARD_QUICKPANEL_CACHING_TIME_DESC"/>
 			</fieldset>
 		</fields>
 	</config>

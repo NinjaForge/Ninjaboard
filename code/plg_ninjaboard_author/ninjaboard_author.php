@@ -12,6 +12,9 @@ defined('KOOWA') or die("Koowa isn't available, or file is accessed directly");
 
 jimport('joomla.event.plugin');
 jimport('joomla.application.component.router');
+
+KLoader::loadIdentifier('com://site/ninjaboard.router');
+
 /**
  * Content Author Plugin Class - Displays the users Ninjaboard Avatar
  *
@@ -38,27 +41,8 @@ class plgContentNinjaboard_Author extends JPlugin
 		$html			= '';
 		$option			= JRequest::getCmd('option');
 		$view			= JRequest::getCmd('view');
-		$itemid			= null;
-
-		// a rather annoying issue with plugins and routing, we end up with links like /catid/2 (2.5) if we dont use a itemid
-		$component    	= JComponentHelper::getComponent('com_ninjaboard');
-		$menu         	= JFactory::getApplication()->getMenu();
-		$items        	= $menu->getItems(version_compare(JVERSION,'1.6.0','ge') ? 'component_id' : 'componentid', $component->id);
-    	if (is_array($items))
-    	{
-    		foreach ($items as $item)
-    		{
-    		    if(isset($item->query['view']) && $item->query['view'] == 'forums')
-    		    {
-    		       	$itemid = $item->id;
-    		        break;
-    		    }
-    		}
-    	}
 
 		if ($option == 'com_content' && $view == 'article') $context = 'com_content.article';
-
-
 
 		// Only display if we are on a com_content article page
 		if ($context == 'com_content.article') {
@@ -76,7 +60,7 @@ class plgContentNinjaboard_Author extends JPlugin
 					display: block;
 				}'
 			);
-			$profile = JRoute::_('index.php?option=com_ninjaboard&view=person&id='.$user->id.'&Itemid='.$itemid);
+			$profile = JRoute::_('index.php?option=com_ninjaboard&view=person&id='.$user->id);
 
 			$person		= KService::get('com://admin/ninjaboard.model.people')->id($user->id)->getItem();
 			$avatar_on	= new DateTime($person->avatar_on);
@@ -86,7 +70,7 @@ class plgContentNinjaboard_Author extends JPlugin
     		$document =& JFactory::getDocument();
 
 			$html .= '<div id="ninjaboard_author_avatar" class="clearfix">';
-				$html .= '<a class="avatar" href="'.JRoute::_('index.php?option=com_ninjaboard&view=person&id='.$user->id.'&Itemid='.$itemid).'" style="background-image: url('.JRoute::_('index.php?option=com_ninjaboard&view=avatar&id='.$user->id.'&thumbnail=large&Itemid='.$itemid).'); height: 100px; width: 100px;"></a>';
+				$html .= '<a class="avatar" href="'.JRoute::_('index.php?option=com_ninjaboard&view=person&id='.$user->id).'" style="background-image: url('.JRoute::_('index.php?option=com_ninjaboard&view=avatar&id='.$user->id.'&thumbnail=large').'); height: 100px; width: 100px;"></a>';
 				//$html .= KService::get('com://site/ninjaboard.template.helper.avatar')->image(array('id'	=> $user->id));
 				$html .= '<h1><a href="'.$profile.'" itemprop="author">'.$user->name.'</a></h1>';
 			$html .= '</div>';

@@ -126,6 +126,9 @@ class ComNinjaboardControllerBehaviorExecutable extends ComDefaultControllerBeha
         // we can do what we please if we can mangage 
         if ($caller == 'post' && $forum->post_permissions == 3) return true;
 
+        // if we have permission to post then allow it
+        if ($caller == 'post' && $forum->post_permissions >= 2 && $post->isNew()) return true;
+
         // if we dont own the post and were editing (hmvc call calls actionRead on post view so check we are not a topic view)
         // we sure as hell cant read aka edit it
         if ($caller == 'post' && $post->created_by != $me->id && KRequest::get('get.view', 'string') != 'topic' ) return false;
