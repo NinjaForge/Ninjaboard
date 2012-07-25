@@ -1,11 +1,9 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @category	Koowa
- * @package		Koowa_Template
- * @subpackage	Helper
- * @copyright	Copyright (C) 2007 - 2010 Johan Janssens and Mathias Verraes. All rights reserved.
+ * @category	Ninjaboard
+ * @copyright	Copyright (C) 2007 - 2012 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
- * @link     	http://www.koowa.org
+ * @link     	http://ninjaforge.com
  */
 
 /**

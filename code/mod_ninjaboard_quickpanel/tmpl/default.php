@@ -23,7 +23,7 @@
 		'avatarurl' => @route('index.php?option=com_ninjaboard&view=avatar&id='.$me->id.'&thumbnail=small'),
 		'profileurl' => $profileurl
 	)) ?>
-	<h4 class="ninjaboard-cpanel-title"><?= sprintf(@text('MOD_NINJABOARD_QUiCKPANEL_HI'), $me->display_name) ?></h4>
+	<h4 class="ninjaboard-cpanel-title"><?= sprintf(@text('MOD_NINJABOARD_QUICKPANEL_HI'), $me->display_name) ?></h4>
 	<div class="ninjaboard-cpanel-links">
 		<ul>
 			<? if($messages) : ?>
