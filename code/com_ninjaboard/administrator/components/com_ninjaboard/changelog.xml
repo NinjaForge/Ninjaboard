@@ -3,6 +3,14 @@
 <!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
 
 <changelogs>
+    <version>2.0.1 Beta</version>
+    <date>July 2012</date>
+    <state>Bug Fix Release</state>
+        <bugfix>Fixed avatars not displaying on first load</bugfix>
+        <bugfix>Fixed avatars not displaying in the user manager</bugfix>
+        <bugfix>Misc fixes for Joomla! 2.5</bugfix>
+    </state>
+    
     <version>2.0beta</version>
     <date>April 2012</date>
     <state>Major Release
