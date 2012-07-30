@@ -21,8 +21,7 @@
                 - GM            #D6B600
                 - Stable        #009199
     -->
-    <version status="Beta" color="red">2.0.1</version>
-    <revision>2529</revision>
+    <version status="Beta" color="red">2.0.2</version>
     <description>The sharpest user forum</description>
     <credits>
         <a href="http://www.joomlaworks.gr/">SMF converter, Vanity URLs, Private Messaging sponsored by JoomlaWorks</a>

@@ -1,104 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install type="module" version="1.5.0" method="upgrade">
-  <name>NinjaBoard Latest Posts</name>
-  <author>NinjaForge</author>
-  <creationDate>2009-10-19</creationDate>
-  <copyright>(C) 2007-2012 NinjaForge. All rights reserved.</copyright>
-  <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-  <authorEmail>support@ninjaforge.com</authorEmail>
-  <authorUrl>http://ninjaforge.com</authorUrl>
-  <version>1.0.3</version>
-  <description>NinjaBoard Latest Posts</description>
-  <files>
-    <filename module="mod_ninjaboard_latest_posts">mod_ninjaboard_latest_posts.php</filename>
-    <filename>index.html</filename>
-    <filename>helper.php</filename>
-    <folder>tmpl</folder>
-    <folder>css</folder>
-    <folder>elements</folder>
-    <folder>images</folder>
-    <folder>language</folder>
-  </files>
-  <languages>
-    <language tag="en-GB">language/en-GB.mod_ninjaboard_latest_posts.ini</language>
-    <language tag="de-DE">language/de-DE.mod_ninjaboard_latest_posts.ini</language>
-    <language tag="el-GR">language/el-GR.mod_ninjaboard_latest_posts.ini</language>
-    <language tag="fr-FR">language/fr-FR.mod_ninjaboard_latest_posts.ini</language>
-    <language tag="sv-SE">language/sv-SE.mod_ninjaboard_latest_posts.ini</language>
-  </languages>
-  <params addpath="/modules/mod_ninjaboard_latest_posts/elements">
-    <param name="moduleclass_sfx" type="text" default="" label="Module class suffix" description="PARAMMODULECLASSSUFFIX" />
-    <param name="cache" type="list" default="1" label="CACHING" description="CACHING DESC">
-      <option value="1">Use global</option>
-      <option value="0">No caching</option>
-    </param>
-    <param name="num_posts" type="text" default="5" label="POSTS" description="POSTS DESC" />
-    <param name="num_cols" type="text" default="1" label="COLUMNS" description="COLUMNS DESC" />
-    <param name="@spacer" type="spacer" default="" label="" />
-    <param name="layout" type="list" default="0" label="DISPLAY" description="DISPLAY DESC">
-      <option value="default">Stationary</option>
-      <option value="scrollh">Horizontal Scroll</option>
-      <option value="scrollv">Vertical Scroll</option>
-      <option value="slideh">Horizontal Slides</option>
-      <option value="slidev">Vertical Slides</option>
-    </param>
-    <param name="width" type="text" default="150" label="WIDTH" description="WIDTH DESC" />
-    <param name="height" type="text" default="150" label="HEIGHT" description="HEIGHT DESC" />
-    <param name="@spacer" type="spacer" default="" label="" />
-    <param name="only_forums" type="forums" default="" label="FORUM LIMIT" description="FORUM LIMIT DESC" size="5"  />
-    <param name="not_forums" type="forums" default="" label="FORUM NOLIMIT" description="FORUM NOLIMIT DESC" size="5" />
-    <param name="child_forums" type="list" default="1" label="FORUM CHILD" description="FORUM CHILD DESC">
-      <option value="0">No</option>
-      <option value="1">Yes</option>
-    </param>
-    <param name="@spacer" type="spacer" default="" label="" />
-    <param name="which_posts" type="list" default="0" label="POSTS" description="POSTS DESC">
-      <option value="0">Latest Posts</option>
-      <option value="1">Latest Topics by First Post</option>
-      <option value="2">Latest Topics by Last Post</option>
-    </param>
-    <param name="order_by" type="list" default="0" label="ORDER" description="ORDER DESC">
-      <option value="0">DESC</option>
-      <option value="1">ASC</option>
-    </param>
-    <param name="show_recent" type="list" default="0" label="SHOW RECENT" description="SHOW RECENT DESC">
-      <option value="0">all time</option>
-      <option value="4">4 hours</option>
-      <option value="8">8 hours</option>
-      <option value="12">12 hours</option>
-      <option value="24">24 hours</option>
-      <option value="48">48 hours</option>
-      <option value="168">1 week</option>
-      <option value="720">1 month</option>
-      <option value="8760">1 year</option>    </param>
-    <param name="show_public" type="list" default="1" label="SHOW PUB" description="SHOW PUB DESC">
-      <option value="0">No</option>
-      <option value="1">Yes</option>
-    </param>
-    <param name="@spacer" type="spacer" default="" label="" />
-    <param name="date_format" type="list" default="D, d M Y H:i" label="DATE FORMAT" description="DATE FORMAT DESC">
-      <option value="m/d/Y h:ia">12/25/2010 04:09am</option>
-      <option value="m/d/Y">12/25/2010</option>
-      <option value="d/m/Y h:ia">25/12/2010 04:09am</option>
-      <option value="d/m/Y">25/12/2010</option>
-      <option value="d.m.Y h:ia">12.25.2010 04:09am</option>
-      <option value="d.m.Y">12.25.2010</option>
-      <option value="M d Y h:ia">Dec 25 2010 04:09am</option>
-      <option value="M d Y">Dec 25 2010</option>
-    </param>
-    <param name="subject_max" type="text" default="50" label="SUBJECT" description="SUBJECT DESC" />
-    <param name="message_max" type="text" default="200" label="MESSAGE" description="MESSAGE DESC" />
-    <param name="name_link" type="integration" label="NAME LINK" description="NAME LINK DESC" />
-	<param name="show_image" type="radio" default="0" label="SHOW IMG" description="SHOW IMG DESC">
-      <option value="0">No</option>
-      <option value="1">Yes</option>
-    </param>
-	<param name="auto_thumb" type="radio" default="0" label="AUTO THUMB" description="AUTO THUMB DESC">
-      <option value="0">No</option>
-      <option value="1">Yes</option>
-    </param>
-    <param name="img_width" type="text" default="60" label="WIDTH" description="WIDTH DESC" />
-    <param name="img_height" type="text" default="60" label="HEIGHT" description="HEIGHT DESC" />
-    <param name="@spacer" type="spacer" default="" label="" />
-  </params>
+<!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/module-install.dtd">
+<install type="module" version="1.5.0" method="upgrade" client="site">
+    <name>MOD_NINJABOARD_LATEST_POSTS</name>
+    <author>NinjaForge</author>
+    <creationDate>2009-10-19</creationDate>
+    <copyright>(C) 2007-2012 NinjaForge. All rights reserved.</copyright>
+    <license>GNU GPLv3</license>
+    <authoremail>support@ninjaforge.com</authoremail>
+    <authorurl>ninjaforge.com</authorurl>
+    <version>1.1</version>
+    <description>MOD_NINJABOARD_LATEST_POSTS_DESCRIPTION</description>
+    <files>
+        <file module="mod_ninjaboard_latest_posts">mod_ninjaboard_latest_posts.php</file>
+        <file>index.html</file>
+        <folder>tmpl</folder>
+        <folder>elements</folder>
+        <file>html.php</file>
+    </files>
+
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.mod_ninjaboard_latest_posts.ini</language>
+        <language tag="en-GB">en-GB/en-GB.mod_ninjaboard_latest_posts.sys.ini</language>
+        <language tag="de-DE">de-DE/de-DE.mod_ninjaboard_latest_posts.ini</language>
+        <language tag="el-GR">el-GR/el-GR.mod_ninjaboard_latest_posts.ini</language>
+        <language tag="sv-SE">sv-SE/sv-SE.mod_ninjaboard_latest_posts.ini</language>
+        <language tag="it-IT">it-IT/it-IT.mod_ninjaboard_latest_posts.ini</language>
+    </languages>
+
+    <media folder="media" destination="mod_ninjaboard_latest_posts">
+        <folder>css</folder>
+        <folder>images</folder>
+        <file>index.html</file>
+    </media>
+
+    <!-- @group j!1.5 -->
+    <params addpath="/modules/mod_ninjaboard_latest_posts/elements">
+        <param name="layout" type="list" default="0" label="MOD_NINJABOARD_LATEST_POSTS_LAYOUT" description="MOD_NINJABOARD_LATEST_POSTS_LAYOUT_DESC">
+            <option value="default">MOD_NINJABOARD_LATEST_POSTS_STATIONARY</option>
+            <option value="scrollh">MOD_NINJABOARD_LATEST_POSTS_HORIZONTAL_SCROLL</option>
+            <option value="scrollv">MOD_NINJABOARD_LATEST_POSTS_VERTICAL_SCROLL</option>
+            <option value="slideh">MOD_NINJABOARD_LATEST_POSTS_HORIZONTAL_SLIDES</option>
+            <option value="slidev">MOD_NINJABOARD_LATEST_POSTS_VERTICAL_SLIDES</option>
+        </param>
+        <param name="num_posts" type="text" default="5" label="MOD_NINJABOARD_LATEST_POSTS_POSTS" description="MOD_NINJABOARD_LATEST_POSTS_POSTS_DESC" />
+        <param name="@spacer" type="spacer" default="" label="" />
+        <param name="only_forums" type="forums" default="" label="MOD_NINJABOARD_LATEST_POSTS_FORUM_LIMIT" description="MOD_NINJABOARD_LATEST_POSTS_FORUM_LIMIT_DESC" size="5"  />
+        <param name="not_forums" type="forums" default="" label="MOD_NINJABOARD_LATEST_POSTS_FORUM_NOLIMIT" description="MOD_NINJABOARD_LATEST_POSTS_FORUM_NOLIMIT_DESC" size="5" />
+        <param name="@spacer" type="spacer" default="" label="" />
+        <param name="which_posts" type="list" default="0" label="MOD_NINJABOARD_LATEST_POSTS_WHICH_POSTS" description="MOD_NINJABOARD_LATEST_POSTS_WHICH_POSTS_DESC">
+            <option value="0">MOD_NINJABOARD_LATEST_POSTS_LATEST_POSTS</option>
+            <option value="1">MOD_NINJABOARD_LATEST_POSTS_LATEST_TOPICS_BY_FIRST_POST</option>
+            <option value="2">MOD_NINJABOARD_LATEST_POSTS_LATEST_TOPICS_BY_LAST_POST</option>
+        </param>
+        <param name="order_by" type="list" default="0" label="MOD_NINJABOARD_LATEST_POSTS_ORDER" description="MOD_NINJABOARD_LATEST_POSTS_ORDER_DESC">
+            <option value="0">MOD_NINJABOARD_LATEST_POSTS_DESC</option>
+            <option value="1">MOD_NINJABOARD_LATEST_POSTS_ASC</option>
+        </param>
+        <param name="show_recent" type="list" default="0" label="MOD_NINJABOARD_LATEST_POSTS_SHOW_RECENT" description="MOD_NINJABOARD_LATEST_POSTS_SHOW_RECENT_DESC">
+            <option value="0">MOD_NINJABOARD_LATEST_POSTS_ALL_TIME</option>
+            <option value="4">MOD_NINJABOARD_LATEST_POSTS_4_HOURS</option>
+            <option value="8">MOD_NINJABOARD_LATEST_POSTS_8_HOURS</option>
+            <option value="12">MOD_NINJABOARD_LATEST_POSTS_12_HOURS</option>
+            <option value="24">MOD_NINJABOARD_LATEST_POSTS_24_HOURS</option>
+            <option value="48">MOD_NINJABOARD_LATEST_POSTS_48_HOURS</option>
+            <option value="168">MOD_NINJABOARD_LATEST_POSTS_1_WEEK</option>
+            <option value="720">MOD_NINJABOARD_LATEST_POSTS_1_MONTH</option>
+            <option value="8760">MOD_NINJABOARD_LATEST_POSTS_1_YEAR</option>    
+        </param>
+        <param name="@spacer" type="spacer" default="" label="" />
+        <param name="subject_max" type="text" default="50" label="MOD_NINJABOARD_LATEST_POSTS_SUBJECT" description="MOD_NINJABOARD_LATEST_POSTS_SUBJECT_DESC" />
+        <param name="message_max" type="text" default="200" label="MOD_NINJABOARD_LATEST_POSTS_MESSAGE" description="MOD_NINJABOARD_LATEST_POSTS_MESSAGE_DESC" />
+        <param name="name_link" type="integration" label="MOD_NINJABOARD_LATEST_POSTS_NAME_LINK" description="MOD_NINJABOARD_LATEST_POSTS_NAME_LINK_DESC" />
+        <param name="avatar_w_h" type="radio" default="height" label="MOD_NINJABOARD_LATEST_POSTS_IMG_W_H" description="MOD_NINJABOARD_LATEST_POSTS_IMG_W_H_DESC">
+            <option value="height">MOD_NINJABOARD_LATEST_POSTS_HEIGHT</option>
+            <option value="width">MOD_NINJABOARD_LATEST_POSTS_WIDTH</option>
+        </param>
+        <param name="avatar_size" type="text" default="" label="MOD_NINJABOARD_LATEST_POSTS_IMG_SIZE" description="MOD_NINJABOARD_LATEST_POSTS_IMG_SIZE_DESC" />
+    </params>
+    <params group="advanced">
+        <param name="moduleclass_sfx" type="text" default="" label="MOD_NINJABOARD_LATEST_POSTS_MODULE_CLASS_SUFFIX" description="MOD_NINJABOARD_LATEST_POSTS_MODULE_CLASS_SUFFIX_DESC" />
+        <param name="cache" type="list" default="1" label="MOD_NINJABOARD_LATEST_POSTS_CACHING" description="MOD_NINJABOARD_LATEST_POSTS_CACHING_DESC">
+            <option value="1">MOD_NINJABOARD_LATEST_POSTS_USE_GLOBAL</option>
+            <option value="0">MOD_NINJABOARD_LATEST_POSTS_NONE</option>
+        </param>
+        <param name="cache_time" type="text" default="900" label="MOD_NINJABOARD_LATEST_POSTS_CACHING_TIME" description="MOD_NINJABOARD_LATEST_POSTS_CACHING_TIME_DESC"/>
+    </params>
+    <!-- @end -->
+
+    <!-- @group j!2.5 -->
+    <config>
+        <fields name="params">
+            <fieldset name="basic" addfieldpath="/modules/mod_ninjaboard_latest_posts/elements/j25/">
+                <field name="layout" type="list" default="default" label="MOD_NINJABOARD_LATEST_POSTS_LAYOUT" description="MOD_NINJABOARD_LATEST_POSTS_LAYOUT_DESC">
+                    <option value="default">MOD_NINJABOARD_LATEST_POSTS_STATIONARY</option>
+                    <option value="scrollh">MOD_NINJABOARD_LATEST_POSTS_HORIZONTAL_SCROLL</option>
+                    <option value="scrollv">MOD_NINJABOARD_LATEST_POSTS_VERTICAL_SCROLL</option>
+                    <option value="slideh">MOD_NINJABOARD_LATEST_POSTS_HORIZONTAL_SLIDES</option>
+                    <option value="slidev">MOD_NINJABOARD_LATEST_POSTS_VERTICAL_SLIDES</option>
+                </field>
+                <field name="num_posts" type="text" default="5" label="MOD_NINJABOARD_LATEST_POSTS_POSTS" description="MOD_NINJABOARD_LATEST_POSTS_POSTS_DESC" />
+                <field name="@spacer" type="spacer" default="" label="" />
+                <field name="only_forums" type="forums" default="" label="MOD_NINJABOARD_LATEST_POSTS_FORUM_LIMIT" description="MOD_NINJABOARD_LATEST_POSTS_FORUM_LIMIT_DESC" size="5"  />
+                <field name="not_forums" type="forums" default="" label="MOD_NINJABOARD_LATEST_POSTS_FORUM_NOLIMIT" description="MOD_NINJABOARD_LATEST_POSTS_FORUM_NOLIMIT_DESC" size="5" />
+                <field name="@spacer" type="spacer" default="" label="" />
+                <field name="which_posts" type="list" default="0" label="MOD_NINJABOARD_LATEST_POSTS_WHICH_POSTS" description="MOD_NINJABOARD_LATEST_POSTS_WHICH_POSTS_DESC">
+                    <option value="0">MOD_NINJABOARD_LATEST_POSTS_LATEST_POSTS</option>
+                    <option value="1">MOD_NINJABOARD_LATEST_POSTS_LATEST_TOPICS_BY_FIRST_POST</option>
+                    <option value="2">MOD_NINJABOARD_LATEST_POSTS_LATEST_TOPICS_BY_LAST_POST</option>
+                </field>
+                <field name="order_by" type="list" default="0" label="MOD_NINJABOARD_LATEST_POSTS_ORDER" description="MOD_NINJABOARD_LATEST_POSTS_ORDER_DESC">
+                    <option value="0">MOD_NINJABOARD_LATEST_POSTS_DESC</option>
+                    <option value="1">MOD_NINJABOARD_LATEST_POSTS_ASC</option>
+                </field>
+                <field name="show_recent" type="list" default="0" label="MOD_NINJABOARD_LATEST_POSTS_SHOW_RECENT" description="MOD_NINJABOARD_LATEST_POSTS_SHOW_RECENT_DESC">
+                    <option value="0">MOD_NINJABOARD_LATEST_POSTS_ALL_TIME</option>
+                    <option value="4">MOD_NINJABOARD_LATEST_POSTS_4_HOURS</option>
+                    <option value="8">MOD_NINJABOARD_LATEST_POSTS_8_HOURS</option>
+                    <option value="12">MOD_NINJABOARD_LATEST_POSTS_12_HOURS</option>
+                    <option value="24">MOD_NINJABOARD_LATEST_POSTS_24_HOURS</option>
+                    <option value="48">MOD_NINJABOARD_LATEST_POSTS_48_HOURS</option>
+                    <option value="168">MOD_NINJABOARD_LATEST_POSTS_1_WEEK</option>
+                    <option value="720">MOD_NINJABOARD_LATEST_POSTS_1_MONTH</option>
+                    <option value="8760">MOD_NINJABOARD_LATEST_POSTS_1_YEAR</option>    
+                </field>
+                <field name="@spacer" type="spacer" default="" label="" />
+                <field name="subject_max" type="text" default="50" label="MOD_NINJABOARD_LATEST_POSTS_SUBJECT" description="MOD_NINJABOARD_LATEST_POSTS_SUBJECT_DESC" />
+                <field name="message_max" type="text" default="200" label="MOD_NINJABOARD_LATEST_POSTS_MESSAGE" description="MOD_NINJABOARD_LATEST_POSTS_MESSAGE_DESC" />
+                <field name="name_link" type="integration" label="MOD_NINJABOARD_LATEST_POSTS_NAME_LINK" description="MOD_NINJABOARD_LATEST_POSTS_NAME_LINK_DESC" />
+                <field name="avatar_w_h" type="radio" default="height" label="MOD_NINJABOARD_LATEST_POSTS_IMG_W_H" description="MOD_NINJABOARD_LATEST_POSTS_IMG_W_H_DESC">
+                    <option value="height">MOD_NINJABOARD_LATEST_POSTS_HEIGHT</option>
+                    <option value="width">MOD_NINJABOARD_LATEST_POSTS_WIDTH</option>
+                </field>
+                <field name="avatar_size" type="text" default="" label="MOD_NINJABOARD_LATEST_POSTS_IMG_SIZE" description="MOD_NINJABOARD_LATEST_POSTS_IMG_SIZE_DESC" />
+            </fieldset>
+            <fieldset name="advanced">
+                <field name="moduleclass_sfx" type="text" default="" label="MOD_NINJABOARD_LATEST_POSTS_MODULE_CLASS_SUFFIX" description="MOD_NINJABOARD_LATEST_POSTS_MODULE_CLASS_SUFFIX_DESC" />
+                <field name="cache" type="list" default="1" label="MOD_NINJABOARD_LATEST_POSTS_CACHING" description="MOD_NINJABOARD_LATEST_POSTS_CACHING_DESC">
+                    <option value="1">MOD_NINJABOARD_LATEST_POSTS_USE_GLOBAL</option>
+                    <option value="0">MOD_NINJABOARD_LATEST_POSTS_NONE</option>
+                </field>
+                <field name="cache_time" type="text" default="900" label="MOD_NINJABOARD_LATEST_POSTS_CACHING_TIME" description="MOD_NINJABOARD_LATEST_POSTS_CACHING_TIME_DESC"/>
+            </fieldset>
+        </fields>
+    </config>
+    <!-- @end -->
+
 </install>

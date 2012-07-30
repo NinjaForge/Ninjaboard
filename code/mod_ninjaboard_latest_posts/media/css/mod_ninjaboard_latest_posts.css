@@ -1,0 +1,115 @@
+@charset "utf-8";
+/* CSS Document */
+/*
+* @version		1.0.6
+* @package		mod_ninjaboard_latest_posts
+* @author 		NinjaForge
+* @author email	support@ninjaforge.com
+* @link			http://ninjaforge.com
+* @license      http://www.gnu.org/copyleft/gpl.html GNU GPL
+* @copyright	Copyright (C) 2010 NinjaForge - All rights reserved.
+*/
+#nb-posts-avatar {
+	width: auto;
+	border: 1px solid #CCC;
+	display: block;
+	float: left;
+	margin: 5px;
+	background-color: #EFEFEF;
+	padding: 2px;
+}
+#nb-posts-online{
+	font-size: 9px;
+	color: #008000;
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-image: url(../images/online.png);
+	padding-left: 10px;
+}
+#nb-posts-offline{
+	font-size: 9px;
+	color: #F00;
+	background-image: url(../images/offline.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	padding-left: 10px;
+}
+.active {
+	z-index:9999;
+	position:relative;
+}
+.nb-posts{
+	overflow:hidden;
+	margin: 5px;
+	padding: 5px;
+}
+.buttons {
+	float:left;
+	clear:both;
+	height:20px;
+}
+/* prev, next, prev and nextPage buttons */
+.buttons .browse {
+	font-variant: small-caps;
+	cursor: pointer;
+}
+.buttons .next, .buttons .prev{
+	width: 16px;
+	height: 16px;
+	float: left;
+	cursor: pointer;
+}
+.buttons .next {
+	background: url(../images/next.png) no-repeat;
+}
+.buttons .prev {
+	background: url(../images/prev.png) no-repeat;
+} 
+/* disabled navigational button */
+.buttons .disabled {
+	visibility:hidden;		
+} 	
+/* position and dimensions of the navigator */
+.navi {
+	height:20px;
+}
+/* items inside navigator */
+.navi a {
+	width:8px;
+	height:8px;
+	margin:3px;
+	display:block;
+	font-size:1px;
+	background-image: url(../images/navigator.png);
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	float:left;
+}
+/* mouseover state */
+.navi a:hover {
+	background-position:0 -8px;      
+}
+/* active state (current page state) */
+.navi a.active {
+	background-position:0 -16px;     
+}
+.read {
+	opacity: .65;
+}
+.horizontal, .vertical{
+	width: 200px;
+	height: 200px;
+	overflow: hidden;
+	position: relative;
+}
+.horizontal .nb-posts, .vertical .nb-posts {
+	width: 190px;
+	height: 200px;
+}
+.horizontal .nb-posts {
+	float: left;
+}
+.horizontal .items, .vertical .items {
+	width: 20000px;
+	position: absolute;
+}
