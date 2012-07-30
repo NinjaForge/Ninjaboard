@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- @TODO make changelog.dtd -->
+<!--DOCTYPE changelog SYSTEM "http://ninjaforge.com/dtd/changelog.dtd"-->
+
+<changelogs>
+    <version>1.1</version>
+    <date>July 2012</date>
+    <state>Major Release
+        <upgrade>Joomla! 2.5 compatibility</upgrade>
+        <upgrade>Unread/Read functionality</upgrade>
+        <upgrade>Simplified the module parameters and layout</upgrade>
+        <upgrade>Moved assets to the media folder</upgrade>
+        <bugfix>Avatars should be shown from the avatar view</bugfix>
+        <bugfix>Run posts through the bbcode parser</bugfix>
+        <bugfix>Post author now displays the correct screen name</bugfix>
+        <bugfix>Posts correctly checked against permissions</bugfix>
+        <bugfix>Posts now correctly displays the subject on replies</bugfix>
+    </state>
+
+    <version>1.0</version>
+    <date>March 2011</date>
+    <state>Initial release
+    </state>
+ </changelogs>

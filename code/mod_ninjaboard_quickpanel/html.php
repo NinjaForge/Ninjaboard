@@ -1,6 +1,8 @@
 <?php defined('KOOWA') or die( 'Restricted access' );
 /**
  * @category	Ninjaboard
+ * @package		Modules
+ * @subpackage 	Ninjaboard_quickpanel
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
@@ -11,6 +13,8 @@
  *   
  * @author   	Stian Didriksen <stian@timble.net>
  * @category	Ninjaboard
+ * @package		Modules
+ * @subpackage 	Ninjaboard_quickpanel
  */
 class ModNinjaboard_quickpanelHtml extends ModDefaultHtml
 {
@@ -27,7 +31,6 @@ class ModNinjaboard_quickpanelHtml extends ModDefaultHtml
 	public function display()
 	{
 		// get module parameters
-		
 		$this->assign('messages' , $this->module->params->get('messages', '1'));
 		$this->assign('watches'  , $this->module->params->get('watches', '1'));
 		$this->assign('profile'  , $this->module->params->get('profile', '1'));

@@ -9,30 +9,41 @@
  */
  defined( '_JEXEC' ) or die( 'Restricted access' );
 
+ jimport('joomla.html.html');
+ jimport('joomla.form.formfield');
+
 /**
- * JElementForums Class - for displaying a select list of forums
+ * JFormFieldForums Class - for displaying a select list of forums
  */
-class JElementForums extends JElement
+class JFormFieldForums extends JFormField
 {
-   var   $_name = 'Forums';
+	/**
+	 * The form field type.
+	 *
+	 * @var    string
+	 */
+	public $type = 'Forums';
 
    /**
-    * Method for building the element
-    */
-   function fetchElement($name, $value, &$node, $control_name)
-   {
+	 * Method to get the field input markup for a generic list.
+	 * Use the multiple attribue to enable multiselect.
+	 *
+	 * @return  string  The field input markup.
+	 */
+	protected function getInput()
+	{
 		if (file_exists(JPATH_SITE.'/components/com_ninjaboard/ninjaboard.php')){
-			$size 		= ( $node->attributes('size') ? $node->attributes('size') : 5 );
 			$options 	= array();
+			$size 		= $this->size ? $this->size : 5;
 			$list 		= KService::get('com://admin/ninjaboard.model.forums')->enabled(1)->getList();
 
 			foreach ($list as $item) {
 				$options[] = JHTML::_('select.option', $item->id, str_repeat('&#160;', ($item->level - 1) * 6).$item->title, 'id', 'title');
 			}
 			
-			return JHTML::_('select.genericlist',  $options, ''.$control_name.'['.$name.'][]',  ' multiple="multiple" size="' . $size .'" class="inputbox"', 'id', 'title', $value, $control_name.$name);
+			return JHTML::_('select.genericlist',  $options, $this->name.'[]',  ' multiple="multiple" size="' . $size .'" class="inputbox"', 'id', 'title', $this->value, $this->name);
 	   } else {
 		   return JText::_('MOD_NINJABOARD_LATEST_POSTS_NINJABOARD_NOT_INSTALLED');
 	   }
-   }
+	}
 }

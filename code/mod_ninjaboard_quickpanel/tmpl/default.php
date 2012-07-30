@@ -37,7 +37,7 @@
 			<? endif; ?>
 			<? if($logout) : ?>
 				<? $link = version_compare(JVERSION,'1.6.0','ge') ? 'com_users&task=user.logout&'. JUtility::getToken() .'=1' : 'com_user&task=logout' ?>
-				<li><a href="<?= JRoute::_('index.php?option='.$link.'&return='.base64_encode(JURI::getInstance()->toString())) ?>"><?= @text('MOD_NINJABOARD_QUICKPANEL_LOGOUT') ?></a></li>
+				<li><a href="<?= @route('index.php?option='.$link.'&return='.base64_encode(JURI::getInstance()->toString())) ?>"><?= @text('MOD_NINJABOARD_QUICKPANEL_LOGOUT') ?></a></li>
 			<? endif; ?>
 		</ul>
 	</div>

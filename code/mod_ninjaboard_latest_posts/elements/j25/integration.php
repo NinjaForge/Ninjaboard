@@ -9,19 +9,30 @@
  */
  defined( '_JEXEC' ) or die( 'Restricted access' );
 
+ jimport('joomla.html.html');
+ jimport('joomla.form.formfield');
+
 /**
- * JElementIntegration Class - for displaying a list of available user profiles
+ * JFormFiledIntegration Class - for displaying a select list of forums
  */
-class JElementIntegration extends JElement
+class JFormFieldIntegration extends JFormField
 {
-   var   $_name = 'Integration';
+   /**
+	 * The form field type.
+	 *
+	 * @var    string
+	 */
+	public $type = 'Integration';
 
     /**
-    * Method for building the element
-    */
-   function fetchElement($name, $value, &$node, $control_name)
-   {
-   		$options = array();
+	 * Method to get the field input markup for a generic list.
+	 * Use the multiple attribue to enable multiselect.
+	 *
+	 * @return  string  The field input markup.
+	 */
+	protected function getInput()
+	{
+		$options = array();
 
 		if (file_exists(JPATH_SITE.'/components/com_ninjaboard/ninjaboard.php')){
 			$options[] = JHTML::_('select.option', 'nb', 'Ninjaboard', 'id', 'title');
@@ -34,9 +45,9 @@ class JElementIntegration extends JElement
 			if (file_exists(JPATH_SITE.'/components/com_cbe/cbe.php'))
 				$options[] = JHTML::_('select.option', 'cbe', 'Community Builder Enhanced', 'id', 'title');
 
-		  return JHTML::_('select.genericlist',  $options, ''.$control_name.'['.$name.'][]',  '" class="inputbox"', 'id', 'title', $value, $control_name.$name);
+		  return JHTML::_('select.genericlist',  $options, $this->name,  '" class="inputbox"', 'id', 'title', $this->value, $this->name);
 	   } else {
 		   return JText::_('MOD_NINJABOARD_LATEST_POSTS_NINJABOARD_NOT_INSTALLED');
 	   }
-   }
+	}
 }
