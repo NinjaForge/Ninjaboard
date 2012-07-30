@@ -14,6 +14,7 @@
 if (JFile::exists(JPATH_SITE.'/components/com_ninjaboard/ninjaboard.php')) {
 	KLoader::loadIdentifier('com://site/ninjaboard.router');
 
+	$module->params = $params;
 	echo KService::get('mod://site/ninjaboard_quickpanel.html')
 		->module($module)
 	    ->attribs($attribs)

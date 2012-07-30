@@ -13,6 +13,20 @@ $installer = new JDependent();
 
 $installer->install('nooku')->install('ninja');
 
+// In order to allow multiple components being installed in go, this check is crucial
+if(!function_exists('com_install'))
+{
+    /**
+     * This function is required by JInstallerComponent in order to run this script
+     * 
+     * @return  void
+     */
+    function com_install()
+    {
+        return JFactory::getApplication()->get('com_install') !== false;
+    }
+}
+
 // if com_koowa exists remove it
 if (JFolder::exists(JPATH_ADMINISTRATOR.'/components/com_koowa')) {
 	JFolder::delete(JPATH_ADMINISTRATOR.'/components/com_koowa');
@@ -28,6 +42,7 @@ if (JFolder::exists(JPATH_ADMINISTRATOR.'/components/com_koowa')) {
 }
 
 foreach (JFolder::files($this->parent->getPath('source').'/packages') as $extension) {
+
 	$folder = JFile::stripExt($extension);
 	$path 	= $this->parent->getPath('source').'/packages/';
 
