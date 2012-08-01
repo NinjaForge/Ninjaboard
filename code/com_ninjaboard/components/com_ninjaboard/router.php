@@ -47,23 +47,23 @@ class ComNinjaboardRouter
         {
             if(!isset(self::$_Itemid))
             {
-            	static $items;
-            	if (!$items) {
-            		$component    = JComponentHelper::getComponent('com_ninjaboard');
-            		$menu         = JFactory::getApplication()->getMenu();
-            		$items        = $menu->getItems(version_compare(JVERSION,'1.6.0','ge') ? 'component_id' : 'componentid', $component->id);
-            	}
-            	if (is_array($items))
-            	{
-            		foreach ($items as $item)
-            		{
-            		    if(isset($item->query['view']) && $item->query['view'] == 'forums')
-            		    {
-            		        self::$_Itemid = $item->id;
-            		        break;
-            		    }
-            		}
-            	}
+                static $items;
+                if (!$items) {
+                    $component    = JComponentHelper::getComponent('com_ninjaboard');
+                    $menu         = JFactory::getApplication()->getMenu();
+                    $items        = $menu->getItems(version_compare(JVERSION,'1.6.0','ge') ? 'component_id' : 'componentid', $component->id);
+                }
+                if (is_array($items))
+                {
+                    foreach ($items as $item)
+                    {
+                        if(isset($item->query['view']) && $item->query['view'] == 'forums')
+                        {
+                            self::$_Itemid = $item->id;
+                            break;
+                        }
+                    }
+                }
             }
             
             if(isset(self::$_Itemid)) {
@@ -88,34 +88,34 @@ class ComNinjaboardRouter
             //Remove the stuff we don't want from our url
             foreach($query as $key => $value)
             {
-            	//If no value at all, don't remove it as it'll cause parser issues
-            	if($value === '') continue;
+                //If no value at all, don't remove it as it'll cause parser issues
+                if($value === '') continue;
             
-            	//Can't use SEF suffixes for formats as it fails on .json
-            	if($key != 'option' && $key != 'Itemid'/* && $key != 'format'*/)
-            	{
-            		//The following is primarily to fix issues in some 3rd party SEF extensions
-            		if($key == 'format' && ($value == 'html' || $value == 'raw')) continue;
-            	
-            		unset($query[$key]);
-            	}
+                //Can't use SEF suffixes for formats as it fails on .json
+                if($key != 'option' && $key != 'Itemid'/* && $key != 'format'*/)
+                {
+                    //The following is primarily to fix issues in some 3rd party SEF extensions
+                    if($key == 'format' && ($value == 'html' || $value == 'raw')) continue;
+                
+                    unset($query[$key]);
+                }
             }
         
             return $data;
         }
         
         $segments = array();
-    	if(array_key_exists('view', $query))
-    	{
-    		$segments[0] = $query['view'];
+        if(array_key_exists('view', $query))
+        {
+            $segments[0] = $query['view'];
     
-    		if(array_key_exists('id', $query))
-    		{
-    			$name  = KInflector::pluralize($segments[0]);
-    			$model = KService::get('com://admin/ninjaboard.model.'.$name, array(
-    				'acl' => false
-    			));
-    			$item  = KInflector::pluralize($segments[0]) != 'avatars' ? $model->id($query['id'])->getItem() : new stdClass;
+            if(array_key_exists('id', $query))
+            {
+                $name  = KInflector::pluralize($segments[0]);
+                $model = KService::get('com://admin/ninjaboard.model.'.$name, array(
+                    'acl' => false
+                ));
+                $item  = KInflector::pluralize($segments[0]) != 'avatars' ? $model->id($query['id'])->getItem() : new stdClass;
 
                 if(isset($item->alias) && $query['view'] == 'forum' && !in_array($item->alias, self::getViews()))
                 {
@@ -124,7 +124,7 @@ class ComNinjaboardRouter
                 elseif($query['view'] == 'topic' && $item->id && $item->alias)
                 {
                     $forum_model = KService::get('com://admin/ninjaboard.model.forums', array(
-                    	'acl' => false
+                        'acl' => false
                     ));
                     $forum = $forum_model->id($item->forum_id)->getItem();
                     $slug  = self::getTopicSlug($item->subject, $item->id);
@@ -137,58 +137,64 @@ class ComNinjaboardRouter
                         $segments[1] = $query['id'].':'.KService::get('com://admin/ninjaboard.filter.slug')->sanitize($item->alias);
                     }
                 }
-    			elseif(isset($item->alias) && $query['view'] != 'person' && $query['view'] != 'avatar')
-    			{
-    				$segments[1] = $query['id'].':'.KService::get('com://admin/ninjaboard.filter.slug')->sanitize($item->alias);
-    			}
-    			else
-    			{
-    				$segments[1] = $query['id'];
-    			}
+                elseif(isset($item->alias) && $query['view'] != 'person' && $query['view'] != 'avatar')
+                {
+                    $segments[1] = $query['id'].':'.KService::get('com://admin/ninjaboard.filter.slug')->sanitize($item->alias);
+                }
+                else
+                {
+                    $segments[1] = $query['id'];
+                }
     
-    			if($query['view'] == 'forum') unset($segments[0]);
-    			
-    			if(array_key_exists('post', $query) && $query['view'] == 'topic'){
-    				$segments[] = $query['post'];
-    				unset($query['post']);
-    			}
+                if($query['view'] == 'forum') unset($segments[0]);
+                
+                if(array_key_exists('post', $query) && $query['view'] == 'topic'){
+                    $segments[] = $query['post'];
+                    unset($query['post']);
+                }
     
-    			unset($query['id']);
-    		}
-    		unset($query['view']);
-    		
-    		
-    		// everything else are filters
-    		foreach($query as $key => $value)
-    		{
-    			//If no value at all, don't add it as it'll cause parser issues
-    			if($value === '') continue;
-    		
-    			//Can't use SEF suffixes for formats as it fails on .json
-    			if($key != 'option' && $key != 'Itemid'/* && $key != 'format'*/)
-    			{
-    				//The following is primarily to fix issues in some 3rd party SEF extensions
-    				if($key == 'format' && ($value == 'html' || $value == 'raw')) continue;
-    			
-    				$segments[] = $key;
-    				$segments[] = $value;
-    				unset($query[$key]);
-    			}
-    		}
-    		
-    		//Reset keys to avoid notices in the core
-    		$parts = $segments;
-    		$segments = array();
-    		foreach($parts as $segment)
-    		{
-    			$segments[] = $segment;
-    		}
-    	}
+                unset($query['id']);
+            }
+            unset($query['view']);
+
+            if (isset($query['layout'])) {
+                if ($query['layout'] == 'default') unset($query['layout']);
+            }
+            if (isset($query['format'])) {
+                if ($query['format'] == 'html') unset($query['format']);
+            }
+            
+
+            
+            // everything else are filters
+            foreach($query as $key => $value)
+            {
+                //If no value at all, don't add it as it'll cause parser issues
+                if($value === '') continue;
+            
+                //Can't use SEF suffixes for formats as it fails on .json
+                if($key != 'option' && $key != 'Itemid'/* && $key != 'format'*/)
+                {
+                    $segments[] = $key;
+                    $segments[] = $value;
+                    //print_R($key);
+                    unset($query[$key]);
+                }
+            }
+            
+            //Reset keys to avoid notices in the core
+            $parts = $segments;
+            $segments = array();
+            foreach($parts as $segment)
+            {
+                $segments[] = $segment;
+            }
+        }
 
         self::$_urls[$cache_key] = $segments;
         $cache->store(serialize($segments), $cache_key);
     
-    	return $segments;
+        return $segments;
     }
     
     /**
@@ -206,21 +212,21 @@ class ComNinjaboardRouter
         }
     
         if(isset($segments[0]))
-    	{
-    		/*
-    		$menu = JSite::getMenu();
-    		$active = $menu->getActive();
-    		foreach($active->query as $key => $value)
-    		{
-    			$vars[$key] = $value;
-    		}
-    		//*/
+        {
+            /*
+            $menu = JSite::getMenu();
+            $active = $menu->getActive();
+            foreach($active->query as $key => $value)
+            {
+                $vars[$key] = $value;
+            }
+            //*/
     
-    		//If the first segment is an integer then it's a forum
-    		$first = array_shift($segments);
-    		$id    = current(explode(':', $first));
-    		//If the first two parts are strings, then it's a topic
-    		$second = isset($segments[0]) && !KService::get('koowa:filter.alnum')->validate($segments[0]) ? $segments[0] : false;
+            //If the first segment is an integer then it's a forum
+            $first = array_shift($segments);
+            $id    = current(explode(':', $first));
+            //If the first two parts are strings, then it's a topic
+            $second = isset($segments[0]) && !KService::get('koowa:filter.alnum')->validate($segments[0]) ? $segments[0] : false;
 
             if($second && !in_array($first, self::getViews()))
             {
@@ -253,50 +259,50 @@ class ComNinjaboardRouter
                     }
                 }
             }
-    		elseif(is_numeric($id))
-    		{
-    			$vars['view'] = 'forum';
-    			$vars['id']	  = $id;
-    		}
-    		elseif(!in_array($first, self::getViews()))
-    		{
-    		    $vars['view'] = 'forum';
-    		    $parts        = explode(':', $first);
-    		    array_shift($parts);
+            elseif(!in_array($first, self::getViews()))
+            {
+                $vars['view'] = 'forum';
+                $parts        = explode(':', $first);
+                array_shift($parts);
                 $alias        = $parts ? $id.'-'.implode(':', $parts): $id;
-    		    $query = KService::get('koowa:database.adapter.mysqli')->getQuery()
-    		                 ->select('ninjaboard_forum_id')
-    		                 ->where('alias', '=', $alias);
-    		    $vars['id']	  = KService::get('com://admin/ninjaboard.database.table.forums')->select($query, KDatabase::FETCH_FIELD);
-    		}
-    		else
-    		{
-    			$vars['view'] = $first;
-    		}
-    		
-    		if(isset($segments[0]) && !isset($vars['id']))
-    		{
-    			$id = current(explode(':', $segments[0]));
-    			if(is_numeric($id))
-    			{
-    				$vars['id'] = $id;
-    				array_shift($segments);
-    			}
-    		}
+                $query = KService::get('koowa:database.adapter.mysqli')->getQuery()
+                             ->select('ninjaboard_forum_id')
+                             ->where('alias', '=', $alias);
+                $vars['id']   = KService::get('com://admin/ninjaboard.database.table.forums')->select($query, KDatabase::FETCH_FIELD);
+            }
+            elseif(is_numeric($id))
+            {
+                $vars['view'] = 'forum';
+                $vars['id']   = $id;
+            }
+            else
+            {
+                $vars['view'] = $first;
+            }
+            
+            if(isset($segments[0]) && !isset($vars['id']))
+            {
+                $id = current(explode(':', $segments[0]));
+                if(is_numeric($id))
+                {
+                    $vars['id'] = $id;
+                    array_shift($segments);
+                }
+            }
     
-    		if(isset($segments[0]) && $vars['view'] == 'topic' && is_numeric($segments[0])) {
-    			$vars['post'] = array_shift($segments);
-    		}
+            if(isset($segments[0]) && $vars['view'] == 'topic' && is_numeric($segments[0])) {
+                $vars['post'] = array_shift($segments);
+            }
     
-    		// anything else are filters: name/value/name/value
-    		while(count($segments)) {
-    			$vars[array_shift($segments)] = array_shift($segments);
-    		}
-    	}
-    	
-    	$cache->store(serialize($vars), $cache_key);
+            // anything else are filters: name/value/name/value
+            while(count($segments)) {
+                $vars[array_shift($segments)] = array_shift($segments);
+            }
+        }
+        
+        $cache->store(serialize($vars), $cache_key);
     
-    	return $vars;
+        return $vars;
     }
     
     /**
@@ -388,15 +394,15 @@ class ComNinjaboardRouter
  * List views are people/, offices/, departments/
  * Item views are people/id-firstname_lastname, offices/id-officealias, departments/id-departmentalias
  *
- * @TODO	the pluralization and singularization is commeted out as it's likely causing issues with the posting
- * 			of topics when sef is on.
+ * @TODO    the pluralization and singularization is commeted out as it's likely causing issues with the posting
+ *          of topics when sef is on.
  */
 function NinjaboardBuildRoute(&$query)
 {
-	return ComNinjaboardRouter::write($query);
+    return ComNinjaboardRouter::write($query);
 }
 
 function NinjaboardParseRoute($segments)
 {
-	return ComNinjaboardRouter::read($segments);
+    return ComNinjaboardRouter::read($segments);
 }
