@@ -2,7 +2,6 @@
 
 <? $me = $this->getService('com://admin/ninjaboard.model.people')->getMe() ?>
 <? foreach($messages as $message) : ?>
-    <?= print_R($message->getData()) ?>
     <? $class = $message->created_by == $me->id ? 'me' : 'other' ?>
     <div class="message by-<?= $class ?>" data-id="<?= $message->id ?>" data-conversation_id="<?= $message->conversation_id ?>">
         <div class="message-from">
