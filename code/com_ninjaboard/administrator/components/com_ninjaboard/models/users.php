@@ -118,9 +118,12 @@ class ComNinjaboardModelUsers extends ComDefaultModelDefault
 			{
 				//To avoid auto quoting, and also trim trailing whitespace
 				$search = $this->getTable()->getDatabase()->quoteValue('%'.strtoupper($search).'%');
-				
+				$name 	= '';
+
+				if (JFactory::getApplication()->isAdmin())
+						$name = 'tbl.name LIKE '.$search.' OR';
 				$query
-					  ->where("(tbl.name LIKE $search OR tbl.username LIKE $search OR tbl.email LIKE $search OR person.alias LIKE $search)")
+					  ->where("($name tbl.username LIKE $search OR tbl.email LIKE $search OR person.alias LIKE $search)")
 					  /*->where('tbl.name', 'LIKE',  '%'.$search.'%', 'or')
 					  ->where('tbl.username', 'LIKE',  '%'.$search.'%', 'or')
 					  ->where('tbl.email', 'LIKE',  '%'.$search.'%', 'or')*/;

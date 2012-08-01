@@ -179,7 +179,7 @@ li.active .message-third-row {
     border-bottom: 1px solid hsl(0, 0%, 92%);
 }
 .splitview-item .message .message-from {
-    display: block;
+    float: left;
     height: 17px;
     font-size: 15px;
     padding-top: 4px;
@@ -189,14 +189,18 @@ li.active .message-third-row {
     padding: 0;
 }
 .splitview-item .message .message-text {
+	clear: both;
     word-wrap: break-word;
     font: 15px Arial,Helvetica Neue,sans-serif;
     line-height: 19px;
 }
-.splitview-item .message .message-footer {
+.splitview-item .message .message-date, .splitview-item .message .message-footer {
     color: hsl(0, 0%, 60%);
     font-size: 11px;
     padding-top: 1px;
+}
+.splitview-item .message .message-date {
+	float: right;
 }
 .splitview-item .message .message-header-date {
     color: hsl(0, 0%, 73%);
@@ -210,9 +214,6 @@ li.active .message-third-row {
 }
 .splitview-item .message-header-to .message-label {
 	margin-right: 17px;
-}
-.splitview-item .message-header-date .message-label {
-	margin-right: 5px;
 }
 .splitview-list .message-unread {
     background: url(../../com_ninja/images/unread.png) center center no-repeat;
