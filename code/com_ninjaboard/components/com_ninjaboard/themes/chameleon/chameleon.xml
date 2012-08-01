@@ -41,7 +41,7 @@
   	<fieldset group="tmpl" legend="COM_NINJABOARD_ELEMENT_TEMPLATES">
   		<element name="new_topic_button" label="COM_NINJABOARD_NEW_TOPIC_BUTTON" type="textarea" default="&lt;a href=&quot;$link&quot; class=&quot;readon readmore button&quot; rel=&quot;nofollow&quot;&gt;&lt;span&gt;$title&lt;/span&gt;&lt;/a&gt;" class ="value required" size="60" />
   		<element name="create_topic_button" label="COM_NINJABOARD_CREATE_TOPIC_BUTTON" type="textarea" default="&lt;a href=&quot;$link&quot; class=&quot;readon readmore button&quot;&gt;&lt;span&gt;$title&lt;/span&gt;&lt;/a&gt;" class ="value required" size="60" />
-  		<element name="cancel_button" label="COM_NINJABOARD_CANCEL_BUTTON" type="textarea" default="&lt;a href=&quot;#&quot;&gt;$title&lt;/a&gt;" class ="value required" size="60" />
+  		<element name="cancel_button" label="COM_NINJABOARD_CANCEL_BUTTON" type="textarea" default="&lt;a href=&quot;#&quot; class=&quot;readon readmore button&quot;&gt;$title&lt;/a&gt;" class ="value required" size="60" />
   	</fieldset>
   	
   	<fieldset group="view_settings" legend="COM_NINJABOARD_VIEW_SETTINGS" description="Parameters for individual View Configuration">

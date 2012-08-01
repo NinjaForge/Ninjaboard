@@ -160,7 +160,11 @@ class ComNinjaboardRouter
             if (isset($query['layout'])) {
                 if ($query['layout'] == 'default') unset($query['layout']);
             }
+            if (isset($query['format'])) {
+                if ($query['format'] == 'html') unset($query['format']);
+            }
             
+
             
             // everything else are filters
             foreach($query as $key => $value)
@@ -171,9 +175,6 @@ class ComNinjaboardRouter
                 //Can't use SEF suffixes for formats as it fails on .json
                 if($key != 'option' && $key != 'Itemid'/* && $key != 'format'*/)
                 {
-                    //The following is primarily to fix issues in some 3rd party SEF extensions
-                    if($key == 'format' && ($value == 'html' || $value == 'raw')) continue;
-                
                     $segments[] = $key;
                     $segments[] = $value;
                     //print_R($key);

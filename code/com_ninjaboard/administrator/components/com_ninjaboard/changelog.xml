@@ -9,6 +9,10 @@
         <upgrade>Latest posts module included in package</upgrade>
         <bugfix>Forums with intergers at the beggining of the slug nolonger 404</bugfix>
         <bugfix>Redirect on login in Joomla! 2.5</bugfix>
+        <bugfix>Backend togglers in Joomla! 2.5</bugfix>
+        <bugfix>Multiple recipients being cut off now have the full list on hover</bugfix>
+        <bugfix>PM recipients can no longer be found by real name</bugfix>
+        <bugfix>PM message authors are now linked to the profiles</bugfix>
     </state>
 
     <version>2.0.1 Beta</version>
