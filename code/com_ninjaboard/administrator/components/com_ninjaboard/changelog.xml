@@ -7,6 +7,8 @@
     <date>July 2012</date>
     <state>Bug Fix Release
         <upgrade>Latest posts module included in package</upgrade>
+        <bugfix>Forums with intergers at the beggining of the slug nolonger 404</bugfix>
+        <bugfix>Redirect on login in Joomla! 2.5</bugfix>
     </state>
 
     <version>2.0.1 Beta</version>
@@ -29,7 +31,7 @@
         <upgrade>Tweaked installation screen in order to be less confusing</upgrade>
         <bugfix>Correctly show what was installed in the installation list</bugfix>
         <new>Sticky Topics</new>
-        <bugfix>Fixed ability to see an edit form when trying to edit a post where you have no permissions </bugfix>
+        <bugfix>Fixed ability to see an edit form when trying to edit a post where you have no permissions</bugfix>
         <bugfix>Fixed subscription emails being sent out to users when forum permissions are not sufficient</bugfix>
         <bugfix>Fixed forum edit screen not showing all the categories in the select list</bugfix>
         <upgrade>Including quickpanel module in the installation zip</upgrade>

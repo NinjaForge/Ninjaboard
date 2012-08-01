@@ -96,7 +96,7 @@ class ComNinjaboardTemplateHelperAvatar extends KTemplateHelperAbstract
 	public function image($config = array())
 	{
 		$params		= $this->getService('com://admin/ninjaboard.model.settings')->getParams();
-		$prepend	= JFactory::getApplication()->isAdmin() ? JURI::root().'/' : '';
+		$prepend	= JFactory::getApplication()->isAdmin() ? JURI::root() : '';
 
 		$config = new KConfig($config);
 		$config->append(array(
@@ -112,8 +112,8 @@ class ComNinjaboardTemplateHelperAvatar extends KTemplateHelperAbstract
 		$cache		= (int)$avatar_on->format('U');
 
 		$config->append(array(
-			'avatarurl'		=> $prepend.JRoute::_('&option=com_ninjaboard&view=avatar&id='.$config->id.'&thumbnail='.$config->thumbnail.'&cache='.$cache),
-			'profileurl'	=> $prepend.JRoute::_('&option=com_ninjaboard&view=person&id='.$config->id)
+			'avatarurl'		=> $prepend.str_replace('/administrator/', '', JRoute::_('index.php?option=com_ninjaboard&view=avatar&id='.$config->id.'&thumbnail='.$config->thumbnail.'&cache='.$cache)),
+			'profileurl'	=> $prepend.str_replace('/administrator/', '', JRoute::_('index.php?option=com_ninjaboard&view=person&id='.$config->id))
 		));
 		
 		$attribs = array(
