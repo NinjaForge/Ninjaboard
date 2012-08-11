@@ -72,6 +72,12 @@ class ComNinjaboardControllerTopic extends ComNinjaboardControllerAbstract
 			KRequest::set('get.layout', 'default');
 		}
 		//*/
+
+		$item = $this->getModel()->getItem();
+
+		if ($item->isHittable()) {
+			$item->hit();
+		}
 		//Force the default layout to form for read actions
 		if(!isset($this->_request->layout)) {
 			$this->_request->layout = 'default';
