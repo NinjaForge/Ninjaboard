@@ -19,6 +19,7 @@
 	.<?= @id('order-up') ?> {
 		background-image: url(<?= @$img('/triangle-up.png') ?>);
 		background-position-y: 1px;
+		margin-bottom: 1px;
 	}
 	.<?= @id('order-down') ?> {
 		background-image: url(<?= @$img('/triangle-down.png') ?>);
@@ -37,7 +38,7 @@ new Image().src = '<?= @$img('/triangle-up-focus.png') ?>';
 new Image().src = '<?= @$img('/triangle-down-focus.png') ?>';
 window.addEvent('domready', function(){
 	$$('.<?= @id('order-up') ?>', '.<?= @id('order-down') ?>').addEvent('click', function(){
-		var order = this.getParent().getText().toInt(),
+		var order = this.getParent().get('text').toInt(),
 			id = this.getParent().getParent().getElement('[type=checkbox]').value;
 
 		if(this.hasClass('<?= @id('order-up') ?>')) {
